@@ -1,2 +1,10 @@
-fuel/app/logs/*/*/*
-fuel/app/cache/*/*
+.idea/
+application/database.php
+runtime/
+thinkphp/
+vendor/
+data/
+composer.lock
+public/ueditor/
+public/uploads/
+
