@@ -1,0 +1,471 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>通知公告</title>
+<script src="/static/framework7/framework7.js"></script>
+<link rel="stylesheet" href="/static/framework7/framework7.ios.min.css">
+<link rel="stylesheet" href="/static/framework7/framework7.ios.colors.min.css">
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    img{
+        vertical-align: inherit;
+    }
+    .none{
+        display: none;
+    }
+    .page-content{
+        background:#fff;
+    }
+    .details>span{
+        display: inline-block;
+        font-size:14px;
+        color:#666;
+        text-indent:2em;
+    }
+    /*add*/
+    .add{
+        background:#efeff4;
+        font-size:13px;
+        height:25px;
+        line-height:25px;
+        padding-left:10px;
+    }
+    /*details*/
+    .details>span{
+        padding:0 3%;
+    }
+    .details>img{
+        width:94%; margin-left:3%;
+    }
+    /*talk*/
+    .talk{
+        padding:0 3%;
+        border-bottom:1px solid #ddd;
+    }
+    .talk>div:nth-child(1){
+        height:40px; line-height:40px;
+    }
+    .talk>div:nth-child(1)>img{
+        width:30px;margin-top:5px; float: left;border-radius:50%;;
+    }
+    .talk>div:nth-child(1)>span{
+        display: inline-block;height:40px;line-height:40px; float: left;margin-left:10px;color:#666;font-size:13px;
+    }
+    .talk>div:nth-child(1)>span:nth-child(3){
+        float: right;
+    }
+    .talk>div:nth-child(2){
+        width:70%;margin-left:40px;font-size:12px;color:#999;
+    }
+    .talk>div:nth-child(3){
+        text-align: right
+    }
+    .talk>div:nth-child(3)>img{
+        width:12px;
+    }
+
+    /*send*/
+    #send{
+        border-radius: 10px;border:1px solid #1296db;color:#1296db;font-size:14px; position:absolute;right:0;width:20%;text-align: center;height:30px;line-height:28px;margin-right:2.5%;margin-top:7px;
+    }
+    #send.active-state{
+        transition-duration: 0s;
+        background: #ddd;
+    }
+    /*pinglun*/
+    .pinglun{
+        position:absolute;right:0;top:0;;width:20%;text-align: center;margin-top:7px;margin-right:2.5%;
+    }
+    /*input*/
+    #input{
+        width:62.5%;height:30px;position:absolute;left:12.5%;top:7px;;border-radius:5px;border:1px solid #ccc;font-size:13px;color:#666;padding-left:5px;
+    }
+
+    /*zan*/
+    .zan>span,.zan1>span{
+        color:#999;
+    }
+    /*zongshu*/
+    .zongshu{
+        position:relative;height:40px;
+    }
+    .zongshu>span{
+        position:absolute;bottom:10px;right:50px;padding-right:10px;color:#999;
+    }
+    .zongshu>span:nth-child(2){
+        position:absolute;bottom:10px;right:0;color:#999;
+    }
+    .zongshu>span>img{
+        width:12px;
+    }
+
+    /*modal1*/
+    .hello1,.hello2{
+        width:60%;position:absolute;left:20%;top:150px;display: none;z-index:100000001;background:#fff;-webkit-border-radius:10px;border-radius: 10px;;
+    }
+    .hello1>span,.hello2>span{
+        display: block;height:40px;line-height:40px;font-size:14px;text-align: center;color:#333;
+    }
+    .hello1>span:nth-child(1),.hello2>span:nth-child(1){
+        border-bottom:1px solid #D26767;font-size:15px;
+    }
+</style>
+{/block}
+
+{block name="body"}
+<div class="views">
+    <div class="view view-main">
+        <div class="page">
+            <div class="modal2" style="background:#000;opacity:0.8;position:absolute;top:0;left:0;height:100%;width:100%;display:none;z-index:999999"></div>
+            <div class="kong" style="background:#fff;z-index:100000000;width:150px;height:60px;display:none;position:absolute;top:160px;left:calc(50% - 75px);text-align: center;line-height:60px;font-size:16px;border-radius: 10px;color:#666;">
+                <span>评论不能为空!</span>
+            </div>
+            <div class="page-content" style="padding-bottom:50px;">
+                <div style="padding:0 10px;text-align: center;border-bottom:1px solid #ddd;">
+                    <span style="font-size:16px;font-weight:bold;color:#333;margin:10px 0;display: inline-block;width:100%;text-overflow: -o-ellipsis-lastline;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;">{$result.title}</span>
+                    <div  style="text-align: left;position: relative;font-size:13px;color:#999;margin-bottom:5px;">
+                        <span>{$result.publisher} / </span>
+                        <span>{$result.create_time|date="Y-m-d",###}</span>
+                    </div>
+                </div>
+                <div style="margin-top:10px;width:100%;padding:0 3%;" class="details">
+                    {$result.content}
+                </div>
+                <div class="zongshu">
+                    <span>
+                        <img src="/home/images/notice/scan_.png" alt="" style="width:15px;margin-bottom:1px;">
+                        <span>{$result.views}</span>
+                    </span>
+                    {eq name="visit" value="0"}
+                    <span class="zan">
+                        {eq name="result.is_like" value="0"}
+                        <img src="/home/images/notice/good.png" alt=""   style="width:15px;" onclick="zan(this,{$result.id})">
+                        <img src="/home/images/notice/good_.png" alt=""  class="none" style="width:15px;" onclick="zan(this,{$result.id})">
+                        {else/}
+
+                        <img src="/home/images/notice/good.png" alt=""  class="none" style="width:15px;" onclick="zan(this,{$result.id})">
+                        <img src="/home/images/notice/good_.png" alt=""   style="width:15px;" onclick="zan(this,{$result.id})">
+                        {/eq}
+                        <span style="margin-left:4px;color:#999;margin-bottom:2px" class="like">{$result.likes}</span>
+
+                    </span>
+                    {else/}
+                    <span class="zan">
+                        <img src="/home/images/notice/good.png" alt=""  style="width:15px;">
+                        <span style="margin-left:4px;color:#999;margin-bottom:2px" class="like">{$result.likes}</span>
+                    </span>
+                    {/eq}
+                </div>
+                <div class="add">
+                    <div>
+                        <span>共</span>
+                        <span>{$result.comments}</span>
+                        <span>条评论</span>
+                    </div>
+                </div>
+                <div id="come">
+                    {volist name="comment" id="co"}
+                    <div class="talk">
+                        <div>
+                            <img src="{$co.header}" alt="" >
+                            <span>{$co.nickname}</span>
+                            <span>{$co.create_time|time_format="Y-m-d"}</span>
+                        </div>
+                        <div>{$co.content}</div>
+                        {eq name="visit" value="0"}
+                        <div class="heart">
+                            {eq name="co.is_like" value="0"}
+                            <img src="/home/images/notice/good.png" alt=""  style="width:15px;" onclick="zans(this,{$result.id},{$co.id},'{$co.create_user}')">
+                            <img src="/home/images/notice/good_.png" alt=""  style="width:15px;" class="none" onclick="zans(this,{$result.id},{$co.id},'{$co.create_user}')" >
+                            {else/}
+                            <img src="/home/images/notice/good.png" alt=""  style="width:15px;" class="none" onclick="zans(this,{$result.id},{$co.id},'{$co.create_user}')" >
+                            <img src="/home/images/notice/good_.png" alt="" style="width:15px;" onclick="zans(this,{$result.id},{$co.id},'{$co.create_user}')" >
+                            {/eq}
+                            <span style="margin-left:4px;;color:#999;margin-bottom:2px" class="like">{$co.likes}</span>
+                        </div>
+                        {else/}
+                        <div>
+                            <img src="/home/images/notice/good.png" alt=""  style="width:15px;">
+                            <span style="margin-left:4px;;color:#999;margin-bottom:2px" class="like">{$co.likes}</span>
+                        </div>
+                        {/eq}
+                    </div>
+                    {/volist}
+                </div>
+                <div class="only" style="text-align: center;width:100%;height:30px;line-height:30px;font-size:14px;color:#666;" onclick="adds(this,{$result.id})">点击加载更多...</div>
+            </div>
+        </div>
+        {eq name="visit" value="0"}
+        <div class="toolbar" style="height:44px;">
+            <div class="card" style="margin:0">
+                <div class="list-block">
+                    <div style="height:44px;position:relative">
+                        <div class="shoucang1" style="width:12.5%;height:44px;text-align: center;position:absolute;left:0;">
+                            {eq name="result.is_collect" value="0"}
+                            <img src="/home/images/notice/star-border.png" alt="" style="width:25px;margin-top:9px;" class="shoucang " onclick="shoucang(this,{$result.id})">
+                            <img src="/home/images/notice/star-yellow.png" alt="" style="width:25px;margin-top:9px;" class="shoucang none" onclick="shoucang(this,{$result.id})">
+                            {else/}
+                            <img src="/home/images/notice/star-border.png" alt="" style="width:25px;margin-top:9px;" class="none shoucang " onclick="shoucang(this,{$result.id})">
+                            <img src="/home/images/notice/star-yellow.png" alt="" style="width:25px;margin-top:9px;" class="shoucang " onclick="shoucang(this,{$result.id})">
+                            {/eq}
+                        </div>
+
+                        <input id="input" type="text" placeholder="请发表您的感想..." >
+                        <div id="send" onclick="send(this,{$result.id})">
+                            <span  style="font-size:14px;" >发送</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/eq}
+    </div>
+
+
+</div>
+
+{/block}
+
+{block name="script"}
+<script>
+    window.onload=function(){
+        if ($('#come .talk').length < 5){
+            $('.only').hide();
+        }
+
+    }
+    var myApp = new Framework7();
+    var $$ = Dom7;
+    var count=0;
+
+    var date=new Date();
+    var year=date.getFullYear();
+    var month=date.getMonth();
+    var day=date.getDate();
+    var nowDate=year+'-'+month+'-'+day;
+    console.log(year+'-'+month+'-'+day);
+
+    //文章点赞
+    var zan=function(e,id){
+        $('.zan').find('img').toggleClass('none');
+        var a=Number($('.zan').find('span').text());
+        if($('.zan').find('img:nth-child(1)').hasClass('none')){
+            $('.zan').find('span').text(a+1);
+        }
+        else{
+            $('.zan').find('span').text(a-1);
+        }
+        $.ajax({
+            type: "post",
+            url: "{:Url('Base/like')}",
+            data: {
+                class:1,
+                type:1,
+                id:id
+            },
+            success:function(data){
+                console.log(data)
+            }
+        })
+    };
+    // 评论点赞
+    var zans=function(e,id,cid,wid){
+        $('.zans').find('img').toggleClass('none');
+        var a=Number($('.zans').find('span').text());
+        if($('.zans').find('img:nth-child(1)').hasClass('none')){
+            $('.zans').find('span').text(a-1);
+        }
+        else{
+            $('.zans').find('span').text(a+1);
+        }
+        $.ajax({
+            type: "post",
+            url: "{:Url('Base/like')}",
+            data: {
+                class:1, // 通知
+                type:2,
+                id:id,
+                comment_id:cid,
+                user_id:wid
+            },
+            success:function(data){
+                console.log(data)
+            }
+        })
+    };
+
+    //收藏
+    var shoucang=function(e,id){
+        $('img.shoucang').toggleClass('none');
+        $.ajax({
+            type: "post",
+            url: "{:Url('Base/collect')}",
+            data: {
+                type:1, // 通知
+                id:id
+            },
+            success:function(data){
+                console.log(data)
+            }
+        })
+    };
+
+
+    //发送评论
+    var send=function(e,id) {
+        var it = $("#input").val();
+        if (it == ''){
+            $('.kong').fadeIn();
+            $('.modal2').fadeIn();
+            $('.kong,.modal2').click(function(){
+                $('.kong').fadeOut();
+                $('.modal2').fadeOut();
+            })
+        }else{
+            $.ajax({
+                type: "post",
+                url: "{:Url('Base/comment')}",
+                data: {
+                    notice_id:id,
+                    content: it
+                },
+                success:function(data){
+                    var min = {$result.id};
+                    var data = data.data;
+                    var userid = "'"+data.create_user+"'";
+                    var html='';
+                    if($('#input').val().trim()!=''){
+                        html+=  '<div class="talk">'+
+                                '<div>'+
+                                '<img src="'+data.header+'" alt="" >'+
+                                '<span>'+data.nickname+'</span>'+
+                                '<span>'+data.time+'</span>'+
+                                '</div>'+
+                                '<div>'+data.content+'</div>'+
+                                '<div class="heart">'+
+                                '<img src="/home/images/notice/good.png" alt=""  style="margin-right:5px;width:15px;" onclick="zans(this,'+min+','+data.id+','+userid+')">'+
+                                '<img src="/home/images/notice/good_.png" alt=""  class="none" onclick="zans(this,'+min+','+data.id+','+userid+')" style="margin-right:5px;width:15px;">'+
+                                '<span style="margin-left:4px;color:#999;margin-bottom:2px" >'+data.likes+'</span>'+
+                                '</div>'+
+                                '</div>';
+                        $('#come').prepend(html);
+
+                        //点赞切换
+                        $('.heart img').off('click').click(function(){
+                            $(this).parent().find('img').toggleClass('none');
+                            var a=Number($(this).parent().find('span').text());
+                            if($(this).parent().find('img:nth-child(1)').hasClass('none')){
+                                $(this).parent().find('span').text(a+1);
+                            }
+                            else{
+                                $(this).parent().find('span').text(a-1);
+                            }
+                        });
+
+                        $('#input').val('');
+                        var aa=$('#add').text();
+                        aa++;
+                        $('#add').text(aa);
+                        $(function(){
+                            //window.location ="#bottom";//自动跳转到锚点处
+                            $('.view>.page .page-content ').scrollTop( $('.view>.page .page-content ')[0].scrollHeight );
+
+                        });
+                    }
+                }
+            })
+        }
+
+
+    };
+
+    $('.heart img').off('click').click(function(){
+        $(this).parent().find('img').toggleClass('none');
+        var a=Number($(this).parent().find('span').text());
+        if($(this).parent().find('img:nth-child(1)').hasClass('none')){
+            $(this).parent().find('span').text(a+1);
+        }
+        else{
+            $(this).parent().find('span').text(a-1);
+        }
+    });
+
+
+    //评论加载更多
+    function adds(e,id) {
+        var b = $('#come .talk').length;
+        $.ajax({
+            type: "post",
+            url: "{:Url('Base/morecomment')}",
+            data: {
+                length:b,
+                notice_id:id
+            },
+            success: function (data) {
+                var html = '';
+
+                if (data == 0) {
+                    $(e).text('没有更多了...');
+                } else {
+                    var min = {$result.id};
+                    var lists = data.data;
+                    var len = lists.length;
+                    for (var i = 0; i < len; i++) {
+                        var list = lists[i];
+                        var userid = "'" + list.create_user + "'";
+                        html += '<div class="talk">' +
+                                '<div>' +
+                                '<img src="' + list.header + '" alt="" >' +
+                                '<span>' + list.nickname + '</span>' +
+                                '<span>' + list.time + '</span>' +
+                                '</div>' +
+                                '<div>' + list.content + '</div>'
+                        if ({$visit} == 0) {
+                            html += '<div class="heart">';
+                            if (list.is_like == 0) {
+                                html += '<img src="/home/images/notice/good.png" style="width:15px;" alt="" onclick="zans(this,' + min + ',' + list.id + ',' + userid + ')" style="margin-right:5px;">' +
+                                        '<img src="/home/images/notice/good_.png" style="width:15px;" alt="" class="none" onclick="zans(this,' + min + ',' + list.id + ',' + userid + ')"  style="margin-right:5px;">'
+                            } else {
+                                html += '<img src="/home/images/notice/good.png" style="width:15px;" alt="" class="none" onclick="zans(this,' + min + ',' + list.id + ',' + userid + ')" style="margin-right:5px;">' +
+                                        '<img src="/home/images/notice/good_.png" style="width:15px;" alt=""  onclick="zans(this,' + min + ',' + list.id + ',' + userid + ')"  style="margin-right:5px;">'
+                            }
+                            html += '<span style="margin-left:4px;color:#999;margin-bottom:2px" class="like">' + list.likes + '</span>' +
+                                    '</div>';
+                    }else{
+                            html +='<div>' +
+                                    '<img src="/home/images/notice/good.png" style="width:15px;" alt="" style="margin-right:5px;">' +
+                                    '<span style="margin-left:4px;color:#999;margin-bottom:2px" class="like">' + list.likes + '</span>'+
+                                    '</div>';
+                        }
+                                html+='</div>';
+                    }
+                    $('#come').append(html);
+
+                    //点赞切换
+                    $('.heart img').off('click').click(function(){
+                        $(this).parent().find('img').toggleClass('none');
+                        var a=Number($(this).parent().find('span').text());
+                        if($(this).parent().find('img:nth-child(1)').hasClass('none')){
+                            $(this).parent().find('span').text(a+1);
+                        }
+                        else{
+                            $(this).parent().find('span').text(a-1);
+                        }
+                    });
+                    $('#input').val('');
+                    var aa = $('#add').text();
+                    aa++;
+                    $('#add').text(aa);
+                    $(function () {
+                        //window.location ="#bottom";//自动跳转到锚点处
+                        $('.view>.page .page-content ').scrollTop($('.view>.page .page-content ')[0].scrollHeight);
+
+                    });
+                }
+            }
+        })
+    }
+</script>
+{/block}

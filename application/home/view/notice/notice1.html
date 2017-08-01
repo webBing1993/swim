@@ -1,0 +1,653 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>通知公告</title>
+<script src="/static/framework7/framework7.js"></script>
+<link rel="stylesheet" href="/static/framework7/framework7.ios.min.css">
+<link rel="stylesheet" href="/static/framework7/framework7.ios.colors.min.css">
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    /*样式reset*/
+    .content-block{
+        margin:0;
+        padding:0;
+        height:44px;
+    }
+    .buttons-row .button:first-child,.buttons-row .button:last-child{
+        border-radius: 0;border-left-width:0;
+    }
+    .list-block .item-content{
+        padding:0;
+    }
+    .list-block .item-inner{
+        padding:0;
+
+    }
+    .list-block{
+        margin:0;
+    }
+    /*基础样式*/
+    .view>.navbar{
+        min-height:44px;
+        height:44px;
+        border:none;
+    }
+    .page-content{
+        padding-top:44px;
+        background: #f7f7f7;
+    }
+    .buttons-row .button{
+        background:#4cd6d2;
+        border:none;
+        color:#333;
+        height:44px;
+        line-height: 44px;
+        font-size:16px;
+    }
+    .buttons-row .active-state{.
+        transition-duration: 0s;
+        background: #40bfb5;
+    }
+    .buttons-row .active{
+        color:#fff;
+        font-size:18px;
+    }
+    .tabs >.tab{
+        height:100%;
+    }
+    /*.swiper*/
+    #tab1 .swiper-container1,#tab2 .swiper-container2{
+        background:#fff;
+        height:160px;
+    }
+    #tab1 .swiper-container1 .swiper-slide>div>div,#tab2 .swiper-container2 .swiper-slide>div>div{
+        position:absolute;
+        left:0;
+        bottom:0;
+        background:#000;
+        opacity: .5;
+        width:100%;
+    }
+    #tab1 .swiper-container1 .swiper-slide>div>div>span,#tab2 .swiper-container2 .swiper-slide>div>div>span{
+        color:#fff;
+        height:30px;
+        line-height: 30px;
+        width:95%;
+        display: block;
+        float:left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left:15px;font-size:13px;
+    }
+    #tab1 .swiper-slide>div>img,#tab2 .swiper-slide>div>img{
+        width:100%;
+    }
+    /*列表*/
+    #tab1 .list-block>ul,#tab1 .list-block{
+        /*height:100%;*/
+        /*width:100%;*/
+        background:#fff;
+    }
+
+    #tab1 .list-block>ul>li{
+        margin-bottom:2vw;
+        margin-top:2vw;
+    }
+    #tab1 .item-content{
+        width:45%;
+        float:left;
+        margin-left:calc(10% / 3);
+        border:1px solid #ddd;
+        border-radius: 10px;
+    }
+    #tab1 .list-block ul:before,.list-block ul:after,.list-block .item-inner:after{
+        height:0;
+    }
+
+    .news_list{
+
+    }
+    .news_list>.item-title{
+        text-align: center;
+    }
+    .news_list>.item-title>img{
+        width:100%;
+        height:110px;
+        border-radius: 5px;
+    }
+    .news_list>.item-title>div{
+        text-align: left;
+        padding-left:10px;
+        height:20px;
+        line-height:20px;
+    }
+    .news_list>.item-title>div>img,.news_list>.item-title>div>span>img{
+        vertical-align:inherit;
+    }
+    .news_list>.item-title>div:nth-child(2){
+        font-size:13px;
+    }
+    .news_list>.item-title>div:nth-child(3)>img{
+        width:10px;
+    }
+    .news_list>.item-title>div:nth-child(3)>span{
+        font-size:12px;
+    }
+
+
+    .guanzhu>span:nth-child(1){
+        display: inline-block;
+        width:48px;
+        height:20px;
+        line-height: 20px;;
+        border-radius: 10px;
+        font-size:12px;
+        position:absolute;
+        bottom:22px;
+        left:5px;
+    }
+    .guanzhu>span:nth-child(1)>span{
+        font-size:12px;
+    }
+    .guanzhu>span:nth-child(2){
+        display: inline-block;
+        padding:0 5px;
+        height:20px;
+        line-height: 20px;
+        font-size:12px;
+        background:#1296db;
+        border-radius: 10px;
+        position:absolute;
+        bottom:5px;
+        right:5px;
+    }
+    .guanzhu>span:nth-child(2)>span{
+        color:#fff;
+    }
+    .eyes{
+        width:10px;
+
+        margin-left:5px;
+    }
+    .guanzhu .eyes{
+        margin-bottom:2px;
+    }
+    .date{
+        font-size:12px;
+    }
+    .date img{
+        margin-bottom:-1px;
+    }
+    /*renshu*/
+    .renshu>span:nth-child(1){
+        display: inline-block;
+        width:48px;
+        height:20px;
+        line-height: 20px;;
+        border-radius: 10px;
+        font-size:12px;
+        position:absolute;
+        bottom:5px;
+        left:5px;
+    }
+    .renshu>span:nth-child(2){
+        display: inline-block;
+        background:#4cd6d2;
+        width:60px;
+        height:20px;
+        line-height: 20px;;
+        border-radius: 5px;
+        text-align: center;
+        color:#fff;
+        font-size:12px;
+        position:absolute;
+        bottom:5px;
+        right:5px;
+    }
+    /*tab2*/
+    /*列表*/
+    #tab2 .item-content{
+        border-bottom:1px solid #ddd;
+    }
+    .news_list2{
+        width:100%;
+    }
+    .news_list2 div.item-title{
+        position:relative;
+        width:100%;
+        height:80px;
+        margin-left:10px;
+    }
+    .news_list2 div.item-title>img{
+        position:absolute;
+        left:0;
+        display: inline-block;
+        width:70px;
+        height:60px;
+        margin-top:10px;
+    }
+    .news_list2 div.item-title div{
+        position:absolute;
+        right:0;
+    }
+    .news_list2 div.item-title div:nth-child(2){
+        top:0;
+        width:77%;
+        height:30px;
+        line-height:30px;
+        margin-top:8px;
+        font-size:14px;
+        color:#333;
+    }
+    .news_list2 div.item-title div:nth-child(3){
+        bottom:0;
+        width:77%;
+        color: #666;
+    }
+    .news_list2 div.item-title div:nth-child(3)>span{
+        height:40px;
+        line-height: 40px;
+        font-size:12px;
+    }
+    .news_list2 div.item-title div:nth-child(3)>img{
+        width:15px;
+        margin-bottom:1px;
+    }
+    .news_list2 div.item-title div:nth-child(3)>span:nth-child(2),.news_list2 div.item-title div:nth-child(3)>img{
+        float:right;
+        margin-right:3%;
+    }
+    .news_list2 div.item-title div:nth-child(3)>img{
+        margin-right:5px;
+    }
+    /*date*/
+    .date>img{
+        width: 10px;
+    }
+
+    #notice2>ul:after{
+        display:block;clear:both;content:"";visibility:hidden;height:0;position:static;
+    }
+
+    /*num*/
+    .num,.num1{
+        width:30px;display: inline-block;text-align: left;
+    }
+    .num{
+        position:absolute;right:56px;bottom:0;
+    }
+    .num1{
+        position:absolute;right:-4px;bottom:0;
+    }
+    .num1_img{
+        position:absolute;right:35px;bottom:14px;
+    }
+    .num_img{
+        position:absolute;right:85px;bottom:15px;
+    }
+</style>
+{/block}
+
+{block name="body"}
+<div class="views">
+    <div class="view view-main">
+        <div class="navbar">
+            <div class="content-block ">
+                <!-- Buttons row as tabs controller -->
+                <div class="buttons-row">
+                    <!-- Link to 1st tab, active -->
+                    <a href="#tab1" class="tab-link active button">活动</a>
+                    <!-- Link to 2nd tab -->
+                    <a href="#tab2" class="tab-link  button">通知</a>
+                </div>
+                <script>
+
+                </script>
+            </div>
+        </div>
+        <div class="page">
+            <div class="page-content">
+
+                <!-- Tabs, tabs wrapper -->
+                <div class="tabs">
+                    <!-- Tab 1, active by default -->
+                    <div id="tab1" class="tab active">
+                        <div class="content-block">
+                            <div class="swiper-container swiper-container1">
+                                <div class="swiper-wrapper">
+                                    {eq name="show2" value="1"}
+                                    {volist name="activity" id="ao"}
+                                    <div class="swiper-slide">
+                                        <div onclick=window.location.href="{:Url('Notice/notice_details?id='.$ao['id'])}" >
+                                            <img src="{$ao.front_cover|get_cover='path'}" alt="">
+                                            <div>
+                                                <span>{$ao.title}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/volist}
+                                    {else/}
+                                    <div class="swiper-slide">
+                                        <div>
+                                            <img src="{$p2|get_cover='path'}" alt="">
+                                            <div>
+                                                <span>暂无消息</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/eq}
+                                </div>
+                            </div>
+                            <div style="text-align: center;font-size:15px;height:30px;line-height: 30px;">精彩活动</div>
+                            <div class="list-block" id="notice2" style="">
+                                <ul style="">
+                                    {eq name="shows2" value="1"}
+                                    {volist name="activitys" id="aos"}
+                                    <li class="item-content list" >
+                                        <div class="item-inner news_list">
+                                            <div class="item-title" onclick=window.location.href="{:Url('Notice/notice_details?id='.$aos['id'])}" style="width: 100%">
+                                                <img src="{$aos.front_cover|get_cover='path'}" alt="" style="width: 100%">
+                                                <div style="width:100%;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;">{$aos.title}</div>
+                                                <div class="date">
+                                                    <img src="/home/images/notice/riqi.png" alt="">
+                                                    <span>{$aos.end_time|date="Y-m-d",###}</span>
+                                                </div>
+
+                                                <div class="guanzhu">
+                                                    <span>
+                                                        <img src="/home/images/news/guanzhu.png" alt="" class="eyes">
+                                                        <span>{$aos.views}</span>
+                                                    </span>
+                                                </div>
+                                                <div class="renshu" style>
+                                                    <span style="font-size:12px;">
+                                                        <img src="/home/images/notice/baoming1.png" alt="" class="eyes">
+                                                        <span ><span class="success">{$aos.enrollnum}</span> <span>/ {$aos.people}</span></span>
+                                                    </span>
+                                                    {eq name="$aos.end" value="0"}
+                                                        {eq name="$aos.full" value="0"}
+                                                            {eq name="$aos.apply" value="1"}
+                                                            <span style="font-size:12px;background:#eee">
+                                                                <span style="color:#333;">已报名</span>
+                                                            </span>
+                                                            {else/}
+                                                            <span style="font-size:12px;">
+                                                                <span style="color:#fff;">报名</span>
+                                                            </span>
+                                                            {/eq}
+                                                        {else/}
+                                                        <span style="font-size:12px;background:#eee">
+                                                            <span style="color:#333;">人数已满</span>
+                                                        </span>
+                                                        {/eq}
+                                                    {else/}
+                                                    <span style="font-size:12px;background:#eee">
+                                                        <span style="color:#333;">已截止</span>
+                                                    </span>
+                                                    {/eq}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    {/volist}
+                                    {else/}
+                                    <li class="default" style="height:300px;width:100vw;">
+                                        <img src="/home/images/notice/nomessage.png" alt="暂无消息" style="display:inline-block;margin:80px 35vw;width: 30vw">
+                                    </li>
+                                    {/eq}
+                                </ul>
+                                <div class="more1" style="text-align: center;width:100%;height:30px;line-height:30px;font-size:14px;display: none;margin-bottom:20px;" onclick="adds(this)">点击加载更多...</div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Tab 2 -->
+
+                    <div id="tab2" class="tab">
+                        <div class="content-block">
+                            <div class="swiper-container swiper-container2">
+                                <div class="swiper-wrapper">
+                                    {eq name="show" value="1"}
+                                    {volist name="relevant" id="vo"}
+                                    <div class="swiper-slide">
+                                        <div onclick=window.location.href="{:Url('Notice/notice_detail?id='.$vo['id'])}" >
+                                            <img src="{$vo.front_cover|get_cover='path'}" alt="">
+                                            <div>
+                                                <span>{$vo.title}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/volist}
+                                    {else/}
+                                    <div class="swiper-slide">
+                                        <div onclick=window.location.href="" >
+                                            <img src="{$p1|get_cover='path'}" alt="">
+                                            <div>
+                                                <span>暂无消息</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/eq}
+                                </div>
+                            </div>
+
+                            <div class="list-block" id="notice1">
+                                <ul>
+                                    {eq name="show" value="1"}
+                                    {volist name="relevant_list" id="vo"}
+                                    <li class="item-content list1" >
+                                        <div class="item-inner news_list2" >
+                                            <div class="item-title" onclick=window.location.href="{:Url('Notice/notice_detail?id='.$vo['id'])}" >
+                                                <img src="{$vo.front_cover|get_cover='path'}" alt="">
+                                                <div  style="width:77%;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;">{$vo.title}</div>
+                                                <div>
+                                                    <span>{$vo.create_time|date="Y-m-d",###}</span>
+
+                                                    <span  class="num1">{$vo.comments}</span>
+                                                    <img src="/home/images/news/pinglun.png" alt="" class="num1_img" >
+                                                    <span class="num" >{$vo.views}</span>
+                                                    <img src="/home/images/news/guanzhu.png" alt="" class="num_img" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {/volist}
+                                    {else/}
+                                    <li class="default" style="height:300px;width:100vw;">
+                                        <img src="/home/images/notice/nomessage.png" alt="暂无消息" style="display:inline-block;margin:80px 35vw;width: 30vw">
+                                    </li>
+                                    {/eq}
+                                </ul>
+                                <div class="more2" style="text-align: center;width:100%;height:30px;line-height:30px;font-size:14px;display: none;margin-bottom:20px;" onclick="add(this)">点击加载更多...</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+{block name="script"}
+
+<script>
+    var huodong=[];
+    window.onload=function(){
+        if(sessionStorage.aaa==1){
+            $('.buttons-row a:nth-child(1)').addClass('active');
+            $('.tabs div:nth-child(1)').addClass('active');
+            $('.buttons-row a:nth-child(2)').removeClass('active');
+            $('.tabs div:nth-child(2)').removeClass('active');
+        }
+        if(sessionStorage.aaa==2){
+            $('.buttons-row a:nth-child(2)').addClass('active');
+            $('.tabs div:nth-child(2)').addClass('active');
+            $('.buttons-row a:nth-child(1)').removeClass('active');
+            $('.tabs div:nth-child(1)').removeClass('active');
+        }
+        // 点击加载更多  隐藏
+        if($('#notice1>ul>li').length >= 4){
+            $('#notice1> .more2').show();
+        }
+
+        if($('#notice2>ul>li').length >= 4){
+            $('#notice2> .more1').show();
+        }
+    };
+    $('.news_list2 >.item-title').click(function(){
+        sessionStorage.aaa=2;
+    });
+    $('.news_list >.item-title').click(function(){
+        sessionStorage.aaa=1;
+    });
+
+    var myApp = new Framework7();
+    var $$ = Dom7;
+
+
+    //num
+
+    $(".num").each(function(){
+        if($(this).text()>999){
+            $(this).text('999+')
+        }
+    });
+    $(".num1").each(function(){
+        if($(this).text()>99){
+            $(this).text('99+')
+        }
+    });
+    var swiper1 = new Swiper('.swiper-container1', {
+        autoplay:3000,//可选选项，自动滑动
+        loop:true,
+        autoplayDisableOnInteraction : false,
+        pagination : '.swiper-pagination',
+        observer:true,
+        observeParents:true
+    });
+
+    var swiper2 = new Swiper('.swiper-container2', {
+        autoplay:3000,//可选选项，自动滑动
+        loop:true,
+        autoplayDisableOnInteraction : false,
+        pagination : '.swiper-pagination',
+        observer:true,
+        observeParents:true
+    });
+
+    //点击加载更多
+    function add(a){ // 相关通知
+        var b=$('#notice1>ul>li').length;
+        $.ajax({
+            type:"post",
+            url:"{:Url('Notice/noticemore')}",
+            data:{id:b},
+            success:function(data){
+                var html='';
+                if (data == 0){
+                    $(a).text('没有更多了...');
+                }else {
+                    for(var i=0; i< data.length;i++){
+                        html+='<li class="item-content list1"  >'+
+                                '<div class="item-inner news_list2">'+
+                                "<div class='item-title' onclick=window.location.href='notice_detail?id="+data[i].id+"'>"+
+                                '<img src="'+data[i].front_cover+'" alt="">'+
+                                '<div>'+data[i].title+'</div>'+
+                                '<div>'+
+                                '<span>'+data[i].create_time+'</span>'+
+                                '<span class="num1">'+data[i].comments+'</span>' +
+                                '<img src="/home/images/news/pinglun.png" alt="" class="num1_img" >'+
+                                '<span class="num">'+data[i].views+'</span>'+
+                                '<img src="/home/images/news/guanzhu.png" alt="" class="num_img">'+
+                                '</div>'+
+                                '</div>'+
+                                '</div>'+
+                                '</li>';
+
+
+                    }
+
+
+                    $('#tab2 .list-block ul').append(html);
+
+                }
+            }
+        })
+    }
+    function adds(a){  //  活动情况
+        var b=$('#notice2>ul>li').length;
+        $.ajax({
+            type:"post",
+            url:"{:Url('Notice/activitymore')}",
+            data:{id:b},
+            success:function(data){
+                var aaa=[];
+                var html='';
+                if (data == 0){
+                    $(a).text('没有更多了...');
+                }else {
+                    for(var i=0; i< data.length;i++){
+                        html+='<li class="item-content list"  >'+
+                                '<div class="item-inner news_list">'+
+                                "<div class='item-title' onclick=window.location.href='notice_details?id="+data[i].id+"'>"+
+                                '<img src="'+data[i].front_cover+'" alt="">'+
+                                '<div>'+data[i].title+'</div>'+
+
+                                '<div class="date">'+
+                                '<img src="/home/images/notice/riqi.png" alt="" style="margin-right:3px;">'+
+                                '<span>'+data[i].create_time+'</span>'+
+                                '</div>'+
+                                '<div class="guanzhu">'+
+                                '<span>'+
+                                '<img src="/home/images/news/guanzhu.png" alt="" class="eyes" style="margin-right:3px;">'+
+                                '<span >'+data[i].views+'</span>'+
+                                '</span></div>' +
+                                '<div class="renshu" style>'+
+                                '<span style="font-size:12px;">'+
+                                '<img src="/home/images/notice/baoming1.png" alt="" class="eyes" style="margin-right:3px;">'+
+                                '<span ><span class="success">'+data[i].enrollnum+'</span> <span>/ '+data[i].people+'</span></span>'+
+                                '</span>'
+                        if (data[i].end == 0){
+                            if (data[i].full == 0){
+                                if(data[i].apply == 1){
+                                    html+='<span style="font-size:12px;background:#eee">'+
+                                            '<span style="color:#333;">已报名</span></span>'
+                                }else{
+                                    html+='<span style="font-size:12px;">'+
+                                            '<span style="color:#fff;">报名</span></span>'
+                                }
+                            }else{
+                                html+='<span style="font-size:12px;background:#eee">'+
+                                        '<span style="color:#333;">人数已满</span></span>';
+                            }
+                        }else{
+                            html+='<span style="font-size:12px;background:#eee">'+
+                                    '<span style="color:#333;">已截止</span></span>';
+                        }
+                        html+='<span style="font-size:12px;">' +
+                        '</div></div></div>'+
+                        '</li>';
+
+                    }
+
+
+                    $('#tab1 .list-block ul').append(html);
+
+                }
+            }
+        })
+    }
+
+
+
+</script>
+{/block}
