@@ -437,21 +437,6 @@ class Admin extends Controller {
         $a = array('1'=>'a','2'=>'b','3'=>'c','4'=>'d','5'=>'e','6'=>'f','7'=>'g','8'=>'h','9'=>'i','10'=>'j','11'=>'k','12'=>'l','13'=>'m','14'=>'n','15'=>'o');
         $front_pic = array_rand($a,1);
         $this->assign('front_pic',$front_pic);
-
-        //随机列表图
-        $b = array('16'=>'a','17'=>'b','18'=>'c','19'=>'d','20'=>'e','21'=>'f','22'=>'g', '23'=>'h','24'=>'i','25'=>'j','26'=>'k');
-        $list_pic = array_rand($b,1);
-        $this->assign('list_pic',$list_pic);
-
-        //随机轮播图
-        $c = array('1'=>'a','2'=>'b','3'=>'c','4'=>'d','5'=>'e','6'=>'f','7'=>'g','8'=>'h','9'=>'i','10'=>'j','11'=>'k','12'=>'l','13'=>'m','14'=>'n','15'=>'o',
-            '16'=>'p','17'=>'q','18'=>'r','19'=>'s','20'=>'t','21'=>'u','22'=>'v','23'=>'w','24'=>'x','25'=>'y','26'=>'z');
-        $carousel_pic1 = array_rand($c,1);
-        $this->assign('carousel_pic1',$carousel_pic1);
-        $carousel_pic2 = array_rand($c,1);
-        $this->assign('carousel_pic2',$carousel_pic2);
-        $carousel_pic3 = array_rand($c,1);
-        $this->assign('carousel_pic3',$carousel_pic3);
     }
 
     /**
