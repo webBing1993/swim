@@ -3,25 +3,18 @@
 {block name="style"}
 <title>活动通知</title>
 <link rel="stylesheet" href="/home/css/common/detail.css">
-<style>
-
-</style>
 {/block}
 {block name="body"}
 <div class="scrollDiy">
 	<div class="article">
 		<div class="title limit_">暗室逢灯第三发电撒地方的萨芬萨达撒地方大师傅</div>
-		<div class="note clear">
-			<span class="fl">李四</span>
-			<span class="fr">2012-01-01</span>
-		</div>
+		<div class="note">李四/2012-01-01</div>
 		<div class="content">
-			afjpdsajfsdajfl;asdf
+			<div class="ue">afjpdsajfsdajfl;asdf</div>
 			<div class="note">
 				<span class="read">2</span>
 				<!--good、good_-->
 				<span class="isgood good" onclick="isGood(this,1,'id')">111</span>
-
 			</div>
 		</div>
 	</div>
@@ -47,20 +40,20 @@
 		</div>
 	</div>
 </div>
+</div>
 <div class="bottom clear">
+	<div class="collect star fl" onclick="isCollect(this,'id')"></div>
 	<div class="myword fl">
 		<input type="text" placeholder="说说你的感想！">
 	</div>
 	<div class="send fr" onclick="send(this,1,'id')">发送</div>
 </div>
-
-
 {/block}
 
 {block name="script"}
 <script src="/home/js/reset.js"></script>
 <script>
-var scrollNow = true;//判断下拉请求是否执行中.false为正在请求
+var scrollNow = true;
 $(function(){
 	//reset
 	var len = $(".list" ).length;
@@ -72,12 +65,22 @@ $(function(){
 	//ue限定
 	ueLimit();
 });
-/**
- * 点赞
- * @param e
- */
-var isGood = function(e,type,id){
-	//样式变化，移到suc
+//收藏
+function isCollect(e,id){
+	$(e).toggleClass('star' ).toggleClass('star_');
+	$.ajax({
+		type:"post",
+		url:"{:Url('Base/collect')}",
+		data:{
+			aid:id,
+		},
+		success:function(data){
+
+		}
+	})
+}
+//点赞
+function isGood(e,type,id){
 	var n = $(e ).text();
 	$(e).toggleClass('good' ).toggleClass('good_');
 	$(e ).hasClass('good')?n--:n++;
@@ -95,12 +98,9 @@ var isGood = function(e,type,id){
 
 		}
 	})
-};
-/**
- * 发送评论
- * @param e
- */
-var send = function(e,type,id){
+}
+//评论
+function send(e,type,id){
 	var it = $(e ).prev().find('input');
 	if(it.val() != '' && it.val().length > 4){
 		$.ajax({
@@ -147,59 +147,15 @@ var send = function(e,type,id){
 			}
 		});
 	}else{
-		wAlert('您的评论少于5个字');
-	}
-};
-var tofixed = function(){
-	var u = navigator.userAgent;
-	var word = $('.myword input');
-	var bottom =$('.bottom');
-	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-	//var ua = window.navigator.appVersion;
-	//alert(u);
-	if(isiOS){
-		//兼容ios7
-		$(document).scrollTop(1);
-		word.focus(function(){
-			var noInputViewHeight = $(window).height() - bottom.height();
-			var contentHeight = $(document).height() - bottom.height();
-			contentHeight = contentHeight > noInputViewHeight ? contentHeight : noInputViewHeight;
-			setTimeout(function(){
-				var inputTopHeight = bottom.offset().top - $(window).scrollTop()+1;
-				var inputTopPos = bottom.offset().top + inputTopHeight+1;
-				inputTopPos = inputTopPos > contentHeight ? contentHeight : inputTopPos;
-				bottom.css({'position':'absolute', 'top':inputTopPos });
-				$(window).on('touchstart', function(){
-					word.blur();
-				});
-			}, 100);
+		swal({
+			title: ' ',
+			text: '您的评论少于五个字',
+			type: 'error',
+			confirmButtonText:'确定',
+			timer:3000
 		});
-		word.on('blur',function(){
-			//输入框失焦后还原初始状态
-			var a =$(window).height()-45;
-			bottom.css({'position': 'fixed','top':'','bottom':'0'});
-		})
 	}
-};
-var wAlert = window.alert;
-window.alert = function (message) {
-	try {
-		var iframe = document.createElement("IFRAME");
-		iframe.style.display = "none";
-		iframe.setAttribute("src", 'data:text/plain,');
-		document.documentElement.appendChild(iframe);
-		var alertFrame = window.frames[0];
-		var iwindow = alertFrame.window;
-		if (iwindow == undefined) {
-			iwindow = alertFrame.contentWindow;
-		}
-		iwindow.alert(message);
-		iframe.parentNode.removeChild(iframe);
-	}
-	catch (exc) {
-		return wAlert(message);
-	}
-};
+}
 function loadScroll(){
 	$('.scrollDiy').off("scroll" ).on("scroll",function(){
 		var dh = $('.article').height() + $('.comment').height();

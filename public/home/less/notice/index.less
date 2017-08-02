@@ -57,8 +57,10 @@
 		top: 0;
 		width: 99vw;
 		&:nth-child(1){
-			padding:0 4vw;
 			left: 0;
+			.lists{
+				padding: 0 4vw;
+			}
 			.list{
 				display: inline-block;
 				overflow: hidden;
@@ -69,9 +71,9 @@
 				font-size: @s_note;
 				margin-bottom: 3vw;
 				&:nth-child(odd){
-					float: left;
+					//float: left;
 				}
-				&:nth-child(odd){
+				&:nth-child(even){
 					float: right;
 				}
 				background: #ffffff;
@@ -164,4 +166,9 @@
 
 		}
 	}
+}
+.nomessage{
+	display: block;
+	width: 25vw;
+	margin: 15vh auto;
 }
