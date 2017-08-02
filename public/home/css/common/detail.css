@@ -77,10 +77,10 @@
 .note{
   color: #999999;
   font-size: 12px;
-  text-align: right;
+  border-bottom: 1px solid #e2e2e2;
 }
-.note_{
-  padding: 0;
+.content .note{
+  border:none;
 }
 /*文章*/
 .article {
@@ -115,6 +115,9 @@
 }
 .article .content * {
   max-width: 100%!important;
+}
+.article .content .ue{
+  padding: 4vw 0;
 }
 .article .content img {
   display: block;
@@ -154,7 +157,7 @@
   height: 8vw;
   display: inline-block;
   margin-right: 3vw;
-  line-height: 8vw;
+  line-height: 1.8rem;
 }
 .article .content .note_ span{
   margin-right: 0;
@@ -163,21 +166,21 @@
   margin-right: 0;
 }
 .article .content .note .read {
-  background: url('/home/images/detail/scan_.png') 0 center no-repeat;
-  background-size: 1.5rem 1.5rem;
-  padding-left: 1.8rem;
+  background: url('/home/images/common/scan.png') 2vw 0.55rem no-repeat;
+  background-size: 1.2rem 0.73rem;
+  padding-left: 2.2rem;
 }
 .article .content .note .good {
-  background: url('/home/images/detail/good.png') 0 center no-repeat;
-  background-size: 1.5rem 1.5rem;
-  padding-left: 1.8rem;
+  background: url('/home/images/common/good.png') 2vw 0.25rem no-repeat;
+  background-size: 1.2rem 1.2rem;
+  padding-left: 2.2rem;
 }
 .article .content .note .good_ {
   animation: shake 300ms ease;
   -webkit-animation: shake 300ms ease;
-  background: url('/home/images/detail/good_.png') 0 center no-repeat;
-  background-size: 1.5rem 1.5rem;
-  padding-left: 1.8rem;
+  background: url('/home/images/common/good_.png') 2vw 0.25rem no-repeat;
+  background-size: 1.2rem 1.2rem;
+  padding-left: 2.2rem;
 }
 
 
@@ -237,16 +240,17 @@
   font-size: 1.2rem;
 }
 .comment .lists .list .good {
-  background: url('/home/images/detail/good.png') 0 center no-repeat;
+  background: url('/home/images/common/good.png') 2vw 0.25rem no-repeat;
 }
 .comment .lists .list .good_ {
   animation: shake 300ms ease;
   -webkit-animation: shake 300ms ease;
-  background: url('/home/images/detail/good_.png') 0 center no-repeat;
+  background: url('/home/images/common/good_.png') 2vw 0.25rem no-repeat;
 }
 .comment .lists .list .isgood {
-  background-size: 1.3rem 1.3rem;
-  padding-left: 1.8rem;
+
+  background-size: 1.2rem 1.2rem;
+  padding-left: 2.2rem;
 }
 .comment .tip {
   height: 10.6vw;
@@ -267,25 +271,23 @@
   font-family: "Microsoft YaHei", sans-serif;
 }
 .bottom .star {
-  background: url('/home/images/detail/star-border.png') 20px 12px no-repeat;
+  background: url('/home/images/common/star-border.png') 3vw 3vw no-repeat;
 }
 .bottom .star_ {
-  animation: shake 300ms ease;
-  -webkit-animation: shake 300ms ease;
-  background: url('/home/images/detail/star-yellow.png') 20px 12px no-repeat;
+  animation: bigger 300ms ease;
+  -webkit-animation: bigger 300ms ease;
+  background: url('/home/images/common/star-blue.png') 3vw 3vw no-repeat;
 }
 .bottom .collect {
-  width: 60px;
+  width: 14vw;
   height: 100%;
-  font-size: 1.2rem;
-  text-align: center;
-  background-size: 20px 20px;
-  padding-top: 24px;
+  background-size: 6vw 6vw;
 }
 .bottom .myword input {
   vertical-align: middle;
   height: 8vw;
-  width: 76vw;
+  /*width: 76vw;*/
+  width: 60vw;
   margin: 1.8vw 0;
   padding-left: 2.6vw;
   background: #fafafa;
@@ -307,67 +309,64 @@
 @keyframes bigger
 {
   0%{
-    background-size: 16vw 16vw;
-    height: 16vw;
-    bottom:-8vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
   50%{
-    background-size: 18vw 18vw;
-    height: 18vw;
-    bottom:-10vw;
+    background-size: 10vw 10vw;
+    background-position:1vw 1vw;
   }
   100% {
-    background-size: 16vw 16vw;
-    height: 16vw;
-    bottom:-8vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
 }
 
 @-moz-keyframes bigger /* Firefox */
 {
   0%{
-    background-size: 16vw 16vw;
-    height: 16vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
   50%{
-    background-size: 18vw 18vw;
-    height: 18vw;
+    background-size: 10vw 10vw;
+    background-position:1vw 1vw;
   }
   100% {
-    background-size: 16vw 16vw;
-    height: 16vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
 }
 
 @-webkit-keyframes bigger /* Safari 和 Chrome */
 {
   0%{
-    background-size: 16vw 16vw;
-    height: 16vw;
-    bottom:-8vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
   50%{
-    background-size: 18vw 18vw;
-    height: 18vw;
-    bottom:-10vw;
+    background-size: 10vw 10vw;
+    background-position:1vw 1vw;
   }
   100% {
-    background-size: 16vw 16vw;
-    height: 16vw;
-    bottom:-8vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
 }
 
 @-o-keyframes bigger /* Opera */
 {
   0%{
-    background-size: 16vw 16vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
   50%{
-    background-size: 18vw 18vw;
+    background-size: 10vw 10vw;
+    background-position:1vw 1vw;
   }
   100% {
-    background-size: 16vw 16vw;
+    background-size: 6vw 6vw;
+    background-position:3vw 3vw;
   }
 }
 
@@ -505,4 +504,13 @@
     filter: Alpha(opacity=0);
     -moz-opacity:0;
   }
+}
+.scrollDiy{
+  position: absolute;
+  top:0;
+  bottom:0;
+  overflow-y: scroll;
+  /* 增加该属性，可以增加弹性 */
+  -webkit-overflow-scrolling: touch;
+  width:100%;
 }

@@ -1,0 +1,253 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>通知公告</title>
+<link rel="stylesheet" href="/static/swiper/swiper-3.3.1.min.css">
+<link rel="stylesheet" href="/home/css/notice/index.css">
+{/block}
+
+{block name="body"}
+<!--切换-->
+<div class="tabs">
+	<span class="tab active">活动</span>
+	<span class="tab">通知</span>
+</div>
+<!--轮播+列表-->
+<div class="boxs">
+	<div class="box hidden clear">
+		<!--活动轮播-->
+		<div class="banners ">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/1.jpg" alt="">
+							<div class="title limit">监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/2.jpg" alt="">
+							<div class="title limit">2监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/3.jpg" alt="">
+							<div class="title limit">3监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="nice">精彩活动</div>
+		<!--活动列表-->
+		<div class="lists">
+			<a href="detail.html"  class="list">
+				<img src="/home/images/tem/4.jpg" alt="活动图片">
+				<div class="title limit">1哈开始的哈萨克sadfas啊发送到发送到是打发第三</div>
+				<div class="time">20147-01-01</div>
+				<div class="scan">116</div>
+				<div class="num">10/100</div>
+				<!--四种状态-->
+				<span class="enter" onclick="enter('userid','id',this)">报名</span>
+				<!--<span class="stop">已截止</span>-->
+				<!--<span class="stop">已报名</span>-->
+				<!--<span class="stop">已满</span>-->
+			</a>
+		</div>
+		<div class="loading hidden">
+			<div class="typing_loader"></div>
+		</div>
+		<div class="tip"></div>
+	</div>
+	<!--通知部分-->
+	<div class="box hidden">
+		<!--通知轮轮播-->
+		<div class="banners ">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/1.jpg" alt="">
+							<div class="title limit">监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/2.jpg" alt="">
+							<div class="title limit">2监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/3.jpg" alt="">
+							<div class="title limit">3监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--通知列表-->
+		<div class="lists">
+			<a href="detail.html" class="list">
+				<img src="/home/images/tem/5.jpg" alt="通知图片">
+				<div class="lr">
+					<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>
+					<div class="note clear">
+						<span class="time">2017-01-01</span>
+						<span class="comment fr">0</span>
+						<span class="scan fr">214</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="loading hidden">
+			<div class="typing_loader"></div>
+		</div>
+		<div class="tip"></div>
+	</div>
+
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/swiper/swiper-3.3.1.jquery.min.js"></script>
+<script>
+$(function(){
+	//轮播
+	var mySwiper = new Swiper('.swiper-container', {
+		autoplay: 3000,
+		loop:true,
+		autoplayDisableOnInteraction:false
+	});
+	//tab值记录
+	tabRecord('.tab' ,'.box');
+	//tab切换
+	tabSwitch('.tab' ,'.box');
+	//无消息
+	var box = $('.box');
+	for(var i = 0; i < box.length ;i++){
+		var len = box.eq(i).find('.list').length;
+		if(len == 0){
+			box.eq(i).find('.tip').text('');
+			box.eq(i).find('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">')
+		}else if(len >= 7){
+			box.eq(i).find('.tip').text('上拉加载更多');
+			//上拉加载评论
+			loadScroll();
+		}else{
+			box.eq(i).find('.tip').text('没有更多了');
+		}
+	}
+});
+function  enter(userid,id){
+	var this_ = self;
+	var data = {
+		'userid':userid,
+		'id':id
+	};
+	$.ajax({
+		type:"post",
+		url:"",
+		data:data,
+		success:function(data){
+			if(data.code == 1){
+				$(this_).text('已报名').css({'background':'#d0d0d0'})
+			}
+			swal({
+				title: ' ',
+				text: data.code == 1 ? '报名成功！':'报名失败！',
+				type: data.code == 1 ? 'success':'warning',
+				showConfirmButton:false,
+				timer:1500
+			});
+		}
+	});
+}
+$(".list").delegate(".enter","click",function(e){
+	e.stopPropagation();
+	e.preventDefault();
+});
+function loadScroll(){
+	$(window ).off("scroll" ).on("scroll",function(){
+		var dh = $(document).height();
+		var end = $(window).height() + $(window ).scrollTop();
+		var type = $('.tab.active').index();
+		var len = $(".box" ).eq(type).find('.list').length;
+		var tip = $(".tip");
+		var loading = $('.loading');
+
+		if(dh == end){
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+					length:len,
+					type:type
+				},
+				beforeSend: function(XMLHttpRequest){
+					tip.hide();
+					loading.toggleClass('hidden');
+				},
+				success:function(data){
+					loading.toggleClass('hidden');
+					tip.show();
+					if(data.code == 1){
+						addLists(data,type);
+						var dataLen =data.data.length;
+						if(data.data.length == 7){
+							tip.text('上拉加载更多');
+						}
+					}else{
+						tip.text('没有更多了');
+						$(window ).off("scroll");
+					}
+				}
+			})
+		}
+	})
+}
+function addLists(data,type){
+	var html = '';
+	var lists = data.data;
+	var len = lists.length;
+	for(var i = 0; i< len;i++){
+		var list = lists[i];
+		if(type == 0){
+			html +=
+				'<a href="/home/notice/situation/id/'+ list.id+'.html" class="list">'+
+				'<img src="/home/images/tem/4.jpg" alt="活动图片">'+
+				'<div class="title limit">哈开始的哈萨克sadfas啊发送到发送到是打发第三</div>'+
+				'<div class="time">20147-01-01</div>'+
+				'<div class="scan">116</div>'+
+				'<div class="num">10/100</div>';
+			if(list.type){
+				html+=
+					'<span class="enter">报名</span>'+
+					'<span class="stop">已截止</span>'+
+					'<span class="stop">已报名</span>'+
+					'<span class="stop">已满</span>'
+			}
+			html +=
+				'</a>';
+		}else{
+			html +=
+				'<a href="/home/notice/notice/id/'+ list.id+'.html" class="list">'+
+				'<img src="/home/images/tem/5.jpg" alt="通知图片">'+
+				'<div class="lr">'+
+				'<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>'+
+				'<div class="note clear">'+
+				'<span class="time">2017-01-01</span>'+
+				'<span class="comment fr">0</span>'+
+				'<span class="scan fr">214</span>'+
+				'</div>'+
+				'</div>'+
+				'</a>';
+		}
+
+	}
+	$('.box').eq(type).find('.lists').append(html);
+}
+</script>
+{/block}

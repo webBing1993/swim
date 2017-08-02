@@ -1,0 +1,51 @@
+@charset "utf-8";
+//颜色
+@c_title: #333333;
+@c_content: #666666;
+@c_note: #999999;
+@c_bg: #f1f1f1;
+@c_border: #999999;
+@c_ph: #d9d9d9;
+@c_active: #ebebeb;
+//字体大小
+@s_big: 1.6rem;
+@s_title: 1.4rem;
+@s_content: 1.3rem;
+@s_note: 1.2rem;
+//位置
+@space:4vw;
+//自身
+.t_b {
+	font-size: 1.8rem;
+	font-weight: 600;
+}
+.content(@lr:13px) {
+	width: 100%;
+	padding-left: @lr;
+	padding-right: @lr;
+}
+.wh(@w,@h) {
+	width: @w;
+	height: @h;
+}
+.font(@c,@f,@h) {
+	color: @c;
+	font-size: @f;
+	line-height: @h;
+}
+.shadow {
+	box-shadow: 1px 3px 8px rgba(102, 102, 102, 0.20);
+}
+//public
+body{
+	background: #f7f7f7;
+}
+a{
+	display: inline-block;
+}
+a:active { background-color: @c_active }
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	color: @c_ph;
+}
+//animate
+//layout

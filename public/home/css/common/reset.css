@@ -24,7 +24,7 @@ a:active{
     animation: typing 1s linear infinite alternate;
     position: relative;
     top: 17px;
-    left: calc( 50vw - 15px );
+    left: 42vw;
 }
 @-webkit-keyframes typing {
     0% {
