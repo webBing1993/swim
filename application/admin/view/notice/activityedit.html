@@ -24,17 +24,6 @@
         top:0;
         opacity: 0;
     }
-    .plus{
-        height: 100px;
-        width: 200px;
-        font-size: 100px;
-        line-height: 100px;
-        text-align: center;
-        color: rgba(204, 204, 204, 0.51);
-    }
-    .plus:hover{
-        font-size: 150px;
-    }
 </style>
 {/block}
 
@@ -47,7 +36,7 @@
                 <a href="{:Url('Notice/activity')}">相关活动</a>
             </li>
             <li class="active">
-                <strong>编辑</strong>
+                <strong>{empty name="msg"}新增{else/}编辑{/empty}</strong>
             </li>
         </ol>
     </div>
@@ -63,7 +52,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>编辑活动</h5>
+                    <h5>{empty name="msg"}新增{else/}编辑{/empty}活动</h5>
                     <div class="ibox-tools">
                         <a href="javascript:window.history.go(-1);" class="btn btn-white btn-sm"><i class="fa fa-reply"></i> 返回</a>
                     </div>
@@ -80,11 +69,27 @@
                                 </select>
                             </div>
                         </div>
+                        {empty name="msg"}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>封面图片:</label>
                             </div>
-                            <div class="col-lg-5" >
+                            <div class="col-lg-5">
+                                <div class="imggroup">
+                                    <img src="{$front_pic|get_cover='path'}" alt='图片' class='thumbnail imgbox'>
+                                    <input type="file" class="imgfile" accept="image/png , image/jpg ,image/jpeg ,image/gif">
+                                    <input type="hidden" name="front_cover" class="img"  value="{$front_pic}" required="">
+                                </div>
+                                <b>推荐尺寸：500*400px</b>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        {else/}
+                        <div class="form-group">
+                            <div class="col-lg-1 text-right control-label">
+                                <label>封面图片:</label>
+                            </div>
+                            <div class="col-lg-5">
                                 <div class="imggroup">
                                     <img src="{$msg.front_cover|get_cover='path'}" alt='图片' class='thumbnail imgbox'>
                                     <input type="file" class="imgfile" accept="image/png , image/jpg ,image/jpeg ,image/gif">
@@ -94,12 +99,13 @@
                             </div>
                             <div class="clear"></div>
                         </div>
+                        {/empty}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>名称:</label>
                             </div>
                             <div class="col-lg-11">
-                                <input type="text" placeholder="请输入名称" class="form-control form_title" name="title" value="{$msg.title}">
+                                <input type="text" placeholder="请输入名称" class="form-control form_title" name="title" value="{$msg.title || default=''}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -109,11 +115,30 @@
                             <div class="col-lg-11">
                                 <div class=" float-e-margins">
                                     <div class="ibox-content no-padding borders">
-                                        <script id="container" name="content" type="text/plain">{$msg.content}</script>
+                                        <script id="container" name="content" type="text/plain">{$msg.content || default=''}</script>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {empty name="msg"}
+                        <div class="form-group" id="timeRange">
+                            <div class="col-lg-1 text-right control-label">
+                                <label>活动时间:</label>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class=" input-group " >
+                                    <div class="date">
+                                        <input type="text" class="form-control datetimepicker text-center" name="start_time"  value=""/>
+                                    </div>
+                                    <span class="input-group-addon">至</span>
+                                    <div class="date">
+                                        <input type="text" class="form-control datetimepicker text-center" name="end_time"  value=""/>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        {else/}
                         <div class="form-group" id="timeRange">
                             <div class="col-lg-1 text-right control-label">
                                 <label>活动时间:</label>
@@ -131,12 +156,13 @@
                                 </div>
                             </div>
                         </div>
+                        {/empty}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>人数:</label>
                             </div>
                             <div class="col-lg-11">
-                                <input type="text" placeholder="请输入活动所需人数" class="form-control form_title" name="people" value="{$msg.people}">
+                                <input type="text" placeholder="请输入活动所需人数" class="form-control form_title" name="people" value="{$msg.people || default=''}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -144,11 +170,11 @@
                                 <label>发布人:</label>
                             </div>
                             <div class="col-lg-11">
-                                <input type="text" placeholder="请输入发布人" class="form-control form_title" name="publisher" value="{$msg.publisher}">
+                                <input type="text" placeholder="请输入发布人" class="form-control form_title" name="publisher" value="{$msg.publisher || default=''}">
                             </div>
                         </div>
 
-                        <input type="hidden" name="id" value="{$msg.id}">
+                        <input type="hidden" name="id" value="{$msg.id || default=''}">
                         <div class="form-group">
                             <div class="col-lg-11 col-lg-offset-1">
                                 <button class="btn btn-primary submit-btn post-add" type="button" target-form="form-horizontal" >发布</button>
@@ -227,6 +253,7 @@
         });
 
         $(".post-add").on("click",function(){
+            var it=$(this);
             /*重组轮播图，删除多余字符串（i是键值，1表示几位开始*/
             var data = {
                 id:$("input[name='id']").val(),
@@ -244,7 +271,6 @@
                 url:$("#form").attr("action"),
                 data:data,
                 success:function(data){
-                    console.log(data)
                     if(data.code == 1){
                         if (data.url) {
                             updateAlert(data.msg + ' 页面即将自动跳转~','success');

@@ -155,20 +155,7 @@ class News extends Admin {
             return $this->fetch();
         }
     }
-
-    /**
-     * 百科删除
-     */
-    public function wikidel() {
-        $id = input('id');
-        $data['status'] = '-1';
-        $info = NewsModel::where('id',$id)->update($data);
-        if($info) {
-            return $this->success("删除成功");
-        }else{
-            return $this->error("删除失败");
-        }
-    }
+    
 
     /**
      * 在线视频
@@ -233,20 +220,7 @@ class News extends Admin {
             return $this->fetch();
         }
     }
-
-    /**
-     * 视频删除
-     */
-    public function videodel() {
-        $id = input('id');
-        $data['status'] = '-1';
-        $info = NewsModel::where('id',$id)->update($data);
-        if($info) {
-            return $this->success("删除成功");
-        }else{
-            return $this->error("删除失败");
-        }
-    }
+    
     
     
     

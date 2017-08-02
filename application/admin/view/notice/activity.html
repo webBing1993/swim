@@ -32,7 +32,7 @@
                 <div class="ibox-title">
                     <h5>活动情况列表</h5>
                     <div class="ibox-tools">
-                        <a data-toggle="modal" class="btn btn-sm btn-primary" href="{:Url('Notice/indexadd')}">添加相关活动</a>
+                        <a data-toggle="modal" class="btn btn-sm btn-primary" href="{:Url('Notice/activityadd')}">添加相关活动</a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -63,13 +63,13 @@
                                 <td>{$vo.people}</td>
                                 <td>{$vo.enrollnum}</td>
                                 <td>{$vo.publisher}</td>
-                                <td>{$vo->user->nickname}</td>
+                                <td>{$vo->cuser->nickname}</td>
                                 <td>{$vo.create_time|time_format='Y-m-d'}</td>
                                 <td>{$vo.status_text}</td>
                                 <td>
-                                    <a href="{:Url('Notice/indexedit?id='.$vo['id'])}">修改</a>&emsp;&emsp;
-                                    <a href="{:Url('Notice/apply?id='.$vo['id'])}">查看报名</a>&emsp;&emsp;
-                                    <a href="{:Url('Notice/del?id='.$vo['id'])}" class="confirm ajax-del">删除</a>
+                                    <a href="{:Url('Notice/activityedit?id='.$vo['id'])}">修改</a>&emsp;&emsp;
+                                    <a href="{:Url('Notice/enroll?id='.$vo['id'])}">查看报名</a>&emsp;&emsp;
+                                    <a href="{:Url('Notice/activitydel?id='.$vo['id'])}" class="confirm ajax-del">删除</a>
                                 </td>
                             </tr>
                             {/volist}

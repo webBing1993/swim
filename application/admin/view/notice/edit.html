@@ -21,23 +21,6 @@
         top:0;
         opacity: 0;
     }
-    .plus{
-        height: 100px;
-        width: 200px;
-        font-size: 100px;
-        line-height: 100px;
-        text-align: center;
-        color: rgba(204, 204, 204, 0.51);
-    }
-    .plus:hover{
-        font-size: 150px;
-    }
-    .plus2{
-        display: none;
-    }
-    .plusimg{
-        display: none;
-    }
 </style>
 {/block}
 
@@ -50,7 +33,7 @@
                 <a href="{:Url('News/activity')}">相关通知</a>
             </li>
             <li class="active">
-                <strong>{eq name="msg.class" value="1"}新增{else/}编辑{/eq}</strong>
+                <strong>{empty name="msg"}新增{else/}编辑{/empty}</strong>
             </li>
         </ol>
     </div>
@@ -66,13 +49,13 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>{eq name="msg.class" value="1"}新增{else/}编辑{/eq}页面</h5>
+                    <h5>{empty name="msg"}新增{else/}编辑{/empty}页面</h5>
                     <div class="ibox-tools">
                         <a href="javascript:window.history.go(-1);" class="btn btn-white btn-sm"><i class="fa fa-reply"></i> 返回</a>
                     </div>
                 </div>
                 <div class="ibox-content all">
-                    <form id="form" class="form-horizontal" method="post"  enctype="multipart/form-data" action="add.html" >
+                    <form id="form" class="form-horizontal" method="post"  enctype="multipart/form-data" >
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>类型:</label>
@@ -83,7 +66,7 @@
                                 </select>
                             </div>
                         </div>
-                        {eq name="msg.class" value="1"}
+                        {empty name="msg"}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>封面图片:</label>
@@ -113,7 +96,7 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        {/eq}
+                        {/empty}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
                                 <label>标题:</label>
@@ -171,12 +154,11 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
         });
-        // 导航高亮
-        highlight_subnav("{:Url('Notice/index')}");
 
+        highlight_subnav("{:Url('Notice/index')}");
         //上传图片
         var plus = $('.plus');
-        var imgnum  = $('[n]' ).attr('n');
+        var imgnum = 1;
         plus.on('click',function(){
             var it = $(this);
             it.hide().next().fadeIn();
@@ -186,7 +168,6 @@
                 imgnum = 2
             }
         });
-
         $(".imgfile").on("change",function(){
             var size = ($(this)[0].files[0].size / 1024).toFixed(2);
             var imgBox = $(this);
@@ -226,18 +207,18 @@
 
         //发布
         $(".post-put").off('click').on("click",function(){
-            /*重组轮播图，删除多余字符串（i是键值，1表示几位开始*/
+            var it=$(this);
             var data = {
                 id:$("input[name='id']").val(),
-                type:$("select[name='type']").val(),
                 front_cover:$("input[name='front_cover']").val(),
+                type:$("select[name='type']").val(),
                 title:$("input[name='title']").val(),
                 content:ue.getContent(),
                 publisher:$("input[name='publisher']").val(),
             };
             $.ajax({
                 type:"post",
-                url:"{:Url('add')}",
+                url:$("#form").attr("action"),
                 data:data,
                 success:function(data){
                     if(data.code == 1){
@@ -246,8 +227,8 @@
                         }else{
                             updateAlert(data.msg ,'success');
                         }
-//                        it.prop('disabled','true');
-//                        it.prev().prop('disabled','true');
+                        it.prop('disabled','true');
+                        it.prev().prop('disabled','true');
                         setTimeout(function(){
                             if (data.url) {
                                 location.href=data.url;
@@ -270,56 +251,6 @@
             });
             return false;
         });
-    })
-
-</script>
-
-<script type="text/javascript">
-
-    $(function(){
-        //    单选按钮
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
-        });
-        $("select" ).chosen({
-            no_results_text: "没有找到该选项",
-            allow_single_de: true,
-            width:'100%',
-            max_selected_options:'100'
-        });
-        var selgp = $(".selgp");
-        var selgp2 = $(".selgp2");
-        selHeight(selgp);
-        selHeight(selgp2);
-        function selHeight(e){
-            e.find('ul').on('click',function(){
-                var results = $(this ).next().find('.chosen-results' );
-                var h= results.height();
-                h=h-100;
-                $('.selblo' ).animate({'height':h+'px'},100);
-                //切出页面
-                var hiddenProperty = 'hidden' in document ? 'hidden' :
-                        'webkitHidden' in document ? 'webkitHidden' :
-                                null;
-                var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
-                var onVisibilityChange = function(){
-                    if (!document[hiddenProperty]) {
-                        //selgp.find('.search-field').find('input').on('blur');
-                    }else{
-                        e.find('.search-field').find('input').off('blur');
-                    }
-                };
-                $(document).on(visibilityChangeEvent, onVisibilityChange);
-            });
-            e.find('.search-field').find('input').on('blur',function(){
-                setTimeout(function(){
-                    $('.selblo' ).animate({'height':'0'});
-                },100)
-            });
-        }
-
-
     })
 
 </script>
