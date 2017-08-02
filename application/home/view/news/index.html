@@ -1,13 +1,250 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>新闻发布</title>
+<link rel="stylesheet" href="/static/swiper/swiper-3.3.1.min.css">
+<link rel="stylesheet" href="/home/css/news/index.css">
 {/block}
 
 {block name="body"}
-
+<!--切换-->
+<div class="tabs">
+	<span class="tab active">新闻动态</span>
+	<span class="tab">游泳百科</span>
+	<span class="tab">在线视频</span>
+</div>
+<!--三个模块-->
+<div class="boxs">
+	<!--新闻动态-->
+	<div class="box hidden clear">
+		<!--轮播-->
+		<div class="banners ">
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/1.jpg" alt="">
+							<div class="title limit">监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/2.jpg" alt="">
+							<div class="title limit">2监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+					<div class="banner swiper-slide">
+						<a href="">
+							<img src="/home/images/tem/3.jpg" alt="">
+							<div class="title limit">3监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--列表-->
+		<div class="lists">
+			<a href="detail.html" class="list">
+				<img src="/home/images/tem/5.jpg" alt="新闻动态图片">
+				<div class="lr">
+					<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>
+					<div class="note clear">
+						<span class="time">2017-01-01</span>
+						<span class="comment fr">0</span>
+						<span class="scan fr">214</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="loading hidden">
+			<div class="typing_loader"></div>
+		</div>
+		<div class="tip"></div>
+	</div>
+	<!--游泳百科-->
+	<div class="box hidden">
+		<!--列表-->
+		<div class="lists">
+			<a href="detail.html" class="list">
+				<img src="/home/images/tem/5.jpg" alt="游泳百科图片">
+				<div class="lr">
+					<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>
+					<div class="note clear">
+						<span class="time">2017-01-01</span>
+						<span class="comment fr">0</span>
+						<span class="scan fr">214</span>
+					</div>
+				</div>
+			</a>
+		</div>
+		<div class="loading hidden">
+			<div class="typing_loader"></div>
+		</div>
+		<div class="tip"></div>
+	</div>
+	<!--在线视频-->
+	<div class="box hidden">
+		<!--列表-->
+		<div class="lists">
+			<div class="list">
+				<div class="title limit">好噶数据库的gas考虑到和索拉卡粉红色拉的花费啦dfdasfdsafdasf</div>
+				<div class="video">
+					<div class="video-modal">
+						<video loop controls >
+							<source src="/home/images/tem/1.mp4">
+						</video>
+					</div>
+					<img src="/home/images/tem/5.jpg" alt="视频第一帧" class="first">
+					<img src="/home/images/common/play.jpg" alt="播放" class="play" onclick="scannum(this, 'id')">
+				</div>
+				<div class="note clear">
+					<span class="time">2017-01-01</span>
+					<span class="isgood good fr" onclick="isGood(this,id)">2</span>
+					<span class="scan fr">18</span>
+				</div>
+			</div>
+		</div>
+		<div class="loading hidden">
+			<div class="typing_loader"></div>
+		</div>
+		<div class="tip"></div>
+	</div>
+</div>
 {/block}
 
 {block name="script"}
+<script src="/static/swiper/swiper-3.3.1.jquery.min.js"></script>
+<script>
+$(function(){
+	//轮播
+	var mySwiper = new Swiper('.swiper-container', {
+		autoplay: 3000,
+		loop:true,
+		autoplayDisableOnInteraction:false
+	});
+	//tab值记录
+	tabRecord('.tab' ,'.box');
+	//tab切换
+	tabSwitch('.tab' ,'.box');
+	//无消息
+	var box = $('.box');
+	for(var i = 0; i < box.length ;i++){
+		var len = box.eq(i).find('.list').length;
+		if(len == 0){
+			box.eq(i).find('.tip').text('');
+			box.eq(i).find('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">')
+		}else if(len >= 7){
+			box.eq(i).find('.tip').text('上拉加载更多');
+			//上拉加载评论
+			loadScroll();
+		}else{
+			box.eq(i).find('.tip').text('没有更多了');
+		}
+	}
 
+});
+function loadScroll(){
+	$(window ).off("scroll" ).on("scroll",function(){
+		var dh = $(document).height();
+		var end = $(window).height() + $(window ).scrollTop();
+		var type = $('.tab.active').index();
+		var len = $(".box" ).eq(type).find('.list').length;
+		var tip = $(".tip");
+		var loading = $('.loading');
+		if(dh == end){
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+					length:len,
+					type:type
+				},
+				beforeSend: function(XMLHttpRequest){
+					tip.hide();
+					loading.toggleClass('hidden');
+				},
+				success:function(data){
+					loading.toggleClass('hidden');
+					tip.show();
+					if(data.code == 1){
+						addLists(data,type);
+						var dataLen =data.data.length;
+						if(data.data.length == 7){
+							tip.text('上拉加载更多');
+						}
+					}else{
+						tip.text('没有更多了');
+						$(window ).off("scroll");
+					}
+				}
+			});
+		}
+	})
+}
+function addLists(data,type){
+	var html = '';
+	var lists = data.data;
+	var len = lists.length;
+	for(var i = 0; i< len;i++){
+		var list = lists[i];
+		if(type == 3){
+			html +=
+					'视频'
+		}else{
+			html +=
+				html +=
+					'<a href="/home/notice/notice/id/'+ list.id+'.html" class="list">'+
+					'<img src="/home/images/tem/5.jpg" alt="通知图片">'+
+					'<div class="lr">'+
+					'<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>'+
+					'<div class="note clear">'+
+					'<span class="time">2017-01-01</span>'+
+					'<span class="comment fr">0</span>'+
+					'<span class="scan fr">214</span>'+
+					'</div>'+
+					'</div>'+
+					'</a>';
+		}
+
+	}
+	$('.box').eq(type).find('.lists').append(html);
+}
+//视频浏览量
+function scannum(e,id){
+	//视频播放
+	$(e).parents('.list').find('.video-modal').fadeIn();
+	//
+	var scan = $(e).parents('.list').find('.scan');
+	var n = scan.text();
+	scan.text(++n);
+	$.ajax({
+		type:"post",
+		url:"",
+		data:{
+			id:id
+		},
+		success:function(data){
+
+		}
+	});
+
+}
+//视频点赞
+function isGood(e,id){
+	var n = $(e ).text();
+	$(e).toggleClass('good' ).toggleClass('good_');
+	$(e ).hasClass('good')?n--:n++;
+	$(e ).text(n);
+	$.ajax({
+		type:"post",
+		url:"{:Url('Base/like')}",
+		data:{
+			aid:id,
+		},
+		success:function(data){
+
+		}
+	})
+}
+</script>
 {/block}

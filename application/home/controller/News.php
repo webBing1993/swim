@@ -24,7 +24,13 @@ class News extends Base {
     /**
      * 主页
      */
-    public function news1(){
+    public function index(){
+		return $this->fetch();
+	}
+	/**
+	 * 详情页
+	 */
+	public function detail(){
 		return $this->fetch();
 	}
 }

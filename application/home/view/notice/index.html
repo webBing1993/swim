@@ -125,18 +125,19 @@ $(function(){
 	tabRecord('.tab' ,'.box');
 	//tab切换
 	tabSwitch('.tab' ,'.box');
-	//上拉加载
-	loadScroll();
 	//无消息
 	var box = $('.box');
 	for(var i = 0; i < box.length ;i++){
 		var len = box.eq(i).find('.list').length;
 		if(len == 0){
+			box.eq(i).find('.tip').text('');
 			box.eq(i).find('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">')
 		}else if(len >= 7){
 			box.eq(i).find('.tip').text('上拉加载更多');
 			//上拉加载评论
 			loadScroll();
+		}else{
+			box.eq(i).find('.tip').text('没有更多了');
 		}
 	}
 });
@@ -172,12 +173,11 @@ function loadScroll(){
 	$(window ).off("scroll" ).on("scroll",function(){
 		var dh = $(document).height();
 		var end = $(window).height() + $(window ).scrollTop();
-		var type = $('.box.hidden').index();
-		type = type == 0 ? 2 : 1;
-		var len = $(".box" ).eq(type-1).find('.list').length;
+		var type = $('.tab.active').index();
+		var len = $(".box" ).eq(type).find('.list').length;
 		var tip = $(".tip");
 		var loading = $('.loading');
-		console.log(type,len);
+
 		if(dh == end){
 			$.ajax({
 				type:"post",
@@ -214,7 +214,7 @@ function addLists(data,type){
 	var len = lists.length;
 	for(var i = 0; i< len;i++){
 		var list = lists[i];
-		if(type == 1){
+		if(type == 0){
 			html +=
 				'<a href="/home/notice/situation/id/'+ list.id+'.html" class="list">'+
 				'<img src="/home/images/tem/4.jpg" alt="活动图片">'+
@@ -234,17 +234,20 @@ function addLists(data,type){
 		}else{
 			html +=
 				'<a href="/home/notice/notice/id/'+ list.id+'.html" class="list">'+
-				'<div class="title limit">'+list.title+'</div>'+
-				'<div class="content limit_"> 1</div>'+
+				'<img src="/home/images/tem/5.jpg" alt="通知图片">'+
+				'<div class="lr">'+
+				'<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>'+
 				'<div class="note clear">'+
-				'<span class="dep fl limit">'+pid+'</span>'+
-				'<span class="time fr">'+list.create_time+'</span>'+
+				'<span class="time">2017-01-01</span>'+
+				'<span class="comment fr">0</span>'+
+				'<span class="scan fr">214</span>'+
+				'</div>'+
 				'</div>'+
 				'</a>';
 		}
 
 	}
-	$('.box').eq(type).append(html);
+	$('.box').eq(type).find('.lists').append(html);
 }
 </script>
 {/block}
