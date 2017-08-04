@@ -122,7 +122,7 @@ class Base extends Controller {
                 $table = "comment";
                 break;
             case 1:
-                $table = "work";
+                $table = "news";
                 break;
             case 2:
                 $table = "centraltask";
@@ -416,7 +416,7 @@ class Base extends Controller {
         }
         $data = array(
             'type' => $type,
-            'user_id' => $uid,
+            'uid' => $uid,
             'aid' => $aid,
             'table' => $table
         );
@@ -440,7 +440,7 @@ class Base extends Controller {
         $userid = session('userId');
         $map = array(
             'create_time' => ['egt',$con],
-            'user_id' => $userid,
+            'uid' => $userid,
         );
         $map1 = array(
             'create_time' => ['egt',$con],

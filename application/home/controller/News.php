@@ -25,12 +25,71 @@ class News extends Base {
      * 主页
      */
     public function index(){
+		$Model = new NewsModel;
+		$userid = session('userId');
+		$tops = $Model->getThreeTop();
+		$this->assign('tops',$tops);
+
+		$news = $Model->getNews();
+		$this->assign('news',$news);
+
+		$wiki = $Model->getWiki();
+		$this->assign('wiki',$wiki);
+		
+		$videos = $Model->getVideo($userid);
+		$this->assign('videos',$videos);
+
 		return $this->fetch();
 	}
+	
 	/**
 	 * 详情页
 	 */
 	public function detail(){
+		$this->anonymous();
+		$this->jssdk();
+
+		$id = input('id');
+		$userId = session('userId');
+		//浏览加一
+		$info['views'] = array('exp','`views`+1');
+		NewsModel::where('id',$id)->update($info);
+
+		if($userId != "visitor"){
+			//浏览不存在则存入pb_browse表
+			$this->browser(1,$userId,$id);
+		}
+		//详细信息
+		$info = NewsModel::get($id);
+		//分享图片及链接及描述
+		$image = Picture::where('id',$info['front_cover'])->find();
+		$info['share_image'] = "http://".$_SERVER['SERVER_NAME'].$image['path'];
+		$info['link'] = "http://".$_SERVER['SERVER_NAME'].$_SERVER['REDIRECT_URL'];
+		$info['desc'] = str_replace('&nbsp;','',strip_tags($info['content']));
+
+		//获取 文章点赞
+		$likeModel = new Like();
+		$like = $likeModel->getLike(1,$id,$userId);
+		$info['is_like'] = $like;
+		$this->assign('detail',$info);
+		//获取 评论
+		$commentModel = new Comment();
+		$comment = $commentModel->getComment(1,$id,$userId);
+		$this->assign('comment',$comment);
 		return $this->fetch();
+	}
+
+	/**
+	 * 获取更多数据
+	 */
+	public function listMore(){
+		$data = input('post.');
+		$Model = new NewsModel();
+		$list = $Model->getMoreList($data);
+		if($list){
+			return $this->success("加载成功",'',$list);
+		}else{
+			return $this->error("加载失败");
+		}
 	}
 }

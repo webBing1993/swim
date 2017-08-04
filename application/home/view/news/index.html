@@ -21,40 +21,32 @@
 		<div class="banners ">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
+					{volist name="tops" id="to"}
 					<div class="banner swiper-slide">
-						<a href="">
-							<img src="/home/images/tem/1.jpg" alt="">
-							<div class="title limit">监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
+						<a href="{:Url('News/detail?id='.$to['id'])}">
+							<img src="{$to.front_cover|get_cover='path'}" alt="">
+							<div class="title limit">{$to.title}</div>
 						</a>
 					</div>
-					<div class="banner swiper-slide">
-						<a href="">
-							<img src="/home/images/tem/2.jpg" alt="">
-							<div class="title limit">2监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
-						</a>
-					</div>
-					<div class="banner swiper-slide">
-						<a href="">
-							<img src="/home/images/tem/3.jpg" alt="">
-							<div class="title limit">3监考老师大录数据阿斯达说多阿萨德收到返回了盛大开放谁拉的话</div>
-						</a>
-					</div>
+					{/volist}
 				</div>
 			</div>
 		</div>
 		<!--列表-->
 		<div class="lists">
-			<a href="detail.html" class="list">
-				<img src="/home/images/tem/5.jpg" alt="新闻动态图片">
+			{volist name="news" id="ne"}
+			<a href="{:Url('News/detail?id='.$ne['id'])}" class="list">
+				<img src="{$ne.front_cover|get_cover='path'}" alt="新闻动态图片">
 				<div class="lr">
-					<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>
+					<div class="title limit">{$ne.title}</div>
 					<div class="note clear">
-						<span class="time">2017-01-01</span>
-						<span class="comment fr">0</span>
-						<span class="scan fr">214</span>
+						<span class="time">{$ne.create_time|time_format='Y-m-d'}</span>
+						<span class="comment fr">{$ne.comments}</span>
+						<span class="scan fr">{$ne.views}</span>
 					</div>
 				</div>
 			</a>
+			{/volist}
 		</div>
 		<div class="loading hidden">
 			<div class="typing_loader"></div>
@@ -65,17 +57,19 @@
 	<div class="box hidden">
 		<!--列表-->
 		<div class="lists">
-			<a href="detail.html" class="list">
-				<img src="/home/images/tem/5.jpg" alt="游泳百科图片">
+			{volist name="wiki" id="wi"}
+			<a href="{:Url('News/detail?id='.$wi['id'])}" class="list">
+				<img src="{$wi.front_cover|get_cover='path'}" alt="游泳百科图片">
 				<div class="lr">
-					<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>
+					<div class="title limit">{$wi.title}</div>
 					<div class="note clear">
-						<span class="time">2017-01-01</span>
-						<span class="comment fr">0</span>
-						<span class="scan fr">214</span>
+						<span class="time">{$wi.create_time|time_format='Y-m-d'}</span>
+						<span class="comment fr">{$wi.comments}</span>
+						<span class="scan fr">{$wi.views}</span>
 					</div>
 				</div>
 			</a>
+			{/volist}
 		</div>
 		<div class="loading hidden">
 			<div class="typing_loader"></div>
@@ -86,23 +80,29 @@
 	<div class="box hidden">
 		<!--列表-->
 		<div class="lists">
+			{volist name="videos" id="vo"}
 			<div class="list">
-				<div class="title limit">好噶数据库的gas考虑到和索拉卡粉红色拉的花费啦dfdasfdsafdasf</div>
+				<div class="title limit">{$vo.title}</div>
 				<div class="video">
 					<div class="video-modal">
 						<video loop controls >
-							<source src="/home/images/tem/1.mp4">
+							<source src="{$vo.content}">
 						</video>
 					</div>
-					<img src="/home/images/tem/5.jpg" alt="视频第一帧" class="first">
-					<img src="/home/images/common/play.jpg" alt="播放" class="play" onclick="scannum(this, 'id')">
+					<img src="{$vo.front_cover|get_cover='path'}" alt="视频第一帧" class="first">
+					<img src="/home/images/common/play.jpg" alt="播放" class="play" onclick="scannum(this,{$vo.id})">
 				</div>
 				<div class="note clear">
-					<span class="time">2017-01-01</span>
-					<span class="isgood good fr" onclick="isGood(this,id)">2</span>
-					<span class="scan fr">18</span>
+					<span class="time">{$vo.create_time|time_format='Y-m-d'}</span>
+					{eq name="$vo.is_like" value="0"}
+					<span class="isgood good fr" onclick="isGood(this,{$vo.id})">{$vo.likes}</span>
+					{else/}
+					<span class="isgood good_ fr" onclick="isGood(this,{$vo.id})">{$vo.likes}</span>
+					{/eq}
+					<span class="scan fr">{$vo.views}</span>
 				</div>
 			</div>
+			{/volist}
 		</div>
 		<div class="loading hidden">
 			<div class="typing_loader"></div>
@@ -154,7 +154,7 @@ function loadScroll(){
 		if(dh == end){
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('News/listMore')}",
 				data:{
 					length:len,
 					type:type
@@ -240,6 +240,7 @@ function isGood(e,id){
 		url:"{:Url('Base/like')}",
 		data:{
 			aid:id,
+			type:1,
 		},
 		success:function(data){
 
