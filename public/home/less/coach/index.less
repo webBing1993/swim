@@ -1,0 +1,261 @@
+@import "../common/common";
+//animate
+
+//layout
+.tabs{
+	position: fixed;
+	bottom: 0;
+	left:0;
+	width: 100vw;
+	height: 14vw;
+	background: #f7f7f7;
+	box-shadow: 0 -3px 4px rgba(110, 110, 110, 0.2);
+	.tab{
+		display: inline-block;
+		width: 32.4vw;
+		height: 100%;
+		.font(#feba57,1.2rem,1.5vw);
+		text-align: center;
+		&:nth-child(1){
+			background: url('/home/images/coach/tab1.png') 12vw 1.5vw no-repeat;
+		}
+		&:nth-child(2){
+			background: url('/home/images/coach/tab2.png') 12vw 1.5vw no-repeat;
+		}
+		&:nth-child(3){
+			background: url('/home/images/coach/tab3.png') 12vw 1.2vw no-repeat;
+		}
+		&:nth-child(1).active{
+			background: url('/home/images/coach/tab1_.png') 12vw 1vw no-repeat;
+		}
+		&:nth-child(2).active{
+			background: url('/home/images/coach/tab2_.png') 12vw 1vw no-repeat;
+		}
+		&:nth-child(3).active{
+			background: url('/home/images/coach/tab3_.png') 12vw 1vw no-repeat;
+		}
+		&:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(1).active,&:nth-child(2).active,&:nth-child(3).active{
+			background-size: 8vw 8vw;
+			padding-top: 10vw;
+		}
+		&:nth-child(1).active,&:nth-child(2).active,&:nth-child(3).active{
+			background-size: 8vw 8vw;
+			padding-top: 10vw;
+		}
+	}
+	.active{
+		color: #f99402;
+	}
+}
+.boxs{
+	position: relative;
+	top:0;
+	left:0;
+	width: 100vw;
+	min-height: 64vw;
+	.box{
+		position: absolute;
+		top: 0;
+		width: 99vw;
+		.banner{
+			position: relative;
+			.wh(100vw,50vw);
+			.banner-img{
+				.wh(100vw,50vw);
+			}
+			.user{
+				position: absolute;
+				top:17vw;
+				left:42vw;
+				.wh(16vw,16vw);
+				-webkit-border-radius:50%;
+				-moz-border-radius:50%;
+				border-radius:50%;
+			}
+			.up{
+				display: inline-block;
+				overflow: hidden;
+				border: 2px solid #ffffff;
+				box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.31);
+				background: url("/home/images/common/default.png") center no-repeat;
+				background-size:16rem 16rem;
+			}
+			#upload{
+				//z-index: 4;
+				//display: inline-block;
+				//position: absolute;
+				//top:16vw;
+				//left:41vw;
+				//.wh(18vw,18vw);
+			}
+		}
+		&:nth-child(1){
+			left: 0;
+			.content{
+				position: relative;
+				width: 100vw;
+				.tags{
+					z-index: 3;
+					position: absolute;
+					right: 0;
+					top:10vh;
+					.tag{
+						.wh(8vw,24vw);
+						margin-left: 2vw;
+						background: rgba(249, 147, 0, 0.50);
+						.font(#ffffff,1.4rem,8vw);
+						text-align: center;
+						writing-mode:tb-rl;
+						letter-spacing: 1vw;
+						line-height: 8vw;
+						&:nth-child(1){
+							-webkit-border-radius: 1vw 0 0 0 ;
+							-moz-border-radius:  1vw 0 0 0 ;
+							border-radius: 1vw 0 0 0 ;
+						}
+						&:nth-child(2){
+							-webkit-border-radius: 0 0 0 1vw ;
+							-moz-border-radius: 0 0 0 1vw;
+							border-radius: 0 0 0 1vw;
+						}
+						&.active{
+							margin-left: 0;
+							.wh(10vw,27vw);
+							line-height: 10vw;
+							-webkit-border-radius: 1.5vw 0 0 1.5vw ;
+							-moz-border-radius: 1.5vw 0 0 1.5vw;
+							border-radius: 1.5vw 0 0 1.5vw;
+						}
+						&:nth-child(1).active{
+							background: -moz-linear-gradient(top, #feba57, #f99300);
+							background: -webkit-gradient(linear, left top, left bottom, #feba57, #f99300);
+							background: -webkit-linear-gradient(top, #feba57,#f99300);
+							background: -o-linear-gradient(top, #feba57,#f99300);
+							background: -ms-linear-gradient(top, #feba57,#f99300);
+							background: linear-gradient(to bottom,#feba57,#f99300);
+							box-shadow: -1px 4px 5px rgba(249, 147, 0, 0.4);
+						}
+						&:nth-child(2).active{
+							margin-left: 0;
+							background: -moz-linear-gradient(top, #f99300,#feba57 );
+							background: -webkit-gradient(linear, left top, left bottom, #f99300, #feba57);
+							background: -webkit-linear-gradient(top, #f99300,#feba57);
+							background: -o-linear-gradient(top, #f99300,#feba57);
+							background: -ms-linear-gradient(top, #f99300,#feba57);
+							background: linear-gradient(to bottom,#f99300,#feba57);
+							box-shadow: -1px -4px 5px rgba(249, 147, 0, 0.4);
+						}
+					}
+				}
+				.lists{
+					.list{
+						display: block;
+						padding: 4vw;
+						background: #ffffff;
+						.wh(100vw,29vw);
+						margin-bottom: 2vw;
+						.ll{
+							position: relative;
+							top:0;
+							display: inline-block;
+							.wh(21vw,21vw);
+							.user{
+								.wh(21vw,21vw);
+								-webkit-border-radius:1.2vw;
+								-moz-border-radius:1.2vw;
+								border-radius:1.2vw;
+							}
+							.sex{
+								position: absolute;
+								.wh(6vw,6vw);
+								right: 0;
+								bottom: 0;
+							}
+						}
+						.lr{
+							display: inline-block;
+							.wh(66vw,21vw);
+							.font(@c_note,@s_note,6vw);
+							.top{
+								span{
+									display: inline-block;
+								}
+								.name{
+									max-width: 40vw;
+									.font(@c_title,@s_title,7.5vw);
+									font-weight: 600;
+									margin-right: 2vw;
+								}
+								.age{
+									width: 10vw;
+									line-height: 8vw;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&:nth-child(2){
+			left: 100vw;
+			.mylist{
+				.list{
+					display: block;
+					padding: 0 4vw;
+					.wh(100vw,4.4rem);
+					.font(@c_content,1.4rem,4.4rem);
+					border-bottom: 1px solid #dedede;
+					img{
+						.wh(2rem,2rem);
+						margin-top: 1.2rem;
+						margin-right: 3vw;
+					}
+				}
+			}
+		}
+		&:nth-child(3){
+			left: 200vw;
+			.mylist{
+				.list{
+					display: block;
+					padding: 0 4vw;
+					.wh(100vw,4.4rem);
+					.font(@c_content,1.4rem,4.4rem);
+					border-bottom: 1px solid #dedede;
+					span{
+						display: inline-block;
+						width: 45vw;
+						&.name{
+							position: relative;
+							padding-left: 4rem;
+						}
+						&.fa{
+							color: @c_note;
+							font-size: 1.8rem;
+							text-align: right;
+						}
+					}
+					&:nth-child(1) .name:after,&:nth-child(2) .name:after,&:nth-child(3) .name:after{
+						position: absolute;
+						left: 0;
+						top:0.7rem;
+						content: '';
+						.wh(3rem,3rem);
+					}
+					&:nth-child(1) .name:after{
+						background: url('/home/images/common/note.png') 0 0 no-repeat;
+						background-size: 3rem,3rem;
+					}
+					&:nth-child(2) .name:after{
+						background: url('/home/images/common/note.png') 0 0 no-repeat;
+						background-size: 3rem,3rem;
+					}
+					&:nth-child(3) .name:after{
+						background: url('/home/images/common/note.png') 0 0 no-repeat;
+						background-size: 3rem,3rem;
+					}
+				}
+			}
+		}
+	}
+}

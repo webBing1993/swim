@@ -5,9 +5,9 @@
 function tabSwitch(a,b,fn,url){
 	$(a).off('click').on('click',function(){
 		var this_ = this ;
-		var box = $(b ).parent();
+		var box = $(b).parent();
 		var index = $(this_ ).index();
-		var ww = $(b ).parent().width();
+		var ww = $(b).parent().width();
 		$(this_ ).addClass('active' );
 		$(this_ ).siblings(a).removeClass('active');
 		$(b).removeClass('hidden');
