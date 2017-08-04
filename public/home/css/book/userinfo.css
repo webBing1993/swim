@@ -1,0 +1,61 @@
+body{
+	background: #f0eff5;
+}
+.header{
+	margin:2.667vw 0;
+	padding:2.667vw 4vw;
+	background: #ffffff;
+}
+.head_img{
+	width: 19.733vw;
+	height:19.733vw;
+	margin-right: 5.33vw;
+}
+.head_info .name{
+	color: #333;
+	font-size: 1.7rem;
+}
+.head_info li{
+	width:66vw;
+
+}
+.head_info .sex{
+	padding:2vw;
+	margin-left: 5px;
+}
+.head_info .sex.boy{
+	background: url("/home/images/book/pb.png") 50% 43% no-repeat;
+	background-size: 4vw 4vw;
+}
+.head_info .sex.girl{
+	background: url("/home/images/book/pg.png") 50% 43% no-repeat;
+	background-size: 4vw 4vw;
+}
+.head_info li:not(:first-child){
+	color: #999;
+	font-size: 1.4rem;
+	margin-top: 1.33vw;
+}
+.main>li{
+	box-sizing: border-box;
+	padding:2.667vw 4vw;
+	border-bottom: 1px solid #f1f1f1;
+	background: #ffffff;
+}
+.main>li>span{
+	display:inline-block;
+	width: 30vw;
+}
+.main>li>span:first-child{
+	color: #333;
+	font-size: 1.5rem;
+	/*margin-right: 26.67vw;*/
+}
+.main>li>span:last-child{
+	color: #999;
+	font-size: 1.4rem;
+}
+.main>li a{
+	font-size: 1.4rem;
+	color: #5d9cec;
+}

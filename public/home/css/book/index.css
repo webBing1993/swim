@@ -1,0 +1,198 @@
+body{
+	background: #ffffff;
+}
+.search{
+	background: #f0eff5;
+	padding:2.133vw 4vw;
+	border-bottom: 1px solid #f0eff5;
+}
+.search>.searchBox{
+	border-radius: 5px;
+	height:7.466vw;
+	background: #ffffff;
+	text-align: center;
+
+}
+.search>.unBtn{
+	display: none;
+}
+.search>.searchBox>.searchInput{
+	display: none;
+}
+.search>.searchBox>.searchText{
+	display: inline-block;
+	font-size:1.4rem;
+	color: #999;
+	padding-left:6.4vw;
+	min-width: 1px;
+	line-height: 7.46vw;
+	height:7.46vw;
+	background: url("/home/images/book/search.png") 0 50% no-repeat;
+	background-size: 4.8vw 4.8vw;
+}
+.search.isClick{
+	background: #ffffff;
+	border-bottom: 1px solid #f1f1f1;
+	display: flex;
+}
+.search.isClick>.searchBox{
+	background: #f0eff5;
+	padding-left: 2.66vw;
+	width:74vw;
+	display: flex;
+	align-items: center;
+}
+.search.isClick>.searchBox>.searchText{
+	display: inline-block;
+}
+.search.isClick>.searchBox>.searchText>.searchText_c{
+	display: none;
+}
+.search.isClick .searchInput{
+	background: #f0eff5;
+	display: inline-block;
+	height:6.4vw;
+	width:61.33vw;
+}
+.search.isClick>.unBtn{
+	margin-left: 5.33vw;
+	display: block;
+	box-sizing: border-box;
+	width:13.33vw;
+	height:7.46vw;
+	border-radius: 5px;
+	border:1px solid #5d9cec;
+	color: #5d9cec;
+	text-align: center;
+	line-height: 6.93vw;
+	font-size: 1.4rem;
+}
+.main>.nav{
+	padding:0 4vw;
+}
+.main>.nav>li{
+	float: left;
+	line-height: 14.4vw;
+	height:14.4vw;
+}
+.main>.nav>li:first-child{
+	color:#5d9cec;
+	font-size: 1.7rem;
+}
+
+.main .lists{
+	width:100%;
+}
+.main .lists>li{
+	box-sizing: border-box;
+	font-size: 1.4rem;
+	color: #666;
+}
+.main .lists .list_header{
+	height:14.4vw;
+	line-height: 14.4vw;
+	box-sizing: border-box;
+	border-bottom: 1px solid #f1f1f1;
+	color: #666;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding:0 4vw;
+}
+.main .lists .list_header.type1>span:first-child{
+	width:90vw;
+	height:100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.main .lists .list_header.type2{
+	padding-left:12vw;
+}
+.main .lists .list_header.type2>span:first-child{
+	width:70vw;
+}
+.list_header>.fr{
+	width:13.33vw;
+	height:100%;
+	text-align: left;
+	margin-right: 4vw;
+	color: #999;
+}
+.list_header>span:first-child{
+	height:100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.list_header>.fr.rt_icon{
+	background: url("/home/images/book/right.png") right center no-repeat;
+	background-size: 1.6vw 3.2vw;
+}
+
+.hidden{
+	display: none;
+}
+
+
+
+
+.result_box>li{
+	box-sizing: border-box;
+	font-size: 1.4rem;
+	color: #666;
+}
+.result_box a{
+	padding-left: 4vw;
+	display: flex;
+	align-items: center;
+	height:14.4vw;
+	font-size: 1.4rem;
+	color: #333;
+	line-height: 14.4vw;
+	box-sizing: border-box;
+	justify-content: space-between;
+}
+.result_box a img{
+	width:8vw;
+	height:8vw;
+	margin-right: 5.33vw;
+}
+.result_box a div{
+	border-bottom: 1px solid #f1f1f1;
+	width:82.66vw;
+}
+.result_box a .fr{
+	box-sizing: border-box;
+	width:13.33vw;
+	height:14.4vw;
+	text-align: right;
+	margin-right: 4vw;
+	color: #999;
+	background: url("/home/images/book/right.png") right center no-repeat;
+	background-size: 1.6vw 3.2vw;
+}
+
+
+.onloading{
+	line-height: 2;
+	text-align: center;
+	font-size: 1.5rem;
+	color: #333;
+}
+.dps{
+	display: none;
+}
+.dps .dp{
+	display: block;
+	width: 100vw;
+	height: 14vw;
+	padding: 0 16vw;
+	line-height: 14vw;
+	border-bottom: 1px solid #f1f1f1;
+	color: #999;;
+}
+.type2 .fr{
+	text-align: right;
+	line-height: 14.4vw;
+}
