@@ -71,6 +71,10 @@ class News extends Base {
 		$likeModel = new Like();
 		$like = $likeModel->getLike(1,$id,$userId);
 		$info['is_like'] = $like;
+		//获取 收藏
+		$collectModel = new Collect();
+		$collect = $collectModel->getCollect(1,$id,$userId);
+		$info['is_collect'] = $collect;
 		$this->assign('detail',$info);
 		//获取 评论
 		$commentModel = new Comment();

@@ -142,6 +142,7 @@ class Notice extends Admin {
             }
         }else {
             $this->default_pic();
+            $this->assign('msg','');
             return $this->fetch("activityedit");
         }
     }

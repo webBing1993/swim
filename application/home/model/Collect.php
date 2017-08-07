@@ -15,21 +15,17 @@ class Collect extends Model {
     protected $insert = [
         'status' => 0,
         'create_time' => NOW_TIME,
+        'score' => 1,
     ];
 
-    //关联查询新闻
-    public function news(){
-        return $this->hasOne('News','id','news_id');
+    public function getCollect($type,$aid,$uid) {
+        $map = array(
+            'type' => $type,
+            'aid' => $aid,
+            'uid' => $uid,
+        );
+        $like = $this->where($map)->find();
+        ($like) ? $res = 1 : $res = 0;
+        return $res;
     }
-
-    //关联查询通知
-    public function notice(){
-        return $this->hasOne('Notice','id','notice_id');
-    }
-
-    //查询课程
-    public function learn(){
-        return $this->hasOne('Learn','id','learn_id');
-    }
-
 }

@@ -24,7 +24,7 @@ class Like extends Model {
             'aid' => $aid,
             'uid' => $uid,
         );
-        $like = Like::where($map)->find();
+        $like = $this->where($map)->find();
         ($like) ? $res = 1 : $res = 0;
         return $res;
     }

@@ -7,47 +7,60 @@
 {block name="body"}
 <div class="scrollDiy">
 	<div class="article">
-		<div class="title limit_">暗室逢灯第三发电撒地方的萨芬萨达撒地方大师傅</div>
-		<div class="note">李四/2012-01-01</div>
+		<div class="title limit_">{$detail.title}</div>
+		<div class="note">{$detail.publisher}/{$detail.create_time|time_format='Y-m-d'}</div>
 		<div class="content">
-			<div class="ue">afjpdsajfsdajfl;asdf</div>
+			<div class="ue">{$detail.content}</div>
 			<div class="note">
-				<span class="read">2</span>
-				<!--good、good_-->
-				<span class="isgood good" onclick="isGood(this,1,'id')">111</span>
+				<span class="read">{$detail.views}</span>
+				{eq name="visit" value="0"}
+				{eq name="detail.is_like" value="1"}
+				<span class="isgood good_" onclick="isGood(this,2,{$detail.id})">{$detail.likes}</span>
+				{else/}
+				<span class="isgood good" onclick="isGood(this,2,{$detail.id})">{$detail.likes}</span>
+				{/eq}
+				{/eq}
 			</div>
 		</div>
 	</div>
 	<div class="comment">
-		<div class="sum">共<span>111</span>条评论</div>
+		<div class="sum">共<span>{$detail.comments}</span>条评论</div>
 		<div class="lists">
+			{volist name="comment" id="co"}
 			<div class="list clear">
 				<div class="fl">
-					<img src="/home/images/tem/5.jpg" alt="用户" class="user">
+					<img src="{$co.header}" alt="用户" class="user">
 				</div>
 				<div class="fl mid">
-					<div class="name limit">xiaosan}</div>
-					<div class="content" >你好</div>
-					<div class="time">2012-01-01</div>
+					<div class="name limit">{$co.nickname}</div>
+					<div class="content" >{$co.content}</div>
+					<div class="time">{$co.create_time|time_format="Y-m-d"}</div>
 				</div>
-				<!--good、good_-->
-				<div class="fr isgood good_" onclick="isGood(this,0,'id')">11</div>
-
+				{eq name="visit" value="0"}
+				{eq name="co.is_like" value="1"}
+				<div class="fr isgood good_" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>
+				{else/}
+				<div class="fr isgood good" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>
+				{/eq}
+				{/eq}
+			</div>
+			{/volist}
 		</div>
-		<div class="tip"></div>
-		<div class="loading hidden">
-			<div class="typing_loader"></div>
-		</div>
-	</div>
 </div>
 </div>
+{eq name="visit" value="0"}
 <div class="bottom clear">
-	<div class="collect star fl" onclick="isCollect(this,'id')"></div>
+	{eq name="detail.is_collect" value="1"}
+	<div class="collect star_ fl" onclick="isCollect(this,2,{$detail.id})"></div>
+	{else/}
+	<div class="collect star fl" onclick="isCollect(this,2,{$detail.id})"></div>
+	{/eq}
 	<div class="myword fl">
 		<input type="text" placeholder="说说你的感想！">
 	</div>
-	<div class="send fr" onclick="send(this,1,'id')">发送</div>
+	<div class="send fr" onclick="send(this,2,{$detail.id})">发送</div>
 </div>
+{/eq}
 {/block}
 
 {block name="script"}
@@ -66,12 +79,13 @@ $(function(){
 	ueLimit();
 });
 //收藏
-function isCollect(e,id){
+function isCollect(e,type,id){
 	$(e).toggleClass('star' ).toggleClass('star_');
 	$.ajax({
 		type:"post",
 		url:"{:Url('Base/collect')}",
 		data:{
+			type:type,
 			aid:id,
 		},
 		success:function(data){
