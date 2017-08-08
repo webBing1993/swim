@@ -12,6 +12,7 @@ use app\home\model\Collect;
 use app\home\model\Comment;
 use app\home\model\Like;
 use app\home\model\Notice as NoticeModel;
+use app\home\model\NoticeEnroll;
 use app\home\model\Picture;
 use think\Db;
 
@@ -25,16 +26,49 @@ class Notice extends Base {
      */
 	public function index(){
 		$Model = new NoticeModel();
+		//活动轮播
 		$topActivity = $Model->getThreeActivity();
 		$this->assign('top_activity',$topActivity);
-		$Activity = $Model->getActivity();
+		//新闻
+		$userid = session('userId');
+		$Activity = $Model->getActivity($userid);
 		$this->assign('activity',$Activity);
+		//通知轮播
 		$topNote = $Model->getThreeNote();
 		$this->assign('top_note',$topNote);
+		//通知
 		$Note = $Model->getNotes();
 		$this->assign('note',$Note);
+
+		$this->assign('userid',$userid);
 		return $this->fetch();
 	}
+
+	/**
+	 * 报名
+	 */
+	public function enroll() {
+		$id = input('id');
+		$data = array(
+			'userid' => session('userId'),
+			'notice_id' => $id,
+			'status' => 1,
+		);
+		$Model = new NoticeEnroll();
+		$msg = $Model->where($data)->find();
+		if(empty($msg)) {
+			$res = $Model->create($data);
+			if($res) {
+				NoticeModel::where('id',$id)->setInc("enrollnum");
+				return $this->success("报名成功");
+			}else {
+				return $this->error("报名失败");
+			}
+		}else {
+			return $this->error("已存在报名信息");
+		}
+	}
+
 	/**
 	 * 详情页
 	 */

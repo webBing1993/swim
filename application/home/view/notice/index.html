@@ -41,10 +41,12 @@
 				<div class="scan">{$act.views}</div>
 				<div class="num">{$act.enrollnum}/{$act.people}</div>
 				<!--四种状态-->
-				<span class="enter" onclick="enter('userid','id',this)">报名</span>
-				<!--<span class="stop">已截止</span>-->
-				<!--<span class="stop">已报名</span>-->
-				<!--<span class="stop">已满</span>-->
+				{switch name="$act.is_enroll"}
+				{case value="0"}<span class="enter" onclick="enter(this,{$act.id})">报名</span>{/case}
+				{case value="1"}<span class="stop">已报名</span>{/case}
+				{case value="2"}<span class="stop">已截止</span>{/case}
+				{case value="3"}<span class="stop">已满</span>{/case}
+				{/switch}
 			</a>
 			{/volist}
 		</div>
@@ -128,12 +130,11 @@ $(function(){
 function  enter(userid,id){
 	var this_ = self;
 	var data = {
-		'userid':userid,
 		'id':id
 	};
 	$.ajax({
 		type:"post",
-		url:"",
+		url:"{:Url('Notice/enroll')}",
 		data:data,
 		success:function(data){
 			if(data.code == 1){
@@ -161,6 +162,7 @@ function loadScroll(){
 		var len = $(".box" ).eq(type).find('.list').length;
 		var tip = $(".tip");
 		var loading = $('.loading');
+		var userid = {$userid};
 
 		if(dh == end){
 			$.ajax({
@@ -168,7 +170,8 @@ function loadScroll(){
 				url:"{:Url('Notice/listMore')}",
 				data:{
 					length:len,
-					type:type
+					type:type,
+					userid:userid,
 				},
 				beforeSend: function(XMLHttpRequest){
 					tip.hide();

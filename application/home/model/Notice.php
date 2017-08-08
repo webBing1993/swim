@@ -29,13 +29,35 @@ class Notice extends Model {
     /**
      * 获取活动详情
      */
-    public function getActivity() {
+    public function getActivity($userid) {
         $map = array(
             'status' => 1,
             'type' => 2
         );
         $order = array("create_time desc");
         $res = $this->where($map)->order($order)->limit(7)->select();
+        foreach ($res as $value) {
+            //1已报名 2已截止 3已满
+            if($value['start_time'] > time()) {
+                $value['is_enroll'] = 2;
+            }else {
+                if($value['enrollnum'] == $value['people']) {
+                    $value['is_enroll'] = 3;
+                }else {
+                    $data = array(
+                        'notice_id' => $value['id'],
+                        'userid' => $userid,
+                        'status' => 1
+                    );
+                    $msg = NoticeEnroll::where($data)->find();
+                    if($msg) {
+                        $value['is_enroll'] = 1;
+                    }else {
+                        $value['is_enroll'] = 0;
+                    }
+                }
+            }
+        }
         return $res;
     }
 
@@ -80,6 +102,28 @@ class Notice extends Model {
             $img = Picture::get($value['front_cover']);
             $value['src'] = $img['path'];
             $value['time'] = date("Y-m-d",$value['create_time']);
+            if($data['type'] == 2) {
+                //1已报名 2已截止 3已满
+                if($value['start_time'] > time()) {
+                    $value['is_enroll'] = 2;
+                }else {
+                    if($value['enrollnum'] == $value['people']) {
+                        $value['is_enroll'] = 3;
+                    }else {
+                        $data = array(
+                            'notice_id' => $value['id'],
+                            'userid' => $data['userid'],
+                            'status' => 1
+                        );
+                        $msg = NoticeEnroll::where($data)->find();
+                        if($msg) {
+                            $value['is_enroll'] = 1;
+                        }else {
+                            $value['is_enroll'] = 0;
+                        }
+                    }
+                }
+            }
         }
         return $list;
     }

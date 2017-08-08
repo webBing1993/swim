@@ -194,13 +194,13 @@ function addLists(data,type){
 			html +=
 				html +=
 					'<a href="/home/notice/notice/id/'+ list.id+'.html" class="list">'+
-					'<img src="/home/images/tem/5.jpg" alt="通知图片">'+
+					'<img src="'+list.path+'" alt="通知图片">'+
 					'<div class="lr">'+
-					'<div class="title limit">撒地方的萨芬货收到了发送底栏是电风扇的</div>'+
+					'<div class="title limit">'+list.title+'</div>'+
 					'<div class="note clear">'+
-					'<span class="time">2017-01-01</span>'+
-					'<span class="comment fr">0</span>'+
-					'<span class="scan fr">214</span>'+
+					'<span class="time">'+list.time+'</span>'+
+					'<span class="comment fr">'+list.comments+'</span>'+
+					'<span class="scan fr">'+list.views+'</span>'+
 					'</div>'+
 					'</div>'+
 					'</a>';
@@ -219,7 +219,7 @@ function scannum(e,id){
 	scan.text(++n);
 	$.ajax({
 		type:"post",
-		url:"",
+		url:"{:Url('News/video')}",
 		data:{
 			id:id
 		},

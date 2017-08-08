@@ -41,6 +41,21 @@ class News extends Base {
 
 		return $this->fetch();
 	}
+
+	/**
+	 * 视频点击
+	 */
+	public function video() {
+		$map = array(
+			'id' => input('id')
+		);
+		$res = NewsModel::where($map)->setInc('views');
+		if($res) {
+			return $this->success("播放成功");
+		}else {
+			return $this->error("播放失败");
+		}
+	}
 	
 	/**
 	 * 详情页
