@@ -19,3 +19,379 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #d9d9d9;
 }
+body {
+  background: #ffffff;
+}
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 40vw;
+  background: url("/home/images/coach/banner.png");
+  background-size: 100vw 40vw;
+}
+.banner .user {
+  position: absolute;
+  top: 6vw;
+  left: 4vw;
+  width: 60vw;
+  height: 16vw;
+}
+.banner .user .sex {
+  display: inline-block;
+  width: 16vw;
+  height: 16vw;
+  margin-right: 1vw;
+  position: relative;
+}
+.banner .user .sex.male:after {
+  position: absolute;
+  right: 1vw;
+  bottom: 1vw;
+  content: '';
+  width: 5vw;
+  height: 5vw;
+  background: url("/home/images/coach/male1.png") no-repeat;
+  background-size: 5vw 5vw;
+}
+.banner .user .sex.female:after {
+  position: absolute;
+  right: 1vw;
+  bottom: 1vw;
+  content: '';
+  width: 5vw;
+  height: 5vw;
+  background: url("/home/images/coach/female1.png") no-repeat;
+  background-size: 5vw 5vw;
+}
+.banner .user .sex img {
+  overflow: hidden;
+  width: 15vw;
+  height: 15vw;
+  border: 2px solid #ffffff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner .user .msgs {
+  display: inline-block;
+  width: 42vw;
+  height: 16vw;
+  color: #ffffff;
+}
+.banner .user .msgs .name {
+  width: 100%;
+  font-size: 1.5rem;
+  line-height: 9vw;
+}
+.banner .user .msgs .note {
+  font-size: 1.2rem;
+}
+.banner .todetail {
+  position: absolute;
+  top: 10vw;
+  right: 0;
+  width: 25vw;
+  height: 8vw;
+  background: rgba(255, 255, 255, 0.9);
+  color: #feba57;
+  font-size: 2.7vw;
+  line-height: 8vw;
+  -webkit-border-radius: 4vw 0 0 4vw;
+  -moz-border-radius: 4vw 0 0 4vw;
+  border-radius: 4vw 0 0 4vw;
+}
+.banner .todetail span {
+  position: relative;
+}
+.banner .todetail span:after {
+  position: absolute;
+  right: -6vw;
+  content: '';
+  width: 4.8vw;
+  height: 2.7vw;
+  background: url("/home/images/coach/right.png") no-repeat;
+  background-size: 4.8vw 2.7vw;
+}
+@media screen and (max-width: 768px) {
+  .banner .todetail {
+    padding-left: 5vw;
+  }
+  .banner .todetail span:after {
+    top: 0.5vw;
+  }
+}
+@media screen and (max-width: 375px) {
+  .banner .todetail {
+    padding-left: 4vw;
+  }
+  .banner .todetail span:after {
+    top: 1.1vw;
+  }
+}
+@media screen and (max-width: 320px) {
+  .banner .todetail {
+    padding-left: 2.5vw;
+  }
+  .banner .todetail span:after {
+    top: 1.5vw;
+  }
+}
+.banner .tag {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  width: 35vw;
+  height: 8vw;
+  color: #feba57;
+  font-size: 1.3rem;
+  line-height: 8vw;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-border-radius: 1.5vw 1.5vw 0 0;
+  -moz-border-radius: 1.5vw 1.5vw 0 0;
+  border-radius: 1.5vw 1.5vw 0 0;
+}
+.banner .tag:nth-child(1) {
+  left: 10vw;
+}
+.banner .tag:nth-child(2) {
+  right: 10vw;
+}
+#calendar {
+  width: 92vw;
+  margin: 0 auto;
+}
+#calendar .sdbox {
+  position: relative;
+  -webkit-border-radius: 0 0 1vw 1vw;
+  -moz-border-radius: 0 0 1vw 1vw;
+  border-radius: 0 0 1vw 1vw;
+  box-shadow: 0 5vw 4vw rgba(203, 203, 203, 0.5);
+}
+#calendar .sdbox:after {
+  position: absolute;
+  bottom: -6vw;
+  content: '';
+  width: 92vw;
+  height: 6vw;
+  background: url("/home/images/coach/sd.png") no-repeat;
+  background-size: 92vw 6vw;
+}
+#calendar .header {
+  width: 92vw;
+  height: 10vw;
+  text-align: right;
+  color: #666666;
+  font-size: 1.4rem;
+  line-height: 10vw;
+  letter-spacing: 0.2em;
+}
+#calendar .header .logo {
+  display: inline-block;
+  width: 6.7vw;
+  height: 6.7vw;
+  margin-top: 1.65vw;
+  background: url("/home/images/coach/cal.png") no-repeat;
+  background-size: 6.7vw 6.7vw;
+}
+#calendar .top {
+  height: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  background: url("/home/images/coach/caltop.png") no-repeat;
+  background-size: 92vw 8vw;
+  margin: 4vw 0;
+  color: #fff;
+  font-size: 1.5rem;
+  -webkit-border-radius: 1vw 1vw 0 0;
+  -moz-border-radius: 1vw 1vw 0 0;
+  border-radius: 1vw 1vw 0 0;
+}
+#calendar .title {
+  padding: 0 4vw;
+}
+#calendar .title span {
+  display: inline-block;
+  width: 12vw;
+  text-align: center;
+  color: #333333;
+  font-size: 1.3rem;
+  line-height: 6vw;
+  margin-bottom: 2vw;
+}
+#calendar .content {
+  overflow: hidden;
+  padding: 0 4vw;
+}
+#calendar .content ul li {
+  display: block;
+  float: left;
+  width: 12vw;
+  height: 10vw;
+  text-align: center;
+  transition: all 0.1s;
+}
+#calendar .content ul li span {
+  display: inline-block;
+  width: 9vw;
+  height: 9vw;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 9vw;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+#calendar .content ul li.normal span {
+  background: -moz-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -webkit-gradient(linear, left top, left bottom, #6cd8ff, #50c8ff);
+  background: -webkit-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -o-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -ms-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: linear-gradient(to right, #6cd8ff, #50c8ff);
+}
+#calendar .content ul li.late span {
+  background: -moz-linear-gradient(left, #ffba1d, #ff9806);
+  background: -webkit-gradient(linear, left top, left bottom, #ffba1d, #ff9806);
+  background: -webkit-linear-gradient(left, #ffba1d, #ff9806);
+  background: -o-linear-gradient(left, #ffba1d, #ff9806);
+  background: -ms-linear-gradient(left, #ffba1d, #ff9806);
+  background: linear-gradient(to right, #ffba1d, #ff9806);
+}
+#calendar .content ul li.absence span {
+  background: -moz-linear-gradient(left, #fe8080, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+  background: -o-linear-gradient(left, #fe8080, #ff6161);
+  background: -ms-linear-gradient(left, #fe8080, #ff6161);
+  background: linear-gradient(to right, #fe8080, #ff6161);
+}
+#calendar .content ul li.normal span,
+#calendar .content ul li.late span,
+#calendar .content ul li.absence span {
+  color: #fff;
+}
+.color {
+  text-align: center;
+  color: #999999;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .color {
+    margin-top: 8vw;
+  }
+}
+@media screen and (max-width: 375px) {
+  .color {
+    margin-top: 20vw;
+  }
+}
+@media screen and (max-width: 320px) {
+  .color {
+    margin-top: 10vw;
+  }
+}
+.color span {
+  position: relative;
+  margin-right: 4rem;
+}
+.color span.normal {
+  margin-left: 2rem;
+}
+.color span.absence {
+  margin-right: 0;
+}
+.color span.normal:after {
+  position: absolute;
+  left: -1.5rem;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  background: -moz-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -webkit-gradient(linear, left top, left bottom, #6cd8ff, #50c8ff);
+  background: -webkit-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -o-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -ms-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: linear-gradient(to right, #6cd8ff, #50c8ff);
+}
+.color span.late:after {
+  position: absolute;
+  left: -1.5rem;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  background: -moz-linear-gradient(left, #ffba1d, #ff9806);
+  background: -webkit-gradient(linear, left top, left bottom, #ffba1d, #ff9806);
+  background: -webkit-linear-gradient(left, #ffba1d, #ff9806);
+  background: -o-linear-gradient(left, #ffba1d, #ff9806);
+  background: -ms-linear-gradient(left, #ffba1d, #ff9806);
+  background: linear-gradient(to right, #ffba1d, #ff9806);
+}
+.color span.absence:after {
+  position: absolute;
+  left: -1.5rem;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  background: -moz-linear-gradient(left, #fe8080, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+  background: -o-linear-gradient(left, #fe8080, #ff6161);
+  background: -ms-linear-gradient(left, #fe8080, #ff6161);
+  background: linear-gradient(to right, #fe8080, #ff6161);
+}
+/**弹窗**/
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity .3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+.modal-body {
+  margin: 20px 0;
+}
+.modal-default-button {
+  float: right;
+}
+.modal-enter,
+.modal-leave {
+  opacity: 0;
+}
+.modal-enter .modal-container,
+.modal-leave .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
