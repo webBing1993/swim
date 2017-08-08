@@ -1,0 +1,116 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>消息审核</title>
+<link rel="stylesheet" href="/static/framework7/framework7.ios.colors.css">
+<link rel="stylesheet" href="/static/framework7/framework7.ios.css">
+<link rel="stylesheet" href="/home/css/review/review.css">
+{/block}
+
+{block name="body"}
+<div class="views">
+	<div class="list-block" id="list-block-company">
+        <div id="nomessage">
+            <img src="/home/images/common/nomessage.png" alt="无消息">
+        </div>
+		<ul>
+			<li class="swipeout">
+				<div class="swipeout-content" onclick="jump('url')">
+					<img src="" alt="封面图片">
+					<div class="list">
+						<span class="title" >adasdasd</span>
+						<span class="sent_time">
+							<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">通知</span>
+							<span>发布人：小三</span>
+							<span>2012-01-01</span>
+						</span>
+					</div>
+					<div class="arrow">
+						<img src="/home/images/review/rightArrow.png" alt="">
+					</div>
+				</div>
+				<div class="swipeout-actions-right">
+					<a class="green" onclick='dispose(this,"vo.id}",1,"vo.class}")'>通&emsp;过</a>
+					<a class="red" onclick='dispose(this,"vo.id}",-1,"vo.class}")'>不通过</a>
+				</div>
+			</li>
+
+		</ul>
+	</div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/framework7/framework7.js"></script>
+<script>
+var myApp=new Framework7;
+var $$=Dom7;
+
+$(function(){
+	check();
+});
+//没有消息显示无消息提醒
+function check(){
+	if($("ul").find("li").length == 0){
+		$('#nomessage').show();
+	}
+}
+
+//跳转新闻详情
+function jump(url){
+	parent.location.href= url;
+}
+//提交操作
+function dispose(i,id,status,type){
+	swal({
+		title: ' ',
+		text: '确认当前操作吗？',
+		type: 'warning',
+		confirmButtonText:'确定',
+		showCancelButton:true,
+		cancelButtonText:'取消'
+	}, function(isConfirm){
+		//确认之后执行函数
+		if (isConfirm) {
+			$.ajax({
+				type: "post",
+				url: "{:Url('Review/review')}",
+				data: {
+					id:id,
+					status:status,
+					class : type
+				},
+				success: function(data){
+					//成功后刷新页面
+					if(data.code == 1){
+						//未审核页面有操作,审核页面用来判断刷新
+						sessionStorage.setItem("review","true");
+						$(i).parent().parent().fadeOut(500);
+						$(i).parent().parent().remove();
+						//判断是否还有消息
+						check();
+						//swal回调里继续使用swal有时不会被触发
+						setTimeout(function(){
+							aleats('操作成功!','success');
+						},200);
+					}else{
+						setTimeout(function(){
+							aleats('操作失败!','error');
+						},200);
+					}
+				}
+			})
+		}
+	});
+}
+
+function aleats(msg,status){
+	swal({
+		title: ' ',
+		text: msg,
+		type: status,
+		confirmButtonText:'确定'
+	})
+}
+</script>
+{/block}
