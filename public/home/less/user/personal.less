@@ -1,0 +1,33 @@
+@import "../common/common";
+//layout
+.lists{
+	margin-top: 10px;
+	.list{
+		height: 50px;
+		.content(13px);
+		background: #ffffff;
+		border-top: 1px solid #f1f1f1;
+		line-height: 50px;
+		img{
+			width: 40px;
+			height: 40px;
+			margin-top: 4px;
+			border:2px solid #ffffff;
+			box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.20);
+			-webkit-border-radius:50%;
+			border-radius:50%;
+			overflow: hidden;
+		}
+		.fl{
+			color:@c_title;
+			font-size: 15px;
+		}
+		.fr{
+			color:@c_note;
+			font-size: 14px;
+		}
+	}
+	.list:last-child{
+		border-bottom: 1px solid #f1f1f1;
+	}
+}

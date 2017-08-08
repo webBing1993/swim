@@ -1,0 +1,88 @@
+@charset "utf-8";
+.t_b {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.shadow {
+  box-shadow: 1px 3px 8px rgba(102, 102, 102, 0.2);
+}
+body {
+  background: #f7f7f7;
+}
+a {
+  display: inline-block;
+}
+a:active {
+  background-color: #ebebeb;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #d9d9d9;
+}
+/*头部*/
+.banner {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50vw;
+  background: url("/home/images/tem/3.jpg");
+  background-size: 100% 100%;
+}
+.banner .user {
+  position: absolute;
+  top: 17vw;
+  left: 42vw;
+  width: 16vw;
+  height: 16vw;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.31);
+}
+.banner .up {
+  display: inline-block;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  background: url("/home/images/common/default.png") center no-repeat;
+  background-size: 16rem 16rem;
+}
+.banner .name {
+  position: absolute;
+  top: 28vw;
+  left: 0;
+  width: 100vw;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.7rem;
+}
+/*列表*/
+.lists {
+  margin-top: 10px;
+}
+.lists .list {
+  display: block;
+  width: 100%;
+  padding-left: 13px;
+  padding-right: 13px;
+  height: 50px;
+  background: #ffffff;
+  border-top: 1px solid #f1f1f1;
+  font-size: 15px;
+}
+.lists .list span {
+  display: inline-block;
+  padding-left: 35px;
+  background-size: 28px 28px;
+  color: #333333;
+  line-height: 50px;
+}
+.lists .list i {
+  color: #999999;
+  font-size: 20px;
+  line-height: 50px;
+}
+.lists .list:nth-child(1) span {
+  background: url("/home/images/user/message.png") 0 11px no-repeat;
+  background-size: 28px 28px;
+}
