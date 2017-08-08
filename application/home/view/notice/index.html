@@ -162,9 +162,8 @@ function loadScroll(){
 		var tip = $(".tip");
 		var loading = $('.loading');
 		var userid = {$userid};
+		type = type ==0 ? 2 : 1 ;
 		if(dh == end){
-			type++;
-			console.log(type);
 			$.ajax({
 				type:"post",
 				url:"{:Url('Notice/listMore')}",
@@ -181,6 +180,7 @@ function loadScroll(){
 					loading.toggleClass('hidden');
 					tip.show();
 					if(data.code == 1){
+						type = type ==1 ? 2 : 1 ;
 						addLists(data,type);
 						var dataLen =data.data.length;
 						if(data.data.length == 7){
