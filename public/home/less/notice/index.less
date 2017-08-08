@@ -8,8 +8,6 @@
 .banner{
 	position: relative;
 	.wh(100vw,50vw);
-	top:0;
-	left:0;
 	img{
 		.wh(100vw,50vw);
 	}
@@ -81,7 +79,8 @@
 				-moz-border-radius:2vw;
 				border-radius:2vw;
 				img{
-					width: 100%;
+					display: block;
+					.wh(100%,56%)
 				}
 				.title{
 					font-size: @s_content;

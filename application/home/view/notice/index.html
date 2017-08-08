@@ -93,7 +93,6 @@
 		</div>
 		<div class="tip"></div>
 	</div>
-
 </div>
 {/block}
 
@@ -163,15 +162,16 @@ function loadScroll(){
 		var tip = $(".tip");
 		var loading = $('.loading');
 		var userid = {$userid};
-
 		if(dh == end){
+			type++;
+			console.log(type);
 			$.ajax({
 				type:"post",
 				url:"{:Url('Notice/listMore')}",
 				data:{
 					length:len,
-					type:type,
-					userid:userid,
+					type: type,
+					userid:userid
 				},
 				beforeSend: function(XMLHttpRequest){
 					tip.hide();
@@ -184,11 +184,11 @@ function loadScroll(){
 						addLists(data,type);
 						var dataLen =data.data.length;
 						if(data.data.length == 7){
-							tip.text('上拉加载更多');
+							$('.box').eq(type-1).find('.tip').text('上拉加载更多');
+						}else{
+							$('.box').eq(type-1).find('.tip').text('没有更多了');
+							$(window ).off("scroll");
 						}
-					}else{
-						tip.text('没有更多了');
-						$(window ).off("scroll");
 					}
 				}
 			})
@@ -199,23 +199,23 @@ function addLists(data,type){
 	var html = '';
 	var lists = data.data;
 	var len = lists.length;
+	console.log(lists)
 	for(var i = 0; i< len;i++){
 		var list = lists[i];
-		if(type == 2){
+		if(type == 1){
 			html +=
 				'<a href="/home/notice/detail/id/'+ list.id+'.html" class="list">'+
 				'<img src="'+list.path+'" alt="活动图片">'+
 				'<div class="title limit">'+list.title+'</div>'+
 				'<div class="time">'+list.time+'</div>'+
-				'<div class="scan">'+list.comments+'</div>'+
-				'<div class="num">'+list.enrollnum+'/'+'list.people'+'</div>';
-			if(list.type){
-				html+=
-					'<span class="enter">报名</span>'+
-					'<span class="stop">已截止</span>'+
-					'<span class="stop">已报名</span>'+
-					'<span class="stop">已满</span>'
-			}
+				'<div class="scan">'+list.views+'</div>'+
+				'<div class="num">'+list.enrollnum+'/'+list.people+'</div>';
+			var htmls = ['<span class="enter">报名</span>',
+						'<span class="stop">已截止</span>',
+						'<span class="stop">已报名</span>',
+						'<span class="stop">已满</span>'
+			];
+			html+= htmls[list.is_enroll];
 			html +=
 				'</a>';
 		}else{
@@ -234,7 +234,7 @@ function addLists(data,type){
 		}
 
 	}
-	$('.box').eq(type).find('.lists').append(html);
+	$('.box').eq(type-1).find('.lists').append(html);
 }
 </script>
 {/block}
