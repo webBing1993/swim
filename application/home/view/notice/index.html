@@ -126,7 +126,7 @@ $(function(){
 		}
 	}
 });
-function  enter(userid,id){
+function  enter(self,id){
 	var this_ = self;
 	var data = {
 		'id':id
@@ -137,7 +137,7 @@ function  enter(userid,id){
 		data:data,
 		success:function(data){
 			if(data.code == 1){
-				$(this_).text('已报名').css({'background':'#d0d0d0'})
+				$(this_).text('已报名').css({'background':'#d0d0d0','color':'#999999'})
 			}
 			swal({
 				title: ' ',
@@ -210,7 +210,7 @@ function addLists(data,type){
 				'<div class="time">'+list.time+'</div>'+
 				'<div class="scan">'+list.views+'</div>'+
 				'<div class="num">'+list.enrollnum+'/'+list.people+'</div>';
-			var htmls = ['<span class="enter">报名</span>',
+			var htmls = ['<span class="enter" onclick="enter(this,'+list.id+')">报名</span>',
 						'<span class="stop">已截止</span>',
 						'<span class="stop">已报名</span>',
 						'<span class="stop">已满</span>'
@@ -235,6 +235,10 @@ function addLists(data,type){
 
 	}
 	$('.box').eq(type-1).find('.lists').append(html);
+	$(".list").delegate(".enter","click",function(e){
+		e.stopPropagation();
+		e.preventDefault();
+	});
 }
 </script>
 {/block}
