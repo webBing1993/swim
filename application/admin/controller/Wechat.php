@@ -70,6 +70,15 @@ class Wechat extends Admin
                 $user['department'] = $user['department'][0];
                 $user['order'] = $user['order'][0];
 
+                foreach ($user['extattr']['attrs'] as $value) {
+                    switch ($value['name']){
+                        case "学历":
+                            $user['education'] = $value['value'];
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 $user['extattr'] = json_encode($user['extattr']);
 
                 if(WechatUser::get(['userid'=>$user['userid']])) {

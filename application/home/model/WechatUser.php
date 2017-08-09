@@ -16,7 +16,6 @@ class WechatUser extends Model {
     }
 
     public function departmentName() {
-
         return $this->hasOne("WechatDepartment","id","department");
     }
 }

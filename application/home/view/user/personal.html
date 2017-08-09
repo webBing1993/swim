@@ -8,33 +8,37 @@
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">头像</span>
-		<img src="" alt="个人头像" class="fr">
+		{empty name="$res.header"}
+		<img src="{$res.avatar}" alt="个人头像" class="fr">
+		{else/}
+		<img src="{$res.header|get_cover='path'}" alt="个人头像" class="fr">
+		{/empty}
 	</div>
 	<div class="list clear">
 		<span class="fl">姓名</span>
-		<span class="fr">xiaoxiao</span>
+		<span class="fr">{$res.name}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>
-		<span class="fr">男</span>
+		<span class="fr">{$res.gender_text}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">手机号</span>
-		<a class="fr" href="tel:10086">10086</a>
+		<a class="fr" href="tel:{$res.mobile}">{$res.mobile}</a>
 	</div>
 </div>
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">学历</span>
-		<span class="fr">本科</span>
+		<span class="fr">{$res.education}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">部门</span>
-		<span class="fr">教练</span>
+		<span class="fr">{$res->departmentName->name;}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">职位</span>
-		<span class="fr">主教练</span>
+		<span class="fr">{$res.position}</span>
 	</div>
 </div>
 {/block}
