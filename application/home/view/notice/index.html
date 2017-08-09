@@ -205,7 +205,7 @@ function addLists(data,type){
 		if(type == 1){
 			html +=
 				'<a href="/home/notice/detail/id/'+ list.id+'.html" class="list">'+
-				'<img src="'+list.path+'" alt="活动图片">'+
+				'<img src="'+list.src+'" alt="活动图片">'+
 				'<div class="title limit">'+list.title+'</div>'+
 				'<div class="time">'+list.time+'</div>'+
 				'<div class="scan">'+list.views+'</div>'+
@@ -221,7 +221,7 @@ function addLists(data,type){
 		}else{
 			html +=
 				'<a href="/home/notice/detail/id/'+ list.id+'.html" class="list">'+
-				'<img src="'+list.path+'" alt="通知图片">'+
+				'<img src="'+list.src+'" alt="通知图片">'+
 				'<div class="lr">'+
 				'<div class="title limit">'+list.title+'</div>'+
 				'<div class="note clear">'+

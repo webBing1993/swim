@@ -92,9 +92,10 @@ class Notice extends Model {
      * 获取更多
      */
     public function getMoreList($data) {
+        $type = (int)$data['type'];
         $map = array(
             'status' => 1,
-            'type' => $data['type']
+            'type' => $type
         );
         $order = array('create_time desc');
         $list = $this->where($map)->order($order)->limit($data['length'],5)->select();
@@ -102,7 +103,7 @@ class Notice extends Model {
             $img = Picture::get($value['front_cover']);
             $value['src'] = $img['path'];
             $value['time'] = date("Y-m-d",$value['create_time']);
-            if($data['type'] == 2) {
+            if($type == 2) {
                 //1已报名 2已截止 3已满
                 if($value['start_time'] > time()) {
                     $value['is_enroll'] = 2;
