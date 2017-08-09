@@ -1,0 +1,229 @@
+{extend name="public/common"}
+
+{block name="style"}
+<link rel="stylesheet" href="/home/css/statistics/index.css">
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.css">
+{/block}
+
+{block name="body"}
+<div class="date">
+	<label for="start">开始日期</label>
+	<input value="2017-08-01" class="" readonly="readonly" id="start" type="text">
+</div>
+<div class="date">
+	<label for="end">结束日期</label>
+	<input value="2017-08-09" class="" readonly="readonly" id="end" type="text">
+</div>
+<div class="box">
+	<div class="top clear">
+		<div class="tag fl">教练情况</div>
+		<div class="type fr">
+			<div class="tab tutor" data-tab="0">
+				<span>全部</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+			<div class="lists">
+				<div class="list" data-tab="0">全部</div>
+				<div class="list" data-tab="1">主教练</div>
+				<div class="list" data-tab="2">助教</div>
+			</div>
+		</div>
+	</div>
+	<canvas id="tutor" width="400" height="200"></canvas>
+</div>
+<div class="box">
+	<div class="top clear">
+		<div class="tag fl">学员情况</div>
+		<div class="type fr">
+			<div class="tab student" data-tab="0" data-tag="0">
+				<span>全部</span> - <span>全部</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+			<div class="lists">
+				<div class="list" data-tab="0">全部</div>
+				<div class="list" data-tab="1">主教练</div>
+				<div class="list" data-tab="2">助教</div>
+			</div>
+			<!--主教练-->
+			<div class="main">
+				<div class="li" data-tag="0">全部</div>
+				<div class="li" data-tag="1">张三</div>
+				<div class="li" data-tag="2">李四</div>
+			</div>
+			<!--助教-->
+			<div class="main">
+				<div class="li" data-tag="0">全部</div>
+				<div class="li" data-tag="1">小三</div>
+				<div class="li" data-tag="2">小四</div>
+			</div>
+		</div>
+	</div>
+	<canvas id="student" width="400" height="200"></canvas>
+</div>
+
+{/block}
+
+{block name="script"}
+<script src="/static/mobiscroll/mobiscroll2.js"></script>
+<script src="/static/mobiscroll/mobiscroll.js"></script>
+<script src="/static/chartJs/Chart.min.js"></script>
+<script>
+$(function(){
+	//时间选择
+	timeSelect();
+	//数据
+	var data1=[600,50,100];//[正常,迟到,缺卡]
+	var data2=[300,50,100];
+	datas(data1,data2);
+	//教练情况的切换
+	$('.tab.tutor').off('click').on('click',function(){
+		var this_ = this;
+		$('.lists,.main').hide();
+		$(this_).next('.lists').fadeIn();
+		$('.list').off('click').on('click',function(){
+			var index = $(this).attr('data-tab');
+			var text = $(this).text();
+			$(this_).find('span').text(text);
+			$(this_).attr('data-tab',index);
+			$(this_).next('.lists').fadeOut();
+			var start = $('#start').val();
+			var end = $('#end').val();
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+					start:start,
+					end: end,
+					type:index
+				},
+				success:function(data){
+					datas([1,1,1],0);
+				}
+			});
+
+		})
+	});
+	//学员情况的切换
+	$('.tab.student').off('click').on('click',function(){
+		var this_ = this;
+		$('.lists,.main').hide();
+		$(this_).next('.lists').fadeIn();
+		$('.list').off('click').on('click',function(){
+			var index = $(this).attr('data-tab');
+			var text = $(this).text();
+			var n = $(this).index();
+			$(this_).find('span').eq(0).text(text);
+			$(this_).attr('data-tab',index);
+			$(this_).next('.lists').hide();
+			if(n>0){
+				//除了全部-全部的其他情况
+				$('.main').eq(n-1).fadeIn();
+				$('.li').off('click').on('click',function(){
+					var pid = $(this).attr('data-tag');
+					var text = $(this).text();
+					$(this_).find('span').eq(1).text(text);
+					$(this_).attr('data-tag',pid);
+					$('.main').eq(n-1).fadeOut();
+					var start = $('#start').val();
+					var end = $('#end').val();
+					$.ajax({
+						type:"post",
+						url:"",
+						data:{
+							start:start,
+							end: end,
+							type:index,
+							pid:pid
+						},
+						success:function(data){
+							datas(0,[1,1,1]);
+						}
+					});
+				})
+			}else{
+				//全部-全部
+				$(this_).next('.lists').fadeOut();
+				var start = $('#start').val();
+				var end = $('#end').val();
+				$.ajax({
+					type:"post",
+					url:"",
+					data:{
+						start:start,
+						end: end,
+						type:0,
+						pid:0
+					},
+					success:function(data){
+						datas(0,[1,1,1]);
+					}
+				});
+			}
+		})
+	});
+});
+function timeSelect(){
+	var currYear = (new Date()).getFullYear();
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.default = {
+		theme: 'android-ics light',
+		display: 'modal',
+		mode: 'scroller',
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear,
+		endYear: currYear + 50,
+		onSelect: function (valueText, inst) {
+			var start = $('#start').val();
+			var end = $('#end').val();
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+					start:start,
+					end: end
+
+				},
+				success:function(data){
+					datas([1,1,1],[1,1,1]);
+				}
+			});
+		}
+	};
+	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
+}
+function datas(a,b){
+	var Options1 = {
+		responsive: true
+	};
+	if($.isArray(a)){
+		//	教练签到
+		var data1 = {
+			labels: ["正常","迟到","缺卡" ],
+			datasets: [{
+				data:a ,
+				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
+			}]
+		} ;
+		var ctx1 = document.getElementById("tutor").getContext("2d");
+		new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+	}
+	if($.isArray(b)){
+		//	学员签到
+		var data2 = {
+			labels: ["正常","迟到","缺卡" ],
+			datasets: [{
+				data: b,
+				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
+			}]
+		} ;
+		var ctx2 = document.getElementById("student").getContext("2d");
+		new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+	}
+}
+</script>
+{/block}
