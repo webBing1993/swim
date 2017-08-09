@@ -164,6 +164,11 @@ textarea::-webkit-input-placeholder {
   height: 30vh;
   margin-top: 30vh;
 }
+.boxs .box:nth-child(3) .lists .list .video .video-modal iframe {
+  width: 100vw;
+  height: 30vh;
+  margin-top: 30vh;
+}
 .boxs .box:nth-child(3) .lists .list .video .first {
   width: 96vw;
   height: 48vw;
