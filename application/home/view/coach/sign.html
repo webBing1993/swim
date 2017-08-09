@@ -4,89 +4,105 @@
 <title>教练频道</title>
 <link rel="stylesheet" href="/home/css/coach/sign.css">
 <style>
-	#calendar {
-		margin: 20px auto;
-		width: 350px;
-		border-radius: 3px;
-		box-shadow: 0 0 10px #ccc;
-	}
-	#calendar .header {
-		height: 30px;
-		line-height: 30px;
-		text-align: center;
-		background: #1997fe;
-		color: #fff;
-		border-radius: 3px 3px 0 0;
-	}
-	#calendar .header .pre-btn {
-		display: block;
-		float: left;
-		padding: 0 10px;
-		cursor: pointer;
-	}
-	#calendar .header .next-btn {
-		display: block;
-		float: right;
-		padding: 0 10px;
-		cursor: pointer;
-	}
-	#calendar .title {
-		font-size: 0;
-		border-bottom: 1px solid #eee;
-	}
-	#calendar .title span {
-		font-size: 14px;
-		display: inline-block;
-		width: 50px;
-		text-align: center;
-		line-height: 30px;
-	}
-	#calendar .content {
-		overflow: hidden;
-	}
-	#calendar .content ul li {
-		display: block;
-		float: left;
-		width: 50px;
-		height: 30px;
-		text-align: center;
-		line-height: 30px;
-		cursor: pointer;
-		transition: all 0.1s;
-	}
-	#calendar .content ul li:hover {
-		background: rgba(25, 151, 254, 0.4);
-		color: #fff;
-	}
-	#calendar .content ul li.today {
-		background: rgba(25, 151, 254, 0.4);
-		color: #fff;
-	}
+
 </style>
 {/block}
 
 {block name="body"}
-<div id="calendar">
-	<div class="header">
-		<span class="pre-btn" @click="preMonth">上一月</span>
-		<span class="now-y-m">{{ nowYear}}/{{ formatNowMonth }}</span>
-		<span class="next-btn" @click="nextMonth">下一月</span>
+<div class="banner">
+	<div class="user clear">
+		<!--男class:male,女：female-->
+		<div class="sex male fl">
+			<img src="/home/images/tem/5.jpg" alt="用户头像">
+		</div>
+		<div class="msgs fl">
+			<div class="name limit">小小白</div>
+			<div class="note">12岁&emsp;长期学员</div>
+		</div>
 	</div>
-	<div class="title">
-		<span v-for="week in weeks">{{ week }}</span>
-	</div>
-	<div class="content">
-		<ul>
-			<li v-for="(day,index) in days" @click="showDate(day)" :class="{'today' : index === today}" :key="index">{{ day }}</li>
-		</ul>
+	<a href="" class="todetail">
+		<span>学员详情</span>
+	</a>
+	<div class="tags">
+		<span class="tag">缺卡记录 : 0次</span>
+		<span class="tag">迟到记录 : 100节</span>
 	</div>
 </div>
+<div id="calendar">
+
+	<!--<modal :show.sync="showModal">-->
+		<!--<h3 slot="header">比气体</h3>-->
+	<!--</modal>-->
+	<div class="header clear" id="show-modal" @click="showModal = true" >
+		<span class="logo fl"></span>
+		<span class="now-y-m">{{ nowYear}}年{{ formatNowMonth }}月 <i class="fa fa-angle-down"></i></span>
+	</div>
+	<div class="sdbox">
+		<div class="top">打卡情况</div>
+		<div class="title">
+			<span v-for="week in weeks">{{ week }}</span>
+		</div>
+		<div class="content">
+			<ul>
+				<li v-for="(day,index) in days" :class="{'normal' : day in normal}" :key="index">
+					<span>{{ day }}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+<div class="color">
+	<span class="normal">正常</span>
+	<span class="late">迟到</span>
+	<span class="absence">缺勤</span>
+</div>
+
 
 {/block}
 
 {block name="script"}
 <script src="/static/vue/vue.js"></script>
+<!--<script type="x/template" id="modal-template">-->
+<!--<div class="modal-mask" v-show="show" transition="modal">-->
+	<!--<div class="modal-wrapper">-->
+		<!--<div class="modal-container">-->
+			<!--<div class="modal-header">-->
+				<!--<slot name="header">-->
+					<!--default header-->
+				<!--</slot>-->
+			<!--</div>-->
+			<!--<div class="modal-body">-->
+				<!--<slot name="body">-->
+					<!--default body-->
+				<!--</slot>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<slot name="footer">-->
+					<!--default footer-->
+					<!--<button class="modal-default-button"-->
+							<!--@click="show = false">-->
+						<!--OK-->
+					<!--</button>-->
+				<!--</slot>-->
+			<!--</div>-->
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
+<!--</script>-->
+
 <script>
+//注册弹窗
+//Vue.component('modal', {
+//	template: '#modal-template',
+//	props: {
+//		show: {
+//			type: Boolean,
+//			required: true,
+//			twoWay: true
+//		}
+//	}
+//});
 var calendar = new Vue({
 	el: '#calendar',
 	data: {
@@ -94,7 +110,8 @@ var calendar = new Vue({
 		days: [],
 		nowMonth: null,
 		nowYear: null,
-		nowDate: null
+		nowDate: null,
+		showModal: false
 	},
 	computed: {
 		today: function() {
@@ -104,6 +121,15 @@ var calendar = new Vue({
 			}
 			return false;
 		},
+		normal: function(){
+			return [2,4,6,8];
+		},
+		late:function(){
+			return 4;
+		},
+		absence: function(){
+
+		},
 		formatNowMonth: function() {
 			if (this.nowMonth < 9) {
 				return '0' + (this.nowMonth + 1);
@@ -111,7 +137,7 @@ var calendar = new Vue({
 			return this.nowMonth + 1;
 		}
 	},
-	created() {
+	created(){
 		this.$nextTick(() => {
 			this.nowDate();
 		this.init();
@@ -177,9 +203,18 @@ var calendar = new Vue({
 			if (day === '') {
 				return;
 			}
-			alert(this.nowYear + '-' + (this.nowMonth + 1)+ '-' +(day));
-		}
-	}
+			//alert(this.nowYear + '-' + (this.nowMonth + 1)+ '-' +(day));
+		},
+		changeDate: function(){
+
+			this.nowYear = 2017;
+			this.nowMonth = 1;
+			this.init();
+		},
+
+
+	},
+
 });
 </script>
 {/block}

@@ -69,12 +69,12 @@
 <script src="/static/chartJs/Chart.min.js"></script>
 <script>
 $(function(){
+	//初始数据
+	var data1=[600,50,100];//教练[正常,迟到,缺卡]
+	var data2=[300,50,100];//学员[正常,迟到,缺卡]
+	datas(data1,data2);
 	//时间选择
 	timeSelect();
-	//数据
-	var data1=[600,50,100];//[正常,迟到,缺卡]
-	var data2=[300,50,100];
-	datas(data1,data2);
 	//教练情况的切换
 	$('.tab.tutor').off('click').on('click',function(){
 		var this_ = this;
