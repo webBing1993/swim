@@ -117,7 +117,7 @@ $(function(){
 		if(len == 0){
 			box.eq(i).find('.tip').text('');
 			box.eq(i).find('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">')
-		}else if(len >= 7){
+		}else if(len >= 6){
 			box.eq(i).find('.tip').text('上拉加载更多');
 			//上拉加载评论
 			loadScroll();
@@ -183,7 +183,7 @@ function loadScroll(){
 						type = type ==1 ? 2 : 1 ;
 						addLists(data,type);
 						var dataLen =data.data.length;
-						if(data.data.length == 7){
+						if(data.data.length == 6){
 							$('.box').eq(type-1).find('.tip').text('上拉加载更多');
 						}else{
 							$('.box').eq(type-1).find('.tip').text('没有更多了');
@@ -199,7 +199,6 @@ function addLists(data,type){
 	var html = '';
 	var lists = data.data;
 	var len = lists.length;
-	console.log(lists)
 	for(var i = 0; i< len;i++){
 		var list = lists[i];
 		if(type == 1){
