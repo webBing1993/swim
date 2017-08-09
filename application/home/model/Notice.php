@@ -35,7 +35,7 @@ class Notice extends Model {
             'type' => 2
         );
         $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(7)->select();
+        $res = $this->where($map)->order($order)->limit(6)->select();
         foreach ($res as $value) {
             //1已报名 2已截止 3已满
             if($value['start_time'] > time()) {
@@ -84,7 +84,7 @@ class Notice extends Model {
             'type' => 1
         );
         $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(7)->select();
+        $res = $this->where($map)->order($order)->limit(6)->select();
         return $res;
     }
 
@@ -98,7 +98,7 @@ class Notice extends Model {
             'type' => $type
         );
         $order = array('create_time desc');
-        $list = $this->where($map)->order($order)->limit($data['length'],5)->select();
+        $list = $this->where($map)->order($order)->limit($data['length'],6)->select();
         foreach($list as $value){
             $img = Picture::get($value['front_cover']);
             $value['src'] = $img['path'];

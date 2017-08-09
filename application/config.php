@@ -39,43 +39,13 @@ return [
     ],
     
     //最新动态
-    'work' => array(
-        'login' => 'http://djz.0571ztnet.com/home/index/login',
-        'token' => 'RMRUYhgJh7C',
-        'encodingaeskey' => 'XO7KtGSIpsnGPR24x3UmfTnLXSmEfogGhmRqUkoefNj',
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => '06QvzGqUuq3Z0bKOopC-r4zxqgaKmDOmTn7NLaNZACA',
+    'mail' => array(
+        'login' => 'http://swim.0571ztnet.com/home/index/login',
+//        'token' => 'RMRUYhgJh7C',
+//        'encodingaeskey' => 'XO7KtGSIpsnGPR24x3UmfTnLXSmEfogGhmRqUkoefNj',
+        'appid' => 'wwc2778c4e14ba4809',
+        'appsecret' => 'hPpzq47nIaeBjQLnvrDXNSyzF_Z3hAh1fIAACXUZY2M',
         'agentid' => 1000002
-    ),
-    //中心工作
-    'central' => [
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => 'QV6kzWHpksfPkiEu6CVrPHrb5MdmsfbUnl1USGP-Kpo',
-        'agentid' => 1000003
-    ],
-    //最多跑一次
-    'policy' => [
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => '0Xlv76r8Kjyn9HUkgdvtVvrfchO9u_fiLlkLZjbCNmg',
-        'agentid' => 1000005
-    ],
-    //廉政新市
-    'learn' => [
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => 'mJwLr3o03lE1KCdIiuw6A--rbxjo6vaGvkjuVXmYpQA',
-        'agentid' => 1000006
-    ],
-    //通讯名录
-    'mail' => [
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => '8z74BDtf6DHxyBwf8oXxteXZJpz0SFMSHj-Kmg1FdAI',
-        'agentid' => 1000007
-    ],
-    //消息审核
-    'review' => array(
-        'appid' => 'ww462067a674db3d65',
-        'appsecret' => 'VcfYQrz6clrAf2_l5goyimsRTLea_GSg33J2nfZzR3s',
-        'agentid' => 1000008
     ),
 
 ];
