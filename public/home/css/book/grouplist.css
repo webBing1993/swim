@@ -99,6 +99,13 @@ body{
 	background: url("/home/images/book/right.png") center center no-repeat;
 	background-size:1.6vw 3.2vw;
 }
+.main>.nav>li:not(:last-child)>span:after{
+	display: inline;
+	content: '';
+	padding:1px 2.133vw;
+	background: url("/home/images/book/right.png") center center no-repeat;
+	background-size:1.6vw 3.2vw;
+}
 .main .lists{
 	width:100%;
 }

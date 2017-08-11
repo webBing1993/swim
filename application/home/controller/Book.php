@@ -110,8 +110,12 @@ class Book extends Base
 //        $this->assign("info",$userinfo);
         return $this->fetch();
     }
-	/* 部门用户列表*/
+	/* 二级列表*/
 	public function  grouplist(){
+		return $this->fetch();
+	}
+	/* 三级列表*/
+	public function  deplist(){
 		return $this->fetch();
 	}
 }

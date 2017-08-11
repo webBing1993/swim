@@ -36,7 +36,7 @@
                 </li>
                 <li class="my_group">
                     <div class="list_header type2 mydp" data-pid="">
-                        <span>管理层</span><span class="fr fa fa-angle-down"></span>
+                        <span>管理组</span><span class="fr fa fa-angle-down"></span>
                     </div>
                     <div class="dps">
                         <a href="/home/book/userlist" class="dp title">中心主任</a>
@@ -72,12 +72,12 @@
 <script>
 $('title').text('通讯名录');
     $(function(){
-    	$('.mydp').on('click',function( ){
+    	$('.mydp').off('click').on('click',function( ){
     		var this_ = $(this).find('.fr');
     		if(this_.hasClass('fa-angle-down')){
-				$('.dps').show();
+				$(this).next('.dps').fadeIn();
             }else{
-				$('.dps').hide();
+				$(this).next('.dps').fadeOut();
             }
 			this_.toggleClass('fa-angle-down');
 			this_.toggleClass('fa-angle-up');
