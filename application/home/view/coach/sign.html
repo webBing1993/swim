@@ -2,10 +2,8 @@
 
 {block name="style"}
 <title>教练频道</title>
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
 <link rel="stylesheet" href="/home/css/coach/sign.css">
-<style>
-
-</style>
 {/block}
 
 {block name="body"}
@@ -29,13 +27,10 @@
 	</div>
 </div>
 <div id="calendar">
-
-	<!--<modal :show.sync="showModal">-->
-		<!--<h3 slot="header">比气体</h3>-->
-	<!--</modal>-->
-	<div class="header clear" id="show-modal" @click="showModal = true" >
+	<div class="header clear">
 		<span class="logo fl"></span>
-		<span class="now-y-m">{{ nowYear}}年{{ formatNowMonth }}月 <i class="fa fa-angle-down"></i></span>
+		<input value="" class="" readonly="readonly"  type="text" id="start">
+		<span class="now-y-m" >{{ nowYear}}年{{ formatNowMonth }}月 <i class="fa fa-angle-down"></i></span>
 	</div>
 	<div class="sdbox">
 		<div class="top">打卡情况</div>
@@ -44,7 +39,7 @@
 		</div>
 		<div class="content">
 			<ul>
-				<li v-for="(day,index) in days" :class="{'normal' : day in normal}" :key="index">
+				<li v-for="(day,index) in days" :class="{'normal' : isNormal(day),'late' : isLate(day),'absence' : isAbsence(day)}" :key="index">
 					<span>{{ day }}</span>
 				</li>
 			</ul>
@@ -63,46 +58,9 @@
 
 {block name="script"}
 <script src="/static/vue/vue.js"></script>
-<!--<script type="x/template" id="modal-template">-->
-<!--<div class="modal-mask" v-show="show" transition="modal">-->
-	<!--<div class="modal-wrapper">-->
-		<!--<div class="modal-container">-->
-			<!--<div class="modal-header">-->
-				<!--<slot name="header">-->
-					<!--default header-->
-				<!--</slot>-->
-			<!--</div>-->
-			<!--<div class="modal-body">-->
-				<!--<slot name="body">-->
-					<!--default body-->
-				<!--</slot>-->
-			<!--</div>-->
-			<!--<div class="modal-footer">-->
-				<!--<slot name="footer">-->
-					<!--default footer-->
-					<!--<button class="modal-default-button"-->
-							<!--@click="show = false">-->
-						<!--OK-->
-					<!--</button>-->
-				<!--</slot>-->
-			<!--</div>-->
-		<!--</div>-->
-	<!--</div>-->
-<!--</div>-->
-<!--</script>-->
-
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<!--<script src="/static/mobiscroll/mobiscroll.js"></script>-->
 <script>
-//注册弹窗
-//Vue.component('modal', {
-//	template: '#modal-template',
-//	props: {
-//		show: {
-//			type: Boolean,
-//			required: true,
-//			twoWay: true
-//		}
-//	}
-//});
 var calendar = new Vue({
 	el: '#calendar',
 	data: {
@@ -111,7 +69,10 @@ var calendar = new Vue({
 		nowMonth: null,
 		nowYear: null,
 		nowDate: null,
-		showModal: false
+		showModal: false,
+		normal:[1, 2, 3, 6,7,11,12,13,14],//初始正常
+		late:[4, 8, 9, 10],//初始迟到
+		absence:[5]//初始缺勤
 	},
 	computed: {
 		today: function() {
@@ -120,15 +81,6 @@ var calendar = new Vue({
 				return (this.getFirstDay(this.nowYear, this.nowMonth) + this.nowDate - 1);
 			}
 			return false;
-		},
-		normal: function(){
-			return [2,4,6,8];
-		},
-		late:function(){
-			return 4;
-		},
-		absence: function(){
-
 		},
 		formatNowMonth: function() {
 			if (this.nowMonth < 9) {
@@ -140,7 +92,7 @@ var calendar = new Vue({
 	created(){
 		this.$nextTick(() => {
 			this.nowDate();
-		this.init();
+			this.init();
 	})
 	},
 	methods: {
@@ -180,6 +132,49 @@ var calendar = new Vue({
 				for (var n = 0; n < totalLength - daysLength; n++)
 					this.days.push('');
 			}
+			//时间选择
+			var currYear = (new Date()).getFullYear();
+			var opt={};
+			var this_ = this;
+			opt.date = {preset : 'date'};
+			opt.default = {
+				theme: 'android-holo light',
+				display: 'modal',
+				mode: 'scroller',
+				dateFormat: 'yyyy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+				startYear: currYear-10,
+				endYear: currYear + 50,
+				onBeforeShow: function (inst) {
+					inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;
+					},
+				onSelect: function (valueText, inst) {
+					var array = valueText.split('-');
+					this_.nowYear = array[0];
+					this_.nowMonth = array[1]-1;
+					$.ajax({
+						type:"post",
+						url:"",
+						data:{
+							year:array[0],
+							month:array[1]
+						},
+						success:function(data){
+							this_.normal = [1];
+							this_.late = [2];
+							this_.absence = [3];
+							this_.init();
+						}
+					});
+				},
+				headerText: function (valueText) { //自定义弹出框头部格式
+					var array = valueText.split('-');
+					return array[0] + "年" + array[1] + "月";
+				}
+			};
+			$("#start").mobiscroll($.extend(opt['date'], opt['default']));
 		},
 		preMonth: function() {
 			if (this.nowMonth <= 0) {
@@ -203,18 +198,29 @@ var calendar = new Vue({
 			if (day === '') {
 				return;
 			}
-			//alert(this.nowYear + '-' + (this.nowMonth + 1)+ '-' +(day));
 		},
-		changeDate: function(){
-
-			this.nowYear = 2017;
-			this.nowMonth = 1;
-			this.init();
+		isNormal: function(day){
+			//正常签到
+			if(this.normal.indexOf(day) !== -1){
+				return true;
+			}
 		},
-
+		isLate:function(day){
+			//迟到
+			if(this.late.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isAbsence: function(day){
+			//缺勤
+			if(this.absence.indexOf(day) !== -1){
+				return true;
+			}
+		},
 
 	},
 
 });
+
 </script>
 {/block}
