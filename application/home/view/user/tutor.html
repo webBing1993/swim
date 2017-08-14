@@ -10,7 +10,7 @@
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">头像</span>
-		<img src="/home/images/coach/code.jpg" alt="个人头像" class="fr user">
+		<div data-tab="/home/images/coach/code.jpg"  class="user up fr"></div>
 	</div>
 	<div class="list clear">
 		<span class="fl">姓名</span>
@@ -66,11 +66,29 @@
 <script src="/static/viewer/viewer-jquery.min.js"></script>
 <script>
 $(function(){
+	//图片预览
 	$('.card').viewer({
 		url: 'data-original',
 		toolbar:false,
 		title:false
 	});
-})
+	//头像大小自适应
+	imgfit();
+});
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
 </script>
 {/block}

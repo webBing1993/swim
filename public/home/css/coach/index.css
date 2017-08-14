@@ -24,36 +24,37 @@ textarea::-webkit-input-placeholder {
   bottom: 0;
   left: 0;
   width: 100vw;
-  height: 14vw;
+  height: 4.6rem;
   background: #f7f7f7;
   box-shadow: 0 -3px 4px rgba(110, 110, 110, 0.2);
+  padding: 0 5vw;
 }
 .tabs .tab {
   display: inline-block;
-  width: 32.4vw;
+  width: 29vw;
   height: 100%;
   color: #feba57;
-  font-size: 1rem;
-  line-height: 1.5vw;
+  font-size: 0.8rem;
+  line-height: 2rem;
   text-align: center;
 }
 .tabs .tab:nth-child(1) {
-  background: url('/home/images/coach/tab1.png') 12vw 1.5vw no-repeat;
+  background: url('/home/images/coach/tab1.png') 11vw 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(2) {
-  background: url('/home/images/coach/tab2.png') 12vw 1.5vw no-repeat;
+  background: url('/home/images/coach/tab2.png') 11vw 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(3) {
-  background: url('/home/images/coach/tab3.png') 12vw 1.2vw no-repeat;
+  background: url('/home/images/coach/tab3.png') 11vw 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(1).active {
-  background: url('/home/images/coach/tab1_.png') 12vw 1vw no-repeat;
+  background: url('/home/images/coach/tab1_.png') 11vw 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(2).active {
-  background: url('/home/images/coach/tab2_.png') 12vw 1vw no-repeat;
+  background: url('/home/images/coach/tab2_.png') 11vw 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(3).active {
-  background: url('/home/images/coach/tab3_.png') 12vw 1vw no-repeat;
+  background: url('/home/images/coach/tab3_.png') 11vw 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(1),
 .tabs .tab:nth-child(2),
@@ -61,14 +62,14 @@ textarea::-webkit-input-placeholder {
 .tabs .tab:nth-child(1).active,
 .tabs .tab:nth-child(2).active,
 .tabs .tab:nth-child(3).active {
-  background-size: 8vw 8vw;
-  padding-top: 10vw;
+  background-size: 2.6rem 2.6rem;
+  padding-top: 2.5rem;
 }
 .tabs .tab:nth-child(1).active,
 .tabs .tab:nth-child(2).active,
 .tabs .tab:nth-child(3).active {
-  background-size: 8vw 8vw;
-  padding-top: 10vw;
+  background-size: 2.5rem 2.5rem;
+  padding-top: 2.5rem;
 }
 .tabs .active {
   color: #f99402;

@@ -1,5 +1,8 @@
 @import "../common/common";
 //layout
+.lists:nth-child(3){
+	margin-bottom: 50px;
+}
 .lists{
 	margin-top: 10px;
 	.list{
@@ -8,6 +11,15 @@
 		background: #ffffff;
 		border-top: 1px solid #f1f1f1;
 		line-height: 50px;
+		.fl{
+			color:@c_title;
+			font-size: 15px;
+		}
+		.fr{
+			max-width: 70vw;
+			color:@c_note;
+			font-size: 14px;
+		}
 		.user{
 			width: 40px;
 			height: 40px;
@@ -38,14 +50,7 @@
 			line-height: 50px;
 			background: transparent;
 		}
-		.fl{
-			color:@c_title;
-			font-size: 15px;
-		}
-		.fr{
-			color:@c_note;
-			font-size: 14px;
-		}
+
 		.sex{
 			.wh(100px,32px);
 			margin-top: 8px;
@@ -79,8 +84,8 @@
 	display: block;
 	position: fixed;
 	bottom: 0;
-	.wh(100vw,10vw);
-	.font(#ffffff,@s_content,10vw);
+	.wh(100vw,4rem);
+	.font(#ffffff,@s_content,4rem);
 	text-align: center;
 
 }

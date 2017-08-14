@@ -1,13 +1,108 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>学员信息</title>
+<link rel="stylesheet" href="/home/css/user/personal.css">
 {/block}
 
 {block name="body"}
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">头像</span>
+		<div data-tab="/home/images/coach/code.jpg"  class="user up fr"></div>
+	</div>
+	<div class="list clear">
+		<span class="fl">姓名</span>
+		<span class="fr">123</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">出生年月</span>
+		<span class="fr">2012-01</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">性别</span>
+		<span class="fr">男</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">监护人姓名</span>
+		<a class="fr" href="tel:123456">张丹</a>
+	</div>
+	<div class="list clear">
+		<span class="fl">手机号</span>
+		<a class="fr" href="tel:123456">123456</a>
+	</div>
+</div>
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">招生日期</span>
+		<span class="fr">2017-08</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">身高（cm）</span>
+		<span class="fr">100</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">体重（kg）</span>
+		<span class="fr">50</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">星级情况</span>
+		<span class="fr">2级</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">原教练</span>
+		<span class="fr">阿萨德撒</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">现教练</span>
+		<span class="fr">阿萨德撒</span>
+	</div>
+</div>
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">家庭地址</span>
+		<span class="fr limit">自行车虚做出选择插卡式sadasdasdasdasdasdasdasdas</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">学历</span>
+		<span class="fr">小学</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">现就读学校</span>
+		<span class="fr">采荷小学</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">学籍号</span>
+		<span class="fr">123456</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">文化成绩</span>
+		<span class="fr">优</span>
+	</div>
+</div>
+
+<a href="studentedit.html" class="edit">编&emsp;辑</a>
 
 {/block}
 
 {block name="script"}
-
+<script>
+//头像大小自适应
+imgfit();
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
+</script>
 {/block}
