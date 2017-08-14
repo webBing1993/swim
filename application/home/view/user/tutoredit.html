@@ -1,0 +1,200 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练信息</title>
+<link rel="stylesheet" href="/home/css/user/personal.css">
+{/block}
+
+{block name="body"}
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">头像</span>
+		<div data-tab="/home/images/coach/code.jpg"  class="user up fr"></div>
+		<input type="file" class="hide upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+		<input type="hidden" name="header"  value="" required="" data-tab="1">
+	</div>
+	<div class="list clear">
+		<span class="fl">姓名</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="张三" class="fr" name="name">
+	</div>
+	<div class="list clear">
+		<span class="fl">性别</span>
+		<div class="fr clear sex">
+			<span class="active fl">男</span>
+			<span class="fr">女</span>
+		</div>
+	</div>
+	<div class="list clear">
+		<span class="fl">手机号</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="138000000" class="fr" name="tel">
+	</div>
+</div>
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">学历</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="小学" class="fr" name="record">
+	</div>
+	<!--<div class="list clear">-->
+		<!--<span class="fl">部门</span>-->
+		<!--<img src="/home/images/user/pen.png" alt="笔" class="fr pen">-->
+		<!--<input type="text" value="管理" class="fr" name="department">-->
+	<!--</div>-->
+	<!--<div class="list clear">-->
+		<!--<span class="fl">职位</span>-->
+		<!--<img src="/home/images/user/pen.png" alt="笔" class="fr pen">-->
+		<!--<input type="text" value="主任" class="fr" name="position">-->
+	<!--</div>-->
+</div>
+<!--助教-->
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">身份证号</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="330131231231" class="fr" name="card">
+	</div>
+	<div class="list clear">
+		<span class="fl">社会指导员证</span>
+		<div data-tab="/home/images/coach/code.jpg"  class="card up fr"></div>
+		<input type="file" class="hide upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+		<input type="hidden" name="socialcard"  value="" required="" data-tab="2">
+	</div>
+	<div class="list clear">
+		<span class="fl">职业资格鉴定证</span>
+		<div data-tab="/home/images/coach/code.jpg"  class="card up fr"></div>
+		<input type="file" class="hide upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+		<input type="hidden" name="procard"  value="" required="" data-tab="4">
+	</div>
+	<div class="list clear">
+		<span class="fl">救生员证</span>
+		<div data-tab="/home/images/coach/code.jpg"  class="card up fr"></div>
+		<input type="file" class="hide upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+		<input type="hidden" name="savecard"  value="" required="" data-tab="5">
+	</div>
+</div>
+<div class="save">保&emsp;存</div>
+<!--/助教-->
+{/block}
+
+{block name="script"}
+<script>
+$(function(){
+	//头像大小自适应
+	imgfit();
+	//保存
+	$('.save').on('click',function(){
+		swal({
+			title: "提示",
+			text: "确认提交您的信息？",
+			showCancelButton: true,
+			confirmButtonColor: "#f99300",
+			confirmButtonText: "确定",
+			cancelButtonText: "取消"
+		}).then(function(isConfirm){
+			if (isConfirm) {
+				swal({
+					title: '上传成功',
+					text: '即将返回教练信息',
+					type: 'success',
+					showConfirmButton:false
+				});
+				var data={
+					header:$("input[name='header']").attr('data-tab'),
+					name:$("input[name='name']").val(),
+					sex:$(".sex span.active").index()+1,
+					tel:$("input[name='tel']").val(),
+					record:$("input[name='record']").val(),
+//					department:$("input[name='department']").val(),
+//					position:$("input[name='position']").val(),
+					card:$("input[name='card']").val(),
+					socialcard:$("input[name='socialcard']").attr('data-tab'),
+					procard:$("input[name='procard']").attr('data-tab'),
+					savecard:$("input[name='savecard']").attr('data-tab')
+				};
+				console.log(data);
+				$.ajax({
+					type:"post",
+					url:"",
+					data:data,
+					dataType: "Json",
+					success:function(){
+//						window.location.href="/home/user/tutor"
+					}
+				})
+			}else{
+				swal.close();
+			}
+		});
+
+	});
+	//触发上传按钮
+	$('.up').off("click").on('click',function(){
+		$(this).next('.upload').click()
+	});
+	//上传图片
+	$('.upload').off("change").on('change',function(){
+		var up = $(this).prev('.up');
+		var id = $(this).next('input');
+		var ww = up.width();
+		var size = ($(this)[0].files[0].size / 1024).toFixed(2);
+		if(size <= 2048){
+			var img = $(this)[0].files[0];
+			var formData = new FormData();
+			formData.append("picture",img);
+			$.ajax({
+				type:"post",
+				url:"{:Url('File/uploadPicture')}",
+				data:formData,
+				processData : false,
+				contentType : false,
+				success:function(data){
+					var msg = $.parseJSON(data);
+					if(msg.code == 1){
+						var image = new Image();
+						image.src = msg.data.path ;
+						up.css({"background-image":'url('+msg.data.path+')'});
+						image.onload = function(){
+							if(image.width > image.height){
+								up.css({"background-size":'auto '+ww +'px'});
+							}else{
+								up.css({"background-size":ww +'px'+' auto '});
+							}
+							id.attr('data-tab',msg.data.id)
+						};
+					} else {
+						warning({msg:'上传失败'});
+						return;
+					}
+				}
+			});
+		} else {
+			warning({msg:"您选择的图片超过2mb，请重新选择"});
+			return;
+		}
+	});
+	//性别
+	$('.sex span').off('click').on('click',function(){
+		var this_ = this;
+		$(this_).addClass('active');
+		$(this_).siblings('span').removeClass('active');
+	})
+});
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
+</script>
+{/block}

@@ -38,12 +38,6 @@ class Coach extends Base {
 		return $this->fetch();
 	}
 	/**
-	 * 个人信息
-	 */
-	public function user(){
-		return $this->fetch();
-	}
-	/**
 	 * 个人签到情况
 	 */
 	public function mysign(){

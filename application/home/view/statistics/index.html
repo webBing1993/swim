@@ -2,7 +2,7 @@
 
 {block name="style"}
 <link rel="stylesheet" href="/home/css/statistics/index.css">
-<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.css">
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
 {/block}
 
 {block name="body"}
@@ -64,8 +64,7 @@
 {/block}
 
 {block name="script"}
-<script src="/static/mobiscroll/mobiscroll2.js"></script>
-<script src="/static/mobiscroll/mobiscroll.js"></script>
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script src="/static/chartJs/Chart.min.js"></script>
 <script>
 $(function(){
@@ -167,7 +166,7 @@ function timeSelect(){
 	var opt={};
 	opt.date = {preset : 'date'};
 	opt.default = {
-		theme: 'android-ics light',
+		theme: 'android-holo light',
 		display: 'modal',
 		mode: 'scroller',
 		dateFormat: 'yyyy-mm-dd',

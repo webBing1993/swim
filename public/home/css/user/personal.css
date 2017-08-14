@@ -31,7 +31,7 @@ textarea::-webkit-input-placeholder {
   border-top: 1px solid #f1f1f1;
   line-height: 50px;
 }
-.lists .list img {
+.lists .list .user {
   width: 40px;
   height: 40px;
   margin-top: 4px;
@@ -40,6 +40,28 @@ textarea::-webkit-input-placeholder {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   overflow: hidden;
+  background: url("/home/images/common/default.png") center no-repeat;
+  background-size: 40px 40px;
+}
+.lists .list .card {
+  width: 60px;
+  height: 40px;
+  margin-top: 4px;
+  background: url("/home/images/common/default.png") center no-repeat;
+  background-size: 60px 40px;
+}
+.lists .list .pen {
+  width: 16px;
+  height: 16px;
+  margin-top: 16px;
+}
+.lists .list input {
+  text-align: right;
+  width: 66vw;
+  height: 50px;
+  padding-right: 6px;
+  line-height: 50px;
+  background: transparent;
 }
 .lists .list .fl {
   color: #333333;
@@ -49,6 +71,59 @@ textarea::-webkit-input-placeholder {
   color: #999999;
   font-size: 14px;
 }
+.lists .list .sex {
+  width: 100px;
+  height: 32px;
+  margin-top: 8px;
+  border: 1px solid #dbdbdb;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.lists .list .sex span {
+  display: inline-block;
+  width: 48px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #999999;
+}
+.lists .list .sex span:nth-child(1).active {
+  color: #ffffff;
+  background: lightskyblue;
+}
+.lists .list .sex span:nth-child(2).active {
+  color: #ffffff;
+  background: lightpink;
+}
 .lists .list:last-child {
   border-bottom: 1px solid #f1f1f1;
+}
+.edit,
+.save {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 10vw;
+  color: #ffffff;
+  font-size: 1.3rem;
+  line-height: 10vw;
+  text-align: center;
+}
+.edit {
+  background: -moz-linear-gradient(left, #ffba1d, #ff9806);
+  background: -webkit-gradient(linear, left top, left bottom, #ffba1d, #ff9806);
+  background: -webkit-linear-gradient(left, #ffba1d, #ff9806);
+  background: -o-linear-gradient(left, #ffba1d, #ff9806);
+  background: -ms-linear-gradient(left, #ffba1d, #ff9806);
+  background: linear-gradient(to right, #ffba1d, #ff9806);
+}
+.save {
+  background: -moz-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -webkit-gradient(linear, left top, left bottom, #6cd8ff, #50c8ff);
+  background: -webkit-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -o-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: -ms-linear-gradient(left, #6cd8ff, #50c8ff);
+  background: linear-gradient(to right, #6cd8ff, #50c8ff);
 }

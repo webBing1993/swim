@@ -9,9 +9,9 @@
 	<div class="list clear">
 		<span class="fl">头像</span>
 		{empty name="$res.header"}
-		<img src="{$res.avatar}" alt="个人头像" class="fr">
+		<img src="{$res.avatar}" alt="个人头像" class="fr user">
 		{else/}
-		<img src="{$res.header|get_cover='path'}" alt="个人头像" class="fr">
+		<img src="{$res.header|get_cover='path'}" alt="个人头像" class="fr user">
 		{/empty}
 	</div>
 	<div class="list clear">

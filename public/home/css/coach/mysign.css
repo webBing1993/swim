@@ -1,161 +1,10 @@
-@charset "utf-8";
-.t_b {
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-.shadow {
-  box-shadow: 1px 3px 8px rgba(102, 102, 102, 0.2);
-}
-body {
-  background: #f7f7f7;
-}
-a {
-  display: inline-block;
-}
-a:active {
-  background-color: #ebebeb;
-}
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-  color: #d9d9d9;
-}
-body {
-  background: #ffffff;
-}
 .banner {
-  position: relative;
   width: 100vw;
-  height: 40vw;
-  background: url("/home/images/coach/banner.png");
-  background-size: 100vw 40vw;
+  height: 50vw;
 }
-.banner .user {
-  position: absolute;
-  top: 6vw;
-  left: 4vw;
-  width: 60vw;
-  height: 16vw;
-}
-.banner .user .sex {
-  display: inline-block;
-  width: 16vw;
-  height: 16vw;
-  margin-right: 1vw;
-  position: relative;
-}
-.banner .user .sex.male:after {
-  position: absolute;
-  right: 1vw;
-  bottom: 1vw;
-  content: '';
-  width: 5vw;
-  height: 5vw;
-  background: url("/home/images/coach/male1.png") no-repeat;
-  background-size: 5vw 5vw;
-}
-.banner .user .sex.female:after {
-  position: absolute;
-  right: 1vw;
-  bottom: 1vw;
-  content: '';
-  width: 5vw;
-  height: 5vw;
-  background: url("/home/images/coach/female1.png") no-repeat;
-  background-size: 5vw 5vw;
-}
-.banner .user .sex img {
-  overflow: hidden;
-  width: 15vw;
-  height: 15vw;
-  border: 2px solid #ffffff;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-.banner .user .msgs {
-  display: inline-block;
-  width: 42vw;
-  height: 16vw;
-  color: #ffffff;
-}
-.banner .user .msgs .name {
+.banner img {
   width: 100%;
-  font-size: 1.5rem;
-  line-height: 9vw;
-}
-.banner .user .msgs .note {
-  font-size: 1.2rem;
-}
-.banner .todetail {
-  position: absolute;
-  top: 10vw;
-  right: 0;
-  width: 25vw;
-  height: 8vw;
-  background: rgba(255, 255, 255, 0.9);
-  color: #feba57;
-  font-size: 2.7vw;
-  line-height: 8vw;
-  -webkit-border-radius: 4vw 0 0 4vw;
-  -moz-border-radius: 4vw 0 0 4vw;
-  border-radius: 4vw 0 0 4vw;
-}
-.banner .todetail span {
-  position: relative;
-}
-.banner .todetail span:after {
-  position: absolute;
-  right: -6vw;
-  content: '';
-  width: 4.8vw;
-  height: 2.7vw;
-  background: url("/home/images/coach/right.png") no-repeat;
-  background-size: 4.8vw 2.7vw;
-}
-@media screen and (max-width: 768px) {
-  .banner .todetail {
-    padding-left: 5vw;
-  }
-  .banner .todetail span:after {
-    top: 0.5vw;
-  }
-}
-@media screen and (max-width: 375px) {
-  .banner .todetail {
-    padding-left: 4vw;
-  }
-  .banner .todetail span:after {
-    top: 1.1vw;
-  }
-}
-@media screen and (max-width: 320px) {
-  .banner .todetail {
-    padding-left: 2.5vw;
-  }
-  .banner .todetail span:after {
-    top: 1.5vw;
-  }
-}
-.banner .tag {
-  overflow: hidden;
-  position: absolute;
-  bottom: 0;
-  width: 35vw;
-  height: 8vw;
-  color: #feba57;
-  font-size: 1.3rem;
-  line-height: 8vw;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.9);
-  -webkit-border-radius: 1.5vw 1.5vw 0 0;
-  -moz-border-radius: 1.5vw 1.5vw 0 0;
-  border-radius: 1.5vw 1.5vw 0 0;
-}
-.banner .tag:nth-child(1) {
-  left: 10vw;
-}
-.banner .tag:nth-child(2) {
-  right: 10vw;
+  height: 100%;
 }
 #calendar {
   width: 88vw;
@@ -189,45 +38,35 @@ body {
   right: -0.5vw;
   transform: rotate(5deg);
 }
-#calendar .header {
-  position: relative;
-  width: 90vw;
-  height: 10vw;
-  padding: 0 2vw;
-  text-align: right;
-  color: #666666;
-  font-size: 1.4rem;
-  line-height: 10vw;
-  letter-spacing: 0.2em;
-}
-#calendar .header .logo {
-  display: inline-block;
-  width: 6.7vw;
-  height: 6.7vw;
-  margin-top: 1.65vw;
-  background: url("/home/images/coach/cal.png") no-repeat;
-  background-size: 6.7vw 6.7vw;
-}
-#calendar .header input {
-  width: 88vw;
-  height: 10vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
 #calendar .top {
   height: 8vw;
   line-height: 8vw;
   text-align: center;
-  background: url("/home/images/coach/caltop.png") no-repeat;
-  background-size: 92vw 8vw;
+  background: #ff9a08;
   margin: 4vw 0;
   color: #fff;
   font-size: 1.5rem;
   -webkit-border-radius: 1vw 1vw 0 0;
   -moz-border-radius: 1vw 1vw 0 0;
   border-radius: 1vw 1vw 0 0;
+}
+#calendar .top i {
+  display: inline-block;
+  width: 20vw;
+  height: 8vw;
+  line-height: 8vw;
+  font-size: 2rem;
+}
+#calendar .top .time {
+  position: relative;
+}
+#calendar .top .time input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }
 #calendar .title {
   margin-top: 7vw;

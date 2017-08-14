@@ -1,0 +1,76 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练信息</title>
+<link rel="stylesheet" href="/static/viewer/viewer.min.css">
+<link rel="stylesheet" href="/home/css/user/personal.css">
+{/block}
+
+{block name="body"}
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">头像</span>
+		<img src="/home/images/coach/code.jpg" alt="个人头像" class="fr user">
+	</div>
+	<div class="list clear">
+		<span class="fl">姓名</span>
+		<span class="fr">123</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">性别</span>
+		<span class="fr">12</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">手机号</span>
+		<a class="fr" href="tel:123456">123456</a>
+	</div>
+</div>
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">学历</span>
+		<span class="fr">小学</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">部门</span>
+		<span class="fr">阿斯达说多</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">职位</span>
+		<span class="fr">阿斯达说</span>
+	</div>
+</div>
+<!--助教-->
+<div class="lists">
+	<div class="list clear">
+		<span class="fl">身份证号</span>
+		<span class="fr">3301231321321</span>
+	</div>
+	<div class="list clear">
+		<span class="fl">社会指导员证</span>
+		<img src="/home/images/coach/code.jpg" alt="社会指导员证" class="fr card"  data-original="">
+	</div>
+	<div class="list clear">
+		<span class="fl">职业资格鉴定证</span>
+		<img src="/home/images/coach/code.jpg" alt="职业资格鉴定证" class="fr card"  data-original="">
+	</div>
+	<div class="list clear">
+		<span class="fl">救生员证</span>
+		<img src="/home/images/coach/code.jpg" alt="救生员证" class="fr card"  data-original="">
+	</div>
+</div>
+<a href="tutoredit.html" class="edit">编&emsp;辑</a>
+<!--/助教-->
+{/block}
+
+{block name="script"}
+<script src="/static/viewer/viewer-jquery.min.js"></script>
+<script>
+$(function(){
+	$('.card').viewer({
+		url: 'data-original',
+		toolbar:false,
+		title:false
+	});
+})
+</script>
+{/block}
