@@ -82,25 +82,22 @@
 	<div class="list clear">
 		<span class="fl">学历</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value="138000000" class="fr" name="school">
+		<input type="text" value="小学" class="fr" name="degree">
 	</div>
 	<div class="list clear">
 		<span class="fl">现就读学校</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value="138000000" class="fr" name="tel">
-		<span class="fr">采荷小学</span>
+		<input type="text" value="采荷小学" class="fr" name="school">
 	</div>
 	<div class="list clear">
 		<span class="fl">学籍号</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value="138000000" class="fr" name="tel">
-		<span class="fr">123456</span>
+		<input type="text" value="138000000" class="fr" name="number">
 	</div>
 	<div class="list clear">
 		<span class="fl">文化成绩</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value="138000000" class="fr" name="tel">
-		<span class="fr">优</span>
+		<input type="text" value="优" class="fr" name="type">
 	</div>
 </div>
 
@@ -133,15 +130,21 @@ $(function(){
 				var data={
 					header:$("input[name='header']").attr('data-tab'),
 					name:$("input[name='name']").val(),
+					birth:$("input[name='birth']").val(),
 					sex:$(".sex span.active").index()+1,
+					parent:$("input[name='parent']").val(),
 					tel:$("input[name='tel']").val(),
-					record:$("input[name='record']").val(),
-					//					department:$("input[name='department']").val(),
-					//					position:$("input[name='position']").val(),
-					card:$("input[name='card']").val(),
-					socialcard:$("input[name='socialcard']").attr('data-tab'),
-					procard:$("input[name='procard']").attr('data-tab'),
-					savecard:$("input[name='savecard']").attr('data-tab')
+					time:$("input[name='time']").val(),
+					height:$("input[name='height']").val(),
+					weight:$("input[name='weight']").val(),
+					star:$("input[name='star']").val(),
+					tutored:$("input[name='tutored']").val(),
+					tutor:$("input[name='tutor']").val(),
+					address:$("input[name='address']").val(),
+					degree:$("input[name='degree']").val(),
+					school:$("input[name='school']").val(),
+					number:$("input[name='number']").val(),
+					type:$("input[name='type']").val(),
 				};
 				console.log(data);
 				$.ajax({
