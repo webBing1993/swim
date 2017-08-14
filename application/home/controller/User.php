@@ -71,6 +71,7 @@ class User extends Base{
 	public function tutoredit () {
 		return $this->fetch();
 	}
+
 	/**
 	 * 个人信息编辑(学员)
 	 */
