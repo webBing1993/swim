@@ -53,6 +53,24 @@ class User extends Base{
         $this->assign('res',$res);
         return $this->fetch();
     }
+	/**
+	 * 个人信息(学员)
+	 */
+	public function student () {
+		return $this->fetch();
+	}
+	/**
+	 * 个人信息(教练)
+	 */
+	public function tutor () {
+		return $this->fetch();
+	}
+	/**
+	 * 个人信息编辑(教练)
+	 */
+	public function tutoredit () {
+		return $this->fetch();
+	}
 
 
 }
