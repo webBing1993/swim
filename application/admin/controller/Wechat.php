@@ -75,6 +75,9 @@ class Wechat extends Admin
                         case "学历":
                             $user['education'] = $value['value'];
                             break;
+                        case "身份证号":
+                            $user['identity'] = $value['value'];
+                            break;
                         default:
                             break;
                     }

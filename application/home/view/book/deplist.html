@@ -21,25 +21,17 @@
 
     <ul class="nav clear">
         <li><a data-pid="">杭州体育集团</a></li>
-        <li><span>游泳体育中心</span></li>
-        <li>学员组</li>
+        <li><span>{$nav.group_name}</span></li>
+        <li>{$nav.dep_name}</li>
     </ul>
     <ul class="lists">
+        {volist name="list" id="vo"}
         <li>
-            <a href="/home/book/userlist" class="list_header " data-pid="">
-                <span>长期学员</span><span class="fr rt_icon"></span>
+            <a href="{:Url('Book/userlist?did='.$vo['id'])}" class="list_header " data-pid="">
+                <span>{$vo.name}</span><span class="fr rt_icon"></span>
             </a>
         </li>
-        <li>
-            <a href="/home/book/userlist" class="list_header " data-pid="">
-                <span>主力学员</span><span class="fr rt_icon"></span>
-            </a>
-        </li>
-        <li>
-            <a href="/home/book/userlist" class="list_header " data-pid="">
-                <span>潜力学员</span><span class="fr rt_icon"></span>
-            </a>
-        </li>
+        {/volist}
     </ul>
 </div>
 {/block}
