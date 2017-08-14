@@ -26,46 +26,29 @@
     <ul class="nav clear">
         <li>杭州体育集团</li>
     </ul>
+    {eq name="visit" value="0"}
     <ul class="lists">
         <li>
             <ul class="lists">
                 <li class="all_group">
-                    <a  href="/home/book/grouplist" class="list_header type2" data-pid="">
+                    <a  href="/home/book/grouplist/did/2" class="list_header type2" data-pid="">
                         <span>游泳健身中心</span><span class="fr fa fa-angle-right"></span>
                     </a>
                 </li>
                 <li class="my_group">
                     <div class="list_header type2 mydp" data-pid="">
-                        <span>管理组</span><span class="fr fa fa-angle-down"></span>
+                        <span>我的部门</span><span class="fr fa fa-angle-down"></span>
                     </div>
                     <div class="dps">
-                        <a href="/home/book/userlist" class="dp title">中心主任</a>
-                        <a href="/home/book/userlist" class="dp title">训练科长</a>
+                        {volist name="list.my" id="vo2"}
+                        <a href="{:Url('Book/userlist?did='.$vo2['departmentid'])}" class="dp title">{$vo2.name}</a>
+                        {/volist}
                     </div>
                 </li>
-                <li class="my_group">
-                    <div class="list_header type2 mydp" data-pid="">
-                        <span>教练组</span><span class="fr fa fa-angle-down"></span>
-                    </div>
-                    <div class="dps">
-                        <a href="/home/book/userlist" class="dp title">主教练</a>
-                        <a href="/home/book/userlist" class="dp title">助教</a>
-                    </div>
-                </li>
-                <li class="my_group">
-                    <div class="list_header type2 mydp" data-pid="">
-                        <span>学员组</span><span class="fr fa fa-angle-down"></span>
-                    </div>
-                    <div class="dps">
-                        <a href="/home/book/userlist" class="dp title">特招学员</a>
-                        <a href="/home/book/userlist" class="dp title">长期学员</a>
-                        <a href="/home/book/userlist" class="dp title">潜力学员</a>
-                    </div>
-                </li>
-
             </ul>
         </li>
     </ul>
+    {/eq}
 </div>
 {/block}
 {block name="script"}

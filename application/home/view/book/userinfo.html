@@ -6,16 +6,18 @@
 {/block}
 {block name="body"}
 <div class="header clear">
-    <img src="/home/images/book/pb.png" class="head_img fl" alt="头像">
-    <!--<img src="header}" class="head_img fl" alt="头像">-->
+    <img src="{$info.header}" class="head_img fl" alt="头像">
     <ul class="head_info fl">
         <li>
-            <span class="name">xiaobao</span>
+            <span class="name">{$info.name}</span>
+                {eq name="$info.gender" value="1"}
                 <span class="sex boy"></span>
-                <!--<span class="sex girl"></span>-->
+                {else/}
+                <span class="sex girl"></span>
+                {/eq}
         </li>
         <li>
-            <span>账号：wechat001</span>
+            <span>账号：{$info.userid}</span>
         </li>
         <li>
             <!--<span>企业微信号：bllhahaha</span>-->
@@ -25,10 +27,10 @@
 
 <ul class="main">
 
-    <li><span>部门</span><a >asdas</a></li>
-    <li><span style="color: #333">职位</span>dfsd</li>
-    <li><span style="color: #333">学历</span>dfsd</li>
-    <li><span>手机</span><a href="tel:123">123</a></li>
+    <li><span>部门</span><a >{$info.depart}</a></li>
+    <li><span style="color: #333">职位</span>{$info.position}</li>
+    <li><span style="color: #333">学历</span>{$info.education}</li>
+    <li><span>手机</span><a href="tel:{$info.mobile}">{$info.mobile}</a></li>
 </ul>
 {/block}
 {block name="script"}

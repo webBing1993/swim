@@ -25,16 +25,18 @@
 <div class="main">
     <ul class="nav clear">
         <li><a data-pid="">杭州体育集团</a></li>
-        <li><a data-pid="">游泳体育中心</a></li>
-        <li><a data-pid="">学员组</a></li>
-        <li>长期学员</li>
+        <li><a data-pid="">{$depart.dp1_name}</a></li>
+        <li><a data-pid="">{$depart.dp2_name}</a></li>
+        <li>{$depart.dp3_name}</li>
     </ul>
     <ul class="lists">
         <li>
-            <a href="/home/book/userinfo">
-                <img src="/home/images/book/pb.png" alt="头像">
-                <div>张三<span class="fr"></span></div>
+            {volist name="list" id="vo"}
+            <a href="{:Url('Book/userinfo?id='.$vo['id'].'&did='.$did)}">
+                <img src="{$vo.header}" alt="头像">
+                <div>{$vo.name}<span class="fr"></span></div>
             </a>
+            {/volist}
         </li>
     </ul>
 </div>

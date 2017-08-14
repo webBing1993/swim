@@ -18,27 +18,18 @@
 
 </ul>
 <div class="main">
-
     <ul class="nav clear">
         <li><a data-pid="">杭州体育集团</a></li>
-        <li>游泳体育中心</li>
+        <li>{$depart.name}</li>
     </ul>
     <ul class="lists">
+        {volist name="list" id="vo"}
         <li>
-            <a href="/home/book/deplist" class="list_header " data-pid="">
-                <span>管理组</span><span class="fr rt_icon"></span>
+            <a href="{:Url('Book/deplist?did='.$vo['id'])}" class="list_header " data-pid="">
+                <span>{$vo.name}</span><span class="fr rt_icon"></span>
             </a>
         </li>
-        <li>
-            <a href="/home/book/deplist" class="list_header " data-pid="">
-                <span>教练组</span><span class="fr rt_icon"></span>
-            </a>
-        </li>
-        <li>
-            <a href="/home/book/deplist" class="list_header " data-pid="">
-                <span>学员组</span><span class="fr rt_icon"></span>
-            </a>
-        </li>
+        {/volist}
     </ul>
 </div>
 {/block}
