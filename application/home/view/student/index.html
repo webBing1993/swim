@@ -1,0 +1,155 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>学员频道</title>
+<link rel="stylesheet" href="/home/css/student/index.css">
+{/block}
+
+{block name="body"}
+<!--两个模块-->
+<div class="boxs">
+	<!--我的教练-->
+	<div class="box hidden clear">
+		<div class="content">
+			<div class="lists">
+				<a href="{:Url('User/tutor')}" class="list clear">
+					<div class="ll fl">
+						<img src="/home/images/tem/5.jpg" alt="教练头像" class="user">
+						<img src="/home/images/coach/male.png" alt="男" class="sex">
+						<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+					</div>
+					<div class="lr fr">
+						<div class="top">
+							<span class="name limit">张三</span>
+							<span class="age limit">30岁</span>
+						</div>
+						<div class="note">级别：主教练</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<!--个人中心-->
+	<div class="box hidden">
+		<div class="banner">
+			<img src="/home/images/tem/5.jpg" alt="个人中心banner" class="banner-img">
+			<!--头像照片-->
+			<div data-tab="/home/images/tem/5.jpg"  class="user up">
+				<input type="file" class="hidden" id="upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+				<input type="hidden" name="header"  value="" required="">
+			</div>
+			<div class="mylist">
+				<a href="{:Url('User/student')}" class="list">
+					<span class="name">个人信息</span>
+					<span class="fa fa-angle-right"></span>
+				</a>
+				<a href="mysign.html" class="list">
+					<span class="name">我的签到</span>
+					<span class="fa fa-angle-right"></span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+<!--切换-->
+<div class="tabs">
+	<span class="tab active">我的教练</span>
+	<span class="tab">个人中心</span>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+$(function(){
+	//tab值记录
+	tabRecord('.tab' ,'.box');
+	//tab切换
+	tabSwitch('.tab' ,'.box');
+	//tag切换
+	tagswich();
+	//头像大小自适应
+	imgfit();
+	//修改头像
+	//触发上传按钮
+	$('.up').off("click").on('click',function(){
+		//栈溢出
+		$('#upload')[0].click()
+	});
+	//上传图片并获取信息
+	$('#upload').off("change").on('change',function(){
+		var up = $('.up' );
+		var ww = up.width();
+		var size = ($(this)[0].files[0].size / 1024).toFixed(2);
+		if(size <= 2048){
+			var img = $(this)[0].files[0];
+			var formData = new FormData();
+			formData.append("picture",img);
+			$.ajax({
+				type:"post",
+				url:"{:Url('File/uploadPicture')}",
+				data:formData,
+				processData : false,
+				contentType : false,
+				success:function(data){
+					var msg = $.parseJSON(data);
+					if(msg.code == 1){
+						var image = new Image();
+						image.src = msg.data.path ;
+						up.css({"background-image":'url('+msg.data.path+')'});
+						image.onload = function(){
+							if(image.width > image.height){
+								up.css({"background-size":'auto '+ww +'px'});
+							}else{
+								up.css({"background-size":ww +'px'+' auto '});
+							}
+						};
+						//						$.ajax({
+						//							type:"post",
+						//							url:"{:Url('User/setHeader')}",
+						//							data:{header:msg.data.id},
+						//							dataType: "Json",
+						//							success:function(){
+						//
+						//							}
+						//						})
+					} else {
+						warning({msg:'上传失败'});
+						return;
+					}
+				}
+			});
+		} else {
+			warning({msg:"您选择的图片超过2mb，请重新选择"});
+			return;
+		}
+	});
+});
+function tagswich(){
+	var list = $('.box').eq(0).find('.lists');
+	list.eq(1).hide();
+	$('.tag').off('click').on('click',function(){
+		var index = $(this).index();
+		$(this).siblings('.tag').removeClass('active');
+		$(this).addClass('active');
+		list.eq(index).siblings('.lists').hide();
+		list.eq(index).fadeIn();
+	});
+}
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
+function loadScroll(){}
+</script>
+{/block}
