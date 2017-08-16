@@ -55,28 +55,64 @@ class User extends Base{
     }
 	/**
 	 * 个人信息(学员)
+     * member_type: 2
 	 */
 	public function student () {
+        $userid = session('userId');
+        $res = WechatUser::where('userid',$userid)->find();
+        ($res['gender'] == 1) ? $res['gender_text'] = "男" : $res['gender_text'] = "女";
+        $this->assign('res',$res);
 		return $this->fetch();
 	}
 	/**
 	 * 个人信息(教练)
+     * member_type: 1
 	 */
 	public function tutor () {
+        $userid = session('userId');
+        $res = WechatUser::where('userid',$userid)->find();
+        ($res['gender'] == 1) ? $res['gender_text'] = "男" : $res['gender_text'] = "女";
+        $this->assign('res',$res);
 		return $this->fetch();
 	}
 	/**
 	 * 个人信息编辑(教练)
 	 */
 	public function tutoredit () {
-		return $this->fetch();
+        if(IS_POST) {
+            $data = input('post.');
+            $res = WechatUser::where('id',$data['id'])->update($data);
+            if($res) {
+                return $this->success("修改成功");
+            }else{
+                return $this->error("修改失败");
+            }
+        }else {
+            $id = input('id');
+            $res = WechatUser::get($id);
+            $this->assign('res',$res);
+            return $this->fetch();
+        }
 	}
 
 	/**
 	 * 个人信息编辑(学员)
 	 */
 	public function studentedit () {
-		return $this->fetch();
+        if(IS_POST) {
+            $data = input('post.');
+            $res = WechatUser::where('id',$data['id'])->update($data);
+            if($res) {
+                return $this->success("修改成功");
+            }else{
+                return $this->error("修改失败");
+            }
+        }else {
+            $id = input('id');
+            $res = WechatUser::get($id);
+            $this->assign('res',$res);
+            return $this->fetch();
+        }
 	}
 
 }

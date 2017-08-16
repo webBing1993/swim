@@ -9,79 +9,83 @@
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">头像</span>
-		<div data-tab="/home/images/coach/code.jpg"  class="user up fr"></div>
+		{empty name="$res.header"}
+		<div data-tab="{$res.avatar}"  class="user up fr"></div>
+		{else/}
+		<div data-tab="{$res.header|get_cover='path'}"  class="user up fr"></div>
+		{/empty}
 	</div>
 	<div class="list clear">
 		<span class="fl">姓名</span>
-		<span class="fr">123</span>
+		<span class="fr">{$res.name}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">出生年月</span>
-		<span class="fr">2012-01</span>
+		<span class="fr">{$res.birthday}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>
-		<span class="fr">男</span>
+		<span class="fr">{$res.gender_text}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">监护人姓名</span>
-		<a class="fr" href="tel:123456">张丹</a>
+		<span class="fr">{$res.guardian}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">手机号</span>
-		<a class="fr" href="tel:123456">123456</a>
+		<a class="fr" href="tel:{$res.mobile}">{$res.mobile}</a>
 	</div>
 </div>
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">招生日期</span>
-		<span class="fr">2017-08</span>
+		<span class="fr">{$res.enrollday}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">身高（cm）</span>
-		<span class="fr">100</span>
+		<span class="fr">{$res.height}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">体重（kg）</span>
-		<span class="fr">50</span>
+		<span class="fr">{$res.weight}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">星级情况</span>
-		<span class="fr">2级</span>
+		<span class="fr">{$res.star_level}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">原教练</span>
-		<span class="fr">阿萨德撒</span>
+		<span class="fr">{$res.ever_coach}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">现教练</span>
-		<span class="fr">阿萨德撒</span>
+		<span class="fr">{$res.now_coach}</span>
 	</div>
 </div>
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">家庭地址</span>
-		<span class="fr limit">自行车虚做出选择插卡式sadasdasdasdasdasdasdasdas</span>
+		<span class="fr limit">{$res.address}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">学历</span>
-		<span class="fr">小学</span>
+		<span class="fr">{$res.education}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">现就读学校</span>
-		<span class="fr">采荷小学</span>
+		<span class="fr">{$res.school}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">学籍号</span>
-		<span class="fr">123456</span>
+		<span class="fr">{$res.student_code}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">文化成绩</span>
-		<span class="fr">优</span>
+		<span class="fr">{$res.achievement}</span>
 	</div>
 </div>
 
-<a href="studentedit.html" class="edit">编&emsp;辑</a>
+<a href="{:Url('User/studentedit?id='.$res['id'])}" class="edit">编&emsp;辑</a>
 
 {/block}
 

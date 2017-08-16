@@ -69,7 +69,6 @@ class Wechat extends Admin
             foreach ($users['userlist'] as $user) {
                 $user['department'] = $user['department'][0];
                 $user['order'] = $user['order'][0];
-
                 foreach ($user['extattr']['attrs'] as $value) {
                     switch ($value['name']){
                         case "学历":
@@ -77,6 +76,45 @@ class Wechat extends Admin
                             break;
                         case "身份证号":
                             $user['identity'] = $value['value'];
+                            break;
+                        case "出生年月":
+                            $user['birthday'] = $value['value'];
+                            break;
+                        case "监护人":
+                            $user['guardian'] = $value['value'];
+                            break;
+                        case "招生日期":
+                            $user['enrollday'] = $value['value'];
+                            break;
+                        case "身高":
+                            $user['height'] = $value['value'];
+                            break;
+                        case "体重":
+                            $user['weight'] = $value['value'];
+                            break;
+                        case "星级情况":
+                            $user['star_level'] = $value['value'];
+                            break;
+                        case "原教练":
+                            $user['ever_coach'] = $value['value'];
+                            break;
+                        case "现教练":
+                            $user['now_coach'] = $value['value'];
+                            break;
+                        case "家庭住址":
+                            $user['address'] = $value['value'];
+                            break;
+                        case "就读学校":
+                            $user['school'] = $value['value'];
+                            break;
+                        case "学籍号":
+                            $user['student_code'] = $value['value'];
+                            break;
+                        case "文化成绩":
+                            $user['achievement'] = $value['value'];
+                            break;
+                        case "成员类型":
+                            $user['member_type'] = $value['value'];
                             break;
                         default:
                             break;

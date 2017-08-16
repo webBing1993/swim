@@ -10,55 +10,59 @@
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">头像</span>
-		<div data-tab="/home/images/coach/code.jpg"  class="user up fr"></div>
+		{empty name="$res.header"}
+		<div data-tab="{$res.avatar}"  class="user up fr"></div>
+		{else/}
+		<div data-tab="{$res.header|get_cover='path'}"  class="user up fr"></div>
+		{/empty}
 	</div>
 	<div class="list clear">
 		<span class="fl">姓名</span>
-		<span class="fr">123</span>
+		<span class="fr">{$res.name}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>
-		<span class="fr">12</span>
+		<span class="fr">{$res.gender_text}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">手机号</span>
-		<a class="fr" href="tel:123456">123456</a>
+		<a class="fr" href="tel:{$res.mobile}">{$res.mobile}</a>
 	</div>
 </div>
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">学历</span>
-		<span class="fr">小学</span>
+		<span class="fr">{$res.education}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">部门</span>
-		<span class="fr">阿斯达说多</span>
+		<span class="fr">{$res->departmentName->name;}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">职位</span>
-		<span class="fr">阿斯达说</span>
+		<span class="fr">{$res.position}</span>
 	</div>
 </div>
 <!--助教-->
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">身份证号</span>
-		<span class="fr">3301231321321</span>
+		<span class="fr">{$res.identity}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">社会指导员证</span>
-		<img src="/home/images/coach/code.jpg" alt="社会指导员证" class="fr card"  data-original="">
+		<img src="{$res.social_certificate|get_cover='path'}" alt="社会指导员证" class="fr card"  data-original="">
 	</div>
 	<div class="list clear">
 		<span class="fl">职业资格鉴定证</span>
-		<img src="/home/images/coach/code.jpg" alt="职业资格鉴定证" class="fr card"  data-original="">
+		<img src="{$res.profession_certificate|get_cover='path'}" alt="职业资格鉴定证" class="fr card"  data-original="">
 	</div>
 	<div class="list clear">
 		<span class="fl">救生员证</span>
-		<img src="/home/images/coach/code.jpg" alt="救生员证" class="fr card"  data-original="">
+		<img src="{$res.lifeguard_certificate|get_cover='path'}" alt="救生员证" class="fr card"  data-original="">
 	</div>
 </div>
-<a href="tutoredit.html" class="edit">编&emsp;辑</a>
+<a href="{:Url('User/tutoredit?id='.$res['id'])}" class="edit">编&emsp;辑</a>
 <!--/助教-->
 {/block}
 

@@ -50,26 +50,11 @@ class Index extends Controller {
 
                 foreach ($userInfo['extattr']['attrs'] as $attrs) {
                     switch ($attrs['name']){
-                        case "出生年月":
-                            $data['birthday'] = $attrs['value'];
-                            break;
-                        case "民族":
-                            $data['nation'] = $attrs['value'];
-                            break;
                         case "学历":
                             $data['education'] = $attrs['value'];
                             break;
-                        case "入党时间":
-                            $data['partytime'] = $attrs['value'];
-                            break;
-                        case "工作时间":
-                            $data['worktime'] = $attrs['value'];
-                            break;
-                        case "所在支部":
-                            $data['branch'] = $attrs['value'];
-                            break;
-                        case "虚拟网":
-                            $data['virtualnet'] = $attrs['value'];
+                        case "身份证号":
+                            $data['identity'] = $attrs['value'];
                             break;
                         default:
                             break;
