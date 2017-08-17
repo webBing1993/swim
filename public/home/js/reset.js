@@ -26,19 +26,20 @@ function tabSwitch(a,b,fn,url){
 }
 function tabRecord(a,b){
 	var tab = getCookie('tab');
-	if(tab){
-		var index = tab;
-		var box = $(b).parent();
-		var ww = $(b).parent().width();
-		$(a).eq(index).addClass('active');
-		$(a).eq(index).siblings(a).removeClass('active');
-		$(b).removeClass('hidden');
-		ww = ww * index;
-		box.css({left: -ww +'px'});
-		setTimeout(function(){
-			$(b).eq(index).siblings(b).addClass('hidden');
-		},100)
+	if(!tab){
+		tab = 0
 	}
+	var index = tab;
+	var box = $(b).parent();
+	var ww = $(b).parent().width();
+	$(a).eq(index).addClass('active');
+	$(a).eq(index).siblings(a).removeClass('active');
+	$(b).removeClass('hidden');
+	ww = ww * index;
+	box.css({left: -ww +'px'});
+	setTimeout(function(){
+		$(b).eq(index).siblings(b).addClass('hidden');
+	},100)
 	//清除tab值
 	pushHistory();
 	window.addEventListener( "popstate", function( e ){
