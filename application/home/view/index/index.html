@@ -1,11 +1,70 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>杭州游泳体育中心</title>
+<link rel="stylesheet" href="/home/css/index/index.css">
 {/block}
 
 {block name="body"}
-
+<div class="banner">
+	<img src="/home/images/index/banner.png" alt="banner">
+</div>
+<div class="logos clear">
+	<a href="{:Url('Book/index')}" class="logo">
+		<img src="/home/images/index/zzjg.png" alt="通讯名录">
+		<span>通讯名录</span>
+	</a>
+	<a href="{:Url('News/index')}" class="logo">
+		<img src="/home/images/index/xxfb.png" alt="新闻发布">
+		<span>新闻发布</span>
+	</a>
+	<a href="{:Url('Structure/index')}" class="logo">
+		<img src="/home/images/index/jlxx.png" alt="教练信息">
+		<span>教练信息</span>
+	</a>
+	<a href="{:Url('Coach/index')}" class="logo">
+		<img src="/home/images/index/jlpd.png" alt="教练频道">
+		<span>教练频道</span>
+	</a>
+	<a href="{:Url('Student/index')}" class="logo">
+		<img src="/home/images/index/xypd.png" alt="学员频道">
+		<span>学员频道</span>
+	</a>
+	<a href="{:Url('Statistics/index')}" class="logo">
+		<img src="/home/images/index/qdgk.png" alt="签到概况">
+		<span>签到概况</span>
+	</a>
+	<a href="{:Url('User/index')}" class="logo">
+		<img src="/home/images/index/grzx.png" alt="个人中心">
+		<span>个人中心</span>
+	</a>
+</div>
+<div class="notice">
+	<div class="tag clear">
+		<span class="fl"><i class="fa fa-bell-o"></i>通知公告</span>
+		<a href="{:Url('Notice/index')}" class="fr">
+			查看更多
+			<i class="fa fa-angle-right fa-x"></i>
+			<i class="fa fa-angle-right fa-x"></i>
+		</a>
+	</div>
+	<div class="lists">
+		<a href="{:Url('Notice/detail')}" class="list clear">
+			<img src="/home/images/tem/1.jpg" alt="" class="fl">
+			<div class="fr">
+				<div class="title limit">阿斯蒂芬过好几颗来制裁VB你们</div>
+				<div class="content limit_">is的广泛地施工方独守空房高大上开发过段时间打飞机开个会地方看过货到付款跟户口的三个和尚大富科技换个地方开个会</div>
+			</div>
+		</a>
+		<a href="{:Url('Notice/detail')}" class="list clear">
+			<img src="/home/images/tem/1.jpg" alt="" class="fl">
+			<div class="fr">
+				<div class="title limit">阿斯蒂芬过好几颗来制裁VB你们</div>
+				<div class="content limit_">is的广泛地施工方独守空房高大上开发过段时间打飞机开个会地方看过货到付款跟户口的三个和尚大富科技换个地方开个会</div>
+			</div>
+		</a>
+	</div>
+</div>
 {/block}
 
 {block name="script"}
