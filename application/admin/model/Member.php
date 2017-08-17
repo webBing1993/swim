@@ -11,7 +11,7 @@ class Member extends Base
      * @return string|\think\db\Query
      */
     public function roles() {
-        return $this->belongsToMany('AuthGroup', 'pb_auth_group_access', 'group_id', 'uid');
+        return $this->belongsToMany('AuthGroup', 'sw_auth_group_access', 'group_id', 'uid');
     }
 
     public function lists($status = 1, $order = 'uid DESC', $field = true){

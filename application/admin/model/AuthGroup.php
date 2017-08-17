@@ -19,7 +19,7 @@ class AuthGroup extends Base
     ];
 
     public function member() {
-        return $this->belongsToMany('Member', 'pb_auth_group_access', 'uid', 'group_id');
+        return $this->belongsToMany('Member', 'sw_auth_group_access', 'uid', 'group_id');
     }
 
     /**
