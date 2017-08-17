@@ -1,0 +1,90 @@
+body {
+  background: #f0f0f0;
+}
+.banner {
+  width: 100vw;
+  height: 50vw;
+}
+.banner img {
+  width: 100vw;
+  height: 50vw;
+}
+.logos {
+  padding: 0 10vw 5vw 10vw;
+  background: #ffffff;
+}
+.logos .logo {
+  float: left;
+  position: relative;
+  width: 20vw;
+  height: 20vw;
+  text-align: center;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 7vw;
+}
+.logos .logo img {
+  display: block;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 1vw;
+  width: 12vw;
+  height: 12vw;
+}
+.logos .logo span {
+  display: block;
+  padding-top: 12vw;
+}
+.notice {
+  margin-top: 4vw;
+  background: #ffffff;
+  line-height: 10vw;
+}
+.notice .tag {
+  padding: 0 4vw;
+}
+.notice .tag .fl {
+  color: #666666;
+  font-size: 1.4rem;
+}
+.notice .tag .fa-bell-o {
+  color: #999999;
+  padding-right: 3vw;
+}
+.notice .tag .fr {
+  color: #999999;
+  font-size: 1.2rem;
+}
+.notice .lists .list {
+  display: block;
+  padding: 0 4vw;
+  width: 100vw;
+  height: 26vw;
+  border-bottom: 1px solid #f1f1f1;
+}
+.notice .lists .list .fl {
+  display: block;
+  width: 22vw;
+  height: 16vw;
+  margin-top: 5vw;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.notice .lists .list .fr {
+  width: 66vw;
+  height: 16vw;
+  margin-top: 5vw;
+}
+.notice .lists .list .fr .title {
+  color: #333333;
+  font-size: 1.4rem;
+  line-height: 6vw;
+}
+.notice .lists .list .fr .content {
+  color: #666666;
+  font-size: 1.3rem;
+  line-height: 4vw;
+}
