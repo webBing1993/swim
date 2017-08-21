@@ -2,3 +2,150 @@
 //animate
 
 //layout
+.banner{
+	position: relative;
+	.wh(100vw,50vw);
+	background: url("/home/images/structure/banner.png") no-repeat;
+	background-size: 100% 100%;
+	.header{
+		margin: auto;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 10vw;
+		.wh(18vw,18vw);
+		border:2px solid #7a9dd5;
+		-webkit-border-radius:50%;
+		-moz-border-radius:50%;
+		border-radius:50%;
+	}
+	span{
+		display: inline-block;
+		width: 18vw;
+		margin: auto;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 30vw;
+		.font(#ffffff,@c_content,1.6rem);
+		padding-left:2rem;
+		&:before{
+			display: inline-block;
+			.wh(1.6rem,1.6rem);
+			content:'主';
+			.font(#ffffff,1rem,1.6rem);
+			margin: auto;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left:0;
+			text-align: center;
+			background: #589efd;
+			-webkit-border-radius:50%;
+			-moz-border-radius:50%;
+			border-radius:50%;
+		}
+		&.assi:before{
+			content:'助';
+			background: #fd8358;
+		}
+	}
+}
+.tabbox{
+	position: relative;
+	width: 100vw;
+	height: 5rem;
+	background: #f9f9f9;
+
+	.tabs{
+		overflow: hidden;
+		margin: auto;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		.wh(60vw,2.8rem);
+		background: #ffffff;
+		border:1px solid #2c79f9;
+		.font(#2c79f9,1.4rem,2.8rem);
+		-webkit-border-radius:6px;
+		-moz-border-radius:6px;
+		border-radius:6px;
+		.tab{
+			display: inline-block;
+			width: 29vw;
+			height: 100%;
+			text-align: center;
+		}
+		.active{
+			background: #2c79f9;
+			color: #ffffff;
+		}
+	}
+}
+
+.boxs{
+	position: relative;
+	top:0;
+	left:0;
+	width: 100vw;
+	min-height: 64vw;
+	.box{
+		position: absolute;
+		top: 0;
+		width: 99vw;
+		&:nth-child(1){
+			left: 0;
+			.list{
+				display: block;
+				padding: 4vw;
+				background: #ffffff;
+				.wh(100vw,29vw);
+				margin-bottom: 2vw;
+				.ll{
+					position: relative;
+					top:0;
+					display: inline-block;
+					.wh(21vw,21vw);
+					.user{
+						.wh(21vw,21vw);
+						-webkit-border-radius:1.2vw;
+						-moz-border-radius:1.2vw;
+						border-radius:1.2vw;
+					}
+					.sex{
+						position: absolute;
+						.wh(6vw,6vw);
+						right: 0;
+						bottom: 0;
+					}
+				}
+				.lr{
+					display: inline-block;
+					.wh(66vw,21vw);
+					.font(@c_note,@s_note,6vw);
+					.top{
+						span{
+							display: inline-block;
+						}
+						.name{
+							max-width: 40vw;
+							.font(@c_title,@s_title,7.5vw);
+							font-weight: 600;
+							margin-right: 2vw;
+						}
+						.age{
+							width: 10vw;
+							line-height: 8vw;
+						}
+					}
+				}
+			}
+		}
+		&:nth-child(2){
+			left: 100vw;
+		}
+
+	}
+}

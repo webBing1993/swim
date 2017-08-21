@@ -1,13 +1,54 @@
 {extend name="public/common"}
 
 {block name="style"}
+<title>教练信息</title>
 <link rel="stylesheet" href="/home/css/structure/detail.css">
 {/block}
 
 {block name="body"}
-
+<div class="banner">
+	<img src="/home/images/tem/5.jpg" alt="header" class="header">
+	<!--总教练：main,助教：assi-->
+	<span class="assi">李海洋</span>
+</div>
+<div class="tabbox">
+	<div class="tabs clear">
+		<span class="tab active">我的学员</span>
+		<span class="tab fr">教练档案</span>
+	</div>
+</div>
+<div class="boxs">
+	<div class="box active">
+		<a href="student.html" class="list clear">
+			<div class="ll fl">
+				<img src="/home/images/tem/5.jpg" alt="学员头像" class="user">
+				<img src="/home/images/coach/male.png" alt="男" class="sex">
+				<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+			</div>
+			<div class="lr fr">
+				<div class="top">
+					<span class="name limit">张三</span>
+					<span class="age limit">12岁</span>
+				</div>
+				<div class="note">身高 : 120cm 体重 : 50kg</div>
+				<div class="note">课程 : 已上26节</div>
+			</div>
+		</a>
+	</div>
+	<div class="box hidden">
+		页面2
+	</div>
+</div>
 {/block}
 
 {block name="script"}
-
+<script>
+$(function(){
+	//tab值记录
+	tabRecord('.tab' ,'.box');
+	//tab切换
+	tabSwitch('.tab' ,'.box');
+});
+function loadScroll(){}
+</script>
 {/block}

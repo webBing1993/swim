@@ -1,0 +1,205 @@
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 50vw;
+  background: url("/home/images/structure/banner2.png") no-repeat;
+  background-size: 100% 100%;
+}
+.banner .header {
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 8vw;
+  width: 16vw;
+  height: 16vw;
+  border: 2px solid #7a9dd5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner span.all {
+  display: inline-block;
+  width: 18vw;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 25vw;
+  color: #ffffff;
+  font-size: #666666;
+  line-height: 1.6rem;
+  padding-left: 2rem;
+}
+.banner span.all:before {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  content: '总';
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background: #ffb821;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner .lists {
+  position: absolute;
+  width: 92vw;
+  height: auto;
+  left: 4vw;
+  top: 35vw;
+  background: #ffffff;
+  box-shadow: 1px 3px 8px #f1f1f1;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.banner .lists .list {
+  padding: 4vw 0 4vw 4vw;
+  display: block;
+  border-bottom: 1px solid #f1f1f1;
+}
+.banner .lists .list img {
+  width: 14vw;
+  height: 14vw;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner .lists .list .content {
+  width: 40vw;
+  margin: 0 4vw;
+  padding: 1vw 0;
+}
+.banner .lists .list .content .main {
+  position: relative;
+  display: block;
+  color: #333333;
+  font-size: 1.3rem;
+  line-height: 6vw;
+}
+.banner .lists .list .content .main:after {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  content: '主';
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  background: #589efd;
+  margin-left: 0.5rem;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner .lists .list .content .note {
+  display: block;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 6vw;
+}
+.banner .lists .list .angle {
+  width: 20vw;
+  margin-right: 4vw;
+  text-align: right;
+  color: #999999;
+  font-size: 2rem;
+  line-height: 12vw;
+}
+.banner .lists .list .angle .fr {
+  transform: rotate(90deg);
+}
+.banner .lists .list .angle .fr.toup {
+  -webkit-animation: toup 0.4s linear alternate;
+  animation: toup 0.4s linear alternate;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+}
+.banner .lists .list .angle .fr.todown {
+  -webkit-animation: todown 0.4s linear alternate;
+  animation: todown 0.4s linear alternate;
+  transform: rotate(0);
+  -webkit-transform: rotate(0);
+}
+.banner .assis {
+  display: none;
+  z-index: -1;
+  padding: 0 8.5vw;
+  background: #f9f9f9;
+}
+.banner .assis .assi {
+  float: left;
+  position: relative;
+  display: inline-block;
+  width: 25vw;
+  height: 10vw;
+  color: #666666;
+  font-size: 1.3rem;
+  line-height: 10vw;
+  text-align: center;
+  padding-left: 6vw;
+}
+.banner .assis .assi:before {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  content: '助';
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6vw;
+  text-align: center;
+  background: #fd8358;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+@keyframes todown {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes todown {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes toup {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@-webkit-keyframes toup {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}

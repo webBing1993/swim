@@ -17,11 +17,17 @@ class Structure extends Base{
 		return $this->fetch();
 	}
 	/**
-	 * 详情页
+	 * 教练详情页
 	 */
 	public function detail() {
 
 		return $this->fetch();
 	}
+	/**
+	 * 学员详情页
+	 */
+	public function student() {
 
+		return $this->fetch();
+	}
 }

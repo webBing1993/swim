@@ -39,22 +39,22 @@ textarea::-webkit-input-placeholder {
   text-align: center;
 }
 .tabs .tab:nth-child(1) {
-  background: url('/home/images/coach/tab1.png') 11vw 0.6rem no-repeat;
+  background: url('/home/images/coach/tab1.png') center 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(2) {
-  background: url('/home/images/coach/tab2.png') 11vw 0.6rem no-repeat;
+  background: url('/home/images/coach/tab2.png') center 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(3) {
-  background: url('/home/images/coach/tab3.png') 11vw 0.6rem no-repeat;
+  background: url('/home/images/coach/tab3.png') center 0.6rem no-repeat;
 }
 .tabs .tab:nth-child(1).active {
-  background: url('/home/images/coach/tab1_.png') 11vw 0.3rem no-repeat;
+  background: url('/home/images/coach/tab1_.png') center 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(2).active {
-  background: url('/home/images/coach/tab2_.png') 11vw 0.3rem no-repeat;
+  background: url('/home/images/coach/tab2_.png') center 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(3).active {
-  background: url('/home/images/coach/tab3_.png') 11vw 0.3rem no-repeat;
+  background: url('/home/images/coach/tab3_.png') center 0.3rem no-repeat;
 }
 .tabs .tab:nth-child(1),
 .tabs .tab:nth-child(2),

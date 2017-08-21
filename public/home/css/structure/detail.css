@@ -1,0 +1,161 @@
+.banner {
+  position: relative;
+  width: 100vw;
+  height: 50vw;
+  background: url("/home/images/structure/banner.png") no-repeat;
+  background-size: 100% 100%;
+}
+.banner .header {
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10vw;
+  width: 18vw;
+  height: 18vw;
+  border: 2px solid #7a9dd5;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner span {
+  display: inline-block;
+  width: 18vw;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30vw;
+  color: #ffffff;
+  font-size: #666666;
+  line-height: 1.6rem;
+  padding-left: 2rem;
+}
+.banner span:before {
+  display: inline-block;
+  width: 1.6rem;
+  height: 1.6rem;
+  content: '主';
+  color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background: #589efd;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.banner span.assi:before {
+  content: '助';
+  background: #fd8358;
+}
+.tabbox {
+  position: relative;
+  width: 100vw;
+  height: 5rem;
+  background: #f9f9f9;
+}
+.tabbox .tabs {
+  overflow: hidden;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 60vw;
+  height: 2.8rem;
+  background: #ffffff;
+  border: 1px solid #2c79f9;
+  color: #2c79f9;
+  font-size: 1.4rem;
+  line-height: 2.8rem;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.tabbox .tabs .tab {
+  display: inline-block;
+  width: 29vw;
+  height: 100%;
+  text-align: center;
+}
+.tabbox .tabs .active {
+  background: #2c79f9;
+  color: #ffffff;
+}
+.boxs {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 64vw;
+}
+.boxs .box {
+  position: absolute;
+  top: 0;
+  width: 99vw;
+}
+.boxs .box:nth-child(1) {
+  left: 0;
+}
+.boxs .box:nth-child(1) .list {
+  display: block;
+  padding: 4vw;
+  background: #ffffff;
+  width: 100vw;
+  height: 29vw;
+  margin-bottom: 2vw;
+}
+.boxs .box:nth-child(1) .list .ll {
+  position: relative;
+  top: 0;
+  display: inline-block;
+  width: 21vw;
+  height: 21vw;
+}
+.boxs .box:nth-child(1) .list .ll .user {
+  width: 21vw;
+  height: 21vw;
+  -webkit-border-radius: 1.2vw;
+  -moz-border-radius: 1.2vw;
+  border-radius: 1.2vw;
+}
+.boxs .box:nth-child(1) .list .ll .sex {
+  position: absolute;
+  width: 6vw;
+  height: 6vw;
+  right: 0;
+  bottom: 0;
+}
+.boxs .box:nth-child(1) .list .lr {
+  display: inline-block;
+  width: 66vw;
+  height: 21vw;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 6vw;
+}
+.boxs .box:nth-child(1) .list .lr .top span {
+  display: inline-block;
+}
+.boxs .box:nth-child(1) .list .lr .top .name {
+  max-width: 40vw;
+  color: #333333;
+  font-size: 1.4rem;
+  line-height: 7.5vw;
+  font-weight: 600;
+  margin-right: 2vw;
+}
+.boxs .box:nth-child(1) .list .lr .top .age {
+  width: 10vw;
+  line-height: 8vw;
+}
+.boxs .box:nth-child(2) {
+  left: 100vw;
+}

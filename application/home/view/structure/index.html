@@ -1,13 +1,77 @@
 {extend name="public/common"}
 
 {block name="style"}
+<title>教练信息</title>
 <link rel="stylesheet" href="/home/css/structure/index.css">
 {/block}
 
 {block name="body"}
+<div class="banner">
+	<img src="/home/images/tem/5.jpg" alt="header" class="header">
+	<span class="all">李海洋</span>
+	<div class="lists">
+		<a href="detail.html" class="list clear">
+			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div class="fl content">
+				<span class="main">小三</span>
+				<span class="note">目前拥有3名助教</span>
+			</div>
+			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
+		</a>
+		<div class="assis clear">
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+		</div>
+		<a href="detail.html" class="list clear">
+			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div class="fl content">
+				<span class="main">小三</span>
+				<span class="note">目前拥有3名助教</span>
+			</div>
+			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
+		</a>
+		<div class="assis clear">
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+		</div>
+		<a href="detail.html" class="list clear">
+			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div class="fl content">
+				<span class="main">小三</span>
+				<span class="note">目前拥有3名助教</span>
+			</div>
+			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
+		</a>
+		<div class="assis clear">
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi">小四</a>
+		</div>
+	</div>
+</div>
 
 {/block}
 
 {block name="script"}
+<script>
+$(function(){
+	//信息展开
+	$(".list").delegate(".angle","click",function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		var this_ = $(this).find('.fa');
+		if(this_.hasClass('toup')){
+			this_.addClass('todown').removeClass('toup');
+			$(this).parents('.list').next('.assis').stop().fadeOut();
 
+		}else{
+			this_.addClass('toup').removeClass('todown');
+			$(this).parents('.list').next('.assis').stop().fadeIn();
+
+		}
+	});
+})
+</script>
 {/block}
