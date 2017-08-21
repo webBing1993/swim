@@ -305,7 +305,8 @@ class Base extends Controller {
     /**
      * 浏览记录
      */
-    public function browser($type,$uid,$aid) {
+    public function browser($type,$uid,$aid)
+    {
         switch ($type) {    //根据类别获取表明
             case 1:
                 $table = "news";
@@ -326,8 +327,46 @@ class Base extends Controller {
         $browserModel = new Browse();
         $history = $browserModel->where($data)->find();
 
-        if(empty($history)){
+        if (empty($history)) {
             $browserModel->create($data);
         }
     }
+
+    /*
+     * 生成条形码
+     */
+    public function bar_code($id){
+        /** 定义文件路径*/
+        $file_dir = 'uploads/bar';
+        /** 判断文件是否存在*/
+        if(!is_dir($file_dir)) {
+            /** 不存在生成*/
+            mkdir($file_dir);
+            chmod($file_dir,0777);
+        }
+        vendor('barcodegen.BCGcode128');
+        vendor('barcodegen.BCGDrawing');
+        vendor('barcodegen.BCGColor.php');
+        /** 定义颜色*/
+        $color_white = new \BCGColor(255, 255, 255);
+        $code = new \BCGcode128();
+        /** 赋值颜色*/
+        $drawing = new \BCGDrawing('', $color_white);
+        /** 生成内容*/
+        $code->parse($id);
+        $drawing->setBarcode($code);
+        /** 存放路径*/
+        $drawing->setFilename($file_dir.'/'.$id.'.png');
+        /** 渲染图片*/
+        $drawing->draw();
+        /** 生成图片*/
+        $drawing->finish($drawing::IMG_FORMAT_PNG);
+    }
+    /*
+     * 生成条形码密文
+     */
+    public function bar_text($code){
+        return $code ? substr(md5($code),-8) : false;
+    }
+
 }

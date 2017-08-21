@@ -13,7 +13,7 @@ class Sign extends Base{
 	 * 首页
 	 */
 	public function index() {
-
+		$this->jssdk();
 		return $this->fetch();
 	}
 
