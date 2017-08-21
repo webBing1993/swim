@@ -119,16 +119,13 @@
   font-size: 2rem;
   line-height: 12vw;
 }
-.banner .lists .list .angle .fr {
-  transform: rotate(90deg);
-}
-.banner .lists .list .angle .fr.toup {
+.banner .lists .list .angle .fa.toup {
   -webkit-animation: toup 0.4s linear alternate;
   animation: toup 0.4s linear alternate;
   transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
 }
-.banner .lists .list .angle .fr.todown {
+.banner .lists .list .angle .fa.todown {
   -webkit-animation: todown 0.4s linear alternate;
   animation: todown 0.4s linear alternate;
   transform: rotate(0);
