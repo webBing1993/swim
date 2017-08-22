@@ -47,7 +47,8 @@ class Coach extends Base {
 	 * 个人签到条形码
 	 */
 	public function code(){
-		$this->bar_code($this->bar_text('18767104335'));
+		$url = bar_code('18767104338');
+		$this->assign('url',$url);
 		return $this->fetch();
 	}
 }

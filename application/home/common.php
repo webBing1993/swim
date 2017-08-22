@@ -152,3 +152,56 @@ function get_header($userid){
 
     return $header;
 }
+/**
+ * 生成条形码
+ * @param $id
+ * @throws \BCGDrawException
+ */
+function bar_code($phone){
+    /** 定义文件路径*/
+    $file_dir = 'uploads/bar';
+    /** 判断文件是否存在*/
+    if(!is_dir($file_dir)) {
+        /** 不存在生成*/
+        mkdir($file_dir);
+        chmod($file_dir,0777);
+    }
+    if (file_exists($file_dir.'/'.$phone.'.png')) {
+        return '/'.$file_dir.'/'.$phone.'.png';
+    }
+    vendor('barcodegen.BCGcode128');
+    vendor('barcodegen.BCGDrawing');
+    vendor('barcodegen.BCGColor.php');
+    /** 定义颜色*/
+    $color_black = new \BCGColor(0, 0, 0);
+    $color_white = new \BCGColor(255, 255, 255);
+    $code = new \BCGcode128();
+    $code->setScale(2);
+    // 条形码的厚度
+    $code->setThickness(40);
+    // 条形码颜色
+    $code->setForegroundColor($color_black);
+    // 空白间隙颜色
+    $code->setBackgroundColor($color_white);
+    $code->setFont(0);
+    /** 赋值颜色*/
+    $drawing = new \BCGDrawing('', $color_white);
+    /** 生成内容*/
+    $code->parse($phone);
+    $drawing->setBarcode($code);
+    /** 存放路径*/
+    $drawing->setFilename($file_dir.'/'.$phone.'.png');
+    /** 渲染图片*/
+    $drawing->draw();
+    /** 生成图片*/
+    $drawing->finish($drawing::IMG_FORMAT_PNG);
+    return '/'.$file_dir.'/'.$phone.'.png';
+}
+/**
+ * 生成条形码密文
+ * @param $code
+ * @return bool|string
+ */
+function bar_text($code){
+    return $code ? substr(think_ucenter_encrypt($code, $code),-8) : false;
+}

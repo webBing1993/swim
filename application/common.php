@@ -102,7 +102,6 @@ function get_client_ip($type = 0,$adv=false) {
     return $ip[$type];
 }
 
-
 /**
  * 获取文档封面图片
  * @param int $cover_id

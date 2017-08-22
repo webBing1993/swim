@@ -18,28 +18,30 @@ use think\Controller;
 use com\wechat\TPQYWechat;
 use think\Db;
 
-class Base extends Controller {
-    public function _initialize(){
-        session('userId','yuenimei007');
+class Base extends Controller
+{
+    public function _initialize()
+    {
+        session('userId', 'yuenimei007');
 //        session('header','/home/images/vistor.jpg');
 //        session('nickname','游客');
 
-        session('requestUri', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+        session('requestUri', 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
         $userId = session('userId');
 
-        if(Config::get('WEB_SITE_CLOSE')){
+        if (Config::get('WEB_SITE_CLOSE')) {
             return $this->error('站点维护中，请稍后访问~');
         }
 
         //如果是游客的话默认userid为visitors
-        if($userId == 'visitor'){
-            session('nickname','游客');
-            session('header','/home/images/vistor.jpg');
-        }else{
+        if ($userId == 'visitor') {
+            session('nickname', '游客');
+            session('header', '/home/images/vistor.jpg');
+        } else {
             //微信认证
             $Wechat = new TPQYWechat(Config::get('work'));
             // 1用户认证是否登陆
-            if(empty($userId)) {
+            if (empty($userId)) {
                 $redirect_uri = Config::get("work.login");
                 $url = $Wechat->getOauthRedirect($redirect_uri);
                 $this->redirect($url);
@@ -47,16 +49,17 @@ class Base extends Controller {
 
             // 2获取jsapi_ticket
             $jsApiTicket = session('jsapiticket');
-            if(empty($jsApiTicket) || $jsApiTicket=='') {
+            if (empty($jsApiTicket) || $jsApiTicket == '') {
                 session('jsapiticket', $Wechat->getJsTicket()); // 官方7200,设置7000防止误差
             }
         }
     }
-    
+
     /**
      * 微信官方认证URL
      */
-    public function oauth(){
+    public function oauth()
+    {
         $Wechat = new TPQYWechat(Config::get('party'));
         $Wechat->valid();
     }
@@ -64,12 +67,13 @@ class Base extends Controller {
     /**
      * 判断是否是游客登录
      */
-    public function anonymous() {
+    public function anonymous()
+    {
         $userId = session('userId');
         //如果userId等于visitor  则为游客登录，否则则正常显示
-        if($userId == 'visitor'){
+        if ($userId == 'visitor') {
             $this->assign('visit', 1);
-        }else{
+        } else {
             $this->assign('visit', 0);
         }
     }
@@ -77,9 +81,10 @@ class Base extends Controller {
     /**
      * 获取企业号签名
      */
-    public function jssdk(){
+    public function jssdk()
+    {
         $Wechat = new TPQYWechat(Config::get('party'));
-        $url = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $jsSign = $Wechat->getJsSign($url);
         $this->assign("jsSign", $jsSign);
     }
@@ -90,16 +95,17 @@ class Base extends Controller {
      * $list_pic 列表图片id：35-44
      * $carousel_pic 轮播图片id: 45-54
      */
-    public function default_pic(){
+    public function default_pic()
+    {
         //随机轮播图
-        $c = array('1'=>'a','2'=>'b','3'=>'c','4'=>'d','5'=>'e','6'=>'f','7'=>'g','8'=>'h','9'=>'i','10'=>'j','11'=>'k','12'=>'l','13'=>'m','14'=>'n','15'=>'o',
-            '16'=>'p','17'=>'q','18'=>'r','19'=>'s','20'=>'t','21'=>'u','22'=>'v','23'=>'w','24'=>'x','25'=>'y','26'=>'z');
-        $carousel_pic1 = array_rand($c,1);
-        $this->assign('p1',$carousel_pic1);
-        $carousel_pic2 = array_rand($c,1);
-        $this->assign('p2',$carousel_pic2);
-        $carousel_pic3 = array_rand($c,1);
-        $this->assign('p3',$carousel_pic3);
+        $c = array('1' => 'a', '2' => 'b', '3' => 'c', '4' => 'd', '5' => 'e', '6' => 'f', '7' => 'g', '8' => 'h', '9' => 'i', '10' => 'j', '11' => 'k', '12' => 'l', '13' => 'm', '14' => 'n', '15' => 'o',
+            '16' => 'p', '17' => 'q', '18' => 'r', '19' => 's', '20' => 't', '21' => 'u', '22' => 'v', '23' => 'w', '24' => 'x', '25' => 'y', '26' => 'z');
+        $carousel_pic1 = array_rand($c, 1);
+        $this->assign('p1', $carousel_pic1);
+        $carousel_pic2 = array_rand($c, 1);
+        $this->assign('p2', $carousel_pic2);
+        $carousel_pic3 = array_rand($c, 1);
+        $this->assign('p3', $carousel_pic3);
 
     }
 
@@ -108,7 +114,8 @@ class Base extends Controller {
      * type值：
      * 0 评论点赞
      */
-    public function like(){
+    public function like()
+    {
         $uid = session('userId'); //点赞人
         $type = input('type'); //获取点赞类型
         $aid = input('aid');
@@ -134,25 +141,25 @@ class Base extends Controller {
         );
         $likeModel = new Like();
         $like = $likeModel->where($data)->find();
-        if(empty($like)) {
+        if (empty($like)) {
             $res = $likeModel->create($data);
-            if($res) {
+            if ($res) {
                 //点赞成功积分+1
-                WechatUser::where('userid',$uid)->setInc('score',1);
+                WechatUser::where('userid', $uid)->setInc('score', 1);
                 //更新数据
-                Db::name($table)->where('id',$aid)->setInc('likes');
+                Db::name($table)->where('id', $aid)->setInc('likes');
                 return $this->success("点赞成功");
-            }else {
+            } else {
                 return $this->error("点赞失败");
             }
-        }else {
+        } else {
             $result = $likeModel::where($data)->delete();
-            if($result) {
+            if ($result) {
                 //取消成功积分-1
-                WechatUser::where('userid',$uid)->setDec('score',1);
-                Db::name($table)->where('id',$aid)->setDec('likes');
+                WechatUser::where('userid', $uid)->setDec('score', 1);
+                Db::name($table)->where('id', $aid)->setDec('likes');
                 return $this->success("取消成功");
-            }else {
+            } else {
                 return $this->error("取消失败");
             }
         }
@@ -162,7 +169,8 @@ class Base extends Controller {
      * 评论，$type,$aid,$content
      * type值:
      */
-    public function comment(){
+    public function comment()
+    {
         $uid = session('userId');
         $type = input('type');
         $aid = input('aid');
@@ -187,20 +195,20 @@ class Base extends Controller {
         );
 
         $res = $commentModel->create($data);
-        if($res) {  //返回comment数组
+        if ($res) {  //返回comment数组
             //评论成功增加1分
-            WechatUser::where('userid',$uid)->setInc('score',1);
+            WechatUser::where('userid', $uid)->setInc('score', 1);
             //更新主表数据
             $map['id'] = $res['aid'];   //文章id
             $model = Db::name($table)->where($map)->setInc('comments');
-            if($model) {
-                $user = WechatUser::where('userid',$uid)->find();    //获取用户头像和昵称
+            if ($model) {
+                $user = WechatUser::where('userid', $uid)->find();    //获取用户头像和昵称
                 $nickname = ($user['nickname']) ? $user['nickname'] : $user['name'];
-                $header =  ($user['header']) ? $user['header'] : $user['avatar'];
+                $header = ($user['header']) ? $user['header'] : $user['avatar'];
                 //返回用户数据
                 $jsonData = array(
                     'id' => $res['id'],
-                    'time' => date("Y-m-d",time()),
+                    'time' => date("Y-m-d", time()),
                     'content' => input('content'),
                     'nickname' => $nickname,
                     'header' => $header,
@@ -209,11 +217,11 @@ class Base extends Controller {
                     'likes' => 0,
                     'status' => 1,
                 );
-                return $this->success("评论成功","",$jsonData);
-            }else {
+                return $this->success("评论成功", "", $jsonData);
+            } else {
                 return $this->error("评论失败");
             }
-        }else {
+        } else {
             return $this->error($commentModel->getError());
         }
     }
@@ -221,7 +229,8 @@ class Base extends Controller {
     /**
      * 加载更多评论
      */
-    public function morecomment(){
+    public function morecomment()
+    {
         $uid = session('userId');
         $len = input('length');
         $map = array(
@@ -230,16 +239,16 @@ class Base extends Controller {
         );
         //敏感词屏蔽
         $badword = array(
-            '法轮功','法轮','FLG','六四','6.4','flg'
+            '法轮功', '法轮', 'FLG', '六四', '6.4', 'flg'
         );
-        $badword1 = array_combine($badword,array_fill(0,count($badword),'***'));
-        $comment = Comment::where($map)->order('likes desc,create_time desc')->limit($len,7)->select();
-        if($comment) {
+        $badword1 = array_combine($badword, array_fill(0, count($badword), '***'));
+        $comment = Comment::where($map)->order('likes desc,create_time desc')->limit($len, 7)->select();
+        if ($comment) {
             foreach ($comment as $value) {
-                $user = WechatUser::where('userid',$value['uid'])->find();
+                $user = WechatUser::where('userid', $value['uid'])->find();
                 $value['nickname'] = $user['name'];
                 $value['header'] = $user['avatar'];
-                $value['time'] = date('Y-m-d',$value['create_time']);
+                $value['time'] = date('Y-m-d', $value['create_time']);
                 $value['content'] = strtr($value['content'], $badword1);
                 $map1 = array(
                     'type' => 0,
@@ -250,8 +259,8 @@ class Base extends Controller {
                 $like = Like::where($map1)->find();
                 ($like) ? $value['is_like'] = 1 : $value['is_like'] = 0;
             }
-            return $this->success("加载成功","",$comment);
-        }else{
+            return $this->success("加载成功", "", $comment);
+        } else {
             return $this->error("没有更多");
         }
     }
@@ -259,7 +268,8 @@ class Base extends Controller {
     /**
      * 收藏
      */
-    public function collect() {
+    public function collect()
+    {
         $uid = session('userId'); //点赞人
         $type = input('type'); //获取点赞类型
         $aid = input('aid');
@@ -282,20 +292,20 @@ class Base extends Controller {
         );
         $Model = new Collect();
         $history = $Model->where($data)->find();
-        if(empty($history)) {
+        if (empty($history)) {
             $res = $Model->create($data);
-            if($res) {
-                Db::name($table)->where('id',$aid)->setInc('collect');
+            if ($res) {
+                Db::name($table)->where('id', $aid)->setInc('collect');
                 return $this->success("收藏成功");
-            }else {
+            } else {
                 return $this->error("操作失败");
             }
-        }else {
+        } else {
             $res = $Model->where($data)->delete();
-            if($res) {
-                Db::name($table)->where('id',$aid)->setDec('collect');
+            if ($res) {
+                Db::name($table)->where('id', $aid)->setDec('collect');
                 return $this->success("取消收藏成功");
-            }else {
+            } else {
                 return $this->error("操作失败");
             }
 
@@ -305,7 +315,7 @@ class Base extends Controller {
     /**
      * 浏览记录
      */
-    public function browser($type,$uid,$aid)
+    public function browser($type, $uid, $aid)
     {
         switch ($type) {    //根据类别获取表明
             case 1:
@@ -330,43 +340,6 @@ class Base extends Controller {
         if (empty($history)) {
             $browserModel->create($data);
         }
-    }
-
-    /*
-     * 生成条形码
-     */
-    public function bar_code($id){
-        /** 定义文件路径*/
-        $file_dir = 'uploads/bar';
-        /** 判断文件是否存在*/
-        if(!is_dir($file_dir)) {
-            /** 不存在生成*/
-            mkdir($file_dir);
-            chmod($file_dir,0777);
-        }
-        vendor('barcodegen.BCGcode128');
-        vendor('barcodegen.BCGDrawing');
-        vendor('barcodegen.BCGColor.php');
-        /** 定义颜色*/
-        $color_white = new \BCGColor(255, 255, 255);
-        $code = new \BCGcode128();
-        /** 赋值颜色*/
-        $drawing = new \BCGDrawing('', $color_white);
-        /** 生成内容*/
-        $code->parse($id);
-        $drawing->setBarcode($code);
-        /** 存放路径*/
-        $drawing->setFilename($file_dir.'/'.$id.'.png');
-        /** 渲染图片*/
-        $drawing->draw();
-        /** 生成图片*/
-        $drawing->finish($drawing::IMG_FORMAT_PNG);
-    }
-    /*
-     * 生成条形码密文
-     */
-    public function bar_text($code){
-        return $code ? substr(md5($code),-8) : false;
     }
 
 }

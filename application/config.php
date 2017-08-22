@@ -39,13 +39,13 @@ return [
     ],
     
     //最新动态
-    'mail' => array(
+    'work' => array(
         'login' => 'http://swim.0571ztnet.com/home/index/login',
 //        'token' => 'RMRUYhgJh7C',
 //        'encodingaeskey' => 'XO7KtGSIpsnGPR24x3UmfTnLXSmEfogGhmRqUkoefNj',
         'appid' => 'wwc2778c4e14ba4809',
-        'appsecret' => 'hPpzq47nIaeBjQLnvrDXNSyzF_Z3hAh1fIAACXUZY2M',
-        'agentid' => 1000002
+        'appsecret' => 'Kv-8VAYDn5tj8q4Rl0PEVog6Qtn3269SqV5s3WKIscg',
+        'agentid' => 1000005
     ),
 
 ];

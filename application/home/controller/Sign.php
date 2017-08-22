@@ -17,4 +17,9 @@ class Sign extends Base{
 		return $this->fetch();
 	}
 
+	public function check() {
+
+		return $this->fetch();
+	}
+
 }
