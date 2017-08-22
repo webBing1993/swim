@@ -1,0 +1,126 @@
+@import (reference) "../common/common";
+//animate
+body{
+	background: #eeeeee;
+}
+//layout
+.banner{
+	position: relative;
+	top:0;
+	left:0;
+	.wh(100vw,50vw);
+	background: -moz-linear-gradient(left, #3d84f3, #0f4db2);
+	background: -webkit-gradient(linear, left top, right top, #3e84f4, #0f4db2);
+	background: -webkit-linear-gradient(left, #3e84f4,#0f4db2);
+	background: -o-linear-gradient(left, #3e84f4,#0f4db2);
+	background: -ms-linear-gradient(left, #3e84f4,#0f4db2);
+	background: linear-gradient(to right,#3e84f4,#0f4db2);
+	.header{
+		position: absolute;
+		left: 8vw;
+		top: 8vw;
+		.wh(16vw,16vw);
+		border:2px solid #7a9dd5;
+		-webkit-border-radius:50%;
+		-moz-border-radius:50%;
+		border-radius:50%;
+		background: url("/home/images/common/default.png") center no-repeat;
+		background-size:16vw 16vw;
+	}
+	.all{
+		display: inline-block;
+		width: 50vw;
+		position: absolute;
+		left: 26vw;
+		top: 9vw;
+		.font(#ffffff,@c_content,1.6rem);
+		.name{
+			font-size: 1.5rem;
+			line-height: 7vw;
+			& span{
+				position: relative;
+			}
+			& span:after{
+				display: inline-block;
+				.wh(1.5rem,1.5rem);
+				.font(#ffffff,1rem,1.5rem);
+				position: absolute;
+				top: 0;
+				right:-1.8rem;
+				text-align: center;
+				-webkit-border-radius:50%;
+				-moz-border-radius:50%;
+				border-radius:50%;
+			}
+			& span.student:after{
+				content:'学';
+				background: #ffb821;
+			}
+			& span.main:after{
+				content:'主';
+				background: #589efd;
+			}
+			& span.assi:after{
+				content:'助';
+				background:#fd8358;
+			}
+		}
+		.note{
+			font-size: 1.2rem;
+			line-height: 7vw;
+		}
+
+	}
+	.listbox{
+		position: absolute;
+		left:4vw;
+		top: 32vw;
+	}
+	.lists{
+		.wh(92vw,auto);
+		margin-bottom: 2vw;
+		padding: 6vw;
+		background: #ffffff;
+		box-shadow: 1px 3px 8px #f1f1f1;
+		-webkit-border-radius:6px;
+		-moz-border-radius:6px;
+		border-radius:6px;
+		.tag{
+			font-size: 1.3rem;
+			font-weight: 600;
+			padding: 4vw 0;
+			span{
+				position: relative;
+				&:before{
+					position: absolute;
+					left: -2vw;
+					content: '';
+					.wh(1vw,1.3rem);
+					background: #eda44b;
+				}
+			}
+
+		}
+		.list{
+			border-top:1px solid #f1f1f1;
+			line-height: 10vw;
+			&.list_img{
+				line-height: 20vw;
+			}
+			.fl{
+				color:#666666;
+				font-size: 1.4rem;
+			}
+			.fr{
+				color:#999999;
+				font-size: 1.2rem;
+			}
+			.card{
+				.wh(22vw,16vw);
+				margin-top: 2vw;
+				background: url("/home/images/common/default.png") center no-repeat;
+				background-size:60px 40px;
+			}
+		}
+	}
+}

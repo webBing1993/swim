@@ -1,13 +1,115 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>学员信息</title>
+<link rel="stylesheet" href="/home/css/structure/student.css">
 {/block}
 
 {block name="body"}
+<div class="banner">
+	<div data-tab="/home/images/tem/5.jpg"  class="header up"></div>
+	<div class="all">
+		<div class="name"><span class="student">李三</span></div>
+		<div class="note">女/22岁</div>
+	</div>
+	<div class="listbox">
+		<div class="lists">
+			<div class="tag"><span>基本信息</span></div>
+			<div class="list clear">
+				<span class="fl">类别</span>
+				<span class="fr">主力学员</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">出生年月</span>
+				<span class="fr">2010-01</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">监护人姓名</span>
+				<span class="fr">张三</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">联系电话</span>
+				<span class="fr">
+				<i class="fa "></i>
+				<a href="tel:10086">10086</a>
+			</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">家庭地址</span>
+				<span class="fr limit">杭州市</span>
+			</div>
+		</div>
+		<div class="lists">
+			<div class="tag"><span>训练信息</span></div>
+			<div class="list clear">
+				<span class="fl">招生日期</span>
+				<span class="fr">2012-12</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">身高（cm）</span>
+				<span class="fr">120</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">体重（kg）</span>
+				<span class="fr">120</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">星级情况</span>
+				<span class="fr">蛙泳三星</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">原教练</span>
+				<span class="fr">张三</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">现教练</span>
+				<span class="fr">李四</span>
+			</div>
+		</div>
+		<div class="lists">
+			<div class="tag"><span>学习情况</span></div>
 
+			<div class="list clear">
+				<span class="fl">学历</span>
+				<span class="fr">小学</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">现就读学校</span>
+				<span class="fr">采荷一小</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">学籍号</span>
+				<span class="fr">111111</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">文化成绩</span>
+				<span class="fr">优</span>
+			</div>
+		</div>
+	</div>
+</div>
 {/block}
 
 {block name="script"}
-
+<script>
+$(function(){
+	//头像自适应
+	imgfit();
+});
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
+</script>
 {/block}

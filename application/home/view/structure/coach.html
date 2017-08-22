@@ -1,0 +1,83 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练信息</title>
+<link rel="stylesheet" href="/static/viewer/viewer.min.css">
+<link rel="stylesheet" href="/home/css/structure/student.css">
+{/block}
+
+{block name="body"}
+<div class="banner">
+	<div data-tab="/home/images/tem/5.jpg"  class="header up"></div>
+	<div class="all">
+		<!--主教练：main,助教：assi-->
+		<div class="name"><span class="main">李三</span></div>
+		<div class="note">女/22岁</div>
+	</div>
+	<div class="listbox">
+		<div class="lists">
+			<div class="tag"><span>基本信息</span></div>
+			<div class="list clear">
+				<span class="fl">联系电话</span>
+				<span class="fr">
+				<i class="fa "></i>
+				<a href="tel:10086">10086</a>
+			</span>
+			</div>
+			<div class="list clear">
+				<span class="fl">身份证号</span>
+				<span class="fr">330181198010101010</span>
+			</div>
+			<!--助教显示-->
+			<div class="list clear">
+				<span class="fl">学历</span>
+				<span class="fr">小学</span>
+			</div>
+			<div class="list clear list_img">
+				<span class="fl">社会指导员证</span>
+				<img src="/home/images/tem/5.jpg" alt="社会指导员证" class="fr card"  data-original="">
+			</div>
+			<div class="list clear list_img">
+				<span class="fl">职业资格鉴定证</span>
+				<img src="/home/images/tem/5.jpg" alt="职业资格鉴定证" class="fr card"  data-original="">
+			</div>
+			<div class="list clear list_img">
+				<span class="fl">救生员证</span>
+				<img src="/home/images/tem/5.jpg" alt="救生员证" class="fr card"  data-original="">
+			</div>
+			<!--/助教显示-->
+		</div>
+	</div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/viewer/viewer-jquery.min.js"></script>
+<script>
+$(function(){
+	//图片预览
+	$('.card').viewer({
+		url: 'data-original',
+		toolbar:false,
+		title:false
+	});
+	//头像自适应
+	imgfit();
+});
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}
+</script>
+{/block}
