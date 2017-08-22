@@ -1,0 +1,54 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>游客频道</title>
+{/block}
+
+{block name="body"}
+<button id="scanQRCode">扫码</button>
+{/block}
+
+{block name="script"}
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script>
+//---微信接口JS-SDK的调用
+wx.config({
+	debug: false,
+	appId: '{$jsSign.appid}', // 必填，公众号的唯一标识
+	timestamp: '{$jsSign.timestamp}', // 必填，生成签名的时间戳，切记时间戳是整数型，别加引号
+	nonceStr: '{$jsSign.noncestr}', // 必填，生成签名的随机串
+	signature: '{$jsSign.signature}', // 必填，签名，见附录1
+	jsApiList: [
+		'checkJsApi',
+		'scanQRCode'
+	]
+});
+wx.ready(function () {
+	$("#scanQRCode").click(function() {
+		wx.scanQRCode({
+			// 默认为0，扫描结果由微信处理，1则直接返回扫描结果
+			needResult : 1,
+			desc : 'scanQRCode desc',
+			success : function(res) {
+				console.log(res);
+				alert(1)
+				//			var url = res.resultStr;
+				//			if(url.indexOf(",")>=0){
+				//				var tempArray = url.split(',');
+				//				var tempNum = tempArray[1];
+				//				alert(tempNum);
+				//			}else{
+				//				alert(url)
+				//			}
+			},
+			cancel: function () {
+
+			}
+		});
+	});
+});
+wx.error(function (res) {
+	alert('wx.error: '+JSON.stringify(res));
+});
+</script>
+{/block}
