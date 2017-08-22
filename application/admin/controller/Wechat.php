@@ -55,7 +55,7 @@ class Wechat extends Admin
      * 同步通讯录用户
      */
     public function synchronizeUser() {
-        $Wechat = new QYWechat(Config::get('mail'));
+        $Wechat = new QYWechat(Config::get('work'));
         if($Wechat->errCode != 40001) {
             return $this->error("同步出错");
         }
@@ -138,7 +138,7 @@ class Wechat extends Admin
      * 同步部门
      */
     public function synchronizeDp(){
-        $Wechat = new QYWechat(Config::get('mail'));
+        $Wechat = new QYWechat(Config::get('work'));
         if($Wechat->errCode != 40001) {
             return $this->error("同步出错");
         }
@@ -185,7 +185,7 @@ class Wechat extends Admin
      * 同步标签
      */
     public function synchronizeTag(){
-        $Wechat = new QYWechat(Config::get('mail'));
+        $Wechat = new QYWechat(Config::get('work'));
         if($Wechat->errCode != 40001) {
             return $this->error("同步出错");
         }
