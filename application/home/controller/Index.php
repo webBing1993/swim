@@ -86,11 +86,4 @@ class Index extends Controller {
         $url = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwNjA1MDE1OQ==&scene=124#wechat_redirect";
         $this->redirect($url);
     }
-	/**
-	 * 游客模式首页
-	 */
-	public function visitor() {
-		$this->jssdk();
-		return $this->fetch();
-	}
 }
