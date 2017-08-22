@@ -6,6 +6,7 @@
 
 {block name="body"}
 <button id="scanQRCode">扫码</button>
+<div id="test">1111111</div>
 {/block}
 
 {block name="script"}
@@ -30,16 +31,24 @@ wx.ready(function () {
 			needResult : 1,
 			desc : 'scanQRCode desc',
 			success : function(res) {
-				console.log(res);
-				alert(1)
-				//			var url = res.resultStr;
-				//			if(url.indexOf(",")>=0){
-				//				var tempArray = url.split(',');
-				//				var tempNum = tempArray[1];
-				//				alert(tempNum);
-				//			}else{
-				//				alert(url)
-				//			}
+				var url = res.resultStr;
+				var array = url.split(',');
+				var mobile = array[1];
+				$.ajax({
+					type:"post",
+					url:"",
+					data:{
+						mobile:mobile
+					},
+					dataType: "Json",
+					success:function(data){
+						if(data.code == 1){
+
+						}
+//						window.location.href="/home/visitor/index"
+					}
+				})
+
 			},
 			cancel: function () {
 
