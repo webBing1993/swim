@@ -16,7 +16,7 @@ use app\user\controller\Index as APIIndex;
 use think\Log;
 
 /**
- * 党建主页
+ * 主页
  */
 class Index extends Controller {
     public function index(){
@@ -86,4 +86,11 @@ class Index extends Controller {
         $url = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzAwNjA1MDE1OQ==&scene=124#wechat_redirect";
         $this->redirect($url);
     }
+	/**
+	 * 游客模式首页
+	 */
+	public function visitor() {
+		$this->jssdk();
+		return $this->fetch();
+	}
 }
