@@ -1,3 +1,9 @@
+body {
+  background: #f9f9f9;
+}
+a:active {
+  background: #dadada !important;
+}
 .banner {
   position: relative;
   width: 100vw;
@@ -68,7 +74,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  width: 60vw;
+  width: 54vw;
   height: 2.8rem;
   background: #ffffff;
   border: 1px solid #2c79f9;
@@ -81,7 +87,7 @@
 }
 .tabbox .tabs .tab {
   display: inline-block;
-  width: 29vw;
+  width: 26vw;
   height: 100%;
   text-align: center;
 }
@@ -158,4 +164,36 @@
 }
 .boxs .box:nth-child(2) {
   left: 100vw;
+}
+.boxs .box:nth-child(2) .list {
+  display: block;
+  padding: 4vw;
+  width: 100vw;
+  background: #ffffff;
+  margin-bottom: 2vw;
+}
+.boxs .box:nth-child(2) .list img {
+  display: inline-block;
+  width: 14vw;
+  height: 14vw;
+  margin-right: 2vw;
+}
+.boxs .box:nth-child(2) .list .content {
+  width: 50vw;
+  margin-top: 1vw;
+}
+.boxs .box:nth-child(2) .list .content .name {
+  color: #333333;
+  font-size: 1.6rem;
+  line-height: 7vw;
+}
+.boxs .box:nth-child(2) .list .content .detail {
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 4vw;
+}
+.boxs .box:nth-child(2) .list .fa {
+  color: #999999;
+  font-size: 2rem;
+  line-height: 14vw;
 }

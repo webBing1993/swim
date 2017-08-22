@@ -101,13 +101,12 @@
 				margin-right: 4vw;
 				text-align: right;
 				.font(@c_note,2rem,12vw);
-				.fr{
-					transform: rotate(90deg);
+				.fa{
 					&.toup{
 						-webkit-animation: toup 0.4s linear alternate;
 						animation: toup 0.4s linear alternate;
-						transform: rotate(180deg);
-						-webkit-transform: rotate(180deg);
+						transform: rotate(90deg);
+						-webkit-transform: rotate(90deg);
 					}
 					&.todown{
 						-webkit-animation: todown 0.4s linear alternate;
@@ -153,7 +152,7 @@
 }
 @keyframes todown {
 	0% {
-		transform: rotate(180deg);
+		transform: rotate(90deg);
 	}
 	100% {
 		transform: rotate(0deg);
@@ -161,7 +160,7 @@
 }
 @-webkit-keyframes todown {
 	0% {
-		transform: rotate(180deg);
+		transform: rotate(90deg);
 	}
 	100% {
 		transform: rotate(0deg);
@@ -172,7 +171,7 @@
 		transform: rotate(0deg);
 	}
 	100% {
-		transform: rotate(180deg);
+		transform: rotate(90deg);
 	}
 }
 @-webkit-keyframes toup {
@@ -180,6 +179,6 @@
 		transform: rotate(0deg);
 	}
 	100% {
-		transform: rotate(180deg);
+		transform: rotate(90deg);
 	}
 }

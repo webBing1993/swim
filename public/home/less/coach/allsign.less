@@ -1,0 +1,91 @@
+@import (reference) "../common/common";
+//animate
+body{
+	background: #ffffff;
+}
+a:active{
+	background: #dadada !important;
+}
+//layout
+.time{
+	text-align: center;
+	.font(@c_title,1.6rem,4rem)
+}
+.tabbox{
+	position: relative;
+	width: 100vw;
+	height: 5rem;
+	background: #f9f9f9;
+	.tabs{
+		overflow: hidden;
+		margin: auto;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		.wh(54vw,2.8rem);
+		background: #ffffff;
+		border:1px solid #2c79f9;
+		.font(#2c79f9,1.4rem,2.8rem);
+		-webkit-border-radius:6px;
+		-moz-border-radius:6px;
+		border-radius:6px;
+		.tab{
+			display: inline-block;
+			width: 26vw;
+			height: 100%;
+			text-align: center;
+		}
+		.active{
+			background: #2c79f9;
+			color: #ffffff;
+		}
+	}
+}
+
+.boxs{
+	position: relative;
+	top:0;
+	left:0;
+	width: 100vw;
+	min-height: 64vw;
+	.box{
+		position: absolute;
+		top: 0;
+		width: 99vw;
+		.list{
+			width: 100vw;
+			.font(@c_content,1.4rem,4rem);
+			border-bottom: 1px solid #f1f1f1;
+			span{
+				padding: 0 4vw;
+				display: inline-block;
+				width: 49vw;
+				&:nth-child(odd){
+					text-align: right;
+				}
+				.fa-times-circle{
+					font-size: 1.6rem;
+					color:#ff2a00;
+				}
+				.fa-exclamation-circle{
+					font-size: 1.6rem;
+					color:#ff9d02;
+				}
+				.fa-check-circle{
+					font-size: 1.6rem;
+					color:#00ae31;
+				}
+			}
+		}
+		&:nth-child(1){
+			left: 0;
+
+		}
+		&:nth-child(2){
+			left: 100vw;
+		}
+
+	}
+}

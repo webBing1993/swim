@@ -1,0 +1,92 @@
+body {
+  background: #ffffff;
+}
+a:active {
+  background: #dadada !important;
+}
+.time {
+  text-align: center;
+  color: #333333;
+  font-size: 1.6rem;
+  line-height: 4rem;
+}
+.tabbox {
+  position: relative;
+  width: 100vw;
+  height: 5rem;
+  background: #f9f9f9;
+}
+.tabbox .tabs {
+  overflow: hidden;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 54vw;
+  height: 2.8rem;
+  background: #ffffff;
+  border: 1px solid #2c79f9;
+  color: #2c79f9;
+  font-size: 1.4rem;
+  line-height: 2.8rem;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.tabbox .tabs .tab {
+  display: inline-block;
+  width: 26vw;
+  height: 100%;
+  text-align: center;
+}
+.tabbox .tabs .active {
+  background: #2c79f9;
+  color: #ffffff;
+}
+.boxs {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 64vw;
+}
+.boxs .box {
+  position: absolute;
+  top: 0;
+  width: 99vw;
+}
+.boxs .box .list {
+  width: 100vw;
+  color: #666666;
+  font-size: 1.4rem;
+  line-height: 4rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.boxs .box .list span {
+  padding: 0 4vw;
+  display: inline-block;
+  width: 49vw;
+}
+.boxs .box .list span:nth-child(odd) {
+  text-align: right;
+}
+.boxs .box .list span .fa-times-circle {
+  font-size: 1.6rem;
+  color: #ff2a00;
+}
+.boxs .box .list span .fa-exclamation-circle {
+  font-size: 1.6rem;
+  color: #ff9d02;
+}
+.boxs .box .list span .fa-check-circle {
+  font-size: 1.6rem;
+  color: #00ae31;
+}
+.boxs .box:nth-child(1) {
+  left: 0;
+}
+.boxs .box:nth-child(2) {
+  left: 100vw;
+}

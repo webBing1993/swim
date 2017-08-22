@@ -24,9 +24,16 @@ class Structure extends Base{
 		return $this->fetch();
 	}
 	/**
-	 * 学员详情页
+	 * 学员个人信息页
 	 */
 	public function student() {
+
+		return $this->fetch();
+	}
+	/**
+	 * 教练个人信息页
+	 */
+	public function coach() {
 
 		return $this->fetch();
 	}
