@@ -60,7 +60,7 @@ class Base extends Controller
      */
     public function oauth()
     {
-        $Wechat = new TPQYWechat(Config::get('party'));
+        $Wechat = new TPQYWechat(Config::get('work'));
         $Wechat->valid();
     }
 
@@ -83,7 +83,7 @@ class Base extends Controller
      */
     public function jssdk()
     {
-        $Wechat = new TPQYWechat(Config::get('party'));
+        $Wechat = new TPQYWechat(Config::get('work'));
         $url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $jsSign = $Wechat->getJsSign($url);
         $this->assign("jsSign", $jsSign);

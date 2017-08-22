@@ -38,7 +38,7 @@ return [
         'list_rows'=> 12
     ],
     
-    //最新动态
+    //游泳模块
     'work' => array(
         'login' => 'http://swim.0571ztnet.com/home/index/login',
 //        'token' => 'RMRUYhgJh7C',
@@ -47,5 +47,12 @@ return [
         'appsecret' => 'Kv-8VAYDn5tj8q4Rl0PEVog6Qtn3269SqV5s3WKIscg',
         'agentid' => 1000005
     ),
+
+    //游客模块
+    'visitor' => [
+        'appid' => 'ww462067a674db3d65',
+        'appsecret' => 'LNvpUNXhfFJUEEQqsxtFKgSapSBnyC6VS65Yf1WdbmY',
+        'agentid' => 1000006
+    ],
 
 ];
