@@ -1,11 +1,16 @@
 {extend name="public/common"}
 
 {block name="style"}
-<title>游客频道</title>
+<title>杭州游泳体育中心</title>
+<link rel="stylesheet" href="/home/css/visitor/index.css">
 {/block}
 
 {block name="body"}
-<button id="scanQRCode">扫码</button>
+<div class="box">
+	<a href="{:Url('Notice/index')}" class="tab">活动通知</a>
+	<a href="{:Url('News/index')}" class="tab">新闻发布</a>
+	<div id="scanQRCode" class="tab">签到频道</div>
+</div>
 {/block}
 
 {block name="script"}
@@ -42,12 +47,17 @@ wx.ready(function () {
 					dataType: "Json",
 					success:function(data){
 						if(data.code == 1){
-
+							swal({
+								title: '成功',
+								text: '签到成功',
+								type: 'success',
+								confirmButtonText:'确定',
+								timer:3000
+							});
 						}
 //						window.location.href="/home/visitor/index"
 					}
 				})
-
 			},
 			cancel: function () {
 

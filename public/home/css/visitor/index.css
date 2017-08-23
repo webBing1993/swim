@@ -1,0 +1,16 @@
+.box {
+  width: 100vw;
+  height: 100vh;
+  background: #e7e7e7;
+}
+.box .tab {
+  display: block;
+  width: 30vw;
+  height: 10vw;
+  background: lightskyblue;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.8rem;
+  line-height: 10vw;
+  margin-bottom: 2vw;
+}
