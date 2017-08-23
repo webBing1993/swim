@@ -17,33 +17,38 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  background: url("/home/images/common/default.png") center no-repeat;
+  background-size: 16vw 16vw;
 }
-.banner span.all {
-  display: inline-block;
-  width: 18vw;
+.banner .all {
+  display: block;
+  width: 60vw;
+  height: 1.6rem;
+  overflow: hidden;
   margin: auto;
   position: absolute;
   left: 0;
   right: 0;
   top: 25vw;
+  text-align: center;
   color: #ffffff;
   font-size: #666666;
   line-height: 1.6rem;
-  padding-left: 2rem;
 }
-.banner span.all:before {
+.banner .all span {
   display: inline-block;
-  width: 1.6rem;
+  position: relative;
   height: 1.6rem;
+}
+.banner .all span:before {
+  display: inline-block;
+  width: 1.4rem;
+  height: 1.4rem;
   content: '总';
   color: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  font-size: 0.8rem;
+  line-height: 1.4rem;
+  margin-right: 0.5rem;
   text-align: center;
   background: #ffb821;
   -webkit-border-radius: 50%;
@@ -63,24 +68,25 @@
   border-radius: 6px;
 }
 .banner .lists .list {
-  padding: 4vw 0 4vw 4vw;
   display: block;
   border-bottom: 1px solid #f1f1f1;
 }
-.banner .lists .list img {
+.banner .lists .list .fl.up {
+  margin: 4vw 0 4vw 4vw;
   width: 14vw;
   height: 14vw;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+  background: url("/home/images/common/default.png") center no-repeat;
+  background-size: 16vw 16vw;
 }
 .banner .lists .list .content {
   width: 40vw;
-  margin: 0 4vw;
+  margin: 4vw;
   padding: 1vw 0;
 }
 .banner .lists .list .content .main {
-  position: relative;
   display: block;
   color: #333333;
   font-size: 1.3rem;
@@ -88,16 +94,12 @@
 }
 .banner .lists .list .content .main:after {
   display: inline-block;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
   content: '主';
   color: #ffffff;
-  font-size: 1rem;
-  line-height: 1.6rem;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  font-size: 0.8rem;
+  line-height: 1.4rem;
   text-align: center;
   background: #589efd;
   margin-left: 0.5rem;
@@ -112,12 +114,13 @@
   line-height: 6vw;
 }
 .banner .lists .list .angle {
-  width: 20vw;
-  margin-right: 4vw;
+  width: 24vw;
+  height: 22vw;
+  padding-right: 4vw;
   text-align: right;
   color: #999999;
   font-size: 2rem;
-  line-height: 12vw;
+  line-height: 22vw;
 }
 .banner .lists .list .angle .fa.toup {
   -webkit-animation: toup 0.4s linear alternate;
@@ -139,7 +142,6 @@
 }
 .banner .assis .assi {
   float: left;
-  position: relative;
   display: inline-block;
   width: 25vw;
   height: 10vw;
@@ -147,21 +149,16 @@
   font-size: 1.3rem;
   line-height: 10vw;
   text-align: center;
-  padding-left: 6vw;
 }
 .banner .assis .assi:before {
   display: inline-block;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1.4rem;
+  height: 1.4rem;
   content: '助';
   color: #ffffff;
   font-size: 1rem;
   line-height: 1.6rem;
-  margin: auto;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 6vw;
+  margin-right: 0.5rem;
   text-align: center;
   background: #fd8358;
   -webkit-border-radius: 50%;

@@ -18,27 +18,38 @@
 		-webkit-border-radius:50%;
 		-moz-border-radius:50%;
 		border-radius:50%;
+		background: url("/home/images/common/default.png") center no-repeat;
+		background-size:16vw 16vw;
 	}
-	span.all{
-		display: inline-block;
-		width: 18vw;
+	.all{
+		display: block;
+		width: 60vw;
+		height:1.6rem;
+		overflow: hidden;
+		//margin: 0 auto;
 		margin: auto;
 		position: absolute;
 		left: 0;
 		right: 0;
 		top: 25vw;
+		text-align: center;
 		.font(#ffffff,@c_content,1.6rem);
-		padding-left:2rem;
-		&:before{
+		span{
 			display: inline-block;
-			.wh(1.6rem,1.6rem);
+			position: relative;
+			height:1.6rem;
+		}
+		span:before{
+			display: inline-block;
+			.wh(1.4rem,1.4rem);
 			content:'总';
-			.font(#ffffff,1rem,1.6rem);
-			margin: auto;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left:0;
+			.font(#ffffff,0.8rem,1.4rem);
+			//margin: auto;
+			//position: absolute;
+			//top: 0;
+			//bottom: 0;
+			//left:-1.6rem;
+			margin-right: 0.5rem;
 			text-align: center;
 			background: #ffb821;
 			-webkit-border-radius:50%;
@@ -57,32 +68,34 @@
 		-moz-border-radius:6px;
 		border-radius:6px;
 		.list{
-			padding: 4vw 0 4vw 4vw;
 			display: block;
 			border-bottom: 1px solid #f1f1f1;
-			img{
+			.fl.up{
+				margin: 4vw 0 4vw 4vw;
 				.wh(14vw,14vw);
 				-webkit-border-radius:50%;
 				-moz-border-radius:50%;
 				border-radius:50%;
+				background: url("/home/images/common/default.png") center no-repeat;
+				background-size:16vw 16vw;
 			}
 			.content{
 				width: 40vw;
-				margin: 0 4vw;
+				margin: 4vw;
 				padding:1vw 0;
 				.main{
-					position: relative;
+					//position: relative;
 					display: block;
 					.font(#333333,@s_content,6vw);
 					&:after{
 						display: inline-block;
-						.wh(1.6rem,1.6rem);
+						.wh(1.4rem,1.4rem);
 						content:'主';
-						.font(#ffffff,1rem,1.6rem);
-						margin: auto;
-						position: absolute;
-						top: 0;
-						bottom: 0;
+						.font(#ffffff,0.8rem,1.4rem);
+						//margin: auto;
+						//position: absolute;
+						//top: 0;
+						//bottom: 0;
 						text-align: center;
 						background: #589efd;
 						margin-left: 0.5rem;
@@ -97,10 +110,11 @@
 				}
 			}
 			.angle{
-				width: 20vw;
-				margin-right: 4vw;
+				width: 24vw;
+				height: 22vw;
+				padding-right: 4vw;
 				text-align: right;
-				.font(@c_note,2rem,12vw);
+				.font(@c_note,2rem,22vw);
 				.fa{
 					&.toup{
 						-webkit-animation: toup 0.4s linear alternate;
@@ -125,22 +139,23 @@
 		background: #f9f9f9;
 		.assi{
 			float: left;
-			position: relative;
+			//position: relative;
 			display: inline-block;
 			.wh(25vw,10vw);
 			.font(#666666,@s_content,10vw);
 			text-align: center;
-			padding-left: 6vw;
+			//padding-left: 6vw;
 			&:before{
 				display: inline-block;
-				.wh(1.6rem,1.6rem);
+				.wh(1.4rem,1.4rem);
 				content:'助';
 				.font(#ffffff,1rem,1.6rem);
-				margin: auto;
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				left:6vw;
+				//margin: auto;
+				//position: absolute;
+				//top: 0;
+				//bottom: 0;
+				//left:6vw;
+				margin-right: 0.5rem;
 				text-align: center;
 				background: #fd8358;
 				-webkit-border-radius:50%;

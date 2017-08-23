@@ -7,24 +7,24 @@
 
 {block name="body"}
 <div class="banner">
-	<img src="/home/images/tem/5.jpg" alt="header" class="header">
-	<span class="all">李海洋</span>
+	<div data-tab="/home/images/tem/5.jpg"  class="header up"></div>
+	<div class="all limit"><span>李海洋</span></div>
 	<div class="lists">
 		<a href="detail.html" class="list clear">
-			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
 			<div class="fl content">
-				<span class="main">小三</span>
+				<span class="main limit">小三asdsadasdasdas</span>
 				<span class="note">目前拥有3名助教</span>
 			</div>
 			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
 		</a>
 		<div class="assis clear">
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi limit">小四月</a>
+			<a href="detail.html" class="assi limit">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
 		</div>
 		<a href="detail.html" class="list clear">
-			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
 			<div class="fl content">
 				<span class="main">小三</span>
 				<span class="note">目前拥有3名助教</span>
@@ -32,12 +32,12 @@
 			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
 		</a>
 		<div class="assis clear">
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
 		</div>
 		<a href="detail.html" class="list clear">
-			<img src="/home/images/tem/5.jpg" alt="header" class="fl">
+			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
 			<div class="fl content">
 				<span class="main">小三</span>
 				<span class="note">目前拥有3名助教</span>
@@ -45,9 +45,9 @@
 			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
 		</a>
 		<div class="assis clear">
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
-			<a href="detail.html" class="assi">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
+			<a href="detail.html" class="assi limit">小四</a>
 		</div>
 	</div>
 </div>
@@ -72,6 +72,9 @@ $(function(){
 
 		}
 	});
-})
+	//头像自适应
+	imgfit();
+});
+
 </script>
 {/block}

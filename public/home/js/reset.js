@@ -136,3 +136,18 @@ function imgresize(){
 		});
 	},100);
 }
+function imgfit(){
+	var up = $('.up' );
+	var path = up.attr('data-tab');
+	var image = new Image();
+	var ww = up.width();
+	image.src = path ;
+	up.css({"background-image":'url('+path+')'});
+	image.onload = function(){
+		if(image.width > image.height){
+			up.css({"background-size":'auto '+ww +'px'});
+		}else{
+			up.css({"background-size":ww +'px'+' auto '});
+		}
+	};
+}

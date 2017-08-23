@@ -242,9 +242,9 @@ textarea::-webkit-input-placeholder {
   border-bottom: 1px solid #dedede;
 }
 .boxs .box:nth-child(2) .mylist .list img {
-  width: 2rem;
-  height: 2rem;
-  margin-top: 1.2rem;
+  width: 3rem;
+  height: 3rem;
+  margin-top: 0.7rem;
   margin-right: 3vw;
 }
 .boxs .box:nth-child(3) {
@@ -284,14 +284,14 @@ textarea::-webkit-input-placeholder {
   height: 3rem;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(1) .name:after {
-  background: url('/home/images/common/note.png') 0 0 no-repeat;
+  background: url('/home/images/coach/user1.png') 0 0 no-repeat;
   background-size: 3rem,3rem;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(2) .name:after {
-  background: url('/home/images/common/note.png') 0 0 no-repeat;
+  background: url('/home/images/coach/user2.png') 0 0 no-repeat;
   background-size: 3rem,3rem;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(3) .name:after {
-  background: url('/home/images/common/note.png') 0 0 no-repeat;
+  background: url('/home/images/coach/user3.png') 0 0 no-repeat;
   background-size: 3rem,3rem;
 }
