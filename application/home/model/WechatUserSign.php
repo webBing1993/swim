@@ -12,20 +12,26 @@ namespace app\home\model;
 use think\Model;
 
 class WechatUserSign extends Model {
-    protected $insert = [
-        'create_time' => NOW_TIME,
-        'score' => 1,
-        'status' => 0,
+
+    const STATUS_NORMAL = 1;
+    const STATUS_LATE = 2;
+    const STATU_ARRAY = [
+        self::STATUS_NORMAL  => '正常',
+        self::STATUS_LATE  => '迟到',
     ];
 
-    public function getLike($type,$aid,$uid) {
-        $map = array(
-            'type' => $type,
-            'aid' => $aid,
-            'uid' => $uid,
+    protected $insert = [
+        'create_time' => NOW_TIME,
+        'status' => 1,
+    ];
+
+    public static function checkUserSign($userId) {
+        $where = array(
+            'userid' => $userId,
+            'date' => date('Y-m-d')
         );
-        $like = $this->where($map)->find();
-        ($like) ? $res = 1 : $res = 0;
+        $res = self::where($where)->find();
         return $res;
     }
+
 }
