@@ -25,7 +25,7 @@
 		</div>
 		<div class="content">
 			<ul>
-				<li v-for="(day,index) in days" :class="{'normal' : isNormal(day),'late' : isLate(day),'absence' : isAbsence(day)}" :key="index">
+				<li v-for="(day,index) in days" :class="{'normal' : isNormal(day),'late' : isLate(day),'rest' : isRest(day)}" :key="index">
 					<span>{{ day }}</span>
 				</li>
 			</ul>
@@ -36,7 +36,7 @@
 <div class="color">
 	<span class="normal">正常</span>
 	<span class="late">迟到</span>
-	<span class="absence">缺勤</span>
+	<span class="absence">休息</span>
 </div>
 {/block}
 
@@ -55,7 +55,8 @@ var calendar = new Vue({
 		showModal: false,
 		normal:[1, 2, 3, 6,7,11,12,13,14],//初始正常
 		late:[4, 8, 9, 10],//初始迟到
-		absence:[5]//初始缺勤
+//		absence:[5]//初始缺勤,
+		rest:[5]
 	},
 	computed: {
 		today: function() {
@@ -227,6 +228,12 @@ var calendar = new Vue({
 		isAbsence: function(day){
 			//缺勤
 			if(this.absence.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isRest: function(day){
+			//缺勤
+			if(this.rest.indexOf(day) !== -1){
 				return true;
 			}
 		},
