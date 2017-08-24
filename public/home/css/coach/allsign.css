@@ -5,10 +5,22 @@ a:active {
   background: #dadada !important;
 }
 .time {
+  position: relative;
+  width: 100vw;
+  height: 4rem;
   text-align: center;
   color: #333333;
   font-size: 1.6rem;
   line-height: 4rem;
+}
+.time input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 4rem;
+  color: transparent;
+  background: transparent;
 }
 .tabbox {
   position: relative;

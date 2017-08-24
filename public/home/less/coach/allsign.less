@@ -8,8 +8,18 @@ a:active{
 }
 //layout
 .time{
+	position: relative;
+	.wh(100vw,4rem);
 	text-align: center;
-	.font(@c_title,1.6rem,4rem)
+	.font(@c_title,1.6rem,4rem);
+	input{
+		position: absolute;
+		top:0;
+		left:0;
+		.wh(100vw,4rem);
+		color:transparent;
+		background: transparent;
+	}
 }
 .tabbox{
 	position: relative;
