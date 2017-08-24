@@ -10,6 +10,7 @@
 	<a href="{:Url('Notice/index')}" class="tab">活动通知</a>
 	<a href="{:Url('News/index')}" class="tab">新闻发布</a>
 	<div id="scanQRCode" class="tab">签到频道</div>
+	<div id="test"></div>
 </div>
 {/block}
 
@@ -46,16 +47,25 @@ wx.ready(function () {
 					},
 					dataType: "Json",
 					success:function(data){
+						alert(JSON.stringify(data));
 						if(data.code == 1){
 							swal({
 								title: '成功',
-								text: '签到成功',
+								text: data.msg,
 								type: 'success',
 								confirmButtonText:'确定',
 								timer:3000
 							});
+						}else{
+							swal({
+								title: '失败',
+								text: data.msg,
+								type: 'error',
+								confirmButtonText:'确定',
+								timer:3000
+							});
 						}
-//						window.location.href="/home/visitor/index"
+//						window.location.href=data.url
 					}
 				})
 			},
