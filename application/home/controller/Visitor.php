@@ -47,9 +47,11 @@ class Visitor extends Base{
 			if(!$userClass){
 				return $this->error("找不到队伍");
 			}
-			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员提前三十分钟可以签到
+			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
+				//学员提前三十分钟可以签到
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+30 minute')));
-			}else{//教练提前六十分钟可以签到
+			}else{
+				//教练提前六十分钟可以签到
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+60 minute')));
 			}
 			$start_time = strtotime($userClass['start_time']);
