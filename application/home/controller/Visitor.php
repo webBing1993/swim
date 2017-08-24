@@ -37,15 +37,15 @@ class Visitor extends Base{
 					$coachSign = WechatUserSign::checkUserSign($msg['coach_id']);
 				}
 				if(empty($coachSign)){
-					return $this->error("教练还未签到");
+					return $this->error("教练还未签到", Url('Visitor/index'));
 				}
 			}
 			if(!$msg['class_id']){
-				return $this->error("未设置队伍");
+				return $this->error("未设置队伍", Url('Visitor/index'));
 			}
 			$userClass = UserClass::where(['id'=>$msg['class_id']])->find();
 			if(!$userClass){
-				return $this->error("找不到队伍");
+				return $this->error("找不到队伍", Url('Visitor/index'));
 			}
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
 				//学员提前三十分钟可以签到
@@ -57,15 +57,15 @@ class Visitor extends Base{
 			$start_time = strtotime($userClass['start_time']);
 			$end_time = strtotime($userClass['end_time']);
 			if($real_time < $start_time){
-				return $this->error("未到签到时间");
+				return $this->error("未到签到时间", Url('Visitor/index'));
 			}else{
 				if(time() > $start_time){
 					if(time() > $end_time){//失败
-						return $this->error("已过签到时间");
+						return $this->error("已过签到时间", Url('Visitor/index'));
 					}else{//迟到
 						$userSign = WechatUserSign::checkUserSign($userId);
 						if(!empty($userSign)){
-							return $this->error("今天已签到");
+							return $this->error("今天已签到", Url('Visitor/index'));
 						}
 						$data = array(
 								'userid' => $userId,
@@ -77,13 +77,13 @@ class Visitor extends Base{
 						if(WechatUserSign::create($data)) {//迟到
 							return $this->success("签到成功", Url('Visitor/index'));
 						}else {
-							return $this->error("签到失败");
+							return $this->error("签到失败", Url('Visitor/index'));
 						}
 					}
 				}else{//正常
 					$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
-						return $this->error("今天已签到");
+						return $this->error("今天已签到", Url('Visitor/index'));
 					}
 					$data = array(
 							'userid' => $userId,
@@ -94,12 +94,12 @@ class Visitor extends Base{
 					if(WechatUserSign::create($data)) {//正常
 						return $this->success("签到成功", Url('Visitor/index'));
 					}else {
-						return $this->error("签到失败");
+						return $this->error("签到失败", Url('Visitor/index'));
 					}
 				}
 			}
 		}else {
-			return $this->error("无效的条形码");
+			return $this->error("无效的条形码", Url('Visitor/index'));
 		}
 	}
 

@@ -16,8 +16,9 @@ class Student extends Base{
 	 * 首页
 	 */
 	public function index() {
-		$this->anonymous();
-		$did = input('get.did');
+		$userId = session('userId');
+
+		/*$did = input('get.did');
 		$dp3 = WechatDepartment::get($did);
 		$dp2 = WechatDepartment::get($dp3['parentid']);
 		$dp1 = WechatDepartment::get($dp2['parentid']);
@@ -48,7 +49,7 @@ class Student extends Base{
 		}
 		$this->assign('list',$list);
 		dump($list);
-		$this->assign('did',$did);
+		$this->assign('did',$did);*/
 		return $this->fetch();
 	}
 	/**
