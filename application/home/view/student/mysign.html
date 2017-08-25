@@ -139,7 +139,7 @@ var calendar = new Vue({
 					this_.nowMonth = array[1]-1;
 					$.ajax({
 						type:"post",
-						url:"",
+						url:"{:Url('Student/changeSign')}",
 						data:{
 							year:array[0],
 							month:array[1]
@@ -169,7 +169,7 @@ var calendar = new Vue({
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('Student/changeSign')}",
 				data:{
 					year:this.nowYear,
 					month:this.nowMonth
@@ -194,7 +194,7 @@ var calendar = new Vue({
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('Student/changeSign')}",
 				data:{
 					year:this.nowYear,
 					month:this.nowMonth
