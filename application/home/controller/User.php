@@ -61,6 +61,8 @@ class User extends Base{
         $userid = session('userId');
         $res = WechatUser::where('userid',$userid)->find();
         ($res['gender'] == 1) ? $res['gender_text'] = "男" : $res['gender_text'] = "女";
+        $res['birthday_year'] = $res['identity'] ? substr($res['identity'], 6, 4) : null;
+        $res['birthday_month'] = $res['identity'] ? substr($res['identity'], 10, 2) : null;
         $this->assign('res',$res);
 		return $this->fetch();
 	}

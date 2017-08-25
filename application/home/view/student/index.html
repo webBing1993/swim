@@ -14,16 +14,23 @@
 			<div class="lists">
 				<a href="{:Url('User/tutor')}" class="list clear">
 					<div class="ll fl">
-						<img src="/home/images/tem/5.jpg" alt="教练头像" class="user">
-						<img src="/home/images/coach/male.png" alt="男" class="sex">
-						<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+						{empty name="$coachModel.header"}
+						<img src="{$coachModel.avatar}" alt="教练头像" class="user">
+						{else/}
+						<img src="{$coachModel.header|get_cover='path'}" alt="教练头像" class="user">
+						{/empty}
+						{if condition="$coachModel.gender eq 2"}
+							<img src="/home/images/coach/female.png" alt="女" class="sex">
+						{else/}
+							<img src="/home/images/coach/male.png" alt="男" class="sex">
+						{/if}
 					</div>
 					<div class="lr fr">
 						<div class="top">
-							<span class="name limit">张三</span>
-							<span class="age limit">30岁</span>
+							<span class="name limit">{$coachModel.name}</span>
+							<span class="age limit">{$age}</span>
 						</div>
-						<div class="note">级别：主教练</div>
+						<div class="note">级别：{$tag_name}</div>
 					</div>
 				</a>
 			</div>
@@ -34,7 +41,11 @@
 		<div class="banner">
 			<img src="/home/images/tem/5.jpg" alt="个人中心banner" class="banner-img">
 			<!--头像照片-->
-			<div data-tab="/home/images/tem/5.jpg"  class="user up">
+			{empty name="$userModel.header"}
+				<div data-tab="{$userModel.avatar}"  class="user up">
+			{else/}
+				<div data-tab="{$userModel.header|get_cover='path'}"  class="user up">
+			{/empty}
 				<input type="file" class="hidden" id="upload" accept="image/jpg, image/png, image/gif, image/jpeg">
 				<input type="hidden" name="header"  value="" required="">
 			</div>
