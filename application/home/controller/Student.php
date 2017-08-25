@@ -56,9 +56,9 @@ class Student extends Base{
 		}
 		for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
 			$i = $i<10 ? '0'.$i : $i;
-			if(!in_array(date('Y-m').'-'.$i, $all_days)){//所有的缺卡
+			if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
 				$coach_id = WechatUser::where(['userid' => $userId])->value('coach_id');
-				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => date('Y-m').'-'.$i])->find();
+				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => $year.'-'.$month.'-'.$i])->find();
 				if($coachSignModel){//教练这天有上课
 					$res['absence'][] = $i;//缺卡
 				}
@@ -72,10 +72,10 @@ class Student extends Base{
 	 */
 	public function changeSign() {
 		$userId = session('userId');
-		$year = input('year', date('Y'));
-		$month = input('month', date('m'));
-		/*$year = '2017';
-		$month = '07';*/
+		/*$year = input('year', date('Y'));
+		$month = input('month', date('m'));*/
+		$year = '2017';
+		$month = '07';
 		$res = array('normal' => [], 'late' => [], 'absence' => []);
 		if($year.$month > date("Ym")){
 			return json_encode($res);
@@ -100,9 +100,9 @@ class Student extends Base{
 		}
 		for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
 			$i = $i<10 ? '0'.$i : $i;
-			if(!in_array(date('Y-m').'-'.$i, $all_days)){//所有的缺卡
+			if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
 				$coach_id = WechatUser::where(['userid' => $userId])->value('coach_id');
-				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => date('Y-m').'-'.$i])->find();
+				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => $year.'-'.$month.'-'.$i])->find();
 				if($coachSignModel){//教练这天有上课
 					$res['absence'][] = $i;//缺卡
 				}
