@@ -44,7 +44,7 @@
 <script src="/static/vue/vue.js"></script>
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
-var calendar = new Vue({
+	var calendar = new Vue({
 	el: '#calendar',
 	data: {
 		weeks: ['日', '一', '二', '三', '四', '五', '六'],
@@ -53,9 +53,9 @@ var calendar = new Vue({
 		nowYear: null,
 		nowDate: null,
 		showModal: false,
-		normal:[1, 2, 3, 6,7,11,12,13,14],//初始正常
-		late:[4, 8, 9, 10],//初始迟到
-		absence:[5]//初始缺勤
+		normal:{$normal},//初始正常
+		late:{$late},//初始迟到
+		absence:{$absence}//初始缺勤
 	},
 	computed: {
 		today: function() {

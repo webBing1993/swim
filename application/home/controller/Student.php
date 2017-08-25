@@ -47,10 +47,10 @@ class Student extends Base{
 			foreach ($modelAll as $model) {
 				$all_days[] = $model['date'];
 				if ($model['status'] == WechatUserSign::STATUS_NORMAL) {//正常
-					$res['normal'][] = date('j', strtotime($model['date']));
+					$res['normal'][] = intval(date('j', strtotime($model['date'])));
 				}
 				if ($model['status'] == WechatUserSign::STATUS_LATE) {//迟到
-					$res['late'][] = date('j', strtotime($model['date']));
+					$res['late'][] = intval(date('j', strtotime($model['date'])));
 				}
 			}
 		}
@@ -60,11 +60,13 @@ class Student extends Base{
 				$coach_id = WechatUser::where(['userid' => $userId])->value('coach_id');
 				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => $year.'-'.$month.'-'.$i])->find();
 				if($coachSignModel){//教练这天有上课
-					$res['absence'][] = $i;//缺卡
+					$res['absence'][] = intval($i);//缺卡
 				}
 			}
 		}
-		$this->assign('res',$res);
+		$this->assign('normal',json_encode($res['normal']));
+		$this->assign('late',json_encode($res['late']));
+		$this->assign('absence',json_encode($res['absence']));
 		return $this->fetch();
 	}
 	/**
@@ -72,10 +74,10 @@ class Student extends Base{
 	 */
 	public function changeSign() {
 		$userId = session('userId');
-		/*$year = input('year', date('Y'));
-		$month = input('month', date('m'));*/
-		$year = '2017';
-		$month = '07';
+		$year = input('year', date('Y'));
+		$month = input('month', date('m'));
+		/*$year = '2017';
+		$month = '07';*/
 		$res = array('normal' => [], 'late' => [], 'absence' => []);
 		if($year.$month > date("Ym")){
 			return json_encode($res);
@@ -91,10 +93,10 @@ class Student extends Base{
 			foreach ($modelAll as $model) {
 				$all_days[] = $model['date'];
 				if($model['status'] == WechatUserSign::STATUS_NORMAL){//正常
-					$res['normal'][] = date('j', strtotime($model['date']));
+					$res['normal'][] = intval(date('j', strtotime($model['date'])));
 				}
 				if($model['status'] == WechatUserSign::STATUS_LATE){//迟到
-					$res['late'][] = date('j', strtotime($model['date']));
+					$res['late'][] = intval(date('j', strtotime($model['date'])));
 				}
 			}
 		}
@@ -104,7 +106,7 @@ class Student extends Base{
 				$coach_id = WechatUser::where(['userid' => $userId])->value('coach_id');
 				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => $year.'-'.$month.'-'.$i])->find();
 				if($coachSignModel){//教练这天有上课
-					$res['absence'][] = $i;//缺卡
+					$res['absence'][] = intval($i);//缺卡
 				}
 			}
 		}
