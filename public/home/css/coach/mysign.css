@@ -122,6 +122,14 @@
   background: -ms-linear-gradient(left, #ffba1d, #ff9806);
   background: linear-gradient(to right, #ffba1d, #ff9806);
 }
+#calendar .content ul li.absence span {
+  background: -moz-linear-gradient(left, #fe8080, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+  background: -o-linear-gradient(left, #fe8080, #ff6161);
+  background: -ms-linear-gradient(left, #fe8080, #ff6161);
+  background: linear-gradient(to right, #fe8080, #ff6161);
+}
 #calendar .content ul li.rest span {
   background: -moz-linear-gradient(left, #33d44e, #2eb848);
   background: -webkit-gradient(linear, left top, left bottom, #33d44e, #2eb848);
@@ -132,7 +140,8 @@
 }
 #calendar .content ul li.normal span,
 #calendar .content ul li.late span,
-#calendar .content ul li.rest span {
+#calendar .content ul li.rest span,
+#calendar .content ul li.absence span {
   color: #fff;
 }
 .color {
@@ -149,7 +158,8 @@
 .color span.normal {
   margin-left: 2rem;
 }
-.color span.absence {
+.color span.absence,
+.color span.rest {
   margin-right: 0;
 }
 .color span.normal:after {
@@ -185,6 +195,22 @@
   background: linear-gradient(to right, #ffba1d, #ff9806);
 }
 .color span.absence:after {
+  position: absolute;
+  left: -1.5rem;
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  border-radius: 0.2rem;
+  background: -moz-linear-gradient(left, #fe8080, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+  background: -o-linear-gradient(left, #fe8080, #ff6161);
+  background: -ms-linear-gradient(left, #fe8080, #ff6161);
+  background: linear-gradient(to right, #fe8080, #ff6161);
+}
+.color span.rest:after {
   position: absolute;
   left: -1.5rem;
   content: '';

@@ -116,6 +116,14 @@
 				background: -ms-linear-gradient(left, #ffba1d, #ff9806);
 				background: linear-gradient(to right, #ffba1d, #ff9806);
 			}
+			&.absence span{
+				background: -moz-linear-gradient(left, #fe8080, #ff6161);
+				background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+				background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+				background: -o-linear-gradient(left, #fe8080, #ff6161);
+				background: -ms-linear-gradient(left, #fe8080, #ff6161);
+				background: linear-gradient(to right, #fe8080, #ff6161);
+			}
 			&.rest span{
 				background: -moz-linear-gradient(left, #33d44e, #2eb848);
 				background: -webkit-gradient(linear, left top, left bottom, #33d44e, #2eb848);
@@ -124,7 +132,7 @@
 				background: -ms-linear-gradient(left, #33d44e, #2eb848);
 				background: linear-gradient(to right, #33d44e, #2eb848);
 			}
-			&.normal span,&.late span,&.rest span{
+			&.normal span,&.late span,&.rest span,&.absence span{
 				color: #fff;
 			}
 		}
@@ -155,7 +163,7 @@
 		&.normal{
 			margin-left: 2rem;
 		}
-		&.absence{
+		&.absence,&.rest{
 			margin-right: 0;
 		}
 		&.normal:after{
@@ -189,6 +197,21 @@
 			background: linear-gradient(to right, #ffba1d, #ff9806);
 		}
 		&.absence:after{
+			position: absolute;
+			left:-1.5rem;
+			content:'';
+			.wh(1rem,1rem);
+			-webkit-border-radius:0.2rem;
+			-moz-border-radius:0.2rem;
+			border-radius:0.2rem;
+			background: -moz-linear-gradient(left, #fe8080, #ff6161);
+			background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
+			background: -webkit-linear-gradient(left, #fe8080, #ff6161);
+			background: -o-linear-gradient(left, #fe8080, #ff6161);
+			background: -ms-linear-gradient(left, #fe8080, #ff6161);
+			background: linear-gradient(to right, #fe8080, #ff6161);
+		}
+		&.rest:after{
 			position: absolute;
 			left:-1.5rem;
 			content:'';

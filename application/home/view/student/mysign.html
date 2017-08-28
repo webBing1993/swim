@@ -144,10 +144,11 @@
 							year:array[0],
 							month:array[1]
 						},
-						success:function(data){
-							this_.normal = [1];
-							this_.late = [2];
-							this_.absence = [3];
+						success:function(msg){
+							var data = $.parseJSON(msg);
+							this_.normal = data.normal;
+							this_.late = data.late;
+							this_.absence = data.absence;
 							this_.init();
 						}
 					});
@@ -174,10 +175,11 @@
 					year:this.nowYear,
 					month:this.nowMonth
 				},
-				success:function(data){
-					this_.normal = [1];
-					this_.late = [2];
-					this_.absence = [3];
+				success:function(msg){
+					var data = $.parseJSON(msg);
+					this_.normal = data.normal;
+					this_.late = data.late;
+					this_.absence = data.absence;
 					this_.init();
 				}
 			});
@@ -199,10 +201,11 @@
 					year:this.nowYear,
 					month:this.nowMonth
 				},
-				success:function(data){
-					this_.normal = [1];
-					this_.late = [2];
-					this_.absence = [3];
+				success:function(msg){
+					var data = $.parseJSON(msg);
+					this_.normal = data.normal;
+					this_.late = data.late;
+					this_.absence = data.absence;
 					this_.init();
 				}
 			});
