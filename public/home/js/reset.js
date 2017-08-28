@@ -137,17 +137,22 @@ function imgresize(){
 	},100);
 }
 function imgfit(){
-	var up = $('.up' );
-	var path = up.attr('data-tab');
-	var image = new Image();
-	var ww = up.width();
-	image.src = path ;
-	up.css({"background-image":'url('+path+')'});
-	image.onload = function(){
-		if(image.width > image.height){
-			up.css({"background-size":'auto '+ww +'px'});
-		}else{
-			up.css({"background-size":ww +'px'+' auto '});
-		}
-	};
+	var ups = $('.up' );
+	var len = ups.length;
+	for(var i = 0 ; i <len ;i++){
+		var up = ups.eq(i);
+		var path = up.attr('data-tab');
+		var image = new Image();
+		var ww = up.width();
+		image.src = path ;
+		up.css({"background-image":'url('+path+')'});
+		image.onload = function(){
+			if(image.width > image.height){
+				up.css({"background-size":'auto '+ww +'px'});
+			}else{
+				up.css({"background-size":ww +'px'+' auto '});
+			}
+		};
+	}
+
 }
