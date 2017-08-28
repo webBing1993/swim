@@ -104,7 +104,7 @@ $(function(){
 					title: '上传成功',
 					text: '即将返回教练信息',
 					type: 'success',
-					showConfirmButton:false
+					showConfirmButton:true
 				});
 				var data={
 					header:$("input[name='header']").attr('data-tab'),
@@ -126,7 +126,10 @@ $(function(){
 					data:data,
 					dataType: "Json",
 					success:function(){
-//						window.location.href="/home/user/tutor"
+						setTimeout(function(  ){
+							window.location.href="/home/coach/index"
+						},1500);
+
 					}
 				})
 			}else{

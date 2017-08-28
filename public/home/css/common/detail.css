@@ -514,3 +514,8 @@
   -webkit-overflow-scrolling: touch;
   width:100%;
 }
+.nomessage{
+  display: block;
+  width: 20vw;
+  margin: 10vh auto;
+}

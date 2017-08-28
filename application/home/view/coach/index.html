@@ -146,15 +146,15 @@ $(function(){
 								up.css({"background-size":ww +'px'+' auto '});
 							}
 						};
-//						$.ajax({
-//							type:"post",
-//							url:"{:Url('User/setHeader')}",
-//							data:{header:msg.data.id},
-//							dataType: "Json",
-//							success:function(){
-//
-//							}
-//						})
+						$.ajax({
+							type:"post",
+							url:"{:Url('User/setHeader')}",
+							data:{header:msg.data.id},
+							dataType: "Json",
+							success:function(){
+
+							}
+						})
 					} else {
 						warning({msg:'上传失败'});
 						return;

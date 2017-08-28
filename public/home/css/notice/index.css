@@ -195,6 +195,6 @@ textarea::-webkit-input-placeholder {
 }
 .nomessage {
   display: block;
-  width: 25vw;
+  width: 50vw;
   margin: 15vh auto;
 }

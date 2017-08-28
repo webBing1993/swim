@@ -41,16 +41,17 @@
   }
 }
 .sign {
+  z-index: 2;
   position: absolute;
   bottom: 0;
   left: 48vw;
   width: 16vw;
   height: 16vw;
-  background: #f2bc79;
+  background: rgba(242, 188, 121, 0.71);
   line-height: 16vw;
   text-align: center;
-  -webkit-border-radius: 45%;
-  border-radius: 45%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
   color: #f9f9f9;
   font-size: 1.6rem;
   animation-name: wave;

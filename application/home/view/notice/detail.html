@@ -77,6 +77,9 @@ $(function(){
 	}
 	//ue限定
 	ueLimit();
+	if($('.list').length == 0){
+		$('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">');
+	}
 });
 //收藏
 function isCollect(e,type,id){

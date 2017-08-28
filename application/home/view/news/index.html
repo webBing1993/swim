@@ -131,7 +131,7 @@ $(function(){
 		var len = box.eq(i).find('.list').length;
 		if(len == 0){
 			box.eq(i).find('.tip').text('');
-			box.eq(i).find('.lists').append('<img src="/home/images/common/nomessage.png" alt="暂无消息" class="nomessage">')
+			box.eq(i).find('.lists').append('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
 		}else if(len >= 7){
 			box.eq(i).find('.tip').text('上拉加载更多');
 			//上拉加载评论
@@ -139,6 +139,9 @@ $(function(){
 		}else{
 			box.eq(i).find('.tip').text('没有更多了');
 		}
+	}
+	if($('.swiper-slide').length == 0){
+		$('.banners').remove();
 	}
 
 });
