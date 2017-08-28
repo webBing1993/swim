@@ -22,8 +22,7 @@ class Student extends Base{
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$coach_id = $userModel['coach_id'];
 		$coachModel = WechatUser::where(['userid' => $coach_id])->find();
-		$year = substr($coachModel['identity'], 6, 4);
-		$age = date("Y")-$year+1;
+		$age = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '未知';
 		$tag_id = WechatUserTag::where(['userid' => $coach_id])->value('tagid');
 		$tag_name = WechatTag::where(['tagid' => $tag_id])->value('tagname');
 		$this->assign('userModel',$userModel);

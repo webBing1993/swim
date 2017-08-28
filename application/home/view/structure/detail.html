@@ -7,9 +7,17 @@
 
 {block name="body"}
 <div class="banner">
-	<img src="/home/images/tem/5.jpg" alt="header" class="header">
+	{empty name="$coachModel.header"}
+	<img src="{$coachModel.avatar}" alt="header" class="header">
+	{else/}
+	<img src="{$coachModel.header|get_cover='path'}" alt="header" class="header">
+	{/empty}
 	<!--总教练：main,助教：assi-->
-	<span class="assi">李海洋</span>
+	{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_CHIEF_COACH"}
+	<span class="main">{$coachModel.name}</span>
+	{else/}
+	<span class="assi">{$coachModel.name}</span>
+	{/if}
 </div>
 <div class="tabbox">
 	<div class="tabs clear">
@@ -19,24 +27,33 @@
 </div>
 <div class="boxs">
 	<div class="box active">
-		<a href="student.html" class="list clear">
+		{volist name="userList" id="vo"}
+		<a href="{:Url('student?did='.$vo['userid'])}" class="list clear">
 			<div class="ll fl">
-				<img src="/home/images/tem/5.jpg" alt="学员头像" class="user">
+				{empty name="$vo.header"}
+				<img src="{$vo.avatar}" alt="学员头像" class="user">
+				{else/}
+				<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
+				{/empty}
+				{if condition="$vo.gender eq 2"}
+				<img src="/home/images/coach/female.png" alt="女" class="sex">
+				{else/}
 				<img src="/home/images/coach/male.png" alt="男" class="sex">
-				<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+				{/if}
 			</div>
 			<div class="lr fr">
 				<div class="top">
-					<span class="name limit">张三</span>
-					<span class="age limit">12岁</span>
+					<span class="name limit">{$vo.name}</span>
+					<span class="age limit">{$vo.age}岁</span>
 				</div>
-				<div class="note">身高 : 120cm 体重 : 50kg</div>
-				<div class="note">课程 : 已上26节</div>
+				<div class="note">身高 : {$vo.height ? $vo.height : '_'} cm 体重 : {$vo.weight ? $vo.weight : '_'} kg</div>
+				<div class="note">课程 : 已上{$vo.count}节</div>
 			</div>
 		</a>
+		{/volist}
 	</div>
 	<div class="box hidden">
-		<a href="coach.html" class="list clear">
+		<a href="{:Url('coach?did='.$coachModel['userid'])}" class="list clear">
 			<img src="/home/images/structure/logo1.png" alt="logo" class="fl">
 			<div class="content fl">
 				<div class="name">教练信息</div>

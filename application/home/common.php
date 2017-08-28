@@ -205,3 +205,13 @@ function bar_code($phone){
 function bar_text($code){
     return $code ? substr(think_ucenter_encrypt($code, $code),-8) : false;
 }
+
+/**
+ * 默认值
+ * @param $code
+ * @return bool|string
+ */
+function param_to($param, $default){
+    return $param ? $param : $default;
+}
+

@@ -8,11 +8,21 @@
 
 {block name="body"}
 <div class="banner">
-	<div data-tab="/home/images/tem/5.jpg"  class="header up"></div>
+	{empty name="$coachModel.header"}
+	<div data-tab="{$coachModel.avatar}"  class="header up"></div>
+	{else/}
+	<div data-tab="{$coachModel.header|get_cover='path'}"  class="header up"></div>
+	{/empty}
 	<div class="all">
 		<!--主教练：main,助教：assi-->
-		<div class="name"><span class="main">李三</span></div>
-		<div class="note">女/22岁</div>
+		{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_CHIEF_COACH"}
+		<div class="name"><span class="main">{$coachModel.name}</span></div>
+		{else/}
+			<div class="name"><span class="assi">{$coachModel.name}</span></div>
+		{/if}
+		<div class="note">
+			{if condition="$coachModel.gender eq 2"}女{else/}男{/if}/{$coachModel.age}岁
+		</div>
 	</div>
 	<div class="listbox">
 		<div class="lists">
@@ -21,29 +31,29 @@
 				<span class="fl">联系电话</span>
 				<span class="fr">
 				<i class="fa fa-phone"></i>
-				<a href="tel:10086">10086</a>
+				<a href="tel:10086">{$coachModel.mobile}</a>
 			</span>
 			</div>
 			<div class="list clear">
 				<span class="fl">身份证号</span>
-				<span class="fr">330181198010101010</span>
+				<span class="fr">{$coachModel.identity}</span>
 			</div>
 			<!--助教显示-->
 			<div class="list clear">
 				<span class="fl">学历</span>
-				<span class="fr">小学</span>
+				<span class="fr">{$coachModel.education}</span>
 			</div>
 			<div class="list clear list_img">
 				<span class="fl">社会指导员证</span>
-				<img src="/home/images/tem/5.jpg" alt="社会指导员证" class="fr card"  data-original="">
+				<img src="{$coachModel.social_certificate}" alt="社会指导员证" class="fr card"  data-original="">
 			</div>
 			<div class="list clear list_img">
 				<span class="fl">职业资格鉴定证</span>
-				<img src="/home/images/tem/5.jpg" alt="职业资格鉴定证" class="fr card"  data-original="">
+				<img src="{$coachModel.profession_certificate}" alt="职业资格鉴定证" class="fr card"  data-original="">
 			</div>
 			<div class="list clear list_img">
 				<span class="fl">救生员证</span>
-				<img src="/home/images/tem/5.jpg" alt="救生员证" class="fr card"  data-original="">
+				<img src="{$coachModel.lifeguard_certificate}" alt="救生员证" class="fr card"  data-original="">
 			</div>
 			<!--/助教显示-->
 		</div>

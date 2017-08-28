@@ -126,7 +126,6 @@ class Book extends Base
             }
         }
         $this->assign('list',$list);
-        dump($list);
         $this->assign('did',$did);
         return $this->fetch();
     }

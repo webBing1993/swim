@@ -8,6 +8,9 @@
 
 namespace app\home\controller;
 use app\home\model\WechatUser;
+use app\home\model\WechatTag;
+use app\home\model\WechatUserTag;
+use app\home\model\WechatUserSign;
 use think\Db;
 /**
  * Class Coach
@@ -18,6 +21,16 @@ class Coach extends Base {
      * 主页
      */
     public function index(){
+		$userId = session('userId');
+		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
+		if($tag_id){
+			DEPARTMENT_CHIEF_COACH
+		}
+		$this->assign('userModel',$userModel);
+		$this->assign('coachModel',$coachModel);
+		$this->assign('age',$age);
+		$this->assign('tag_name',$tag_name);
+		return $this->fetch();
 		/*$this->anonymous();
 		$did = input('get.did');
 		$dp3 = WechatDepartment::get($did);

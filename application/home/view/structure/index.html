@@ -7,48 +7,32 @@
 
 {block name="body"}
 <div class="banner">
-	<div data-tab="/home/images/tem/5.jpg"  class="header up"></div>
-	<div class="all limit"><span>李海洋</span></div>
+	{empty name="$chiefCoachModel.header"}
+	<div data-tab="{$chiefCoachModel.avatar}"  class="header up"></div>
+	{else/}
+	<div data-tab="{$chiefCoachModel.header|get_cover='path'}"  class="header up"></div>
+	{/empty}
+	<div class="all limit"><span>{$chiefCoachModel.name}</span></div>
 	<div class="lists">
-		<a href="detail.html" class="list clear">
-			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
+		{volist name="headCoachList" id="vo"}
+		<a href="{:Url('detail?did='.$vo['userid'])}" class="list clear">
+			{empty name="$vo.header"}
+			<div data-tab="{$vo.avatar}"  class="fl up"></div>
+			{else/}
+			<div data-tab="{$vo.header|get_cover='path'}"  class="fl up"></div>
+			{/empty}
 			<div class="fl content">
-				<span class="main limit">小三asdsadasdasdas</span>
-				<span class="note">目前拥有3名助教</span>
+				<span class="main limit">{$vo.name}</span>
+				<span class="note">目前拥有{$vo.count}名助教</span>
 			</div>
 			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
 		</a>
 		<div class="assis clear">
-			<a href="detail.html" class="assi limit">小四月</a>
-			<a href="detail.html" class="assi limit">小四</a>
-			<a href="detail.html" class="assi limit">小四</a>
+			{volist name="vo.assistant" id="voo" key="k"}
+			<a href="{:Url('detail?did='.$k)}" class="assi limit">{$voo}</a>
+			{/volist}
 		</div>
-		<a href="detail.html" class="list clear">
-			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
-			<div class="fl content">
-				<span class="main">小三</span>
-				<span class="note">目前拥有3名助教</span>
-			</div>
-			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
-		</a>
-		<div class="assis clear">
-			<a href="detail.html" class="assi limit">小四</a>
-			<a href="detail.html" class="assi limit">小四</a>
-			<a href="detail.html" class="assi limit">小四</a>
-		</div>
-		<a href="detail.html" class="list clear">
-			<div data-tab="/home/images/tem/5.jpg"  class="fl up"></div>
-			<div class="fl content">
-				<span class="main">小三</span>
-				<span class="note">目前拥有3名助教</span>
-			</div>
-			<span class="angle fr"><i class="fa fa-angle-down"></i></span>
-		</a>
-		<div class="assis clear">
-			<a href="detail.html" class="assi limit">小四</a>
-			<a href="detail.html" class="assi limit">小四</a>
-			<a href="detail.html" class="assi limit">小四</a>
-		</div>
+		{/volist}
 	</div>
 </div>
 
