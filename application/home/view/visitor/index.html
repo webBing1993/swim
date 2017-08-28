@@ -2,81 +2,122 @@
 
 {block name="style"}
 <title>杭州游泳体育中心</title>
+<link rel="stylesheet" href="/static/swiper/swiper-3.3.1.min.css">
 <link rel="stylesheet" href="/home/css/visitor/index.css">
 {/block}
 
 {block name="body"}
 <div class="box">
-	<a href="{:Url('Notice/index')}" class="tab">活动通知</a>
-	<a href="{:Url('News/index')}" class="tab">新闻发布</a>
-	<div id="scanQRCode" class="tab">签到频道</div>
-	<div id="test"></div>
+	<div class="banners ">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="banner swiper-slide">
+					<img src="/home/images/tem/1.jpg" alt="">
+				</div>
+				<div class="banner swiper-slide">
+					<img src="/home/images/tem/4.jpg" alt="">
+				</div>
+				<div class="banner swiper-slide">
+					<img src="/home/images/tem/3.jpg" alt="">
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<div class="sign">签到</div>
+	<!--<a href="{:Url('Notice/index')}" class="tab">活动通知</a>-->
+	<!--<a href="{:Url('News/index')}" class="tab">新闻发布</a>-->
+	<!--<div id="scanQRCode" class="tab">签到频道</div>-->
+	<!--<div class="box">-->
+	<!--<a href="{:Url('Notice/index')}" class="tab">活动通知</a>-->
+	<!--<a href="{:Url('News/index')}" class="tab">新闻发布</a>-->
+	<!--<div id="scanQRCode" class="tab">签到频道</div>-->
+	<!--<div id="test"></div>-->
+	<!--</div>-->
 </div>
+
+
 {/block}
 
 {block name="script"}
+<script src="/static/swiper/swiper-3.3.1.jquery.min.js"></script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 <script>
-//---微信接口JS-SDK的调用
-wx.config({
-	debug: false,
-	appId: '{$jsSign.appid}', // 必填，公众号的唯一标识
-	timestamp: '{$jsSign.timestamp}', // 必填，生成签名的时间戳，切记时间戳是整数型，别加引号
-	nonceStr: '{$jsSign.noncestr}', // 必填，生成签名的随机串
-	signature: '{$jsSign.signature}', // 必填，签名，见附录1
-	jsApiList: [
-		'checkJsApi',
-		'scanQRCode'
-	]
-});
-wx.ready(function () {
-	$("#scanQRCode").click(function() {
-		wx.scanQRCode({
-			// 默认为0，扫描结果由微信处理，1则直接返回扫描结果
-			needResult : 1,
-			desc : 'scanQRCode desc',
-			success : function(res) {
-				var url = res.resultStr;
-				var array = url.split(',');
-				var mobile = array[1];
-				$.ajax({
-					type:"post",
-					url:"{:Url('Visitor/sign')}",
-					data:{
-						mobile:mobile
-					},
-					dataType: "Json",
-					success:function(data){
-						alert(JSON.stringify(data));
-						if(data.code == 1){
-							swal({
-								title: '成功',
-								text: data.msg,
-								type: 'success',
-								confirmButtonText:'确定',
-								timer:3000
-							});
-						}else{
-							swal({
-								title: '失败',
-								text: data.msg,
-								type: 'error',
-								confirmButtonText:'确定',
-								timer:3000
-							});
-						}
-//						window.location.href=data.url
-					}
-				})
-			},
-			cancel: function () {
-
-			}
-		});
+$(function(){
+	//轮播
+	var mySwiper = new Swiper('.swiper-container', {
+		autoplay: 3000,
+		loop:true,
+		autoplayDisableOnInteraction:false,
+		pagination : '.swiper-pagination',
 	});
-});
-wx.error(function (res) {
-	alert('wx.error: '+JSON.stringify(res));
-});
+	$('.sign').on('click',function(  )
+	{
+		alert(1)
+	})
+})
+</script>
+<script>
+//---微信接口JS-SDK的调用
+//wx.config({
+//	debug: false,
+//	appId: '{$jsSign.appid}', // 必填，公众号的唯一标识
+//	timestamp: '{$jsSign.timestamp}', // 必填，生成签名的时间戳，切记时间戳是整数型，别加引号
+//	nonceStr: '{$jsSign.noncestr}', // 必填，生成签名的随机串
+//	signature: '{$jsSign.signature}', // 必填，签名，见附录1
+//	jsApiList: [
+//		'checkJsApi',
+//		'scanQRCode'
+//	]
+//});
+//wx.ready(function () {
+//	$("#scanQRCode").click(function() {
+//		wx.scanQRCode({
+//			// 默认为0，扫描结果由微信处理，1则直接返回扫描结果
+//			needResult : 1,
+//			desc : 'scanQRCode desc',
+//			success : function(res) {
+//				var url = res.resultStr;
+//				var array = url.split(',');
+//				var mobile = array[1];
+//				$.ajax({
+//					type:"post",
+//					url:"{:Url('Visitor/sign')}",
+//					data:{
+//						mobile:mobile
+//					},
+//					dataType: "Json",
+//					success:function(data){
+//						alert(JSON.stringify(data));
+//						if(data.code == 1){
+//							swal({
+//								title: '成功',
+//								text: data.msg,
+//								type: 'success',
+//								confirmButtonText:'确定',
+//								timer:3000
+//							});
+//						}else{
+//							swal({
+//								title: '失败',
+//								text: data.msg,
+//								type: 'error',
+//								confirmButtonText:'确定',
+//								timer:3000
+//							});
+//						}
+////						window.location.href=data.url
+//					}
+//				})
+//			},
+//			cancel: function () {
+//
+//			}
+//		});
+//	});
+//});
+//wx.error(function (res) {
+//	alert('wx.error: '+JSON.stringify(res));
+//});
 </script>
 {/block}
