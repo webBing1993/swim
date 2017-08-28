@@ -180,7 +180,7 @@ function loadScroll(){
 		var len = $(".list" ).length;
 		var tip = $(".tip");
 		var loading = $('.loading');
-		var id = 'id';
+		var id = '{$detail.id}';
 		if(dh <= end && scrollNow){
 			scrollNow = false;//请求执行中
 			$.ajax({

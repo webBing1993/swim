@@ -44,7 +44,7 @@ body{
 }
 .main>li>span{
 	display:inline-block;
-	width: 30vw;
+	width: 20vw;
 }
 .main>li>span:first-child{
 	color: #333;
