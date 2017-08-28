@@ -1,6 +1,7 @@
 {extend name="public/common"}
 
 {block name="style"}
+<title>签到概况</title>
 <link rel="stylesheet" href="/home/css/statistics/index.css">
 <link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
 {/block}
@@ -197,7 +198,9 @@ function timeSelect(){
 }
 function datas(a,b){
 	var Options1 = {
-		responsive: true
+		responsive: true,
+
+		showTooltips: true
 	};
 	if($.isArray(a)){
 		//	教练签到
@@ -217,7 +220,7 @@ function datas(a,b){
 			labels: ["正常","迟到","缺卡" ],
 			datasets: [{
 				data: b,
-				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
+				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
 			}]
 		} ;
 		var ctx2 = document.getElementById("student").getContext("2d");

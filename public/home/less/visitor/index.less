@@ -3,17 +3,121 @@
 
 //layout
 .box{
-	//position: relative;
-	//top:0;
-	//left:0;
-	.wh(100vw,100vh);
-	background: #e7e7e7;
-	.tab{
-		display: block;
-		.wh(30vw,10vw);
-		background: lightskyblue;
-		text-align: center;
-		.font(#ffffff,1.8rem,10vw);
-		margin-bottom: 2vw;
+	position: relative;
+	align-items: center;
+	width: 100vw;
+	min-height: 100vh;
+	background-color: rgb(118, 218, 225);
+	overflow: hidden;
+}
+.box:before,
+.box:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	min-width: 300vw;
+	min-height: 300vw;
+	background-color: #fff;
+	animation-name: rotate;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+.box:before {
+	bottom: 15vh;
+	border-radius: 45%;
+	animation-duration: 15s;
+}
+.box:after {
+	bottom: 12vh;
+	opacity: 0.5;
+	border-radius: 47%;
+	animation-duration: 10s;
+}
+@keyframes rotate {
+	0% {
+		transform: translate(-50%, 0) rotateZ(0deg);
+	}
+	50% {
+		transform: translate(-50%, 2%) rotateZ(180deg);
+	}
+	100% {
+		transform: translate(-50%, 0%) rotateZ(360deg);
 	}
 }
+//签到
+.sign{
+	position: absolute;
+	bottom: 0;
+	left:48vw;
+	width: 16vw;
+	height: 16vw;
+	background: #f2bc79;
+	line-height: 16vw;
+	text-align: center;
+	-webkit-border-radius: 45%;
+	border-radius: 45%;
+	color: #f9f9f9;
+	font-size: 1.6rem;
+	animation-name: wave;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-duration: 10s;
+	transform: translate(-50%, 0) rotateZ(0deg);
+}
+@keyframes wave {
+	0% {
+		bottom: 6vw;
+		left:48vw;
+		transform: translate(-50%, 0) rotateZ(0deg);
+	}
+	25% {
+		bottom: 8vw;
+		left:42vw;
+		transform: translate(-50%, 2%) rotateZ(20deg);
+	}
+	50% {
+		bottom: 10vw;
+		left:48vw;
+		transform: translate(-50%, 0%) rotateZ(0deg);
+	}
+	75% {
+		bottom: 12vw;
+		left:56vw;
+		transform: translate(-50%, -2%) rotateZ(-20deg);
+	}
+	100% {
+		bottom: 6vw;
+		left:48vw;
+		transform: translate(-50%, 0) rotateZ(0deg);
+	}
+}
+.banners{
+	.wh(100vw,50vw);
+	img{
+		.wh(100vw,50vw);
+	}
+}
+.tab{
+	display: block;
+	margin: 2vh auto;
+	.wh(90vw,20vh);
+	background: rgba(255, 255, 255, 0.5);
+	-webkit-border-radius:2vw;
+	-moz-border-radius:2vw;
+	border-radius:2vw;
+}
+//.box{
+//	//position: relative;
+//	//top:0;
+//	//left:0;
+//	.wh(100vw,100vh);
+//	background: #e7e7e7;
+//	.tab{
+//		display: block;
+//		.wh(30vw,10vw);
+//		background: lightskyblue;
+//		text-align: center;
+//		.font(#ffffff,1.8rem,10vw);
+//		margin-bottom: 2vw;
+//	}
+//}
