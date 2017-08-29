@@ -122,7 +122,7 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(1) .content .tags {
   z-index: 3;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 10vh;
 }
@@ -175,6 +175,9 @@ textarea::-webkit-input-placeholder {
   background: -ms-linear-gradient(top, #f99300, #feba57);
   background: linear-gradient(to bottom, #f99300, #feba57);
   box-shadow: -1px -4px 5px rgba(249, 147, 0, 0.4);
+}
+.boxs .box:nth-child(1) .content .lists {
+  padding-bottom: 29vw;
 }
 .boxs .box:nth-child(1) .content .lists .list {
   display: block;
