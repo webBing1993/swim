@@ -204,7 +204,11 @@ class Base extends Controller
             if ($model) {
                 $user = WechatUser::where('userid', $uid)->find();    //获取用户头像和昵称
                 $nickname = ($user['nickname']) ? $user['nickname'] : $user['name'];
-                $header = ($user['header']) ? $user['header'] : $user['avatar'];
+                if(!$user['header']){
+                    $header = param_to($user['avatar'], \think\Config::get('de_header'));
+                }else{
+                    $header = get_cover($user['header'], 'path');
+                }
                 //返回用户数据
                 $jsonData = array(
                     'id' => $res['id'],
