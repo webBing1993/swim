@@ -95,13 +95,24 @@
   width: 100vw;
   height: 50vw;
 }
-.tab {
+.content {
+  position: absolute;
+  top: 50vw;
+  left: 6vw;
+  width: 88vw;
+  z-index: 10;
+}
+.content .tab {
   display: block;
   margin: 2vh auto;
-  width: 90vw;
+  padding: 0 4vw;
+  width: 88vw;
   height: 20vh;
-  background: rgba(255, 255, 255, 0.5);
+  color: #666666;
+  font-size: 2rem;
+  line-height: 20vh;
   -webkit-border-radius: 2vw;
   -moz-border-radius: 2vw;
   border-radius: 2vw;
+  box-shadow: 1px 3px 8px rgba(153, 153, 153, 0.4);
 }
