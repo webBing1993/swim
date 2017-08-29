@@ -13,8 +13,9 @@ function tabSwitch(a,b,fn,url){
 		$(b).removeClass('hidden');
 		ww = ww * index;
 		loadScroll();
+		$(b).eq(index).siblings(b).addClass('hidden');
 		box.stop().animate({left: -ww +'px'},300,function(){
-			$(b).eq(index).siblings(b).addClass('hidden');
+			// $(b).eq(index).siblings(b).addClass('hidden');
 			setCookie( 'tab', index );
 			if(fn){
 				var tab = $('.active' ).index() + 1;

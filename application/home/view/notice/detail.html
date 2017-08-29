@@ -136,9 +136,11 @@ function send(e,type,id){
 				});
 			},
 			success:function(msg){
+				$('.nomessage').remove();
 				var data = msg.data;
 				var userid = "'"+data.create_user+"'";
 				var html = '';
+				console.log(data)
 				html += '<div class="list clear">'+
 						'<div class="fl">'+
 						'<img src="'+data.header+'" alt="用户头像" class="user">'+

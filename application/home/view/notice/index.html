@@ -114,6 +114,10 @@ $(function(){
 	var box = $('.box');
 	for(var i = 0; i < box.length ;i++){
 		var len = box.eq(i).find('.list').length;
+		var blen = box.eq(i).find('.banner').length;
+		if(blen == 0){
+			box.eq(i).find('.banners').remove();
+		}
 		if(len == 0){
 			box.eq(i).find('.tip').text('');
 			box.eq(i).find('.lists').append('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')

@@ -142,6 +142,7 @@ function send(e,type,id){
 				});
 			},
 			success:function(msg){
+				$('.nomessage').remove();
 				var data = msg.data;
 				var userid = "'"+data.create_user+"'";
 				var html = '';
