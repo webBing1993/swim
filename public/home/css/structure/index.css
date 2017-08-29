@@ -148,7 +148,7 @@
   color: #666666;
   font-size: 1.3rem;
   line-height: 10vw;
-  text-align: center;
+  padding-left: 5vw;
 }
 .banner .assis .assi:before {
   display: inline-block;
