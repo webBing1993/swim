@@ -22,7 +22,7 @@ class Base extends Controller
 {
     public function _initialize()
     {
-        session('userId', 'ben');
+        session('userId', 'tinasun1984');
 //        session('header','/home/images/vistor.jpg');
 //        session('nickname','游客');
 

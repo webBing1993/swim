@@ -46,7 +46,7 @@
 					<span class="name limit">{$vo.name}</span>
 					<span class="age limit">{$vo.age}岁</span>
 				</div>
-				<div class="note">身高 : {$vo.height ? $vo.height : '_'} cm 体重 : {$vo.weight ? $vo.weight : '_'} kg</div>
+				<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
 				<div class="note">课程 : 已上{$vo.count}节</div>
 			</div>
 		</a>

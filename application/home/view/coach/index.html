@@ -13,45 +13,95 @@
 		<div class="content">
 			<!--学员标签-->
 			<div class="tags">
-				<!--<div class="tag active">主力学员</div>-->
+				{empty name="$tag"}
+				<div class="tag active">主力学员</div>
+				{else/}
 				<div class="tag active">长期学员</div>
 				<div class="tag">潜力学员</div>
+				{/empty}
 			</div>
 			<!--列表-->
+			{empty name="$tag"}
 			<div class="lists">
-				<a href="sign.html" class="list clear">
+				{volist name="headStudentModel" id="vo"}
+				<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
 					<div class="ll fl">
-						<img src="/home/images/tem/5.jpg" alt="学员头像" class="user">
+						{empty name="$vo.header"}
+						<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
+						{else/}
+						<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
+						{/empty}
+						{if condition="$vo.gender eq 2"}
+						<img src="/home/images/coach/female.png" alt="女" class="sex">
+						{else/}
 						<img src="/home/images/coach/male.png" alt="男" class="sex">
-						<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+						{/if}
 					</div>
 					<div class="lr fr">
 						<div class="top">
-							<span class="name limit">张三</span>
-							<span class="age limit">12岁</span>
+							<span class="name limit">{$vo.name}</span>
+							<span class="age limit">{$vo.age}岁</span>
 						</div>
-						<div class="note">身高 : 120cm 体重 : 50kg</div>
-						<div class="note">课程 : 已上26节</div>
+						<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
+						<div class="note">课程 : 已上{$vo.count}节</div>
 					</div>
 				</a>
+				{/volist}
 			</div>
+			{else/}
 			<div class="lists">
-				<div class="list">
+				{volist name="longStudentModel" id="vo"}
+				<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
 					<div class="ll fl">
-						<img src="/home/images/tem/5.jpg" alt="学员头像" class="user">
+						{empty name="$vo.header"}
+						<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
+						{else/}
+						<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
+						{/empty}
+						{if condition="$vo.gender eq 2"}
+						<img src="/home/images/coach/female.png" alt="女" class="sex">
+						{else/}
 						<img src="/home/images/coach/male.png" alt="男" class="sex">
-						<!--<img src="/home/images/coach/female.png" alt="女" class="sex">-->
+						{/if}
 					</div>
 					<div class="lr fr">
 						<div class="top">
-							<span class="name limit">lisi</span>
-							<span class="age limit">12岁</span>
+							<span class="name limit">{$vo.name}</span>
+							<span class="age limit">{$vo.age}岁</span>
 						</div>
-						<div class="note">身高 : 120cm 体重 : 50kg</div>
-						<div class="note">课程 : 已上26节</div>
+						<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
+						<div class="note">课程 : 已上{$vo.count}节</div>
 					</div>
-				</div>
+				</a>
+				{/volist}
 			</div>
+			<div class="lists">
+				{volist name="potentialStudentModel" id="vo"}
+				<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
+					<div class="ll fl">
+						{empty name="$vo.header"}
+						<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
+						{else/}
+						<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
+						{/empty}
+						{if condition="$vo.gender eq 2"}
+						<img src="/home/images/coach/female.png" alt="女" class="sex">
+						{else/}
+						<img src="/home/images/coach/male.png" alt="男" class="sex">
+						{/if}
+					</div>
+					<div class="lr fr">
+						<div class="top">
+							<span class="name limit">{$vo.name}</span>
+							<span class="age limit">{$vo.age}岁</span>
+						</div>
+						<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
+						<div class="note">课程 : 已上{$vo.count}节</div>
+					</div>
+				</a>
+				{/volist}
+			</div>
+			{/empty}
 		</div>
 	</div>
 	<!--训练档案-->
@@ -72,20 +122,24 @@
 		<div class="banner">
 			<img src="/home/images/tem/5.jpg" alt="个人中心banner" class="banner-img">
 			<!--头像照片-->
-			<div data-tab="/home/images/tem/5.jpg"  class="user up">
+			{empty name="$userModel.header"}
+			<div data-tab="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>"  class="user up"></div>
+			{else/}
+			<div data-tab="{$userModel.header|get_cover='path'}"  class="user up"></div>
+			{/empty}
 			<input type="file" class="hidden" id="upload" accept="image/jpg, image/png, image/gif, image/jpeg">
 			<input type="hidden" name="header"  value="" required="">
 		</div>
 		<div class="mylist">
-			<a href="/home/user/tutor" class="list">
+			<a href="{:Url('user/tutor?userId='.$userModel['userid'])}" class="list">
 				<span class="name">个人信息</span>
 				<span class="fa fa-angle-right"></span>
 			</a>
-			<a href="mysign.html" class="list">
+			<a href="{:Url('student/mysign?did='.$userModel['userid'])}" class="list">
 				<span class="name">我的签到</span>
 				<span class="fa fa-angle-right"></span>
 			</a>
-			<a href="code.html" class="list">
+			<a href="{:Url('code')}" class="list">
 				<span class="name">签到条形码</span>
 				<span class="fa fa-angle-right"></span>
 			</a>

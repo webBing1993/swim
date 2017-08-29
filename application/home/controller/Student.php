@@ -22,7 +22,7 @@ class Student extends Base{
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$coach_id = $userModel['coach_id'];
 		$coachModel = WechatUser::where(['userid' => $coach_id])->find();
-		$age = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '未知';
+		$age = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '_ ';
 		$tag_id = WechatUserTag::where(['userid' => $coach_id])->value('tagid');
 		$tag_name = WechatTag::where(['tagid' => $tag_id])->value('tagname');
 		$this->assign('userModel',$userModel);
@@ -35,7 +35,7 @@ class Student extends Base{
 	 * 我的签到
 	 */
 	public function mysign() {
-		$userId = session('userId');
+		$userId = input('did', session('userId'));
 		$year = date("Y");
 		$month = date("m");
 		$days = date('d')-1;
@@ -72,7 +72,7 @@ class Student extends Base{
 	 * 签到日期切换
 	 */
 	public function changeSign() {
-		$userId = session('userId');
+		$userId = input('did', session('userId'));
 		$year = input('year', date('Y'));
 		$month = input('month', date('m'));
 		/*$year = '2017';

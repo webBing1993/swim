@@ -9,21 +9,28 @@
 {block name="body"}
 <div class="banner">
 	<div class="user clear">
-		<!--男class:male,女：female-->
+		{if condition="$userModel.gender eq 2"}
+		<div class="sex female fl">
+		{else/}
 		<div class="sex male fl">
-			<img src="/home/images/tem/5.jpg" alt="用户头像">
+		{/if}
+		{empty name="$userModel.header"}
+		<img src="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像">
+		{else/}
+		<img src="{$userModel.header|get_cover='path'}" alt="学员头像">
+		{/empty}
 		</div>
 		<div class="msgs fl">
-			<div class="name limit">小小白</div>
-			<div class="note">12岁&emsp;长期学员</div>
+			<div class="name limit">{$userModel.name}</div>
+			<div class="note">{$userModel.age}岁&emsp;{$userModel.position}</div>
 		</div>
 	</div>
-	<a href="/home/user/student" class="todetail">
+	<a href="{:Url('user/student?did='.$userModel['userid'])}" class="todetail">
 		<span>学员详情</span>
 	</a>
 	<div class="tags">
-		<span class="tag">缺卡记录 : 0次</span>
-		<span class="tag">迟到记录 : 100节</span>
+		<span class="tag">缺卡记录 : {$absence_count}次</span>
+		<span class="tag">迟到记录 : {$late_count}节</span>
 	</div>
 </div>
 <div id="calendar">
@@ -69,9 +76,9 @@ var calendar = new Vue({
 		nowYear: null,
 		nowDate: null,
 		showModal: false,
-		normal:[1, 2, 3, 6,7,11,12,13,14],//初始正常
-		late:[4, 8, 9, 10],//初始迟到
-		absence:[5]//初始缺勤
+		normal:{$normal},//初始正常
+		late:{$late},//初始迟到
+		absence:{$absence}//初始缺勤
 	},
 	computed: {
 		today: function() {
@@ -155,15 +162,17 @@ var calendar = new Vue({
 					this_.nowMonth = array[1]-1;
 					$.ajax({
 						type:"post",
-						url:"",
+						url:"{:Url('Student/changeSign')}",
 						data:{
 							year:array[0],
-							month:array[1]
+							month:array[1],
+							did:"{$did}"
 						},
-						success:function(data){
-							this_.normal = [1];
-							this_.late = [2];
-							this_.absence = [3];
+						success:function(msg){
+							var data = $.parseJSON(msg);
+							this_.normal = data.normal;
+							this_.late = data.late;
+							this_.absence = data.absence;
 							this_.init();
 						}
 					});
