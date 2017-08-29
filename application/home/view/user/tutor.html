@@ -11,7 +11,7 @@
 	<div class="list clear">
 		<span class="fl">头像</span>
 		{empty name="$res.header"}
-		<div data-tab="{$res.avatar}"  class="user up fr"></div>
+		<div data-tab="<?php echo param_to($res['avatar'], \think\Config::get('de_header')); ?>"  class="user up fr"></div>
 		{else/}
 		<div data-tab="{$res.header|get_cover='path'}"  class="user up fr"></div>
 		{/empty}
@@ -51,15 +51,15 @@
 	</div>
 	<div class="list clear">
 		<span class="fl">社会指导员证</span>
-		<img src="{$res.social_certificate|get_cover='path'}" alt="社会指导员证" class="fr card"  data-original="">
+		<img src="{empty name='$res.social_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.social_certificate|get_cover='path'}{/empty}" alt="社会指导员证" class="fr card"  data-original="">
 	</div>
 	<div class="list clear">
 		<span class="fl">职业资格鉴定证</span>
-		<img src="{$res.profession_certificate|get_cover='path'}" alt="职业资格鉴定证" class="fr card"  data-original="">
+		<img src="{empty name='$res.profession_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.profession_certificate|get_cover='path'}{/empty}" alt="职业资格鉴定证" class="fr card"  data-original="">
 	</div>
 	<div class="list clear">
 		<span class="fl">救生员证</span>
-		<img src="{$res.lifeguard_certificate|get_cover='path'}" alt="救生员证" class="fr card"  data-original="">
+		<img src="{empty name='$res.lifeguard_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.lifeguard_certificate|get_cover='path'}{/empty}" alt="救生员证" class="fr card"  data-original="">
 	</div>
 </div>
 <a href="{:Url('User/tutoredit?id='.$res['id'])}" class="edit">编&emsp;辑</a>

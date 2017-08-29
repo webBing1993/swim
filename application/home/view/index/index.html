@@ -49,20 +49,15 @@
 		</a>
 	</div>
 	<div class="lists">
-		<a href="{:Url('Notice/detail')}" class="list clear">
-			<img src="/home/images/tem/1.jpg" alt="" class="fl">
+		{volist name='newsList' id='vo'}
+		<a href="{:Url('Notice/detail?id='.$vo['id'])}" class="list clear">
+			<img src="{$vo.front_cover|get_cover='path'}" alt="" class="fl">
 			<div class="fr">
-				<div class="title limit">阿斯蒂芬过好几颗来制裁VB你们</div>
-				<div class="content limit_">is的广泛地施工方独守空房高大上开发过段时间打飞机开个会地方看过货到付款跟户口的三个和尚大富科技换个地方开个会</div>
+				<div class="title limit">{$vo.title}</div>
+				<div class="content limit_">{$vo.content}</div>
 			</div>
 		</a>
-		<a href="{:Url('Notice/detail')}" class="list clear">
-			<img src="/home/images/tem/1.jpg" alt="" class="fl">
-			<div class="fr">
-				<div class="title limit">阿斯蒂芬过好几颗来制裁VB你们</div>
-				<div class="content limit_">is的广泛地施工方独守空房高大上开发过段时间打飞机开个会地方看过货到付款跟户口的三个和尚大富科技换个地方开个会</div>
-			</div>
-		</a>
+		{/volist}
 	</div>
 </div>
 {/block}

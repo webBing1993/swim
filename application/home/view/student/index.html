@@ -15,7 +15,7 @@
 				<a href="{:Url('User/tutor')}" class="list clear">
 					<div class="ll fl">
 						{empty name="$coachModel.header"}
-						<img src="{$coachModel.avatar}" alt="教练头像" class="user">
+						<img src="<?php echo param_to($coachModel['avatar'], \think\Config::get('de_header')); ?>" alt="教练头像" class="user">
 						{else/}
 						<img src="{$coachModel.header|get_cover='path'}" alt="教练头像" class="user">
 						{/empty}
@@ -42,7 +42,7 @@
 			<img src="/home/images/tem/5.jpg" alt="个人中心banner" class="banner-img">
 			<!--头像照片-->
 			{empty name="$userModel.header"}
-				<div data-tab="{$userModel.avatar}"  class="user up">
+				<div data-tab="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>"  class="user up">
 			{else/}
 				<div data-tab="{$userModel.header|get_cover='path'}"  class="user up">
 			{/empty}

@@ -10,7 +10,7 @@
 	<div class="list clear">
 		<span class="fl">头像</span>
 		{empty name="$res.header"}
-		<div data-tab="{$res.avatar}"  class="user up fr"></div>
+		<div data-tab="<?php echo param_to($res['avatar'], \think\Config::get('de_header')); ?>"  class="user up fr"></div>
 		<input type="file" class="hide upload" accept="image/jpg, image/png, image/gif, image/jpeg">
 		<input type="hidden" name="header"  value="" required="" data-tab="">
 		{else/}

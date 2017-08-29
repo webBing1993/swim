@@ -8,7 +8,7 @@
 {block name="body"}
 <div class="banner">
 	{empty name="$coachModel.header"}
-	<img src="{$coachModel.avatar}" alt="header" class="header">
+	<img src="<?php echo param_to($coachModel['avatar'], \think\Config::get('de_header')); ?>" alt="header" class="header">
 	{else/}
 	<img src="{$coachModel.header|get_cover='path'}" alt="header" class="header">
 	{/empty}
@@ -31,7 +31,7 @@
 		<a href="{:Url('student?did='.$vo['userid'])}" class="list clear">
 			<div class="ll fl">
 				{empty name="$vo.header"}
-				<img src="{$vo.avatar}" alt="学员头像" class="user">
+				<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
 				{else/}
 				<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
 				{/empty}

@@ -37,7 +37,7 @@ class Structure extends Base{
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
 		$userList = WechatUser::where(['coach_id' => $userId])->select();
 		foreach($userList as $key => $model){
-			$userList[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '未知';
+			$userList[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 			$userList[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 		}
 		//var_dump($userList);die;
@@ -51,7 +51,7 @@ class Structure extends Base{
 	public function student() {
 		$userId = input('did');
 		$userModel = WechatUser::where(['userid' => $userId])->find();
-		$userModel['age'] = $userModel['identity'] ? date("Y")-substr($userModel['identity'], 6, 4)+1 : '未知';
+		$userModel['age'] = $userModel['identity'] ? date("Y")-substr($userModel['identity'], 6, 4)+1 : '_ ';
 		$userModel['birthday_year'] = $userModel['identity'] ? substr($userModel['identity'], 6, 4) : null;
 		$userModel['birthday_month'] = $userModel['identity'] ? substr($userModel['identity'], 10, 2) : null;
 		$this->assign('userModel',$userModel);
@@ -63,7 +63,7 @@ class Structure extends Base{
 	public function coach() {
 		$userId = input('did');
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
-		$coachModel['age'] = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '未知';
+		$coachModel['age'] = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '_ ';
 		$this->assign('coachModel',$coachModel);
 		return $this->fetch();
 	}

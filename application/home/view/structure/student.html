@@ -8,7 +8,7 @@
 {block name="body"}
 <div class="banner">
 	{empty name="$userModel.header"}
-	<div data-tab="{$userModel.avatar}"  class="header up"></div>
+	<div data-tab="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>"  class="header up"></div>
 	{else/}
 	<div data-tab="{$userModel.header|get_cover='path'}"  class="header up"></div>
 	{/empty}
@@ -27,7 +27,7 @@
 			</div>
 			<div class="list clear">
 				<span class="fl">出生年月</span>
-				<span class="fr"><?php echo param_to($userModel['birthday_year'], '/ '); ?>-<?php echo param_to($userModel['birthday_month'], ' /'); ?></span>
+				<span class="fr"><?php echo param_to($userModel['birthday_year'], '-'); ?> / <?php echo param_to($userModel['birthday_month'], '-'); ?></span>
 			</div>
 			<div class="list clear">
 				<span class="fl">监护人姓名</span>

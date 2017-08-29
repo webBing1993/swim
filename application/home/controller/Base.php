@@ -197,7 +197,7 @@ class Base extends Controller
         $res = $commentModel->create($data);
         if ($res) {  //返回comment数组
             //评论成功增加1分
-            WechatUser::where('userid', $uid)->setInc('score', 1);
+            //WechatUser::where('userid', $uid)->setInc('score', 1);
             //更新主表数据
             $map['id'] = $res['aid'];   //文章id
             $model = Db::name($table)->where($map)->setInc('comments');

@@ -9,7 +9,7 @@
 <div class="banner">
 	<!--头像照片-->
 	{empty name="$user.header"}
-	<div data-tab="{$user.avatar}"  class="user up"></div>
+	<div data-tab="<?php echo param_to($user['avatar'], \think\Config::get('de_header')); ?>"  class="user up"></div>
 	{else/}
 	<div data-tab="{$user.header|get_cover='path'}"  class="user up"></div>
 	{/empty}

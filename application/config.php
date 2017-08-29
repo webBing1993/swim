@@ -55,4 +55,9 @@ return [
         'agentid' => 1000006
     ],
 
+    //默认头像图片
+    'de_header' => '/home/images/common/default.png',
+    //默认证书图片
+    'de_card' => '/home/images/common/card.png',
+
 ];

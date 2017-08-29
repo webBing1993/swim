@@ -9,7 +9,7 @@
 {block name="body"}
 <div class="banner">
 	{empty name="$coachModel.header"}
-	<div data-tab="{$coachModel.avatar}"  class="header up"></div>
+	<div data-tab="<?php echo param_to($coachModel['avatar'], \think\Config::get('de_header')); ?>"  class="header up"></div>
 	{else/}
 	<div data-tab="{$coachModel.header|get_cover='path'}"  class="header up"></div>
 	{/empty}
