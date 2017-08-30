@@ -58,6 +58,17 @@ class Review extends Base{
         $this->assign('res', $res);
         return $this->fetch();
     }
-
+    public function review()
+    {
+        $data = input('post.');
+        var_dump($data);die;
+        $newModel = new NewsModel();
+        $info = $newModel->validate(true)->save($data, ['id' => input('id')]);
+        if ($info) {
+            return $this->success("修改成功", Url("News/index"));
+        } else {
+            return $this->get_update_error_msg($newModel->getError());
+        }
+    }
 
 }

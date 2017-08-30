@@ -40,6 +40,7 @@ class News extends Admin {
             if(empty($data['id'])) {
                 unset($data['id']);
             }
+            if($data['recommend'] == 1) $data['status'] = 0;
             $newModel = new NewsModel();
             $info = $newModel->validate(true)->save($data);
             if($info) {

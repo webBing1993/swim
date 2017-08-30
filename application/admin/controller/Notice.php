@@ -54,6 +54,7 @@ class Notice extends Admin {
                 unset($data['id']);//为空则添加,将变量id释放
             }
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
+            if($data['recommend'] == 1) $data['status'] = 0;
             $model = $noticeModel->validate('Notice.other')->save($data);
             if($model) {
                 return $this->success('新增相关通知成功',Url('Notice/index'));
