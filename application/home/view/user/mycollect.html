@@ -1,0 +1,95 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>我的收藏</title>
+<link rel="stylesheet" href="/home/css/student/news.css">
+{/block}
+{block name="body"}
+<div class="lists">
+	<a class="list clear" href="">
+		<div class="fr lr">
+			<div class="title limit_">返回撒娇的菲利克斯多久啊放零食</div>
+			<div class="clear">
+				<span class="fl">2017-12-01</span>
+				<span class="fr fa fa-angle-right"></span>
+			</div>
+		</div>
+	</a>
+</div>
+<div class="tip"></div>
+<div class="loading hidden">
+	<div class="typing_loader"></div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+$(function(){
+	//reset
+	var txt;
+	var len = $(".list").length;
+	if(len == 0){
+		$('body' ).html('<div class="default"><img src="/home/images/common/no2.png" alt="暂无消息"> </div>');
+	}else if(len >= 6){
+		$('.tip' ).text('上拉加载更多');
+		//上拉加载
+		loadScroll();
+	}
+});
+function loadScroll(){
+	$(window ).off("scroll" ).on("scroll",function(){
+		var dh = $(document).height();
+		var end = $(window).height() + $(window ).scrollTop();
+		var len = $(".list" ).length;
+		var tip = $(".tip");
+		var loading = $('.loading');
+		if(dh == end){
+			$.ajax({
+				type:"post",
+				url:"{:Url('')}",
+				data:{
+					length:len
+				},
+				beforeSend: function(XMLHttpRequest){
+					tip.hide();
+					loading.toggleClass('hidden');
+				},
+				success:function(data){
+					loading.toggleClass('hidden');
+					tip.show();
+					if(data.code == 1){
+						addNews(data);
+						var dataLen =data.data.length;
+						if(data.data.length == 6){
+							tip.text('上拉加载更多');
+						}
+					}else{
+						tip.text('没有更多了');
+						$(window ).off("scroll");
+					}
+				}
+			})
+		}
+	})
+}
+function addNews(data){
+	var html = '';
+	var lists = data.data;
+	var len = lists.length;
+	for(var i = 0; i< len;i++){
+		var list = lists[i];
+		html +=
+			'<a class="list clear" href="/home/policy/detail/id/'+list.id+'.html">'+
+			'<div class="fr lr">'+
+			' <div class="title limit_">'+list.title+'</div>'+
+			' <div class="clear">'+
+			'   <span class="fl">'+ list.time+'</span>'+
+			'   <span class="fr fa fa-angle-right"></span>'+
+			' </div>'+
+			'</div>'+
+			'</a>';
+	}
+	$(".lists" ).append(html);
+}
+</script>
+{/block}

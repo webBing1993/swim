@@ -111,4 +111,5 @@ class Student extends Base{
 		}
 		return json_encode($res);
 	}
+
 }
