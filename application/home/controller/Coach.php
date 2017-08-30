@@ -186,9 +186,17 @@ class Coach extends Base {
 	 */
 	public function code(){
 		$userId = session('userId');
-		$mobile = WechatUser::where(['userid' => $userId])->value('mobile');
-		$url = bar_code($mobile);
-		$this->assign('url',$url);
+		$res = WechatUser::where(['userid' => $userId])->field('mobile, header, avatar')->find()->toArray();
+		$data['mobile'] = $res['mobile'];
+		if(empty($res['header'])){
+			$data['header'] = param_to($res['avatar'], \think\Config::get('de_header'));
+		}else{
+			$data['header'] = get_cover($res['header'], 'path');
+		}
+		//var_dump($data);
+//		$mobile = WechatUser::where(['userid' => $userId])->value('mobile');
+//		$url = bar_code($mobile);
+		$this->assign('data',$data);
 		return $this->fetch();
 	}
 }
