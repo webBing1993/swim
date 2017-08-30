@@ -114,7 +114,7 @@ class Wechat extends Admin
                             $user['achievement'] = $value['value'];
                             break;
                         case "成员类型":
-                            $user['member_type'] = $value['value'];
+                            $user['member_type'] = $value['value'] ? $value['value'] : 0;
                             break;
                         default:
                             break;
