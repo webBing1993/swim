@@ -3,10 +3,24 @@
   height: 100vh;
   padding-top: 30vh;
 }
-.box img {
+.box #qrcode {
+  z-index: 1;
+  position: relative;
+  left: 20vw;
   display: block;
-  width: 80vw;
-  height: auto;
-  margin: 0 auto;
+  width: 60vw;
+  height: 60vw;
   border: 2vw solid #ffffff;
+}
+.box #qrcode .header {
+  z-index: 2;
+  position: absolute;
+  top: 21vw;
+  left: 21vw;
+  width: 18vw;
+  height: 18vw;
+  border: 2px solid #ffffff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
