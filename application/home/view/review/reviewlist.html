@@ -37,8 +37,8 @@
 					</div>
 				</div>
 				<div class="swipeout-actions-right">
-					<a class="green" onclick='dispose(this,"{$vo.id}",1)'>通&emsp;过</a>
-					<a class="red" onclick='dispose(this,"{$vo.id}",-1)'>不通过</a>
+					<a class="green" onclick='dispose(this,"{$vo.id}",1,"{$vo.tab}")'>通&emsp;过</a>
+					<a class="red" onclick='dispose(this,"{$vo.id}",-1,"{$vo.tab}")'>不通过</a>
 				</div>
 			</li>
 			{/volist}
@@ -68,7 +68,7 @@ function jump(url){
 	parent.location.href= url;
 }
 //提交操作
-function dispose(i,id,status){
+function dispose(i,id,status,type){
 	swal({
 		title: ' ',
 		text: '确认当前操作吗？',
@@ -76,7 +76,7 @@ function dispose(i,id,status){
 		confirmButtonText:'确定',
 		showCancelButton:true,
 		cancelButtonText:'取消'
-	}, function(isConfirm){
+	}).then(function(isConfirm){
 		//确认之后执行函数
 		if (isConfirm) {
 			$.ajax({
@@ -85,6 +85,7 @@ function dispose(i,id,status){
 				data: {
 					id:id,
 					status:status,
+					tab : type
 				},
 				success: function(data){
 					//成功后刷新页面

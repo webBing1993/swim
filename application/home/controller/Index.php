@@ -9,6 +9,7 @@
 namespace app\home\controller;
 use app\home\model\Message;
 use app\home\model\WechatUser;
+use app\home\model\WechatUserTag;
 use app\home\model\Notice;
 use com\wechat\TPQYWechat;
 use think\Config;
@@ -21,7 +22,10 @@ use think\Log;
  */
 class Index extends Controller {
     public function index(){
-        $newsList = Notice::where(['type' => 1, 'status' => 1])->order('create_time desc')->field('id,front_cover,title,content')->limit(2)->select();
+        $userId = session('userId');
+        $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
+        $newsList = Notice::where(['type' => 1, 'status' => 1])->order('create_time desc')->field('id,front_cover,title,create_time')->limit(2)->select();
+        $this->assign('tag_id',$tag_id);
         $this->assign('newsList',$newsList);
         return $this->fetch();
     }

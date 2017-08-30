@@ -12,8 +12,8 @@
  * Time: 13:53
  */
 namespace app\home\controller;
-use app\home\model\News;
-use app\home\model\Notice;
+use app\home\model\News as NewsModel;
+use app\home\model\Notice as NoticeModel;
 use think\Db;
 /**
  * 审核页面
@@ -25,7 +25,7 @@ class Review extends Base{
      */
     public function reviewlist() {
         $map = array(
-            'status' => 1,
+            'status' => 0,
             'recommend' => 1
         );
         $where = ' status=0 and recommend=1';
@@ -60,14 +60,15 @@ class Review extends Base{
     }
     public function review()
     {
-        $data = input('post.');
-        var_dump($data);die;
-        $newModel = new NewsModel();
-        $info = $newModel->validate(true)->save($data, ['id' => input('id')]);
+        $id = input('id');
+        $status = input('status');
+        $tab = input('tab');
+        $Model = $tab ? new NoticeModel() : new NewsModel();
+        $info = $Model->save(['status' => $status], ['id' => $id]);
         if ($info) {
-            return $this->success("修改成功", Url("News/index"));
+            return $this->success();
         } else {
-            return $this->get_update_error_msg($newModel->getError());
+            return $this->error();
         }
     }
 
