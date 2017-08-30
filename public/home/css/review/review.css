@@ -138,6 +138,9 @@ li {
 .initials{
 	color:#666;
 }
+.swal2-container{
+	z-index:10001;
+}
 .weui_dialog{
 	width:70.6vw;
 	border-radius: 6px;
