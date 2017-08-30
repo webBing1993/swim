@@ -84,7 +84,7 @@ class Wechat extends Admin
                             $user['guardian'] = $value['value'];
                             break;
                         case "招生日期":
-                            $user['enrollday'] = $value['value'];
+                            $user['enrollday'] = date('Y-m-d', strtotime($value['value']));
                             break;
                         case "身高":
                             $user['height'] = $value['value'];

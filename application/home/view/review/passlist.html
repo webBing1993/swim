@@ -14,27 +14,33 @@
             <img src="/home/images/common/nomessage.png" alt="" >
         </div>
         <ul>
+            {volist name="res" id="vo"}
             <li class="swipeout">
-                <div class="swipeout-content">
-                    <img src="11" alt="封面图片">
-                    <div class="list">
-                        <span class="title" >发第三方的所发生的</span>
-                        <span class="sent_time">
-                            <span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">通知</span>
-                            <span>审核人：111</span>
-                            <span>2012-01-01</span>
-                        </span>
-                    </div>
-                    <div class="arrow green">
-                        <img src="/home/images/review/yes.png" alt="通过">
-                    </div>
-
-                    <!--<div class="arrow red">-->
+                {empty name="$vo.tab"}
+                <?php $url = Url('news/detail?id='.$vo['id'].'&visit=1');?>
+                <div class="swipeout-content" onclick="jump('{$url}')">
+                    {else/}
+                    <?php $url = Url('notice/detail?id='.$vo['id'].'&visit=1');?>
+                    <div class="swipeout-content" onclick="jump('{$url}')">
+                        {/empty}
+                        <img src="{$vo.front_cover|get_cover='path'}" alt="封面图片">
+                        <div class="list">
+                            <span class="title" >{$vo.title}</span>
+						<span class="sent_time">
+							<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">{empty name="$vo.tab"}<?php echo \app\home\model\News::TYPE_ARRAY[$vo['type']];?>{else/}<?php echo \app\home\model\Notice::TYPE_ARRAY[$vo['type']];?>{/empty}</span>
+							<span>发布人：{$vo.publisher}</span>
+							<span>{$vo.create_time|time_format='Y-m-d'}</span>
+						</span>
+                        </div>
+                        <div class="arrow green">
+                            <img src="/home/images/review/yes.png" alt="通过">
+                        </div>
+                        <!--<div class="arrow red">-->
                         <!--<img src="/home/images/review/tanhao.png" alt="拒绝">-->
-                    <!--</div>-->
-
-                </div>
+                        <!--</div>-->
+                    </div>
             </li>
+            {/volist}
         </ul>
     </div>
 </div>

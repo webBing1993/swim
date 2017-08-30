@@ -74,7 +74,7 @@ class Base extends Controller
         if ($userId == 'visitor') {
             $this->assign('visit', 1);
         } else {
-            $this->assign('visit', 0);
+            $this->assign('visit', input('visit', 0));
         }
     }
 

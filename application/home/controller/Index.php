@@ -9,7 +9,7 @@
 namespace app\home\controller;
 use app\home\model\Message;
 use app\home\model\WechatUser;
-use app\home\model\News;
+use app\home\model\Notice;
 use com\wechat\TPQYWechat;
 use think\Config;
 use think\Controller;
@@ -21,7 +21,7 @@ use think\Log;
  */
 class Index extends Controller {
     public function index(){
-        $newsList = News::where(['type' => 1, 'status' => 1])->order('create_time desc')->field('id,front_cover,title,content')->limit(2)->select();
+        $newsList = Notice::where(['type' => 1, 'status' => 1])->order('create_time desc')->field('id,front_cover,title,content')->limit(2)->select();
         $this->assign('newsList',$newsList);
         return $this->fetch();
     }

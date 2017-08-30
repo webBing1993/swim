@@ -12,6 +12,12 @@ namespace app\home\model;
 use think\Model;
 
 class Notice extends Model {
+    const TYPE_NOTICE = 1;
+    const TYPE_ACTIVITY = 2;
+    const TYPE_ARRAY = [
+        self::TYPE_NOTICE  => '相关通知',
+        self::TYPE_ACTIVITY  => '活动情况',
+    ];
     /**
      * 获取活动顶部轮播
      */

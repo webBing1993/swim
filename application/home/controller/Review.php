@@ -12,8 +12,9 @@
  * Time: 13:53
  */
 namespace app\home\controller;
-
-
+use app\home\model\News;
+use app\home\model\Notice;
+use think\Db;
 /**
  * 审核页面
  */
@@ -23,7 +24,18 @@ class Review extends Base{
      * 未审核列表
      */
     public function reviewlist() {
-
+        $map = array(
+            'status' => 1,
+            'recommend' => 1
+        );
+        $where = ' status=0 and recommend=1';
+        $res = Db::field('id , type, front_cover, title, content, publisher, create_time, 0 tab')
+            ->table('sw_news')
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where." order by create_time desc")
+            ->where($map)
+            ->select();
+        //var_dump($res);die;
+        $this->assign('res', $res);
         return $this->fetch();
     }
 
@@ -32,7 +44,18 @@ class Review extends Base{
      * 已审核列表
      */
     public function passlist() {
-
+        $map = array(
+            'status' => 1,
+            'recommend' => 1
+        );
+        $where = ' status=1 and recommend=1';
+        $res = Db::field('id , type, front_cover, title, content, publisher, create_time, 0 tab')
+            ->table('sw_news')
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where." order by create_time desc")
+            ->where($map)
+            ->select();
+        //var_dump($res);die;
+        $this->assign('res', $res);
         return $this->fetch();
     }
 

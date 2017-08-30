@@ -26,7 +26,7 @@ class Coach extends Base {
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
 		if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练
-			$headStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->select();
+			$headStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order('enrollday desc')->select();
 			foreach($headStudentModel as $key => $model){
 				$headStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 				$headStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
@@ -34,8 +34,8 @@ class Coach extends Base {
 			$this->assign('tag', false);
 			$this->assign('headStudentModel',$headStudentModel);
 		}else{//助教
-			$longStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->select();
-			$potentialStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->select();
+			$longStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->order('enrollday desc')->select();
+			$potentialStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->order('enrollday desc')->select();
 			foreach($longStudentModel as $key => $model){
 				$longStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 				$longStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
