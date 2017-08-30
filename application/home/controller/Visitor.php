@@ -99,7 +99,7 @@ class Visitor extends Base{
 				}
 			}
 		}else {
-			return $this->error("无效的条形码", Url('Visitor/index'));
+			return $this->error("无效的二维码", Url('Visitor/index'));
 		}
 	}
 

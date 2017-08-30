@@ -91,6 +91,10 @@ body {
   font-size: 1.3rem;
   line-height: 4vw;
 }
+.notice .lists .list .fr .content * {
+  overflow: hidden!important;
+  background: transparent!important;
+}
 .notice .lists .nomessage {
   width: 30vw;
   height: 30vw;

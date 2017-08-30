@@ -6,12 +6,29 @@
 {/block}
 
 {block name="body"}
+
+
 <div class="box">
-	<img src="{$url}" alt="条形码">
+	<div id="qrcode">
+		<img src="{$data.header}" alt="条形码" class="header">
+	</div>
+
 </div>
 
 {/block}
 
 {block name="script"}
+<script src="/static/code/qrcode.min.js"></script>
+<script>
+$(function(){
 
+	var ww = $('.box').width();
+	var qrcode = new QRCode($('#qrcode')[0], {
+		text: '{$data.mobile}',
+		width: ww*6/10,
+		height: ww*6/10,
+		correctLevel: QRCode.CorrectLevel.H
+	});
+})
+</script>
 {/block}
