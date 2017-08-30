@@ -286,15 +286,19 @@ textarea::-webkit-input-placeholder {
   width: 3rem;
   height: 3rem;
 }
-.boxs .box:nth-child(3) .mylist .list:nth-child(1) .name:after {
-  background: url('/home/images/coach/user1.png') 0 0 no-repeat;
+.boxs .box:nth-child(3) .mylist .list:nth-child(1) .name {
+  background: url('/home/images/coach/user1.png') 0 0.7rem no-repeat;
   background-size: 3rem,3rem;
 }
-.boxs .box:nth-child(3) .mylist .list:nth-child(2) .name:after {
-  background: url('/home/images/coach/user2.png') 0 0 no-repeat;
+.boxs .box:nth-child(3) .mylist .list:nth-child(2) .name {
+  background: url('/home/images/coach/user2.png') 0 0.7rem no-repeat;
   background-size: 3rem,3rem;
 }
-.boxs .box:nth-child(3) .mylist .list:nth-child(3) .name:after {
-  background: url('/home/images/coach/user3.png') 0 0 no-repeat;
+.boxs .box:nth-child(3) .mylist .list:nth-child(3) .name {
+  background: url('/home/images/coach/user4.png') 0 0.7rem no-repeat;
+  background-size: 3rem,3rem;
+}
+.boxs .box:nth-child(3) .mylist .list:nth-child(4) .name {
+  background: url('/home/images/coach/user3.png') 0 0.7rem no-repeat;
   background-size: 3rem,3rem;
 }

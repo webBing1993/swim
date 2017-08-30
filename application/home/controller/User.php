@@ -116,5 +116,10 @@ class User extends Base{
             return $this->fetch();
         }
 	}
-
+	/**
+	 * 我的收藏
+	 */
+	public function myCollect(){
+		return $this->fetch();
+	}
 }

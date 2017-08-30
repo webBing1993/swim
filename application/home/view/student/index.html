@@ -39,7 +39,7 @@
 	<!--个人中心-->
 	<div class="box hidden">
 		<div class="banner">
-			<img src="/home/images/tem/5.jpg" alt="个人中心banner" class="banner-img">
+			<img src="/home/images/structure/banner.png" alt="个人中心banner" class="banner-img">
 			<!--头像照片-->
 			{empty name="$userModel.header"}
 				<div data-tab="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>"  class="user up">
@@ -58,6 +58,11 @@
 					<span class="name">我的签到</span>
 					<span class="fa fa-angle-right"></span>
 				</a>
+				<a href="{:Url('user/mycollect')}" class="list">
+					<span class="name">我的收藏</span>
+					<span class="fa fa-angle-right"></span>
+				</a>
+
 			</div>
 		</div>
 	</div>

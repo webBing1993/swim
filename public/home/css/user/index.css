@@ -25,7 +25,7 @@ textarea::-webkit-input-placeholder {
   left: 0;
   width: 100vw;
   height: 50vw;
-  background: url("/home/images/tem/3.jpg");
+  background: url("/home/images/structure/banner.png");
   background-size: 100% 100%;
 }
 .banner .user {
@@ -83,5 +83,9 @@ textarea::-webkit-input-placeholder {
 }
 .lists .list:nth-child(1) span {
   background: url("/home/images/user/message.png") 0 11px no-repeat;
+  background-size: 28px 28px;
+}
+.lists .list:nth-child(2) span {
+  background: url('/home/images/coach/user4.png') 0 11px no-repeat;
   background-size: 28px 28px;
 }

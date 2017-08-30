@@ -59,7 +59,7 @@ textarea::-webkit-input-placeholder {
   width: 60px;
   height: 40px;
   margin-top: 4px;
-  background: url("/home/images/common/default.png") center no-repeat;
+  background: center no-repeat;
   background-size: 60px 40px;
 }
 .lists .list .pen {

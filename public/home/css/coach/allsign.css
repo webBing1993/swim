@@ -102,3 +102,7 @@ a:active {
 .boxs .box:nth-child(2) {
   left: 100vw;
 }
+.boxs .box .nomessage {
+  width: 40vw;
+  margin: 15vh 30vw;
+}
