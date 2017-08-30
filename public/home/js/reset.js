@@ -48,6 +48,52 @@ function tabRecord(a,b){
 		window.history.go( -1 );
 	}, false );
 }
+function tagSwitch(a,b,fn,url){
+	$(a).off('click').on('click',function(){
+		var this_ = this ;
+		var box = $(b).parent();
+		var index = $(this_ ).index();
+		var ww = $(b).parent().width();
+		$(this_ ).addClass('active' );
+		$(this_ ).siblings(a).removeClass('active');
+		$(b).removeClass('hidden');
+		ww = ww * index;
+		loadScroll();
+		$(b).eq(index).siblings(b).addClass('hidden');
+		box.stop().animate({left: -ww +'px'},300,function(){
+			// $(b).eq(index).siblings(b).addClass('hidden');
+			setCookie( 'tag', index );
+			if(fn){
+				var tab = $('.active' ).index() + 1;
+				fn(tab,url,7,5);
+			}
+		});
+
+	})
+}
+function tagRecord(a,b){
+	var tab = getCookie('tag');
+	if(!tab){
+		tab = 0
+	}
+	var index = tab;
+	var box = $(b).parent();
+	var ww = $(b).parent().width();
+	$(a).eq(index).addClass('active');
+	$(a).eq(index).siblings(a).removeClass('active');
+	$(b).removeClass('hidden');
+	ww = ww * index;
+	box.css({left: -ww +'px'});
+	setTimeout(function(){
+		$(b).eq(index).siblings(b).addClass('hidden');
+	},100);
+	//清除tab值
+	pushHistory();
+	window.addEventListener( "popstate", function( e ){
+		delCookie( 'tag' );
+		window.history.go( -1 );
+	}, false );
+}
 function pushHistory(){
 	var sta = {
 		title: "title"

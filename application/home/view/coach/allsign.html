@@ -59,9 +59,9 @@
 <script>
 $(function(){
 	//tab值记录
-	tabRecord('.tab' ,'.box');
+	tagRecord('.tab' ,'.box');
 	//tab切换
-	tabSwitch('.tab' ,'.box');
+	tagSwitch('.tab' ,'.box');
 	//天气
 //	$.getScript('http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',function(a){
 //		var s="",r="",q="";for(s in window.SWther.w){
@@ -72,6 +72,12 @@ $(function(){
 //			console.log(r)
 //		}
 //	});
+	//默认提示
+	for(var j = 0 ;j < 2 ;j++){
+		if($('.box').eq(j).find('.list').length == 0){
+			$('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
+		}
+	}
 	//时间选择
 	var currYear = (new Date()).getFullYear();
 	var opt={};
@@ -99,26 +105,48 @@ $(function(){
 				},
 				success:function(data){
 					$('.time span').text(array[0] + "年" + array[1] + "月"+ array[2] + "日");
-					var msg = data.data;
-					var dl = msg.length;
-					for(var j = 0 ; j<dl ;j++){
-						var lists = msg[j];
-						var len = lists.length;
-						var html = '';
-						for(var i = 0 ;i < len ;i++){
-							var list = lists[i];
-							html +=
-								'<div class="list">'+
-								'<span>张三</span>'+
-								'<span class="absence">'+
-								'<i class="fa fa-times-circle"></i>'+
-								'缺卡</span></div>';
-//						'<span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span>'
-//						'<span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>'
-						}
-						$('.box').eq(j).html(html);
+					var msg = $.parseJSON(data);
+					console.log(msg);
+					var normal = msg.normal;
+					var nl = normal.length;
+					var nhtml = '';
+					for(var i = 0 ;i < nl ;i++){
+						var list = normal[i];
+						nhtml +=
+							'<div class="list">'+
+							'<span>'+list+'</span>'+
+							'<span class="normal"><i class="fa fa-check-circle"></i> 正常 </span></div>'
 					}
+					$('.box').eq(1).html(nhtml);
+					var abnormal = msg.abnormal;
+					var late = abnormal.late;
+					var absence = abnormal.late;
+					var ll = late.length;
+					var al = absence.length;
+					var lhtml = '';
+					for(var m = 0 ;m < ll ;m++){
+						var list = late[m];
+						lhtml +=
+							'<div class="list">'+
+							'<span>'+list+'</span>'+
+							'<span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
 
+					}
+					for(var n = 0 ;n < al ;n++){
+						var list = late[n];
+						lhtml +=
+							'<div class="list">'+
+							'<span>'+list+'</span>'+
+							'<span class="absence">'+
+							'<i class="fa fa-times-circle"></i>'+
+							'缺卡</span></div>';
+					}
+					$('.box').eq(0).html(lhtml);
+					for(var j = 0 ;j < 2 ;j++){
+						if($('.box').eq(j).find('.list').length == 0){
+							$('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
+						}
+					}
 				}
 			});
 		}
