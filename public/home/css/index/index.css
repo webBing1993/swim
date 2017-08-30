@@ -82,6 +82,8 @@ body {
   margin-top: 5vw;
 }
 .notice .lists .list .fr .title {
+  width: 66vw;
+  height: 10vw;
   color: #333333;
   font-size: 1.4rem;
   line-height: 5vw;
