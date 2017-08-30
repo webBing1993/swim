@@ -84,13 +84,22 @@ body {
 .notice .lists .list .fr .title {
   color: #333333;
   font-size: 1.4rem;
+  line-height: 5vw;
+}
+.notice .lists .list .fr .note {
+  width: 66vw;
+  height: 6vw;
+  color: #999999;
+  font-size: 1.2rem;
   line-height: 6vw;
 }
-.notice .lists .list .fr .content {
-  height: 8vw;
-  color: #666666;
-  font-size: 1.3rem;
-  line-height: 4vw;
+.notice .lists .list .fr .note span {
+  display: inline-block;
+  width: 32.5vw;
+}
+.notice .lists .list .fr .note span.fa {
+  text-align: right;
+  font-size: 1.6rem;
 }
 .notice .lists .nomessage {
   width: 30vw;

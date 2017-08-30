@@ -73,11 +73,19 @@ body{
 				.wh(66vw,16vw);
 				margin-top: 5vw;
 				.title{
-					.font(@c_title,@s_title,6vw)
+					.font(@c_title,@s_title,5vw)
 				}
-				.content{
-					height: 8vw;
-					.font(@c_content,@s_content,4vw);
+				.note{
+					.wh(66vw,6vw);
+					.font(@c_note,@s_note,6vw);
+					span{
+						display: inline-block;
+						width: 32.5vw;
+						&.fa{
+							text-align: right;
+							font-size: 1.6rem;
+						}
+					}
 				}
 			}
 		}

@@ -54,8 +54,11 @@
 		<a href="{:Url('Notice/detail?id='.$vo['id'])}" class="list clear">
 			<img src="{$vo.front_cover|get_cover='path'}" alt="" class="fl">
 			<div class="fr">
-				<div class="title limit">{$vo.title}</div>
-				<div class="content limit_">{$vo.content}</div>
+				<div class="title limit_">{$vo.title}</div>
+				<div class="note">
+					<span class="time">2017-01-01</span>
+					<span class="fa fa-angle-right"></span>
+				</div>
 			</div>
 		</a>
 		{/volist}
