@@ -61,7 +61,6 @@ class Visitor extends Base{
 						if(!empty($userSign)){
 							return $this->error("今天已签到", Url('Visitor/index'));
 						}
-						return json_encode(1);die;
 						$data = array(
 								'userid' => $userId,
 								'name' => $msg['name'],
@@ -69,6 +68,8 @@ class Visitor extends Base{
 								'date' => date('Y-m-d'),
 								'status' => WechatUserSign::STATUS_LATE,
 						);
+
+						return json_encode(WechatUserSign::create($data));die;
 						if(WechatUserSign::create($data)) {//迟到
 							return $this->success("签到成功", Url('Visitor/index'));
 						}else {
