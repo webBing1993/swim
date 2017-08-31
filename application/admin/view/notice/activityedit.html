@@ -173,6 +173,30 @@
                                 <input type="text" placeholder="请输入发布人" class="form-control form_title" name="publisher" value="{$msg.publisher || default=''}">
                             </div>
                         </div>
+                        <div class="form-group" >
+                            <div class="col-lg-1 text-right control-label">
+                                <label>发送部门:</label>
+                            </div>
+                            <div class="col-lg-11 selgp">
+                                <select class="chosen-select form-control" data-placeholder="--请选择部门--" name="departmentid" multiple="multiple">
+                                    <option value="0">全部</option>
+                                    <option value="1">曲师大</option>
+                                    <option value="2">自行车</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-1 text-right control-label">
+                                <label>发送标签:</label>
+                            </div>
+                            <div class="col-lg-11 selgp2">
+                                <select class="chosen-select form-control" data-placeholder="--请选择标签--" name="tag" multiple="multiple">
+                                    <option value="0">全部</option>
+                                    <option value="1">曲师大</option>
+                                    <option value="2">自行车</option>
+                                </select>
+                            </div>
+                        </div>
                         {empty name="msg"}
                         <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
@@ -241,6 +265,43 @@
                 imgnum = 2
             }
         });
+		//选择
+		$("select" ).chosen({
+			no_results_text: "没有找到该选项",
+			allow_single_de: true,
+			width:'100%',
+			max_selected_options:'100'
+		});
+		var selgp = $(".selgp");
+		var selgp2 = $(".selgp2");
+		selHeight(selgp);
+		selHeight(selgp2);
+		function selHeight(e){
+			e.find('ul').on('click',function(){
+				var results = $(this ).next().find('.chosen-results' );
+				var h= results.height();
+				h=h-100;
+				$('.selblo' ).animate({'height':h+'px'},100);
+				//切出页面
+				var hiddenProperty = 'hidden' in document ? 'hidden' :
+					'webkitHidden' in document ? 'webkitHidden' :
+						null;
+				var visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+				var onVisibilityChange = function(){
+					if (!document[hiddenProperty]) {
+						//selgp.find('.search-field').find('input').on('blur');
+					}else{
+						e.find('.search-field').find('input').off('blur');
+					}
+				};
+				$(document).on(visibilityChangeEvent, onVisibilityChange);
+			});
+			e.find('.search-field').find('input').on('blur',function(){
+				setTimeout(function(){
+					$('.selblo' ).animate({'height':'0'});
+				},100)
+			});
+		}
         $(document).ready(function () {
             $(".imgfile").on("change",function(){
                 var size = ($(this)[0].files[0].size / 1024).toFixed(2);
@@ -294,6 +355,8 @@
                 end_time:$("input[name='end_time']").val(),
                 people:$("input[name='people']").val(),
                 publisher:$("input[name='publisher']").val(),
+				departmentid:$("select[name='departmentid']").val(),
+				tag:$("select[name='tag']").val(),
                 recommend:$("input[name='recommend']:checked").val(),
             };
             $.ajax({
