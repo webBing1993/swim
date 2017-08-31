@@ -31,6 +31,7 @@ class Coach extends Base {
 				$headStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 				$headStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 			}
+			$this->assign('userModel', $userModel);
 			$this->assign('tag', false);
 			$this->assign('headStudentModel',$headStudentModel);
 		}else{//助教
