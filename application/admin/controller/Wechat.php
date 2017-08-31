@@ -237,8 +237,8 @@ class Wechat extends Admin
                     if(empty(WechatUserTag::where($data)->find())){
                         WechatUserTag::create($data);
                         $member_type = WechatTag::TAG_TO_METYPE[$value['tagid']];
-                        if($member_type !== WechatUser::where(['userid'=>$value['userid']])->value('member_type')){
-                            WechatUser::where(['userid'=>$value['userid']])->update(['member_type'=>$member_type]);
+                        if($member_type !== WechatUser::where(['userid'=>$user['userid']])->value('member_type')){
+                            WechatUser::where(['userid'=>$user['userid']])->update(['member_type'=>$member_type]);
                         }
                     }
                 }
