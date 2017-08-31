@@ -23,6 +23,7 @@ class Visitor extends Base{
 
 	public function sign() {
 		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
+		return json_encode($msg);die;
 		if(!empty($msg)) {
 			$userId = $msg['userId'];
 			//学员签到先判断教练是否签到
