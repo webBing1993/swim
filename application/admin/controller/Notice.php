@@ -129,6 +129,9 @@ class Notice extends Admin {
     public function activityadd(){
         if(IS_POST) {
             $data = input('post.');
+            if(empty($data['id'])) {
+                unset($data['id']);
+            }
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
             $noticeModel = new NoticeModel();
             if (!empty($data['start_time']) && !empty($data['end_time'])){
