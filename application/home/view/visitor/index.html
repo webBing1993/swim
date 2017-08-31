@@ -61,9 +61,9 @@ $(function(){
 		autoplayDisableOnInteraction:false,
 		pagination : '.swiper-pagination',
 	});
-	$('.sign').on('click',function(){
-		alert(1)
-	})
+//	$('.sign').on('click',function(){
+//		alert(1)
+//	})
 })
 </script>
 <script>
@@ -93,11 +93,10 @@ wx.ready(function () {
 					type:"post",
 					url:"{:Url('Visitor/sign')}",
 					data:{
-						mobile:mobile
+						mobile: url
 					},
 					dataType: "Json",
 					success:function(data){
-						alert(JSON.stringify(data));
 						if(data.code == 1){
 							swal({
 								title: '成功',
