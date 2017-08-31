@@ -28,6 +28,10 @@
 		<span class="fl">手机号</span>
 		<a class="fr" href="tel:{$res.mobile}">{$res.mobile}</a>
 	</div>
+	<div class="list clear">
+		<span class="fl">身份证号</span>
+		<span class="fr">{$res.identity}</span>
+	</div>
 </div>
 <div class="lists">
 	<div class="list clear">
@@ -44,11 +48,8 @@
 	</div>
 </div>
 <!--助教-->
+{empty name="$res.tag"}
 <div class="lists">
-	<div class="list clear">
-		<span class="fl">身份证号</span>
-		<span class="fr">{$res.identity}</span>
-	</div>
 	<div class="list clear">
 		<span class="fl">社会指导员证</span>
 		<img src="{empty name='$res.social_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.social_certificate|get_cover='path'}{/empty}" alt="社会指导员证" class="fr card"  data-original="">
@@ -62,7 +63,10 @@
 		<img src="{empty name='$res.lifeguard_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.lifeguard_certificate|get_cover='path'}{/empty}" alt="救生员证" class="fr card"  data-original="">
 	</div>
 </div>
+{/empty}
+{empty name="$res.edit_button"}
 <a href="{:Url('User/tutoredit?id='.$res['id'])}" class="edit">编&emsp;辑</a>
+{/empty}
 <!--/助教-->
 {/block}
 

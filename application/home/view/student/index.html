@@ -12,7 +12,7 @@
 	<div class="box hidden clear">
 		<div class="content">
 			<div class="lists">
-				<a href="{:Url('User/tutor')}" class="list clear">
+				<a href="{:Url('User/tutor?did='.$coachModel['userid'])}" class="list clear">
 					<div class="ll fl">
 						{empty name="$coachModel.header"}
 						<img src="<?php echo param_to($coachModel['avatar'], \think\Config::get('de_header')); ?>" alt="教练头像" class="user">

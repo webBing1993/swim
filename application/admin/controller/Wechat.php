@@ -64,6 +64,7 @@ class Wechat extends Admin
         $list = $Wechat->getDepartment();
 
         /* 同步最顶级部门下面的用户 */
+        $i = 0;
         foreach ($list['department'] as $key=>$value) {
             $users = $Wechat->getUserListInfo($list['department'][$key]['id']);
             foreach ($users['userlist'] as $user) {
@@ -139,9 +140,10 @@ class Wechat extends Admin
                 } else {
                     WechatUser::create($user);
                 }
+                $i++;
             }
         }
-        $data = "用户数:".count($users['userlist'])."!";
+        $data = "用户数:".$i."!";
 
         return $this->success("同步成功", '', $data);
     }
@@ -188,7 +190,7 @@ class Wechat extends Admin
             }
         }
 
-        $data = "同步部门数:".count($list['department'])."!";
+        $data = "同步部门数:".(count($list['department'])+1)."!";
 
         return $this->success("同步成功", '', $data);
     }

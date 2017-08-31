@@ -84,8 +84,9 @@
 		<span class="fr">{$res.achievement}</span>
 	</div>
 </div>
-
+{empty name="$res.edit_button"}
 <a href="{:Url('User/studentedit?id='.$res['id'])}" class="edit">编&emsp;辑</a>
+{/empty}
 
 {/block}
 
