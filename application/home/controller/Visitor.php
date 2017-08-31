@@ -48,6 +48,7 @@ class Visitor extends Base{
 				//教练提前六十分钟可以签到
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+60 minute')));
 			}
+			return json_encode($real_time);die;
 			$start_time = strtotime($userClass['start_time']);
 			$end_time = strtotime($userClass['end_time']);
 			if($real_time < $start_time){
