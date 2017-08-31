@@ -110,22 +110,22 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(1) .list .lr .note,
 .boxs .box:nth-child(2) .list .lr .note {
-  margin-top: 1vw;
+  margin-top: 3vw;
   color: #666666;
   font-size: 1.2rem;
-  line-height: 5vw;
+  line-height: 0.73rem;
 }
 .boxs .box:nth-child(1) .list .lr .note .scan,
 .boxs .box:nth-child(2) .list .lr .note .scan {
-  background: url('/home/images/common/scan.png') 2vw 0.5rem no-repeat;
+  background: url('/home/images/common/scan.png') 2vw 0 no-repeat;
   background-size: 1.2rem 0.73rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 .boxs .box:nth-child(1) .list .lr .note .comment,
 .boxs .box:nth-child(2) .list .lr .note .comment {
-  background: url('/home/images/common/comment.png') 2vw 0.5rem no-repeat;
+  background: url('/home/images/common/comment.png') 2vw 0 no-repeat;
   background-size: 1.2rem 0.73rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 .boxs .box:nth-child(3) {
   left: 200vw;
@@ -182,33 +182,34 @@ textarea::-webkit-input-placeholder {
   height: 15vw;
 }
 .boxs .box:nth-child(3) .lists .list .note {
+  margin-top: 3vw;
   padding: 0 4vw;
   line-height: 1.8rem;
   color: #999999;
   font-size: 1.2rem;
-  line-height: 5vw;
+  line-height: 1.2rem;
 }
 .boxs .box:nth-child(3) .lists .list .note .time {
-  background: url('/home/images/common/time.png') 2vw 0.2rem no-repeat;
+  background: url('/home/images/common/time.png') 2vw 0.1rem no-repeat;
   background-size: 1.2rem 1.2rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 .boxs .box:nth-child(3) .lists .list .note .scan {
-  background: url('/home/images/common/scan.png') 2vw 0.5rem no-repeat;
+  background: url('/home/images/common/scan.png') 2vw 0.25rem no-repeat;
   background-size: 1.2rem 0.73rem;
-  padding-left: 2rem;
+  padding-left: 7vw;
 }
 .boxs .box:nth-child(3) .lists .list .note .good {
-  background: url('/home/images/common/good.png') 2vw 0.25rem no-repeat;
+  background: url('/home/images/common/good.png') 2vw 0.1rem no-repeat;
 }
 .boxs .box:nth-child(3) .lists .list .note .good_ {
   animation: shake 300ms ease;
   -webkit-animation: shake 300ms ease;
-  background: url('/home/images/common/good_.png') 2vw 0.25rem no-repeat;
+  background: url('/home/images/common/good_.png') 2vw 0.1rem no-repeat;
 }
 .boxs .box:nth-child(3) .lists .list .note .isgood {
   background-size: 1rem 1rem;
-  padding-left: 2rem;
+  padding-left: 7vw;
 }
 .nomessage {
   display: block;

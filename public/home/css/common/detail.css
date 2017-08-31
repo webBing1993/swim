@@ -168,19 +168,19 @@
 .article .content .note .read {
   background: url('/home/images/common/scan.png') 2vw 0.55rem no-repeat;
   background-size: 1.2rem 0.73rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 .article .content .note .good {
   background: url('/home/images/common/good.png') 2vw 0.25rem no-repeat;
   background-size: 1.2rem 1.2rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 .article .content .note .good_ {
   animation: shake 300ms ease;
   -webkit-animation: shake 300ms ease;
   background: url('/home/images/common/good_.png') 2vw 0.25rem no-repeat;
   background-size: 1.2rem 1.2rem;
-  padding-left: 2.2rem;
+  padding-left: 7vw;
 }
 
 
