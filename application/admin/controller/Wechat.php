@@ -101,6 +101,9 @@ class Wechat extends Admin
                         case "现教练":
                             $user['now_coach'] = $value['value'];
                             break;
+                        case "上级教练":
+                            $user['upper_coach'] = $value['value'];
+                            break;
                         case "家庭住址":
                             $user['address'] = $value['value'];
                             break;
@@ -113,16 +116,23 @@ class Wechat extends Admin
                         case "文化成绩":
                             $user['achievement'] = $value['value'];
                             break;
-                        case "成员类型":
-                            $user['member_type'] = $value['value'] ? $value['value'] : 0;
+                        case "所属班级":
+                            $user['class_id'] = $value['value'];
                             break;
+                        /*case "成员类型":
+                            $user['member_type'] = $value['value'] ? $value['value'] : 0;
+                            break;*/
                         default:
                             break;
                     }
                 }
                 $user['extattr'] = json_encode($user['extattr']);
-                if(!empty($user['member_type']) && $user['member_type'] != WechatUser::MEMBER_TYPE_COACH && !empty($user['now_coach'])){
+                if(!empty($user['now_coach'])){
                     $user['coach_id'] = WechatUser::where(['name'=>$user['now_coach']])->value('userid');
+                }
+                if(!empty($user['upper_coach'])){
+                    $user['coach_id'] = WechatUser::where(['name'=>$user['upper_coach']])->value('userid');
+                    unset($user['upper_coach']);
                 }
                 if(WechatUser::get(['userid'=>$user['userid']])) {
                     WechatUser::where(['userid'=>$user['userid']])->update($user);
@@ -193,7 +203,7 @@ class Wechat extends Admin
         }
 
         /* 同步标签 */
-        WechatTag::where('1=1')->delete();
+        //WechatTag::where('1=1')->delete();
         $tags = $Wechat->getTagList();
         foreach ($tags['taglist'] as $tag) {
             if(WechatTag::get(['tagid'=>$tag['tagid']])) {
@@ -214,6 +224,10 @@ class Wechat extends Admin
                         $data = ['tagid' => $value['tagid'],'userid' => $val['userid']];
                         if(empty(WechatUserTag::where($data)->find())){
                             WechatUserTag::create($data);
+                            $member_type = WechatTag::TAG_TO_METYPE[$value['tagid']];
+                            if($member_type !== WechatUser::where(['userid'=>$val['userid']])->value('member_type')){
+                                WechatUser::where(['userid'=>$val['userid']])->update(['member_type'=>$member_type]);
+                            }
                         }
                     }
                 };
@@ -222,6 +236,10 @@ class Wechat extends Admin
                     $data = ['tagid'=>$value['tagid'], 'userid'=>$user['userid']];
                     if(empty(WechatUserTag::where($data)->find())){
                         WechatUserTag::create($data);
+                        $member_type = WechatTag::TAG_TO_METYPE[$value['tagid']];
+                        if($member_type !== WechatUser::where(['userid'=>$value['userid']])->value('member_type')){
+                            WechatUser::where(['userid'=>$value['userid']])->update(['member_type'=>$member_type]);
+                        }
                     }
                 }
             }
