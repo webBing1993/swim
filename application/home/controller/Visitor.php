@@ -22,16 +22,9 @@ class Visitor extends Base{
 	}
 
 	public function sign() {
-		$mobile = input('mobile');
-		$userId = session('userId');
-		//$mobile = "18767104335";
-		$data = array(
-				'userid' => $userId,
-				'mobile' => $mobile,
-		);
-		return json_encode($data);die;
-		$msg = WechatUser::where($data)->find();
+		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
 		if(!empty($msg)) {
+			$userId = $msg['userId'];
 			//学员签到先判断教练是否签到
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
 				if($msg['coach_id']){
