@@ -18,36 +18,26 @@
 		<img src="/home/images/index/xxfb.png" alt="新闻发布">
 		<span>新闻发布</span>
 	</a>
-	{eq name="tag_id" value="1"}
 	<a href="{:Url('Structure/index')}" class="logo">
 		<img src="/home/images/index/jlxx.png" alt="教练信息">
 		<span>教练信息</span>
 	</a>
-	{/eq}
-	{if condition="($tag_id == 2) OR ($tag_id == 3)"}
 	<a href="{:Url('Coach/index')}" class="logo">
 		<img src="/home/images/index/jlpd.png" alt="教练频道">
 		<span>教练频道</span>
 	</a>
-	{/if}
-	{eq name="tag_id" value="4"}
 	<a href="{:Url('Student/index')}" class="logo">
 		<img src="/home/images/index/xypd.png" alt="学员频道">
 		<span>学员频道</span>
 	</a>
-	{/eq}
-	{if condition="($tag_id == 1) OR ($tag_id == 2) OR ($tag_id == 3)"}
 	<a href="{:Url('Statistics/index')}" class="logo">
 		<img src="/home/images/index/qdgk.png" alt="签到概况">
 		<span>签到概况</span>
 	</a>
-	{/if}
-	{eq name="tag_id" value="1"}
 	<a href="{:Url('User/index')}" class="logo">
 		<img src="/home/images/index/grzx.png" alt="个人中心">
 		<span>个人中心</span>
 	</a>
-	{/eq}
 </div>
 <div class="notice">
 	<div class="tag clear">
