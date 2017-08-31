@@ -64,12 +64,10 @@ class Visitor extends Base{
 						$data = array(
 								'userid' => $userId,
 								'name' => $msg['name'],
-								'mobile' => $mobile,
+								'mobile' => input('mobile'),
 								'date' => date('Y-m-d'),
 								'status' => WechatUserSign::STATUS_LATE,
 						);
-
-						return json_encode(WechatUserSign::create($data));die;
 						if(WechatUserSign::create($data)) {//迟到
 							return $this->success("签到成功", Url('Visitor/index'));
 						}else {
@@ -84,7 +82,7 @@ class Visitor extends Base{
 					$data = array(
 							'userid' => $userId,
 							'name' => $msg['name'],
-							'mobile' => $mobile,
+							'mobile' => input('mobile'),
 							'date' => date('Y-m-d'),
 					);
 					if(WechatUserSign::create($data)) {//正常
