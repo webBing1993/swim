@@ -24,49 +24,48 @@
 			</div>
 		</div>
 	</div>
-	<div class="comment">
-		<div class="sum">共<span>{$detail.comments}</span>条评论</div>
-		<div class="lists">
-			{volist name="comment" id="co"}
-			<div class="list clear">
-				<div class="fl">
-					<img src="{$co.header}" alt="用户" class="user">
-				</div>
-				<div class="fl mid">
-					<div class="name limit">{$co.nickname}</div>
-					<div class="content" >{$co.content}</div>
-					<div class="time">{$co.create_time|time_format="Y-m-d"}</div>
-				</div>
-				{eq name="visit" value="0"}
-				{eq name="co.is_like" value="1"}
-				<div class="fr isgood good_" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>
-				{else/}
-				<div class="fr isgood good" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>
-				{/eq}
-				{/eq}
-			</div>
-			{/volist}
-		</div>
-		<div class="tip"></div>
-		<div class="loading hidden">
-			<div class="typing_loader"></div>
-		</div>
-	</div>
+	<!--<div class="comment">-->
+		<!--<div class="sum">共<span>{$detail.comments}</span>条评论</div>-->
+		<!--<div class="lists">-->
+			<!--{volist name="comment" id="co"}-->
+			<!--<div class="list clear">-->
+				<!--<div class="fl">-->
+					<!--<img src="{$co.header}" alt="用户" class="user">-->
+				<!--</div>-->
+				<!--<div class="fl mid">-->
+					<!--<div class="name limit">{$co.nickname}</div>-->
+					<!--<div class="content" >{$co.content}</div>-->
+					<!--<div class="time">{$co.create_time|time_format="Y-m-d"}</div>-->
+				<!--</div>-->
+				<!--{eq name="visit" value="0"}-->
+				<!--{eq name="co.is_like" value="1"}-->
+				<!--<div class="fr isgood good_" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>-->
+				<!--{else/}-->
+				<!--<div class="fr isgood good" onclick="isGood(this,0,{$co.id})">{$co.likes}</div>-->
+				<!--{/eq}-->
+				<!--{/eq}-->
+			<!--</div>-->
+			<!--{/volist}-->
+		<!--</div>-->
+		<!--<div class="tip"></div>-->
+		<!--<div class="loading hidden">-->
+			<!--<div class="typing_loader"></div>-->
+		<!--</div>-->
+	<!--</div>-->
 </div>
-</div>
-{eq name="visit" value="0"}
-<div class="bottom clear">
-	{eq name="detail.is_collect" value="1"}
-	<div class="collect star_ fl" onclick="isCollect(this,1,{$detail.id})"></div>
-	{else/}
-	<div class="collect star fl" onclick="isCollect(this,1,{$detail.id})"></div>
-	{/eq}
-	<div class="myword fl">
-		<input type="text" placeholder="说说你的感想！">
-	</div>
-	<div class="send fr" onclick="send(this,1,{$detail.id})">发送</div>
-</div>
-{/eq}
+<!--{eq name="visit" value="0"}-->
+<!--<div class="bottom clear">-->
+	<!--{eq name="detail.is_collect" value="1"}-->
+	<!--<div class="collect star_ fl" onclick="isCollect(this,1,{$detail.id})"></div>-->
+	<!--{else/}-->
+	<!--<div class="collect star fl" onclick="isCollect(this,1,{$detail.id})"></div>-->
+	<!--{/eq}-->
+	<!--<div class="myword fl">-->
+		<!--<input type="text" placeholder="说说你的感想！">-->
+	<!--</div>-->
+	<!--<div class="send fr" onclick="send(this,1,{$detail.id})">发送</div>-->
+<!--</div>-->
+<!--{/eq}-->
 {/block}
 
 {block name="script"}
