@@ -29,7 +29,7 @@ class Visitor extends Base{
 				'userid' => $userId,
 				'mobile' => $mobile,
 		);
-		var_dump($data);die;
+		return json_encode($data);die;
 		$msg = WechatUser::where($data)->find();
 		if(!empty($msg)) {
 			//学员签到先判断教练是否签到
