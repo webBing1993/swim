@@ -34,7 +34,10 @@
 			新闻发布
 		</a>
 	</div>
-	<div class="sign" id="scanQRCode" >签到</div>
+	<div class="signbox" id="scanQRCode">
+		<div class="sign">签到</div>
+	</div>
+
 	<!--<a href="{:Url('Notice/index')}" class="tab">活动通知</a>-->
 	<!--<a href="{:Url('News/index')}" class="tab">新闻发布</a>-->
 	<!--<div  class="tab">签到频道</div>-->
@@ -61,7 +64,7 @@ $(function(){
 		autoplayDisableOnInteraction:false,
 		pagination : '.swiper-pagination',
 	});
-//	$('.sign').on('click',function(){
+//	$('#scanQRCode').on('click',function(){
 //		alert(1)
 //	})
 })

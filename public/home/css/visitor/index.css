@@ -40,6 +40,13 @@
     transform: translate(-50%, 0%) rotateZ(360deg);
   }
 }
+.signbox {
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  height: 30vw;
+}
 .sign {
   z-index: 2;
   position: absolute;
