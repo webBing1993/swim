@@ -182,6 +182,20 @@
   background-size: 1.2rem 1.2rem;
   padding-left: 7vw;
 }
+.article .content .note .star {
+  background: url('/home/images/common/star-border.png') 2vw 0.25rem no-repeat;
+  background-size: 1.2rem 1.2rem;
+  padding-left: 7vw;
+  margin-left: 2vw;
+}
+.article .content .note .star_ {
+  /*animation: bigger2 300ms ease;*/
+  /*-webkit-animation: bigger2 300ms ease;*/
+  background: url('/home/images/common/star-blue.png') 2vw 0.25rem no-repeat;
+  background-size: 1.2rem 1.2rem;
+  padding-left: 7vw;
+  margin-left: 2vw;
+}
 
 
 /*评论*/
@@ -369,6 +383,7 @@
     background-position:3vw 3vw;
   }
 }
+
 
 @keyframes up
 {

@@ -20,12 +20,18 @@
 				{else/}
 				<span class="isgood good" onclick="isGood(this,1,{$detail.id})">{$detail.likes}</span>
 				{/eq}
+				{eq name="detail.is_collect" value="1"}
+				<span class="collect star_ " onclick="isCollect(this,1,{$detail.id})">&nbsp;</div>
+				{else/}
+				<span class="collect star " onclick="isCollect(this,1,{$detail.id})">&nbsp; </span>
 				{/eq}
+				{/eq}
+
 			</div>
 		</div>
 	</div>
-	<!--<div class="comment">-->
-		<!--<div class="sum">共<span>{$detail.comments}</span>条评论</div>-->
+	<div class="comment">
+		<div class="sum">共<span>{$detail.comments}</span>条评论</div>
 		<!--<div class="lists">-->
 			<!--{volist name="comment" id="co"}-->
 			<!--<div class="list clear">-->
@@ -51,7 +57,7 @@
 		<!--<div class="loading hidden">-->
 			<!--<div class="typing_loader"></div>-->
 		<!--</div>-->
-	<!--</div>-->
+	</div>
 </div>
 <!--{eq name="visit" value="0"}-->
 <!--<div class="bottom clear">-->
@@ -88,7 +94,6 @@ $(function(){
 });
 //收藏
 function isCollect(e,type,id){
-	$(e).toggleClass('star' ).toggleClass('star_');
 	$.ajax({
 		type:"post",
 		url:"{:Url('Base/collect')}",
@@ -97,7 +102,24 @@ function isCollect(e,type,id){
 			aid:id,
 		},
 		success:function(data){
-
+			$(e).toggleClass('star' ).toggleClass('star_');
+			if($(e).hasClass('star')){
+				swal({
+					title: '提示',
+					text: '即将取消收藏',
+					type: 'error',
+					confirmButtonText:'确定',
+					timer:3000
+				});
+			}else{
+				swal({
+					title: ' ',
+					text: '收藏成功',
+					type: 'success',
+					confirmButtonText:'确定',
+					timer:3000
+				});
+			}
 		}
 	})
 }

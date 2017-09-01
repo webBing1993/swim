@@ -39,6 +39,7 @@
 		<span>个人中心</span>
 	</a>
 </div>
+<div id="#test">111111</div>
 <div class="notice">
 	<div class="tag clear">
 		<span class="fl"><i class="fa fa-bell-o"></i>通知公告</span>
@@ -73,7 +74,30 @@ $(function(){
 	if(len == 0){
 		$('.notice .lists').append('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
 	}
+	$('#test').on('click',function(  )
+	{
+		speckText('nihao')
 
+	})
+	function speckText(str){
+		//var request=  new URLRequest();
+		var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
+		//url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+
+		//request.url = encodeURI(url);
+		// request.contentType = "audio/mp3"; // for baidu
+		//request.contentType = "audio/mpeg"; // for google
+
+		var n = new Audio(url);
+
+		n.src = url;
+
+		n.play();
+
+		// $("...").play();
+		// var sound = new Sound(request);
+		// sound.play();
+	}
 })
 </script>
 {/block}
