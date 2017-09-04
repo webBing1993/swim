@@ -21,27 +21,43 @@ class Notice extends Model {
     /**
      * 获取活动顶部轮播
      */
-    public function getThreeActivity() {
+    public function getThreeActivity($tag_id) {
         $map = array(
-            'type' => 2,
-            'status' => 1,
-            'recommend' =>1,
+            'sn.type' => 2,
+            'sn.status' => 1,
+            'sn.recommend' =>1,
+            'snt.tagid' =>$tag_id,
         );
-        $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(3)->select();
+        $order = array("sn.create_time desc");
+        $res = \think\Db::field('sn.*')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(3)
+            ->select();
+        //$res = $this->where($map)->order($order)->limit(3)->select();
         return $res;
     }
 
     /**
      * 获取活动详情
      */
-    public function getActivity($userid) {
+    public function getActivity($userid, $tag_id) {
         $map = array(
-            'status' => 1,
-            'type' => 2
+            'sn.status' => 1,
+            'sn.type' => 2,
+            'snt.tagid' =>$tag_id,
         );
-        $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(6)->select();
+        $order = array("sn.create_time desc");
+        $res = \think\Db::field('sn.*')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(6)
+            ->select();
+        //$res = $this->where($map)->order($order)->limit(6)->select();
         foreach ($res as $value) {
             //1已报名 2已截止 3已满
             if($value['start_time'] > time()) {
@@ -70,41 +86,65 @@ class Notice extends Model {
     /**
      * 获取活动顶部轮播
      */
-    public function getThreeNote() {
+    public function getThreeNote($tag_id) {
         $map = array(
-            'type' => 1,
-            'status' => 1,
-            'recommend' =>1,
+            'sn.type' => 1,
+            'sn.status' => 1,
+            'sn.recommend' =>1,
+            'snt.tagid' =>$tag_id,
         );
-        $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(3)->select();
+        $order = array("sn.create_time desc");
+        $res = \think\Db::field('sn.*')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(3)
+            ->select();
+        //$res = $this->where($map)->order($order)->limit(3)->select();
         return $res;
     }
     
     /**
      * 获取通知
      */
-    public function getNotes() {
+    public function getNotes($tag_id) {
         $map = array(
-            'status' => 1,
-            'type' => 1
+            'sn.status' => 1,
+            'sn.type' => 1,
+            'snt.tagid' =>$tag_id,
         );
-        $order = array("create_time desc");
-        $res = $this->where($map)->order($order)->limit(6)->select();
+        $order = array("sn.create_time desc");
+        $res = \think\Db::field('sn.*')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(6)
+            ->select();
+        //$res = $this->where($map)->order($order)->limit(6)->select();
         return $res;
     }
 
     /**
      * 获取更多
      */
-    public function getMoreList($data) {
+    public function getMoreList($data, $tag_id) {
         $type = (int)$data['type'];
         $map = array(
-            'status' => 1,
-            'type' => $type
+            'sn.status' => 1,
+            'sn.type' => $type,
+            'snt.tagid' =>$tag_id,
         );
-        $order = array('create_time desc');
-        $list = $this->where($map)->order($order)->limit($data['length'],6)->select();
+        $order = array('sn.create_time desc');
+        $list = \think\Db::field('sn.*')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit($data['length'],6)
+            ->select();
+        //$list = $this->where($map)->order($order)->limit($data['length'],6)->select();
         foreach($list as $value){
             $img = Picture::get($value['front_cover']);
             $value['src'] = $img['path'];

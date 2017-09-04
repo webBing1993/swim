@@ -9,6 +9,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Apply;
+use app\admin\model\WechatTag;
 use app\admin\model\Notice as NoticeModel;
 use app\admin\model\NoticeEnroll;
 use app\admin\model\Push;
@@ -16,6 +17,7 @@ use app\admin\model\Picture;
 use app\admin\model\PushReview;
 use app\admin\model\WechatDepartment;
 use app\admin\model\WechatUser;
+use app\admin\model\NoticeTag;
 use app\admin\model\WechatDepartmentUser;
 use com\wechat\TPQYWechat;
 use think\Config;
@@ -53,17 +55,27 @@ class Notice extends Admin {
             if(empty($data['id'])) {
                 unset($data['id']);//为空则添加,将变量id释放
             }
+            $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
             if($data['recommend'] == 1) $data['status'] = 0;
             $model = $noticeModel->validate('Notice.other')->save($data);
             if($model) {
+                //NoticeTag::where(['pid' => $noticeModel->id])->delete();
+                foreach(json_decode($data['tag'], true) as $tagid){
+                    $msg = ['tagid'=>$tagid, 'pid'=>$noticeModel->id];
+                    if(empty(NoticeTag::where($msg)->find())) {
+                        NoticeTag::create($msg);
+                    }
+                }
                 return $this->success('新增相关通知成功',Url('Notice/index'));
             }else{
                 return $this->error($noticeModel->getError());
             }
         }else{
             $this->default_pic();
-            $this->assign('msg','');
+            $tag = WechatTag::all();
+            $this->assign('tag',$tag);
+            $this->assign('msg',null);
             return $this->fetch('edit');
         }
     }
@@ -75,8 +87,16 @@ class Notice extends Admin {
         if(IS_POST) {
             $data = input('post.');
             $noticeModel = new NoticeModel();
+            $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $model = $noticeModel->validate('Notice.other')->save($data,['id'=> input('id')]);
             if($model) {
+                NoticeTag::where(['pid' => $noticeModel->id])->delete();
+                foreach(json_decode($data['tag'], true) as $tagid){
+                    $msg = ['tagid'=>$tagid, 'pid'=>$noticeModel->id];
+                    if(empty(NoticeTag::where($msg)->find())) {
+                        NoticeTag::create($msg);
+                    }
+                }
                 return $this->success('修改相关通知成功',Url('Notice/index'));
             }else{
                 return $this->get_update_error_msg($noticeModel->getError());
@@ -85,6 +105,9 @@ class Notice extends Admin {
             $this->default_pic();
             $id = input('id');
             $msg = NoticeModel::get($id);
+            $tag = WechatTag::all();
+            $msg['tag'] = NoticeTag::where(['pid'=>$id])->column('tagid');
+            $this->assign('tag',$tag);
             $this->assign('msg',$msg);
             return $this->fetch();
         }

@@ -6,15 +6,21 @@
 {/block}
 {block name="body"}
 <div class="lists">
-	<a class="list clear" href="">
+	{volist name="res" id="vo"}
+	{empty name="$vo.tab"}
+	<a href="{:Url('Notice/detail?id='.$vo['id'])}" class="list clear">
+	{else/}
+	<a href="{:Url('News/detail?id='.$vo['id'])}" class="list clear">
+	{/empty}
 		<div class="fr lr">
-			<div class="title limit_">这是一条测试数据</div>
+			<div class="title limit">{$vo.title}</div>
 			<div class="clear">
-				<span class="fl">2017-12-01</span>
+				<span class="fl">{$vo.create_time|time_format='Y-m-d'}</span>
 				<span class="fr fa fa-angle-right"></span>
 			</div>
 		</div>
 	</a>
+	{/volist}
 </div>
 <div class="tip"></div>
 <div class="loading hidden">

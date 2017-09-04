@@ -14,6 +14,7 @@ use app\home\model\Like;
 use app\home\model\Notice as NoticeModel;
 use app\home\model\NoticeEnroll;
 use app\home\model\Picture;
+use app\home\model\WechatUserTag;
 use think\Db;
 
 /**
@@ -25,19 +26,21 @@ class Notice extends Base {
      * 主页
      */
 	public function index(){
+		$userid = session('userId');
+		$tag_id = WechatUserTag::where(['userid' => $userid])->value('tagid');
 		$Model = new NoticeModel();
+
 		//活动轮播
-		$topActivity = $Model->getThreeActivity();
+		$topActivity = $Model->getThreeActivity($tag_id);
 		$this->assign('top_activity',$topActivity);
 		//新闻
-		$userid = session('userId');
-		$Activity = $Model->getActivity($userid);
+		$Activity = $Model->getActivity($userid, $tag_id);
 		$this->assign('activity',$Activity);
 		//通知轮播
-		$topNote = $Model->getThreeNote();
+		$topNote = $Model->getThreeNote($tag_id);
 		$this->assign('top_note',$topNote);
 		//通知
-		$Note = $Model->getNotes();
+		$Note = $Model->getNotes($tag_id);
 		$this->assign('note',$Note);
 
 		$this->assign('userid',$userid);
@@ -115,8 +118,10 @@ class Notice extends Base {
 	 */
 	public function listMore(){
 		$data = input('post.');
+		$userid = session('userId');
+		$tag_id = WechatUserTag::where(['userid' => $userid])->value('tagid');
 		$Model = new NoticeModel();
-		$list = $Model->getMoreList($data);
+		$list = $Model->getMoreList($data, $tag_id);
 		if($list){
 			return $this->success("加载成功",'',$list);
 		}else{

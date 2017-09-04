@@ -6,7 +6,10 @@ use app\home\model\WechatDepartment;
 use app\home\model\WechatUser;
 use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
-
+use app\home\model\Collect;
+use app\home\model\News as NewsModel;
+use app\home\model\Notice as NoticeModel;
+use think\Db;
 /**
  * 个人中心
  */
@@ -132,6 +135,27 @@ class User extends Base{
 	 * 我的收藏
 	 */
 	public function myCollect(){
+        $userId = session('userId');
+        $order = array("create_time desc");
+        $collectModelAll = Collect::where(['uid' => $userId])->order($order)->select();
+        $res = [];
+        foreach ($collectModelAll as $model) {
+            $res[] = Db::name($model['table'])->where(['id' => $model['aid'], 'status' => 1])->field('id,title,create_time,'.$model['type'].' as tab')->find();
+        }
+        $this->assign('res',$res);
 		return $this->fetch();
 	}
+    /**
+     * 获取更多数据
+     */
+    public function listMore(){
+        $data = input('post.');
+        $Model = $data['tab'] ? new NoticeModel() : new NewsModel();
+        $list = $Model->getMoreList($data);
+        if($list){
+            return $this->success("加载成功",'',$list);
+        }else{
+            return $this->error("加载失败");
+        }
+    }
 }
