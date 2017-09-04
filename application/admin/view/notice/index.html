@@ -59,7 +59,8 @@
                                 <td>{$vo.create_time|time_format='Y-m-d'}</td>
                                 <td>{$vo.status_text}</td>
                                 <td>
-                                    <a href="{:Url('Notice/edit?id='.$vo['id'])}">修改</a>&emsp;&emsp;
+                                    <a href="{:Url('Notice/edit?id='.$vo['id'])}">修改</a>
+                                    <a href="{:Url('News/view')}">阅读名单</a>
                                     <a href="{:Url('Notice/del?id='.$vo['id'])}" class="confirm ajax-del">删除</a>
                                 </td>
                             </tr>
