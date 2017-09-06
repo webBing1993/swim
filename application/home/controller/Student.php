@@ -35,11 +35,19 @@ class Student extends Base{
 	 * 我的签到
 	 */
 	public function mysign() {
-		$userId = input('did', session('userId'));
-		$year = date("Y");
-		$month = date("m");
-		$days = date('d')-1;
+		$userId = session('userId');
+		$year = input('year', date('Y'));
+		$month = input('month', date('n'));
+		$month = $month<10 ? '0'.intval($month) : $month;
 		$res = array('normal' => [], 'late' => [], 'absence' => []);
+		if($year.$month > date("Ym")){
+			return json_encode($res);
+		}
+		if($year.$month == date("Ym")){
+			$days = date('d')-1;
+		}else{
+			$days = date('t',strtotime($year.'-'.$month));
+		}
 		$modelAll = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(UNIX_TIMESTAMP(date),'%Y-%m')" => $year.'-'.$month])->select();
 		$all_days = [];
 		if($modelAll) {
@@ -63,53 +71,14 @@ class Student extends Base{
 				}
 			}
 		}
-		$this->assign('normal',json_encode($res['normal']));
-		$this->assign('late',json_encode($res['late']));
-		$this->assign('absence',json_encode($res['absence']));
-		return $this->fetch();
-	}
-	/**
-	 * 签到日期切换
-	 */
-	public function changeSign() {
-		$userId = input('did', session('userId'));
-		$year = input('year', date('Y'));
-		$month = input('month', date('m'));
-		/*$year = '2017';
-		$month = '07';*/
-		$res = array('normal' => [], 'late' => [], 'absence' => []);
-		if($year.$month > date("Ym")){
+		if(IS_POST) {
 			return json_encode($res);
-		}
-		if($year.$month == date("Ym")){
-			$days = date('d')-1;
 		}else{
-			$days = date('t',strtotime($year.'-'.$month));
+			$this->assign('normal',json_encode($res['normal']));
+			$this->assign('late',json_encode($res['late']));
+			$this->assign('absence',json_encode($res['absence']));
+			return $this->fetch();
 		}
-		$modelAll = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(UNIX_TIMESTAMP(date),'%Y-%m')" => $year.'-'.$month])->select();
-		$all_days = [];
-		if($modelAll){
-			foreach ($modelAll as $model) {
-				$all_days[] = $model['date'];
-				if($model['status'] == WechatUserSign::STATUS_NORMAL){//正常
-					$res['normal'][] = intval(date('j', strtotime($model['date'])));
-				}
-				if($model['status'] == WechatUserSign::STATUS_LATE){//迟到
-					$res['late'][] = intval(date('j', strtotime($model['date'])));
-				}
-			}
-		}
-		for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
-			$i = $i<10 ? '0'.$i : $i;
-			if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
-				$coach_id = WechatUser::where(['userid' => $userId])->value('coach_id');
-				$coachSignModel = WechatUserSign::where(['userid' => $coach_id, "date" => $year.'-'.$month.'-'.$i])->find();
-				if($coachSignModel){//教练这天有上课
-					$res['absence'][] = intval($i);//缺卡
-				}
-			}
-		}
-		return json_encode($res);
 	}
 
 }

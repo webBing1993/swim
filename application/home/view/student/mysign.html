@@ -139,7 +139,7 @@
 					this_.nowMonth = array[1]-1;
 					$.ajax({
 						type:"post",
-						url:"{:Url('Student/changeSign')}",
+						url:"{:Url('Student/mysign')}",
 						data:{
 							year:array[0],
 							month:array[1]
@@ -170,10 +170,10 @@
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"{:Url('Student/changeSign')}",
+				url:"{:Url('Student/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth
+					month:this.nowMonth+1
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);
@@ -196,10 +196,10 @@
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"{:Url('Student/changeSign')}",
+				url:"{:Url('Student/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth
+					month:this.nowMonth+1
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);

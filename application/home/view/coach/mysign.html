@@ -52,10 +52,9 @@ var calendar = new Vue({
 		nowYear: null,
 		nowDate: null,
 		showModal: false,
-		normal:[1, 2, 3, 6,7,11,12,13,14],//初始正常
-		late:[4, 8, 9, 10],//初始迟到
-//		absence:[5]//初始缺勤,
-		rest:[5]
+		normal:{$normal},//初始正常
+		late:{$late},//初始迟到
+		rest:{$rest}//初始休息
 	},
 	computed: {
 		today: function() {
@@ -139,7 +138,7 @@ var calendar = new Vue({
 					this_.nowMonth = array[1]-1;
 					$.ajax({
 						type:"post",
-						url:"",
+						url:"{:Url('Coach/mysign')}",
 						data:{
 							year:array[0],
 							month:array[1]
@@ -170,10 +169,10 @@ var calendar = new Vue({
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('Coach/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth
+					month:this.nowMonth+1
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);
@@ -196,10 +195,10 @@ var calendar = new Vue({
 			var this_ = this;
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('Coach/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth
+					month:this.nowMonth+1
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);

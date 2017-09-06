@@ -96,6 +96,51 @@ class Coach extends Base {
 		return $this->fetch();
 	}
 	/**
+	 * 我的签到
+	 */
+	public function mysign() {
+		$userId = session('userId');
+		$year = input('year', date('Y'));
+		$month = input('month', date('n'));
+		$month = $month<10 ? '0'.intval($month) : $month;
+		$res = array('normal' => [], 'late' => [], 'rest' => []);
+		if($year.$month > date("Ym")){
+			return json_encode($res);
+		}
+		if($year.$month == date("Ym")){
+			$days = date('d')-1;
+		}else{
+			$days = date('t',strtotime($year.'-'.$month));
+		}
+		$modelAll = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(UNIX_TIMESTAMP(date),'%Y-%m')" => $year.'-'.$month])->select();
+		$all_days = [];
+		if($modelAll) {
+			foreach ($modelAll as $model) {
+				$all_days[] = $model['date'];
+				if ($model['status'] == WechatUserSign::STATUS_NORMAL) {//正常
+					$res['normal'][] = intval(date('j', strtotime($model['date'])));
+				}
+				if ($model['status'] == WechatUserSign::STATUS_LATE) {//迟到
+					$res['late'][] = intval(date('j', strtotime($model['date'])));
+				}
+			}
+		}
+		for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
+			$i = $i<10 ? '0'.$i : $i;
+			if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
+				$res['rest'][] = intval($i);//缺卡
+			}
+		}
+		if(IS_POST) {
+			return json_encode($res);
+		}else{
+			$this->assign('normal',json_encode($res['normal']));
+			$this->assign('late',json_encode($res['late']));
+			$this->assign('rest',json_encode($res['rest']));
+			return $this->fetch();
+		}
+	}
+	/**
 	 * 学员详情
 	 */
 	public function detail(){
