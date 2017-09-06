@@ -110,9 +110,21 @@
 			<img src="/home/images/tem/3.jpg" alt="训练档案banner" class="banner-img">
 		</div>
 		<div class="mylist">
-			<a href="{:Url('allsign')}" class="list">
+			<a href="{:Url('Coach/allsign')}" class="list">
 				<img src="/home/images/coach/mid1.png" alt="学员签到logo">
 				学员签到
+			</a>
+			<a href="{:Url('Coach/weekPlan')}" class="list">
+				<img src="/home/images/coach/mid1.png" alt="每周计划logo">
+				每周计划
+			</a>
+			<a href="{:Url('Coach/classPlan')}" class="list">
+				<img src="/home/images/coach/mid1.png" alt="课时计划logo">
+				课时计划
+			</a>
+			<a href="{:Url('Coach/weekSummary')}" class="list">
+				<img src="/home/images/coach/mid1.png" alt="每周总结logo">
+				每周总结
 			</a>
 		</div>
 
@@ -135,7 +147,7 @@
 				<span class="name">个人信息</span>
 				<span class="fa fa-angle-right"></span>
 			</a>
-			<a href="{:Url('mysign')}" class="list">
+			<a href="{:Url('student/mysign?did='.$userModel['userid'])}" class="list">
 				<span class="name">我的签到</span>
 				<span class="fa fa-angle-right"></span>
 			</a>

@@ -221,8 +221,12 @@ class News extends Admin {
             return $this->fetch();
         }
     }
-    
-    
-    
-    
+
+	/**
+	 * 阅读名单
+	 */
+	public function view(){
+		return $this->fetch();
+	}
+
 }

@@ -129,7 +129,7 @@ function object2array_pre(&$object) {
 
 /**
  * 获取用户头像
- * @param varchar $userid
+ * @param $userid
  */
 function get_header($userid){
     if(empty($userid)){
@@ -207,9 +207,9 @@ function bar_text($code){
 }
 
 /**
- * 默认值
- * @param $code
- * @return bool|string
+ * @param $param
+ * @param $default
+ * @return mixed
  */
 function param_to($param, $default){
     return $param ? $param : $default;

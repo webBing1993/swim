@@ -245,4 +245,23 @@ class Coach extends Base {
 		$this->assign('data',$data);
 		return $this->fetch();
 	}
+
+	/**
+	 * 每周计划
+	 */
+	public function weekPlan(){
+		return $this->fetch();
+	}
+	/**
+	 * 课时计划
+	 */
+	public function classPlan(){
+		return $this->fetch();
+	}
+	/**
+	 * 每周总结
+	 */
+	public function weekSummary(){
+		return $this->fetch();
+	}
 }
