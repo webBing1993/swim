@@ -39,7 +39,7 @@
 				<div class="title limit">{$act.title}</div>
 				<div class="time">{$act.create_time|time_format='Y-m-d'}</div>
 				<div class="scan">{$act.views}</div>
-				<div class="num">{$act.enrollnum}/{$act.people}</div>
+				<div class="num"><span>{$act.enrollnum}</span>/{$act.people}</div>
 				<!--四种状态-->
 				{switch name="$act.is_enroll"}
 				{case value="0"}<span class="enter" onclick="enter(this,{$act.id})">报名</span>{/case}
@@ -141,7 +141,10 @@ function  enter(self,id){
 		data:data,
 		success:function(data){
 			if(data.code == 1){
-				$(this_).text('已报名').css({'background':'#d0d0d0','color':'#999999'})
+				$(this_).text('已报名').css({'background':'#d0d0d0','color':'#999999'});
+				var num = $(this_).before('.num span');
+				var n = num.text();
+				num.text(++n);
 			}
 			swal({
 				title: ' ',
