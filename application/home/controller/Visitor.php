@@ -96,5 +96,11 @@ class Visitor extends Base{
 			return $this->error("无效的二维码", Url('Visitor/index'));
 		}
 	}
+	/**
+	 * 签到列表页
+	 */
+	public function lists(){
+		return $this->fetch();
+	}
 
 }

@@ -10,18 +10,18 @@ body {
   height: 50vw;
 }
 .logos {
-  padding: 0 10vw 5vw 10vw;
+  padding: 2vw 12.5vw 4vw 12.5vw;
   background: #ffffff;
 }
 .logos .logo {
   float: left;
   position: relative;
-  width: 20vw;
+  width: 25vw;
   height: 20vw;
   text-align: center;
   color: #999999;
   font-size: 1.2rem;
-  line-height: 7vw;
+  line-height: 12vw;
 }
 .logos .logo img {
   display: block;
@@ -30,8 +30,8 @@ body {
   left: 0;
   right: 0;
   top: 1vw;
-  width: 12vw;
-  height: 12vw;
+  width: 15vw;
+  height: 15vw;
 }
 .logos .logo span {
   display: block;

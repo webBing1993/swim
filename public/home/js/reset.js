@@ -40,14 +40,15 @@ function tabRecord(a,b){
 	box.css({left: -ww +'px'});
 	setTimeout(function(){
 		$(b).eq(index).siblings(b).addClass('hidden');
-	},100)
+	},100);
 	//清除tab值
-	pushHistory();
-	window.addEventListener( "popstate", function( e ){
-		delCookie( 'tab' );
-		window.history.go( -1 );
-	}, false );
+	// pushHistory();
+	// window.addEventListener( "popstate", function(){
+	// 	delCookie( 'tab' );
+	// 	window.history.go( -1 );
+	// }, false );
 }
+
 function tagSwitch(a,b,fn,url){
 	$(a).off('click').on('click',function(){
 		var this_ = this ;
