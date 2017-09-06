@@ -155,6 +155,7 @@ class Notice extends Admin {
             if(empty($data['id'])) {
                 unset($data['id']);
             }
+            $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
             $noticeModel = new NoticeModel();
             if (!empty($data['start_time']) && !empty($data['end_time'])){
@@ -163,16 +164,25 @@ class Notice extends Admin {
             }
             $id = $noticeModel->validate('Notice.act')->save($data);
             if($id){
+                foreach(json_decode($data['tag'], true) as $tagid){
+                    $msg = ['tagid'=>$tagid, 'pid'=>$noticeModel->id];
+                    if(empty(NoticeTag::where($msg)->find())) {
+                        NoticeTag::create($msg);
+                    }
+                }
                 return $this->success("新增相关活动成功",Url('Notice/activity'));
             }else{
                 return $this->error($noticeModel->getError());
             }
         }else {
             $this->default_pic();
-            $this->assign('msg','');
+            $tag = WechatTag::all();
+            $this->assign('tag',$tag);
+            $this->assign('msg',null);
             return $this->fetch("activityedit");
         }
     }
+
 
     /**
      * 活动情况修改
@@ -184,8 +194,16 @@ class Notice extends Admin {
             $noticeModel = new NoticeModel();
             $data['start_time'] = strtotime($data['start_time']);
             $data['end_time'] = strtotime($data['end_time']);
+            $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $id = $noticeModel->validate('Notice.act')->save($data,['id'=>input('id')]);
             if($id){
+                NoticeTag::where(['pid' => $noticeModel->id])->delete();
+                foreach(json_decode($data['tag'], true) as $tagid){
+                    $msg = ['tagid'=>$tagid, 'pid'=>$noticeModel->id];
+                    if(empty(NoticeTag::where($msg)->find())) {
+                        NoticeTag::create($msg);
+                    }
+                }
                 return $this->success("修改相关活动成功",Url('Notice/activity'));
             }else{
                 return $this->error($noticeModel->getError());
@@ -194,6 +212,9 @@ class Notice extends Admin {
             $this->default_pic();
             $id = input('id');
             $msg = NoticeModel::get($id);
+            $tag = WechatTag::all();
+            $msg['tag'] = NoticeTag::where(['pid'=>$id])->column('tagid');
+            $this->assign('tag',$tag);
             $this->assign('msg',$msg);
             return $this->fetch();
         }

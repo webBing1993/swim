@@ -179,9 +179,9 @@
                             </div>
                             <div class="col-lg-11 selgp2">
                                 <select class="chosen-select form-control" data-placeholder="--请选择标签--" name="tag" multiple="multiple">
-                                    <option value="0">全部</option>
-                                    <option value="1">曲师大</option>
-                                    <option value="2">自行车</option>
+                                    {volist name="tag" id="vo"}
+                                    <option value="{$vo.tagid}" {volist name="msg.tag" id="tg"}{eq name="$tg" value="$vo.tagid"}selected{/eq}{/volist}>{$vo.tagname}</option>
+                                    {/volist}
                                 </select>
                             </div>
                         </div>
