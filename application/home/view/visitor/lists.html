@@ -1,13 +1,84 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>签到频道</title>
+<link rel="stylesheet" href="/home/css/visitor/lists.css">
 {/block}
 
 {block name="body"}
-
+<input type="text" autofocus class="number" maxlength="11">
 {/block}
 
 {block name="script"}
+<script src="/home/js/vbar.js"></script>
+<script src="/home/js/main.js"></script>
+<script>
+$(function(){
+	$('.number').on('input',function(){
+		var this_ = $(this);
+		var num = this_.val();
+		if(num.length == 11){
+			this_.blur();
+			console.log(num)
+			$.ajax({
+				type:"post",
+				url:"{:Url('Visitor/sign')}",
+				data:{
+					mobile: num
+				},
+				dataType: "Json",
+				success:function(data){
+					if(data.code == 1){
+						swal({
+							title: '成功',
+							text: data.msg,
+							type: 'success',
+//							confirmButtonText:'确定',
+							timer:3000
+						});
+						$('body').append('1');
+					}else{
+						swal({
+							title: '失败',
+							text: data.msg,
+							type: 'error',
+//							confirmButtonText:'确定',
+							timer:3000
+						}).then(
+							function () {},
+							function (dismiss) {
+								if (dismiss === 'timer') {
+									this_.val('');
+									this_.focus();
+								}
+							}
+						);
+					}
+					speckText(data.msg);
+				}
+			})
+		}
 
+	})
+});
+function speckText(str){
+	//var request=  new URLRequest();
+	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
+	//url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+
+	//request.url = encodeURI(url);
+	// request.contentType = "audio/mp3"; // for baidu
+	//request.contentType = "audio/mpeg"; // for google
+
+	var n = new Audio(url);
+
+	n.src = url;
+
+	n.play();
+
+	// $("...").play();
+	// var sound = new Sound(request);
+	// sound.play();
+}
+</script>
 {/block}
