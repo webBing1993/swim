@@ -7,6 +7,7 @@
 
 {block name="body"}
 <input type="text" autofocus class="number" maxlength="11">
+<div>签到</div>
 {/block}
 
 {block name="script"}
@@ -31,7 +32,7 @@ $(function(){
 							title: '成功',
 							text: data.msg,
 							type: 'success',
-//							confirmButtonText:'确定',
+							showConfirmButton:false,
 							timer:3000
 						});
 						$('body').append('1');
@@ -40,6 +41,7 @@ $(function(){
 							title: '失败',
 							text: data.msg,
 							type: 'error',
+							showConfirmButton:false,
 //							confirmButtonText:'确定',
 							timer:3000
 						}).then(

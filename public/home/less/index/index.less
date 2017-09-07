@@ -12,14 +12,21 @@ body{
 	}
 }
 .logos{
-	padding: 2vw 12.5vw 4vw 12.5vw;
+	padding: 2vw 6.5vw 4vw 6.5vw;
 	background: #ffffff;
+	&.student{
+		padding: 6vw 4vw 6vw 4vw;
+	}
 	.logo{
 		float: left;
 		position: relative;
-		.wh(25vw,20vw);
+		.wh(29vw,20vw);
 		text-align: center;
-		.font(@c_note,@s_note,12vw);
+		.font(@c_title,1rem,14vw);
+		&.student{
+			.wh(23vw,23vw);
+			line-height: 14vw;
+		}
 		img{
 			display: block;
 			position: absolute;
@@ -27,7 +34,10 @@ body{
 			left: 0;
 			right: 0;
 			top:1vw;
-			.wh(15vw,15vw);
+			.wh(17vw,17vw);
+			&.student{
+				.wh(16.5vw,16.5vw);
+			}
 		}
 		span{
 			display: block;
