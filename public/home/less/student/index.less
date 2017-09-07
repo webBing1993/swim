@@ -90,36 +90,31 @@
 				position: relative;
 				width: 100vw;
 				.tags{
-					z-index: 3;
+					width: 50vw;
 					position: absolute;
 					right: 0;
-					top:10vh;
+					left:0;
+					top:4vw;
+					margin: auto;
 					.tag{
-						.wh(8vw,24vw);
-						margin-left: 2vw;
+						display: inline-block;
+						.wh(24vw,8vw);
 						background: rgba(249, 147, 0, 0.50);
 						.font(#ffffff,1.4rem,8vw);
 						text-align: center;
-						writing-mode:tb-rl;
-						letter-spacing: 1vw;
 						line-height: 8vw;
 						&:nth-child(1){
-							-webkit-border-radius: 1vw 0 0 0 ;
-							-moz-border-radius:  1vw 0 0 0 ;
-							border-radius: 1vw 0 0 0 ;
+							-webkit-border-radius: 1vw 0 0 1vw ;
+							-moz-border-radius:  1vw 0 0 1vw ;
+							border-radius: 1vw 0 0 1vw ;
 						}
 						&:nth-child(2){
-							-webkit-border-radius: 0 0 0 1vw ;
-							-moz-border-radius: 0 0 0 1vw;
-							border-radius: 0 0 0 1vw;
+							-webkit-border-radius: 0 1vw 1vw 0;
+							-moz-border-radius: 0 1vw 1vw 0;
+							border-radius: 0 1vw 1vw 0;
 						}
 						&.active{
 							margin-left: 0;
-							.wh(10vw,27vw);
-							line-height: 10vw;
-							-webkit-border-radius: 1.5vw 0 0 1.5vw ;
-							-moz-border-radius: 1.5vw 0 0 1.5vw;
-							border-radius: 1.5vw 0 0 1.5vw;
 						}
 						&:nth-child(1).active{
 							background: -moz-linear-gradient(top, #feba57, #f99300);
@@ -143,6 +138,7 @@
 					}
 				}
 				.lists{
+					padding-top: 16vw;
 					.list{
 						display: block;
 						padding: 4vw;
@@ -186,6 +182,31 @@
 									line-height: 10vw;
 								}
 							}
+						}
+					}
+					.li{
+						display: block;
+						padding: 4vw;
+						width: 100vw;
+						background: #ffffff;
+						margin-bottom: 2vw;
+						img{
+							display: inline-block;
+							.wh(14vw,14vw);
+							margin-right: 2vw;
+						}
+						.content{
+							width: 50vw;
+							margin-top: 1vw;
+							.name{
+								.font(@c_title,1.6rem,7vw);
+							}
+							.detail{
+								.font(@c_note,1.2rem,4vw);
+							}
+						}
+						.fa{
+							.font(#999999,2rem,14vw)
 						}
 					}
 				}

@@ -11,6 +11,10 @@
 	<!--我的教练-->
 	<div class="box hidden clear">
 		<div class="content">
+			<div class="tags clear">
+				<div class="tag fl active">教练信息</div>
+				<div class="tag fl">训练档案</div>
+			</div>
 			<div class="lists">
 				<a href="{:Url('User/tutor?did='.$coachModel['userid'])}" class="list clear">
 					<div class="ll fl">
@@ -32,6 +36,32 @@
 						</div>
 						<div class="note">级别：{$tag_name}</div>
 					</div>
+				</a>
+			</div>
+			<div class="lists">
+				<a href="{:Url('Coach/weekPlan')}" class="li clear">
+					<img src="/home/images/structure/logo1.png" alt="logo" class="fl">
+					<div class="content fl">
+						<div class="name">每周计划</div>
+						<div class="detail">可查阅教练每周训练计划</div>
+					</div>
+					<i class="fa fa-angle-right fr"></i>
+				</a>
+				<a href="{:Url('Coach/classPlan')}" class="li clear">
+					<img src="/home/images/structure/logo1.png" alt="logo" class="fl">
+					<div class="content fl">
+						<div class="name">课时计划</div>
+						<div class="detail">可查阅教练具体课时计划</div>
+					</div>
+					<i class="fa fa-angle-right fr"></i>
+				</a>
+				<a href="{:Url('Coach/weekSummary')}" class="li clear">
+					<img src="/home/images/structure/logo1.png" alt="logo" class="fl">
+					<div class="content fl">
+						<div class="name">每周小结</div>
+						<div class="detail">可查阅教练每周训练小结</div>
+					</div>
+					<i class="fa fa-angle-right fr"></i>
 				</a>
 			</div>
 		</div>
