@@ -144,6 +144,7 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(1) .content .tags .tag.active {
   margin-left: 0;
+  box-shadow: -1px 4px 5px rgba(249, 147, 0, 0.4);
 }
 .boxs .box:nth-child(1) .content .tags .tag:nth-child(1).active {
   background: -moz-linear-gradient(top, #feba57, #f99300);
@@ -152,7 +153,6 @@ textarea::-webkit-input-placeholder {
   background: -o-linear-gradient(top, #feba57, #f99300);
   background: -ms-linear-gradient(top, #feba57, #f99300);
   background: linear-gradient(to bottom, #feba57, #f99300);
-  box-shadow: -1px 4px 5px rgba(249, 147, 0, 0.4);
 }
 .boxs .box:nth-child(1) .content .tags .tag:nth-child(2).active {
   margin-left: 0;
@@ -162,7 +162,6 @@ textarea::-webkit-input-placeholder {
   background: -o-linear-gradient(top, #f99300, #feba57);
   background: -ms-linear-gradient(top, #f99300, #feba57);
   background: linear-gradient(to bottom, #f99300, #feba57);
-  box-shadow: -1px -4px 5px rgba(249, 147, 0, 0.4);
 }
 .boxs .box:nth-child(1) .content .lists {
   padding-top: 16vw;
