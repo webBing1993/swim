@@ -9,12 +9,13 @@
 {block name="body"}
 <div class="date">
 	<label for="start">开始日期</label>
-	<input value="2017-08-01" class="" readonly="readonly" id="start" type="text">
+	<input value="<?php echo date('Y-m-01')?>" class="" readonly="readonly" id="start" type="text">
 </div>
 <div class="date">
 	<label for="end">结束日期</label>
-	<input value="2017-08-09" class="" readonly="readonly" id="end" type="text">
+	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="end" type="text">
 </div>
+{neq name="tag_id" value="3"}
 <div class="box">
 	<div class="top clear">
 		<div class="tag fl">教练情况</div>
@@ -24,15 +25,19 @@
 				<i class="fa fa-angle-down"></i>
 			</div>
 			<div class="lists">
+				{eq name="tag_id" value="1"}
 				<div class="list" data-tab="0">全部</div>
 				<div class="list" data-tab="1">主教练</div>
+				{/eq}
 				<div class="list" data-tab="2">助教</div>
 			</div>
 		</div>
 	</div>
 	<canvas id="tutor" width="400" height="200"></canvas>
 </div>
+{/eq}
 <div class="box">
+	{neq name="tag_id" value="3"}
 	<div class="top clear">
 		<div class="tag fl">学员情况</div>
 		<div class="type fr">
@@ -41,24 +46,29 @@
 				<i class="fa fa-angle-down"></i>
 			</div>
 			<div class="lists">
+				{eq name="tag_id" value="1"}
 				<div class="list" data-tab="0">全部</div>
 				<div class="list" data-tab="1">主教练</div>
+				{/eq}
 				<div class="list" data-tab="2">助教</div>
 			</div>
 			<!--主教练-->
 			<div class="main">
 				<div class="li" data-tag="0">全部</div>
-				<div class="li" data-tag="1">张三</div>
-				<div class="li" data-tag="2">李四</div>
+				{volist name="headCoachList" id="vo"}
+				<div class="li" data-tag="{$key}">{$vo}</div>
+				{/volist}
 			</div>
 			<!--助教-->
 			<div class="main">
 				<div class="li" data-tag="0">全部</div>
-				<div class="li" data-tag="1">小三</div>
-				<div class="li" data-tag="2">小四</div>
+				{volist name="assistantCoachList" id="vo"}
+				<div class="li" data-tag="{$key}">{$vo}</div>
+				{/volist}
 			</div>
 		</div>
 	</div>
+	{/eq}
 	<canvas id="student" width="400" height="200"></canvas>
 </div>
 
@@ -70,8 +80,8 @@
 <script>
 $(function(){
 	//初始数据
-	var data1=[600,50,100];//教练[正常,迟到,缺卡]
-	var data2=[300,50,100];//学员[正常,迟到,缺卡]
+	var data1={$coach};//教练[正常,迟到,缺卡]
+	var data2={$student};//学员[正常,迟到,缺卡]
 	datas(data1,data2);
 	//时间选择
 	timeSelect();
@@ -90,14 +100,14 @@ $(function(){
 			var end = $('#end').val();
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('index')}",
 				data:{
 					start:start,
 					end: end,
-					type:index
+					c_type:index
 				},
 				success:function(data){
-					datas([1,1,1],0);
+					datas($.parseJSON(data)[0],0);
 				}
 			});
 
@@ -128,15 +138,15 @@ $(function(){
 					var end = $('#end').val();
 					$.ajax({
 						type:"post",
-						url:"",
+						url:"{:Url('index')}",
 						data:{
 							start:start,
 							end: end,
-							type:index,
+							s_type:index,
 							pid:pid
 						},
 						success:function(data){
-							datas(0,[1,1,1]);
+							datas(0,$.parseJSON(data)[1]);
 						}
 					});
 				})
@@ -151,11 +161,11 @@ $(function(){
 					data:{
 						start:start,
 						end: end,
-						type:0,
+						s_type:0,
 						pid:0
 					},
 					success:function(data){
-						datas(0,[1,1,1]);
+						datas(0,$.parseJSON(data)[1]);
 					}
 				});
 			}
@@ -181,14 +191,14 @@ function timeSelect(){
 			var end = $('#end').val();
 			$.ajax({
 				type:"post",
-				url:"",
+				url:"{:Url('index')}",
 				data:{
 					start:start,
 					end: end
 
 				},
 				success:function(data){
-					datas([1,1,1],[1,1,1]);
+					datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
 				}
 			});
 		}
