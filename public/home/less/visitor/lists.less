@@ -1,0 +1,118 @@
+@import (reference) "../common/common";
+//animate
+
+//layout
+body{
+	position: relative;
+	.wh(100%,100%);
+	background: url("/home/images/visitor/sign.png") no-repeat;
+	background-size: 100% 100%;
+	-webkit-overflow-scrolling : touch;
+	.lists{
+		position: absolute;
+		top:7vw;
+		left:7vw;
+		.wh(80vw,86vh);
+		//margin: 7vw 7vw;
+		padding: 4vw 6vw;
+		overflow-y: scroll;
+		.list{
+			color:#ffffff;
+			margin-bottom: 1rem;
+			.coach{
+				font-size: 1.5rem;
+				line-height: 2.6rem;
+				.name{
+					display: inline-block;
+					width: 49%;
+				}
+				.num{
+					display: inline-block;
+					width: 46%;
+					word-break: break-all;
+					text-align: right;
+				}
+			}
+			.content{
+				font-size: 1.3rem;
+				line-height: 1.8rem;
+				.students{
+					display: inline-block;
+					width: 74%;
+					span{
+						display: inline-block;
+					}
+					.name{
+						width: 38%;
+					}
+					.time{
+						width: 36%;
+					}
+				}
+				.more{
+					display: inline-block;
+					width: 20%;
+					height: 100%;
+					text-align: right;
+
+				}
+			}
+		}
+	}
+	.number{
+		//background: transparent;
+		//color:transparent;
+	}
+	.sign{
+		position: absolute;
+		bottom:7vw;
+		right:7vw;
+		.wh(13.3vw,13.3vw);
+		background: #ef3050;
+		color:#ffffff;
+		//font-weight: 600;
+		font-size: 1.4rem;
+		text-align: center;
+		line-height: 13.3vw;
+		-webkit-border-radius:50%;
+		-moz-border-radius:50%;
+		border-radius:50%;
+	}
+	.bg{
+		display: none;
+		position: fixed;
+		top:0;
+		bottom: 0;
+		left:0;
+		right: 0;
+		background: rgba(0, 0, 0, 0.6);
+	}
+	.roster{
+		display: none;
+		overflow: scroll;
+		margin: auto;position: absolute;left: 0;right: 0;top: 0;bottom: 0;
+		width: 70vw;
+		height: 70vh;
+		padding: 4vw;
+		background: white;
+		font-size: 1.4rem;
+		-webkit-border-radius:1vw;
+		-moz-border-radius:1vw;
+		border-radius:1vw;
+		li{
+			height: 2rem;
+			span{
+				display: inline-block;
+				&.name{
+					width: 24vw;
+				}
+				&.time{
+					width: 21vw;
+				}
+				&.st{
+					width: 14vw;
+				}
+			}
+		}
+	}
+}

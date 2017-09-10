@@ -57,9 +57,11 @@ textarea::-webkit-input-placeholder {
   font-size: 1.5rem;
   line-height: 3.6rem;
   text-align: center;
+  font-weight: normal;
 }
 .tabs .active {
   color: #ffffff;
+  font-weight: 700;
 }
 .nice {
   text-align: center;

@@ -9,13 +9,14 @@
 {block name="page-header"}
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>活动通知管理</h2>
+        <h2>通知公告管理</h2>
         <ol class="breadcrumb">
-            <li>
-                <a href="{:Url('Notice/activity')}">相关活动</a>
-            </li>
+
             <li class="active">
                 <strong><a href="{:Url('Notice/index')}">相关通知</a></strong>
+            </li>
+            <li>
+                <a href="{:Url('Notice/activity')}">活动情况</a>
             </li>
         </ol>
     </div>
@@ -45,6 +46,7 @@
                                 <th>发布人</th>
                                 <th>创建人 </th>
                                 <th>创建时间</th>
+                                <th>是否推荐</th>
                                 <th>状态</th>
                                 <th>操作</th>
                             </tr>
@@ -57,6 +59,7 @@
                                 <td>{$vo.publisher}</td>
                                 <td>{$vo->cuser->nickname}</td>
                                 <td>{$vo.create_time|time_format='Y-m-d'}</td>
+                                <td>{$vo.recommend_text}</td>
                                 <td>{$vo.status_text}</td>
                                 <td>
                                     <a href="{:Url('Notice/edit?id='.$vo['id'])}">修改</a>

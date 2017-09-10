@@ -10,18 +10,28 @@ body {
   height: 50vw;
 }
 .logos {
-  padding: 0 10vw 5vw 10vw;
+  padding: 2vw 6.5vw 4vw 6.5vw;
   background: #ffffff;
+}
+.logos.student {
+  padding: 6vw 4vw 6vw 4vw;
 }
 .logos .logo {
   float: left;
   position: relative;
-  width: 20vw;
-  height: 20vw;
+  width: 21vw;
+  height: 21vw;
+  margin: 0 4vw;
   text-align: center;
-  color: #999999;
-  font-size: 1.2rem;
-  line-height: 7vw;
+  color: #333333;
+  font-size: 1rem;
+  line-height: 14vw;
+}
+.logos .logo.student {
+  width: 23vw;
+  height: 23vw;
+  line-height: 14vw;
+  margin: 0;
 }
 .logos .logo img {
   display: block;
@@ -30,8 +40,12 @@ body {
   left: 0;
   right: 0;
   top: 1vw;
-  width: 12vw;
-  height: 12vw;
+  width: 17vw;
+  height: 17vw;
+}
+.logos .logo img.student {
+  width: 16.5vw;
+  height: 16.5vw;
 }
 .logos .logo span {
   display: block;
