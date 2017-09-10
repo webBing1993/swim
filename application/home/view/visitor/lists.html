@@ -61,7 +61,7 @@
 	</div>
 </div>
 <input type="text" autofocus class="number" maxlength="11">
-<div class="sign">签到</div>
+<!--<div class="sign">签到</div>-->
 <div class="bg"></div>
 <ul class="roster">
 	<li>
@@ -193,61 +193,60 @@ $(function(){
 	var wh = $(window).height();
 	$('body').height(wh);
 	//签到
+	var last = '';
 	$('.number').on('input',function(){
 		var this_ = $(this);
 		var num = this_.val();
-		if(num.length == 11){
-			this_.blur();
-			console.log(num)
-			$.ajax({
-				type:"post",
-				url:"{:Url('Visitor/sign')}",
-				data:{
-					mobile: num
-				},
-				dataType: "Json",
-				success:function(data){
-					speckText(data.msg);
-					if(data.code == 1){
-						swal({
-							title: '成功',
-							text: data.msg,
-							type: 'success',
-							showConfirmButton:false,
-							timer:3000
-						}).then(
-							function () {},
-							function (dismiss) {
-								if (dismiss === 'timer') {
-									this_.val('');
-									this_.focus();
-									//window.location.reload();
-
+		if(num.length == 11 ){
+			if(last!=num){
+				//this_.blur();
+				last = num;
+				$.ajax({
+					type:"post",
+					url:"{:Url('Visitor/sign')}",
+					data:{
+						mobile: num
+					},
+					dataType: "Json",
+					success:function(data){
+//						speckText(data.msg);
+						if(data.code == 1){
+							swal({
+								title: '成功',
+								text: data.msg,
+								type: 'success',
+								showConfirmButton:false,
+								timer:3000
+							}).then(
+								function () {},
+								function (dismiss) {
+									if (dismiss === 'timer') {
+										this_.val('');
+									}
 								}
-							}
-						);
-					}else{
-						swal({
-							title: '失败',
-							text: data.msg,
-							type: 'error',
-							showConfirmButton:false,
-//							confirmButtonText:'确定',
-							timer:3000
-						}).then(
-							function () {},
-							function (dismiss) {
-								if (dismiss === 'timer') {
-									this_.val('');
-									this_.focus();
-//									window.location.reload();
+							);
+						}else{
+							swal({
+								title: '失败',
+								text: data.msg,
+								type: 'error',
+								showConfirmButton:false,
+								//							confirmButtonText:'确定',
+								timer:3000
+							}).then(
+								function () {},
+								function (dismiss) {
+									if (dismiss === 'timer') {
+										this_.val('');
+									}
 								}
-							}
-						);
+							);
+						}
 					}
-
-				}
-			})
+				})
+			}else{
+				this_.val('');
+			}
 		}
 
 	});
@@ -282,11 +281,12 @@ $(function(){
 	});
 	//初始化签到
 	$('.sign').on('click',function(){
-		$('.number').focus();
+		history.go(0)
 	});
 	$('.bg').off('click').on('click',function(){
 		$('.bg,.roster').fadeOut();
-	})
+	});
+
 });
 function speckText(str){
 	//var request=  new URLRequest();

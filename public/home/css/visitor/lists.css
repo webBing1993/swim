@@ -56,6 +56,10 @@ body .lists .list .content .more {
   height: 100%;
   text-align: right;
 }
+body .number {
+  background: transparent;
+  color: transparent;
+}
 body .sign {
   position: absolute;
   bottom: 7vw;
