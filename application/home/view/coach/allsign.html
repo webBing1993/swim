@@ -23,7 +23,7 @@
 	<div class="box active">
 		{volist name="res.abnormal.absence" id="vo"}
 		<div class="list">
-			<span>{$vo}</span>
+			<span>{$vo.name}</span>
 			<span class="absence">
 				<i class="fa fa-times-circle"></i>
 				缺卡
@@ -32,7 +32,7 @@
 		{/volist}
 		{volist name="res.abnormal.late" id="vo"}
 		<div class="list">
-			<span>{$vo}</span>
+			<span>{$vo.name}</span>
 			<span class="late">
 				<i class="fa fa-exclamation-circle"></i>
 				迟到
@@ -43,7 +43,7 @@
 	<div class="box hidden">
 		{volist name="res.normal" id="vo"}
 		<div class="list">
-			<span>{$vo}</span>
+			<span>{$vo.name}</span>
 			<span class="normal">
 				<i class="fa fa-check-circle"></i>
 				正常

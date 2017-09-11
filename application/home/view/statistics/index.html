@@ -15,13 +15,17 @@
 	<label for="end">结束日期</label>
 	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="end" type="text">
 </div>
-{neq name="tag_id" value="3"}
+{if condition="($tag_id == 1) OR ($tag_id == 2)"}
 <div class="box">
 	<div class="top clear">
 		<div class="tag fl">教练情况</div>
 		<div class="type fr">
 			<div class="tab tutor" data-tab="0">
+				{eq name="tag_id" value="1"}
 				<span>全部</span>
+				{else/}
+				<span>助教</span>
+				{/eq}
 				<i class="fa fa-angle-down"></i>
 			</div>
 			<div class="lists">
@@ -35,14 +39,14 @@
 	</div>
 	<canvas id="tutor" width="400" height="200"></canvas>
 </div>
-{/eq}
+{/if}
 <div class="box">
-	{neq name="tag_id" value="3"}
+	{if condition="($tag_id == 1) OR ($tag_id == 2)"}
 	<div class="top clear">
 		<div class="tag fl">学员情况</div>
 		<div class="type fr">
 			<div class="tab student" data-tab="0" data-tag="0">
-				<span>全部</span> - <span>全部</span>
+				<span>{eq name="tag_id" value="1"}全部{else/}助教{/eq}</span> - <span>全部</span>
 				<i class="fa fa-angle-down"></i>
 			</div>
 			<div class="lists">
@@ -68,7 +72,7 @@
 			</div>
 		</div>
 	</div>
-	{/eq}
+	{/if}
 	<canvas id="student" width="400" height="200"></canvas>
 </div>
 
@@ -121,19 +125,18 @@ $(function(){
 		$('.list').off('click').on('click',function(){
 			var index = $(this).attr('data-tab');
 			var text = $(this).text();
-			var n = $(this).index();
 			$(this_).find('span').eq(0).text(text);
 			$(this_).attr('data-tab',index);
 			$(this_).next('.lists').hide();
-			if(n>0){
+			if(index>0){
 				//除了全部-全部的其他情况
-				$('.main').eq(n-1).fadeIn();
+				$('.main').eq(index-1).fadeIn();
 				$('.li').off('click').on('click',function(){
 					var pid = $(this).attr('data-tag');
 					var text = $(this).text();
 					$(this_).find('span').eq(1).text(text);
 					$(this_).attr('data-tag',pid);
-					$('.main').eq(n-1).fadeOut();
+					$('.main').eq(index-1).fadeOut();
 					var start = $('#start').val();
 					var end = $('#end').val();
 					$.ajax({
@@ -221,8 +224,10 @@ function datas(a,b){
 				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
 			}]
 		} ;
-		var ctx1 = document.getElementById("tutor").getContext("2d");
-		new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+		if(document.getElementById("tutor")){
+			var ctx1 = document.getElementById("tutor").getContext("2d");
+			new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+		}
 	}
 	if($.isArray(b)){
 		//	学员签到

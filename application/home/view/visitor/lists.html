@@ -7,184 +7,35 @@
 
 {block name="body"}
 <div class="lists">
-	<div class="list" data-tab="1">
+	{volist name="res" id="vo"}
+	<div class="list" data-tab="{$key}">
 		<div class="coach">
-			<span class="name limit">教练：王某某</span>
-			<span class="num limit">学员情况：1/25</span>
+			<span class="name limit">教练：{$vo.name}</span>
+			<span class="num limit">学员情况：{$vo.current_num}/{$vo.all_num}</span>
 		</div>
 		<div class="content">
 			<div class="students">
+				{volist name="vo.studentList" id="voo"}
 				<div class="student">
-					<span class="name limit">张三粒子</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
+					<span class="name limit">{$voo.name}</span>
+					<span class="time limit">{$voo.create_time}</span>
+					<span class="st limit">
+						{eq name="voo.status" value="1"}正常{else/}迟到{/eq}
+					</span>
 				</div>
-				<div class="student">
-					<span class="name limit">张三啊</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
-				</div>
-				<div class="student">
-					<span class="name limit">张三啊</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
-				</div>
+				{/volist}
 			</div>
+			{if condition="(count($vo.studentList) == 3)"}
 			<div class="more limit">更多...</div>
+			{/if}
 		</div>
 	</div>
-	<div class="list" data-tab="2">
-		<div class="coach">
-			<span class="name limit">教练：王某某</span>
-			<span class="num limit">学员情况：1/25</span>
-		</div>
-		<div class="content">
-			<div class="students">
-				<div class="student">
-					<span class="name limit">张三粒子</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
-				</div>
-				<div class="student">
-					<span class="name limit">张三啊</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
-				</div>
-				<div class="student">
-					<span class="name limit">张三啊</span>
-					<span class="time limit">18:00:00</span>
-					<span class="st limit">正常</span>
-				</div>
-			</div>
-			<div class="more limit">更多...</div>
-		</div>
-	</div>
+	{/volist}
 </div>
 <input type="text" autofocus class="number" maxlength="11">
 <!--<div class="sign">签到</div>-->
 <div class="bg"></div>
-<ul class="roster">
-	<li>
-	<span class="name limit">张三粒子</span>
-	<span class="time limit">18:00:00</span>
-	<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-	<li>
-		<span class="name limit">张三粒子</span>
-		<span class="time limit">18:00:00</span>
-		<span class="st limit">正常</span>
-	</li>
-</ul>
+<ul class="roster"></ul>
 {/block}
 
 {block name="script"}
@@ -256,22 +107,23 @@ $(function(){
 		var id = $(this).parents('.list').attr('data-tab');
 		$.ajax({
 			type:"post",
-			url:"",
+			url:"{:Url('Visitor/listMore')}",
 			data:{
 				id: id
 			},
 			dataType: "Json",
 			success:function(data){
-				var lists = data;
+				var lists = $.parseJSON(data.data);
 				var len = lists.length;
 				var html = '';
 				for(var i = 0 ;i<len;i++){
 					var list = lists[i];
+					var status = list.status==1?"正常":"迟到";
 					html+=
 						'<li>'+
-						'<span class="name limit">张三粒子</span>'+
-						'<span class="time limit">18:00:00</span>'+
-						'<span class="st limit">正常</span>'+
+						'<span class="name limit">'+list.name+'</span>'+
+						'<span class="time limit">'+list.create_time+'</span>'+
+						'<span class="st limit">'+status+'</span>'+
 						'</li>'
 				}
 				$('.roster').html(html);

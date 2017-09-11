@@ -167,18 +167,21 @@ class Coach extends Base {
 				foreach ($modelAll as $model) {
 					$all_users[] = $model['userid'];
 					if ($model['status'] == WechatUserSign::STATUS_NORMAL) {//正常
-						$res['normal'][] = $model['name'];
+						$res['normal'][$model['userid']]['name'] = $model['name'];
+						$res['normal'][$model['userid']]['time'] = date("H:i", $model['create_time']);
 					}
 					if ($model['status'] == WechatUserSign::STATUS_LATE) {//迟到
-						$res['abnormal']['late'][] = $model['name'];
+						$res['abnormal']['late'][$model['userid']]['name'] = $model['name'];
+						$res['abnormal']['late'][$model['userid']]['time'] = date("H:i", $model['create_time']);
 					}
 				}
 			}
 			foreach ($useridArr as $uid => $name) {
 				if(!in_array($uid, $all_users)) {//所有的缺卡
 					$coachSignModel = WechatUserSign::where(['userid' => $userId, "date" => $date])->find();
-					if($coachSignModel){//教练这天有上课
-						$res['abnormal']['absence'][] = $name;//缺卡
+					if($coachSignModel){//教练这天有上课=缺卡
+						$res['abnormal']['absence'][$uid]['name'] = $name;
+						$res['abnormal']['absence'][$uid]['time'] = "__:__";
 					}
 				}
 			}

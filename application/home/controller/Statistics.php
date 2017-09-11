@@ -39,9 +39,10 @@ class Statistics extends Base{
 		}else{
 			return "您暂无权限";
 		}
-		$query = Db::field('wus.*, wu.member_type, wu.coach_id, wu.department, wu2.department coach_department')				->table('sw_wechat_user_sign wus')
+		$query = Db::field('wus.*, wu.department, wu2.department coach_department')
+				->table('sw_wechat_user_sign wus')
 				->join('sw_wechat_user wu','wus.userid = wu.userid')
-				->join('sw_wechat_user wu2','wu.coach_id = wu2.userid')
+				->join('sw_wechat_user wu2','wus.coach_id = wu2.userid')
 				->where('date',['>=',$start_time],['<=',$end_time],'and');
 		$coachModel = [];
 		$userModel = [];
@@ -51,8 +52,8 @@ class Statistics extends Base{
 				$coachModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_COACH])->column('userid');
 			}elseif($c_type == 2){
 				if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练权限
-					$coachModel = WechatUser::where(['coach_id' => $userId])->column('userid');
-					$query->where(['wu.coach_id' => $userId]);
+					$coachModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('userid');
+					$query->where(['wus.coach_id' => $userId, 'wus.member_type' => WechatUser::MEMBER_TYPE_COACH]);
 					//$query->where('userid', 'in', $coachModel);
 				}else{//领导权限
 					$query->where(['wu.department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
@@ -63,22 +64,22 @@ class Statistics extends Base{
 			}
 		}elseif(isset($s_type)){
 			if($pid){
-				$query->where(['wu.coach_id' => $pid]);
+				$query->where(['wus.coach_id' => $pid]);
 				$userModel = WechatUser::where(['coach_id' => $pid])->column('userid');
 			}else{
 				if($s_type == 1){
-					$query->where(['coach_department' => WechatDepartment::DEPARTMENT_HEAD_COACH]);
+					$query->where(['wu2.department' => WechatDepartment::DEPARTMENT_HEAD_COACH]);
 					$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_STUDENT])->column('userid');
 				}elseif($s_type == 2){
 					if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练权限
-						$coach_ids = WechatUser::where(['coach_id' => $userId])->column('userid');
-						$query->where('wu.coach_id', 'in', $coach_ids);
+						$coach_ids = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('userid');
+						$query->where('wus.coach_id', 'in', $coach_ids);
 						$userModel = WechatUser::where('coach_id', 'in', $coach_ids)->column('userid');
 					}elseif($tag_id == WechatTag::TAG_ASSISTANT){//助教权限
-						$query->where(['wu.coach_id' => $userId]);
+						$query->where(['wus.coach_id' => $userId]);
 						$userModel = WechatUser::where(['coach_id' => $userId])->column('userid');
 					}else {//领导权限
-						$query->where(['coach_department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
+						$query->where(['wu2.department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
 						$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->column('userid');
 					}
 				}else{
