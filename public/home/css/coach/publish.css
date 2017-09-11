@@ -1,0 +1,110 @@
+.tag {
+  width: 100vw;
+  height: 4.5rem;
+  padding: 0 4vw;
+  background: #f7f7f7;
+  color: 1.8rem;
+  font-size: 1.3rem;
+  line-height: 4.5rem;
+}
+.list {
+  width: 100vw;
+  padding: 0 4vw;
+  color: #333333;
+  font-size: 1.3rem;
+  line-height: 4.5rem;
+  border-bottom: 1px solid #f7f7f7;
+}
+.list input {
+  background: transparent;
+  width: 66vw;
+  color: #999999;
+  text-align: right;
+}
+.list .fa-angle-right,
+.list .fa-angle-down {
+  margin-top: 1.4rem;
+  font-size: 2rem;
+  margin-left: 1rem;
+  color: #999999;
+}
+.list .fa-angle-right.green,
+.list .fa-angle-down.green {
+  color: #3cb152;
+}
+.list .content {
+  width: 92vw;
+  height: 40vw;
+  padding: 2VW 4vw;
+  margin-bottom: 4vw;
+  background: #fcfcfc;
+  color: #666666;
+  font-size: 1.3rem;
+  line-height: 2rem;
+  border: 1px solid #f7f7f7;
+  -webkit-border-radius: 1vw;
+  -moz-border-radius: 1vw;
+  border-radius: 1vw;
+}
+.list .content textarea {
+  width: 84vw;
+  min-height: 30vw;
+  color: #999999;
+  background: #fcfcfc;
+}
+.list .content .sum {
+  text-align: right;
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 4vw;
+}
+.list .content .sum span.red {
+  color: indianred;
+}
+.tems {
+  display: none;
+  margin: 0 auto;
+  width: 92vw;
+}
+.tems div {
+  width: 92vw;
+  height: 3rem;
+  padding: 0 4vw;
+  color: #999999;
+  font-size: 1.3rem;
+  line-height: 3rem;
+  text-align: right;
+  border-bottom: 1px solid #f1f1f1;
+}
+.save {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 4.5rem;
+  background: #8ad097;
+  color: #ffffff;
+  font-size: 1.6rem;
+  line-height: 4.5rem;
+  text-align: center;
+  letter-spacing: 0.2rem;
+}
+.bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+}
+.bg .daysave {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 4.5rem;
+  background: #8ad097;
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 4.5rem;
+  text-align: center;
+  letter-spacing: 0.3rem;
+}

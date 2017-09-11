@@ -204,3 +204,17 @@ function imgfit(){
 	}
 
 }
+//禁用浏览器返回
+function fobidden_back() {
+	//防止页面后退
+	history.pushState(null, null, document.URL);
+	window.addEventListener('popstate',back_common)
+}
+//启用浏览器返回
+function enable_back() {
+	history.go(-1);
+	window.removeEventListener('popstate',back_common)
+}
+function back_common() {
+	history.pushState(null, null, document.URL);
+}

@@ -1,0 +1,96 @@
+.date {
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 4.5rem;
+  padding: 0 4vw;
+  background: #fcfcfc;
+  text-align: left;
+  box-shadow: 1px 2px 5px rgba(180, 180, 180, 0.35);
+}
+.date img {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 1rem;
+}
+.date input {
+  font-size: 1.8rem;
+  line-height: 4.5rem;
+  font-weight: normal;
+  width: 10rem;
+  background: transparent;
+}
+.date i {
+  font-size: 2rem;
+}
+.publish {
+  position: fixed;
+  bottom: 24vw;
+  right: 10vw;
+  width: 14vw;
+  height: 14vw;
+}
+.publish img {
+  width: 14vw;
+  height: 14vw;
+}
+.lists {
+  padding: 4.5rem 4vw;
+}
+.lists .list {
+  width: 92vw;
+  height: 32vw;
+  padding: 4vw 6vw;
+  border: 1px solid #f7f7f7;
+  background: #fcfcfc;
+  margin-bottom: 4vw;
+  -webkit-border-radius: 1vw;
+  -moz-border-radius: 1vw;
+  border-radius: 1vw;
+}
+.lists .list .content {
+  border-bottom: 1px dashed #d6d6d6;
+}
+.lists .list .content div {
+  position: relative;
+  padding-left: 7vw;
+  color: #333333;
+  font-size: 1.4rem;
+  line-height: 8vw;
+}
+.lists .list .content div:before {
+  content: '';
+  position: absolute;
+  width: 5.4vw;
+  height: 5.4vw;
+  left: 0;
+  top: 1.3vw;
+}
+.lists .list .content .title:before {
+  background: url("/home/images/coach/title.png") no-repeat;
+  background-size: 5.4vw 5.4vw;
+}
+.lists .list .content .time:before {
+  background: url("/home/images/coach/time.png") no-repeat;
+  background-size: 5.4vw 5.4vw;
+}
+.lists .list .content .content:before {
+  background: url("/home/images/coach/content.png") no-repeat;
+  background-size: 5.4vw 5.4vw;
+}
+.lists .list .note {
+  color: #999999;
+  font-size: 1.2rem;
+  line-height: 8vw;
+}
+.lists .list .note a {
+  display: inline-block;
+}
+.lists .list .note a.edit {
+  color: #999999;
+  padding: 0 4vw;
+}
+.lists .list .note a.detail {
+  color: #3cb152;
+}
