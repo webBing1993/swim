@@ -116,8 +116,14 @@ function aleats(msg,status){
 		title: ' ',
 		text: msg,
 		type: status,
-		confirmButtonText:'确定'
-	})
+		showConfirmButton:false
+	}).then(
+		function () {},
+		function (dismiss) {
+			if (dismiss === 'timer') {
+				history.go(0);
+			}
+		})
 }
 </script>
 {/block}
