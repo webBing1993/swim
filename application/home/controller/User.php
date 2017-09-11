@@ -107,6 +107,10 @@ class User extends Base{
         }else {
             $id = input('id');
             $res = WechatUser::get($id);
+            $tag_id = WechatUserTag::where(['userid' => $res['userid']])->value('tagid');
+            if($tag_id == WechatTag::TAG_HEAD_COACH){
+                $res['tag'] = 1;
+            }
             $this->assign('res',$res);
             return $this->fetch();
         }

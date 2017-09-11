@@ -55,6 +55,7 @@
 	<!--</div>-->
 </div>
 <!--助教-->
+{empty name="$res.tag"}
 <div class="lists">
 	<div class="list clear">
 		<span class="fl">身份证号</span>
@@ -80,6 +81,7 @@
 		<input type="hidden" name="lifeguard_certificate"  value="" required="" data-tab="{$res.lifeguard_certificate}">
 	</div>
 </div>
+{/empty}
 <div class="save">保&emsp;存</div>
 <!--/助教-->
 {/block}

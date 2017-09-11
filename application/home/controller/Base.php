@@ -145,10 +145,14 @@ class Base extends Controller
             $res = $likeModel->create($data);
             if ($res) {
                 //点赞成功积分+1
-                WechatUser::where('userid', $uid)->setInc('score', 1);
+                //WechatUser::where('userid', $uid)->setInc('score', 1);
                 //更新数据
-                Db::name($table)->where('id', $aid)->setInc('likes');
-                return $this->success("点赞成功");
+                $model = Db::name($table)->where('id', $aid)->setInc('likes');
+                if ($model) {
+                    return $this->success("点赞成功");
+                }else{
+                    return $this->error("点赞失败");
+                }
             } else {
                 return $this->error("点赞失败");
             }
@@ -156,9 +160,13 @@ class Base extends Controller
             $result = $likeModel::where($data)->delete();
             if ($result) {
                 //取消成功积分-1
-                WechatUser::where('userid', $uid)->setDec('score', 1);
-                Db::name($table)->where('id', $aid)->setDec('likes');
-                return $this->success("取消成功");
+                //WechatUser::where('userid', $uid)->setDec('score', 1);
+                $model = Db::name($table)->where('id', $aid)->setDec('likes');
+                if ($model) {
+                    return $this->success("取消成功");
+                }else{
+                    return $this->error("取消失败");
+                }
             } else {
                 return $this->error("取消失败");
             }

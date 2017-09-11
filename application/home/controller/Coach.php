@@ -151,8 +151,7 @@ class Coach extends Base {
 	 */
 	public function allsign(){
 		$userId = session('userId');
-		//$date = input('date', date('Y-m-d'));
-		$date = input('date', '2017-08-24');
+		$date = input('date', date('Y-m-d'));
 		$res = array('normal' => [], 'abnormal' =>['late' => [], 'absence' => []]);
 		if(strtotime($date) < time()){
 			$useridArr = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->column('name','userid');

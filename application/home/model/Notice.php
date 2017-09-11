@@ -50,7 +50,7 @@ class Notice extends Model {
             'snt.tagid' =>$tag_id,
         );
         $order = array("sn.create_time desc");
-        $res = \think\Db::field('sn.*')
+        $res = \think\Db::field('sn.*,0 is_enroll')
             ->table('sw_notice sn')
             ->join('sw_notice_tag snt','sn.id = snt.pid')
             ->where($map)

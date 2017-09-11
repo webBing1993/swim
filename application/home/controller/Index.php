@@ -24,7 +24,20 @@ class Index extends Controller {
     public function index(){
         $userId = session('userId');
         $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
-        $newsList = Notice::where(['type' => 1, 'status' => 1])->order('create_time desc')->field('id,front_cover,title,create_time')->limit(2)->select();
+        $map = array(
+            'sn.status' => 1,
+            'sn.recommend' => 1,
+            'snt.tagid' =>$tag_id,
+        );
+        $order = array("sn.create_time desc");
+        $newsList = \think\Db::field('sn.id,sn.front_cover,sn.title,sn.create_time')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(2)
+            ->select();
+        //$newsList = Notice::where(['status' => 1, 'recommend' => 1])->order('create_time desc')->field('id,front_cover,title,create_time')->limit(2)->select();
         $this->assign('tag_id',$tag_id);
         $this->assign('newsList',$newsList);
         return $this->fetch();
