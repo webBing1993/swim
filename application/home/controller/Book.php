@@ -10,6 +10,7 @@
 namespace app\home\controller;
 use app\home\model\WechatDepartment;
 use app\home\model\WechatUser;
+use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
 use think\Db;
 class Book extends Base
@@ -32,17 +33,17 @@ class Book extends Base
             'my' => $my
         );
         $this->assign('list',$data);
-//        //判断是否有通讯录查看权限
-//        $map = array(
-//            'tagid' => 3,
-//            'userid' => $userId
-//        );
-//        $tag = WechatUserTag::where($map)->find();
-//        if(empty($tag)) {
-//            $this->assign('is_power',0);
-//        }else {
-//            $this->assign('is_power',1);
-//        }
+        //判断是否有通讯录查看权限
+        $map = array(
+            'tagid' => WechatTag::TAG_LEADER,
+            'userid' => $userId
+        );
+        $tag = WechatUserTag::where($map)->find();
+        if(empty($tag)) {
+            $this->assign('is_power',0);
+        }else {
+            $this->assign('is_power',1);
+        }
         return $this->fetch();
     }
 

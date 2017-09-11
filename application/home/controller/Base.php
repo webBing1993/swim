@@ -316,7 +316,7 @@ class Base extends Controller
             $res = $Model->where($data)->delete();
             if ($res) {
                 Db::name($table)->where('id', $aid)->setDec('collect');
-                return $this->success("取消收藏成功");
+                return $this->success("取消收藏成功", Url('user/mycollect'));
             } else {
                 return $this->error("操作失败");
             }

@@ -30,11 +30,14 @@
     <ul class="lists">
         <li>
             <ul class="lists">
+                {empty name="$is_power"}
+                {else/}
                 <li class="all_group">
                     <a  href="/home/book/grouplist/did/2" class="list_header type2" data-pid="">
                         <span>游泳健身中心</span><span class="fr fa fa-angle-right"></span>
                     </a>
                 </li>
+                {/empty}
                 <li class="my_group">
                     <div class="list_header type2 mydp" data-pid="">
                         <span>我的部门</span><span class="fr fa fa-angle-down"></span>

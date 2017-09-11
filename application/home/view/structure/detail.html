@@ -12,8 +12,8 @@
 	{else/}
 	<img src="{$coachModel.header|get_cover='path'}" alt="header" class="header">
 	{/empty}
-	<!--总教练：main,助教：assi-->
-	{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_CHIEF_COACH"}
+	<!--主教练：main,助教：assi-->
+	{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_HEAD_COACH"}
 	<span class="main">{$coachModel.name}</span>
 	{else/}
 	<span class="assi">{$coachModel.name}</span>

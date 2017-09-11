@@ -15,7 +15,7 @@
 	{/empty}
 	<div class="all">
 		<!--主教练：main,助教：assi-->
-		{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_CHIEF_COACH"}
+		{if condition="$coachModel.department eq \app\home\model\WechatDepartment::DEPARTMENT_HEAD_COACH"}
 		<div class="name"><span class="main">{$coachModel.name}</span></div>
 		{else/}
 			<div class="name"><span class="assi">{$coachModel.name}</span></div>
