@@ -21,16 +21,6 @@
 <div class="boxs">
 	<!--absence：缺卡，late：迟到，normal：正常-->
 	<div class="box active">
-		{volist name="res.abnormal.absence" id="vo"}
-		<div class="list">
-			<span>{$vo.name}</span>
-			<span>{$vo.time}</span>
-			<span class="absence">
-				<i class="fa fa-times-circle"></i>
-				缺卡
-			</span>
-		</div>
-		{/volist}
 		{volist name="res.abnormal.late" id="vo"}
 		<div class="list">
 			<span>{$vo.name}</span>
@@ -38,6 +28,16 @@
 			<span class="late">
 				<i class="fa fa-exclamation-circle"></i>
 				迟到
+			</span>
+		</div>
+		{/volist}
+		{volist name="res.abnormal.absence" id="vo"}
+		<div class="list">
+			<span>{$vo.name}</span>
+			<span>{$vo.time}</span>
+			<span class="absence">
+				<i class="fa fa-times-circle"></i>
+				缺卡
 			</span>
 		</div>
 		{/volist}

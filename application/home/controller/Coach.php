@@ -254,45 +254,39 @@ class Coach extends Base {
 		return $this->fetch();
 	}
 	/**
-	 * 每周计划发布
+	 * 每周计划发布/编辑
 	 */
 	public function pweekPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 课时计划发布
+	 * 课时计划发布/编辑
 	 */
 	public function pclassPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 每周总结发布
+	 * 每周总结发布/编辑
 	 */
 	public function pweekSummary(){
 		return $this->fetch();
 	}
 	/**
-	 * 每周计划 详情/编辑
+	 * 每周计划 详情
 	 */
 	public function dweekPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 课时计划 详情/编辑
+	 * 课时计划 详情
 	 */
 	public function dclassPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 每周总结 详情/编辑
+	 * 每周总结 详情
 	 */
 	public function dweekSummary(){
-		return $this->fetch();
-	}
-	/**
-	 * 每周计划模板
-	 */
-	public function templet(){
 		return $this->fetch();
 	}
 }

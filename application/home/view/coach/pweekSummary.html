@@ -2,13 +2,123 @@
 
 {block name="style"}
 <title>训练档案</title>
-<link rel="stylesheet" href="/home/css/coach/weeksummary.css">
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+<link rel="stylesheet" href="/home/css/coach/publish.css">
 {/block}
 
 {block name="body"}
+<div class="tag">每周小结</div>
+<div class="list clear">
+	<span class="title fl">小结标题</span>
+	<span class="fa fa-angle-right fr"></span>
+	<input type="text" placeholder="如：2017年07月第三周周小结" class="fr limit" name="title">
+</div>
+<div class="list clear">
+	<span class="title fl">开始时间</span>
+	<span class="fa fa-angle-right fr"></span>
+	<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+</div>
+<div class="list clear">
+	<span class="title fl">结束时间</span>
+	<span class="fa fa-angle-right fr"></span>
+	<input type="text" value="2011-1-1" class="fr"  readonly="readonly" id="end" name="end">
+</div>
+<div class="list">
+	<span class="title">重点运动员完成情况</span>
+	<div class="content">
+		<textarea name="content" id="content" placeholder="输入不多于300字。"></textarea>
+		<div class="sum"><span>0</span>/300</div>
+	</div>
+</div>
+<div class="list summary">
+	<span class="title">周小结</span>
+	<div class="content">
+		<textarea name="summary" id="summary" placeholder="输入不多于300字。"></textarea>
+		<div class="sum"><span>0</span>/300</div>
+	</div>
+</div>
 
+<div class="save">一键保存</div>
 {/block}
 
 {block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+$(function(){
+	//时间选择
+	timeSelect();
+	//字数统计
+	wordSum();
+	//保存周计划
+	weekSave();
 
+});
+function weekSave(){
+	$('.weeksave').off('click').on('click',function(){
+		var data ={
+			title:$('input[name=title]').val(),
+			start:$('input[name=start]').val(),
+			end:$('input[name=end]').val(),
+			content:$('#content').val(),
+			summary:$('#summary').val(),
+		};
+		if(isAll(data)){
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+
+				},
+				success:function(data){
+					var lists = $.parseJSON(data);
+				}
+			});
+		}else{
+			swal({
+				title: '提示',
+				text: '请完善您的信息',
+				type: 'error',
+				showConfirmButton:true,
+				timer:3000
+			})
+		}
+
+	})
+}
+function wordSum(){
+	$('#summary,#content').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 300){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+}
+function timeSelect(){
+	var currYear = (new Date()).getFullYear();
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.default = {
+		theme: 'android-holo light',
+		display: 'modal',
+		mode: 'scroller',
+		dateFormat: 'yyyy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear,
+		endYear: currYear + 50,
+		onSelect: function (valueText, inst) {
+			var start = $('#start').val();
+			var end = $('#end').val();
+		}
+	};
+	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
+}
+
+
+</script>
 {/block}

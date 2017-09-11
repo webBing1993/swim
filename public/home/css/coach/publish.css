@@ -1,3 +1,6 @@
+body {
+  padding-bottom: 6rem;
+}
 .tag {
   width: 100vw;
   height: 4.5rem;
@@ -14,6 +17,9 @@
   font-size: 1.3rem;
   line-height: 4.5rem;
   border-bottom: 1px solid #f7f7f7;
+}
+.list.summary {
+  border-bottom: none;
 }
 .list input {
   background: transparent;
@@ -89,6 +95,7 @@
   letter-spacing: 0.2rem;
 }
 .bg {
+  display: none;
   position: fixed;
   top: 0;
   bottom: 0;

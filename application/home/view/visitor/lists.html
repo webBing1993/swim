@@ -26,7 +26,7 @@
 				{/volist}
 			</div>
 			{if condition="(count($vo.studentList) == 3)"}
-			<div class="more limit">更多...</div>
+			<div class="more limit"><span>更多...</span></div>
 			{/if}
 		</div>
 	</div>
@@ -60,7 +60,7 @@ $(function(){
 					},
 					dataType: "Json",
 					success:function(data){
-//						speckText(data.msg);
+						speckText(data.msg);
 						if(data.code == 1){
 							swal({
 								title: '成功',
@@ -139,7 +139,10 @@ $(function(){
 	$('.bg').off('click').on('click',function(){
 		$('.bg,.roster').fadeOut();
 	});
-
+	$('.more').each(function(){
+		var hh = $(this).parents('.content').height();
+		$(this).height(hh).css;
+	})
 });
 function speckText(str){
 	//var request=  new URLRequest();

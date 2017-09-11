@@ -1,13 +1,134 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>训练档案</title>
+<link rel="stylesheet" href="/home/css/coach/publish.css">
 {/block}
 
 {block name="body"}
-
+<div class="tag">周计划</div>
+<div class="list clear">
+	<span class="title fl">计划标题</span>
+	<input type="text" value="2017年07月第三周周计划" class="fr limit" name="title" readonly>
+</div>
+<div class="list clear">
+	<span class="title fl">开始时间</span>
+	<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start" >
+</div>
+<div class="list clear">
+	<span class="title fl">结束时间</span>
+	<input type="text" value="2011-1-1" class="fr"  readonly="readonly" id="end" name="end">
+</div>
+<div class="list">
+	<span class="title">任务需求</span>
+	<div class="content">
+		<textarea name="need" id="need" readonly>你好你好</textarea>
+		<div class="sum"><span>0</span>/200</div>
+	</div>
+</div>
+<div class="tag">计划内容</div>
+<div class="list clear templet" data-tab="0">
+	<span class="title fl">星期一</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="1">
+	<span class="title fl">星期二</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="2">
+	<span class="title fl">星期三</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="3">
+	<span class="title fl">星期四</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="4">
+	<span class="title fl">星期五</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="5">
+	<span class="title fl">星期六</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="6">
+	<span class="title fl">星期天</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<!--日模板-->
+<div class="bg">
+	<div class="list clear">
+		<span class="title fl">计划时间</span>
+		<span class="fr limit week" data-tab="0">星期一</span>
+	</div>
+	<div class="list">
+		<span class="title">负荷备注</span>
+		<div class="content">
+			<textarea name="load" id="load" placeholder="输入不多于100字。"></textarea>
+			<div class="sum"><span>0</span>/100</div>
+		</div>
+	</div>
+	<div class="list">
+		<span class="title">内容备注</span>
+		<div class="content">
+			<textarea name="content" id="content" placeholder="输入不多于100字。"></textarea>
+			<div class="sum"><span>0</span>/100</div>
+		</div>
+	</div>
+	<div class="daysave">返回</div>
+</div>
 {/block}
 
 {block name="script"}
+<script>
+$(function(){
+	//内容模板
+	templet();
+	//字数统计
+	wordSum();
+	//保存日计划
+	daySave();
+});
+var days='';
+function daySave(){
+	$('.daysave').off('click').on('click',function(){
+		$('.bg').fadeOut();
+		enable_back();
+	})
+}
+function templet(){
+	$('.templet').off('click').on('click',function(){
+		var index = $(this).attr('data-tab');
+		var name = $(this).find('.title').text();
+		$('.week').text(name).attr('data-tab',index);
+		fobidden_back();
+		$('.bg').fadeIn();
+		$('input[name=load]').val(days[index].load);
+		$('input[name=content]').val(days[index].content);
+	})
+}
+function wordSum(){
+	$('#need').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 200){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+	$('#load,#content').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 100){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+}
 
+
+
+</script>
 {/block}

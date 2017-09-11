@@ -79,10 +79,14 @@ a:active {
 .boxs .box .list span {
   padding: 0 4vw;
   display: inline-block;
-  width: 49vw;
+  width: 36vw;
 }
-.boxs .box .list span:nth-child(odd) {
+.boxs .box .list span:nth-child(1) {
   text-align: right;
+}
+.boxs .box .list span:nth-child(2) {
+  width: 24vw;
+  text-align: center;
 }
 .boxs .box .list span .fa-times-circle {
   font-size: 1.6rem;

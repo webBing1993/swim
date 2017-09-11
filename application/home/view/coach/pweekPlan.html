@@ -119,15 +119,7 @@ function weekSave(){
 			end:$('input[name=end]').val(),
 			need:$('#need').val(),
 		};
-		var all = true;
-		for(var key in data){
-			if(data[key] == ''){
-				all = false;
-				break;
-			}
-		}
-
-		if(all){
+		if(isAll(data)){
 			data[days] =days;
 			$.ajax({
 				type:"post",

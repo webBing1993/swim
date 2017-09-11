@@ -1,13 +1,121 @@
 {extend name="public/common"}
 
 {block name="style"}
-
+<title>训练档案</title>
+<link rel="stylesheet" href="/home/css/coach/publish.css">
 {/block}
 
 {block name="body"}
-
+<div class="tag">课时计划</div>
+<div class="list clear">
+	<span class="title fl">计划标题</span>
+	<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="111" readonly>
+</div>
+<div class="list clear">
+	<span class="title fl">课时时间</span>
+	<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+</div>
+<div class="list">
+	<span class="title">任务需求</span>
+	<div class="content">
+		<textarea name="need" id="need" placeholder="输入不多于200字。" readonly>111111111111111111</textarea>
+		<div class="sum"><span>0</span>/200</div>
+	</div>
+</div>
+<div class="tag">计划内容</div>
+<div class="list clear templet" data-tab="0">
+	<span class="title fl">准备部分</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="1">
+	<span class="title fl">基本部分</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="list clear templet" data-tab="2">
+	<span class="title fl">结束部分</span>
+	<span class="fa fa-angle-right fr green"></span>
+</div>
+<div class="tag">计划小结</div>
+<div class="list">
+	<span class="title">课后小结</span>
+	<div class="content">
+		<textarea name="summary" id="summary" placeholder="输入不多于200字。" readonly>1111111111111111111</textarea>
+		<div class="sum"><span>0</span>/200</div>
+	</div>
+</div>
+<!--日模板-->
+<div class="bg">
+	<div class="list clear">
+		<span class="title fl">计划部分</span>
+		<span class="fr limit week" data-tab="0"></span>
+	</div>
+	<div class="list">
+		<span class="title">训练内容</span>
+		<div class="content">
+			<textarea name="content" id="content" placeholder="输入不多于200字。" readonly>11111</textarea>
+			<div class="sum"><span>0</span>/200</div>
+		</div>
+	</div>
+	<div class="list clear">
+		<span class="title fl">负荷量</span>
+		<input type="text" placeholder="请输入负荷量" class="fr limit" name="load" readonly value="1111">
+	</div>
+	<div class="list clear">
+		<span class="title fl">负荷强度</span>
+		<input type="text" placeholder="请输入负荷强度" class="fr limit" name="strength" readonly value="1111">
+	</div>
+	<div class="list clear">
+		<span class="title fl">时间</span>
+		<input type="text" placeholder="请输入时间" class="fr limit" name="duration" readonly value="1111">
+	</div>
+	<div class="daysave">返回</div>
+</div>
 {/block}
 
 {block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+$(function(){
+	//字数统计
+	wordSum();
+	//内容模板
+	templet();
+	//返回
+	daySave();
+});
+var parts=[];
+function templet(){
+	$('.templet').off('click').on('click',function(){
+		var index = $(this).attr('data-tab');
+		var name = $(this).find('.title').text();
+		$('.week').text(name).attr('data-tab',index);
+		fobidden_back();
+		$('.bg').fadeIn();
+		$('#content').val(parts[index].content);
+		$('input[name=load]').val(parts[index].load);
+		$('input[name=strength]').val(parts[index].strength);
+		$('input[name=duration]').val(parts[index].duration);
 
+	})
+}
+function daySave(){
+	$('.daysave').off('click').on('click',function(){
+		$('.bg').fadeOut();
+		enable_back();
+	})
+}
+function wordSum(){
+	$('#need,#load,#content').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 20){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+}
+
+
+</script>
 {/block}
