@@ -129,7 +129,7 @@ $(function(){
 			if (isConfirm) {
 				swal({
 					title: '上传成功',
-					text: '即将返回教练信息',
+					text: '即将返回个人中心',
 					type: 'success',
 					showConfirmButton:false
 				});
@@ -159,7 +159,7 @@ $(function(){
 					data:data,
 					dataType: "Json",
 					success:function(){
-						window.location.href="/home/user/student"
+						window.location.href="/home/student/index"
 					}
 				})
 			}else{
