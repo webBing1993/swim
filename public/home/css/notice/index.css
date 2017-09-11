@@ -133,7 +133,7 @@ textarea::-webkit-input-placeholder {
   background-size: 1.2rem 1.2rem;
   padding-left: 7vw;
 }
-.boxs .box:nth-child(1) .list span {
+.boxs .box:nth-child(1) .list > span {
   display: inline-block;
   position: absolute;
   right: 2vw;
@@ -146,10 +146,10 @@ textarea::-webkit-input-placeholder {
   -moz-border-radius: 1vw;
   border-radius: 1vw;
 }
-.boxs .box:nth-child(1) .list span.stop {
+.boxs .box:nth-child(1) .list > span.stop {
   background: #d0d0d0;
 }
-.boxs .box:nth-child(1) .list span.enter {
+.boxs .box:nth-child(1) .list > span.enter {
   color: #ffffff;
   background: #63b7d9;
 }
