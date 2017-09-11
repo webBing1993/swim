@@ -118,7 +118,8 @@ $(function(){
 				var html = '';
 				for(var i = 0 ;i<len;i++){
 					var list = lists[i];
-					var status = list.status==1?"正常":"迟到";
+					var status = list.status==1?"<i class='fa fa-check-circle'></i>正常":"<i class='fa fa-exclamation-circle'></i>迟到";
+
 					html+=
 						'<li>'+
 						'<span class="name limit">'+list.name+'</span>'+
