@@ -218,3 +218,14 @@ function enable_back() {
 function back_common() {
 	history.pushState(null, null, document.URL);
 }
+
+function isAll(data){
+	var all = true;
+	for(var key in data){
+		if(data[key] == ''){
+			all = false;
+			break;
+		}
+	}
+	return all;
+}

@@ -2,6 +2,10 @@
 //animate
 
 //layout
+body{
+	padding-bottom: 6rem;
+}
+
 .tag{
 	.wh(100vw,4.5rem);
 	padding: 0 4vw;
@@ -13,6 +17,9 @@
 	padding: 0 4vw;
 	.font(@c_title,@s_content,4.5rem);
 	border-bottom: 1px solid rgb(247, 247, 247);
+	&.summary{
+		border-bottom: none;
+	}
 	input{
 		background: transparent;
 		width: 66vw;

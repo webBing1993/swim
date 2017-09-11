@@ -17,7 +17,9 @@ body .lists {
 }
 body .lists .list {
   color: #ffffff;
-  margin-bottom: 1rem;
+  border-bottom: 1px solid #0090c7;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 body .lists .list .coach {
   font-size: 1.5rem;
@@ -34,6 +36,7 @@ body .lists .list .coach .num {
   text-align: right;
 }
 body .lists .list .content {
+  height: auto;
   font-size: 1.3rem;
   line-height: 1.8rem;
 }
@@ -51,6 +54,7 @@ body .lists .list .content .students .time {
   width: 36%;
 }
 body .lists .list .content .more {
+  position: relative;
   display: inline-block;
   width: 20%;
   height: 100%;
@@ -94,7 +98,7 @@ body .roster {
   top: 0;
   bottom: 0;
   width: 70vw;
-  height: 70vh;
+  max-height: 70vh;
   padding: 4vw;
   background: white;
   font-size: 1.4rem;
@@ -103,17 +107,30 @@ body .roster {
   border-radius: 1vw;
 }
 body .roster li {
-  height: 2rem;
+  height: 3rem;
+  line-height: 3rem;
 }
 body .roster li span {
   display: inline-block;
 }
 body .roster li span.name {
-  width: 24vw;
+  width: 22vw;
 }
 body .roster li span.time {
   width: 21vw;
 }
 body .roster li span.st {
-  width: 14vw;
+  width: 16vw;
+}
+body .roster li span .fa-times-circle {
+  font-size: 1.6rem;
+  color: #ff2a00;
+}
+body .roster li span .fa-exclamation-circle {
+  font-size: 1.6rem;
+  color: #ff9d02;
+}
+body .roster li span .fa-check-circle {
+  font-size: 1.6rem;
+  color: #00ae31;
 }

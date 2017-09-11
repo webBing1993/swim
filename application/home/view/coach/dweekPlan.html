@@ -108,10 +108,19 @@ function templet(){
 	})
 }
 function wordSum(){
-	$('#need,#load,#content').on('input',function(){
+	$('#need').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);
-		if(len > 20){
+		if(len > 200){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+	$('#load,#content').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 100){
 			$(this).next('.sum').find('span').addClass('red');
 		}else{
 			$(this).next('.sum').find('span').removeClass('red');
