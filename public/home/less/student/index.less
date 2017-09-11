@@ -98,11 +98,10 @@
 					margin: auto;
 					.tag{
 						display: inline-block;
-						.wh(24vw,8vw);
+						.wh(24vw,4rem);
 						background: rgba(249, 147, 0, 0.50);
-						.font(#ffffff,1.4rem,8vw);
+						.font(#ffffff,1.4rem,4rem);
 						text-align: center;
-						line-height: 8vw;
 						&:nth-child(1){
 							-webkit-border-radius: 1vw 0 0 1vw ;
 							-moz-border-radius:  1vw 0 0 1vw ;
@@ -115,7 +114,7 @@
 						}
 						&.active{
 							margin-left: 0;
-							box-shadow: -1px 4px 5px rgba(249, 147, 0, 0.4);
+							box-shadow: 1px 2px 5px rgba(249, 147, 0, 0.4);
 						}
 						&:nth-child(1).active{
 							background: -moz-linear-gradient(top, #feba57, #f99300);
@@ -138,7 +137,7 @@
 					}
 				}
 				.lists{
-					padding-top: 16vw;
+					padding-top: 7rem;
 					.list{
 						display: block;
 						padding: 4vw;
@@ -183,17 +182,25 @@
 								}
 							}
 						}
+						&:active{
+							background: #dedede;
+						}
+
 					}
 					.li{
 						display: block;
-						padding: 4vw;
+						padding: 2vw;
 						width: 100vw;
 						background: #ffffff;
 						margin-bottom: 2vw;
+						&:active{
+							background: #dedede;
+						}
 						img{
 							display: inline-block;
-							.wh(14vw,14vw);
+							.wh(12vw,12vw);
 							margin-right: 2vw;
+							margin-top: 1vw;
 						}
 						.content{
 							width: 50vw;
@@ -235,15 +242,18 @@
 				.list{
 					display: block;
 					padding: 0 4vw;
-					.wh(100vw,4.4rem);
-					.font(@c_content,1.4rem,4.4rem);
+					.wh(100vw,5rem);
+					.font(@c_content,1.4rem,5rem);
 					border-bottom: 1px solid #dedede;
+					&:active{
+						background: #dedede!important;
+					}
 					span{
 						display: inline-block;
 						width: 45vw;
 						&.name{
 							position: relative;
-							padding-left: 4rem;
+							padding-left: 5rem;
 						}
 						&.fa{
 							color: @c_note;
@@ -256,19 +266,19 @@
 						left: 0;
 						top:0.7rem;
 						content: '';
-						.wh(3rem,3rem);
+						.wh(3.6rem,3.6rem);
 					}
 					&:nth-child(1) .name:after{
 						background: url('/home/images/coach/user1.png') 0 0 no-repeat;
-						background-size: 3rem,3rem;
+						background-size: 3.6rem,3.6rem;
 					}
 					&:nth-child(2) .name:after{
 						background: url('/home/images/coach/user2.png') 0 0 no-repeat;
-						background-size: 3rem,3rem;
+						background-size: 3.6rem,3.6rem;
 					}
 					&:nth-child(3) .name:after{
 						background: url('/home/images/coach/user4.png') 0 0 no-repeat;
-						background-size: 3rem,3rem;
+						background-size: 3.6rem,3.6rem;
 					}
 				}
 			}

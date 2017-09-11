@@ -125,12 +125,12 @@ textarea::-webkit-input-placeholder {
 .boxs .box:nth-child(1) .content .tags .tag {
   display: inline-block;
   width: 24vw;
-  height: 8vw;
+  height: 4rem;
   background: rgba(249, 147, 0, 0.5);
   color: #ffffff;
   font-size: 1.4rem;
+  line-height: 4rem;
   text-align: center;
-  line-height: 8vw;
 }
 .boxs .box:nth-child(1) .content .tags .tag:nth-child(1) {
   -webkit-border-radius: 1vw 0 0 1vw ;
@@ -144,7 +144,7 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(1) .content .tags .tag.active {
   margin-left: 0;
-  box-shadow: -1px 4px 5px rgba(249, 147, 0, 0.4);
+  box-shadow: 1px 2px 5px rgba(249, 147, 0, 0.4);
 }
 .boxs .box:nth-child(1) .content .tags .tag:nth-child(1).active {
   background: -moz-linear-gradient(top, #feba57, #f99300);
@@ -164,7 +164,7 @@ textarea::-webkit-input-placeholder {
   background: linear-gradient(to bottom, #f99300, #feba57);
 }
 .boxs .box:nth-child(1) .content .lists {
-  padding-top: 16vw;
+  padding-top: 7rem;
 }
 .boxs .box:nth-child(1) .content .lists .list {
   display: block;
@@ -218,18 +218,25 @@ textarea::-webkit-input-placeholder {
   width: 10vw;
   line-height: 10vw;
 }
+.boxs .box:nth-child(1) .content .lists .list:active {
+  background: #dedede;
+}
 .boxs .box:nth-child(1) .content .lists .li {
   display: block;
-  padding: 4vw;
+  padding: 2vw;
   width: 100vw;
   background: #ffffff;
   margin-bottom: 2vw;
 }
+.boxs .box:nth-child(1) .content .lists .li:active {
+  background: #dedede;
+}
 .boxs .box:nth-child(1) .content .lists .li img {
   display: inline-block;
-  width: 14vw;
-  height: 14vw;
+  width: 12vw;
+  height: 12vw;
   margin-right: 2vw;
+  margin-top: 1vw;
 }
 .boxs .box:nth-child(1) .content .lists .li .content {
   width: 50vw;
@@ -257,11 +264,14 @@ textarea::-webkit-input-placeholder {
   display: block;
   padding: 0 4vw;
   width: 100vw;
-  height: 4.4rem;
+  height: 5rem;
   color: #666666;
   font-size: 1.4rem;
-  line-height: 4.4rem;
+  line-height: 5rem;
   border-bottom: 1px solid #dedede;
+}
+.boxs .box:nth-child(2) .mylist .list:active {
+  background: #dedede!important;
 }
 .boxs .box:nth-child(2) .mylist .list span {
   display: inline-block;
@@ -269,7 +279,7 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(2) .mylist .list span.name {
   position: relative;
-  padding-left: 4rem;
+  padding-left: 5rem;
 }
 .boxs .box:nth-child(2) .mylist .list span.fa {
   color: #999999;
@@ -283,18 +293,18 @@ textarea::-webkit-input-placeholder {
   left: 0;
   top: 0.7rem;
   content: '';
-  width: 3rem;
-  height: 3rem;
+  width: 3.6rem;
+  height: 3.6rem;
 }
 .boxs .box:nth-child(2) .mylist .list:nth-child(1) .name:after {
   background: url('/home/images/coach/user1.png') 0 0 no-repeat;
-  background-size: 3rem,3rem;
+  background-size: 3.6rem,3.6rem;
 }
 .boxs .box:nth-child(2) .mylist .list:nth-child(2) .name:after {
   background: url('/home/images/coach/user2.png') 0 0 no-repeat;
-  background-size: 3rem,3rem;
+  background-size: 3.6rem,3.6rem;
 }
 .boxs .box:nth-child(2) .mylist .list:nth-child(3) .name:after {
   background: url('/home/images/coach/user4.png') 0 0 no-repeat;
-  background-size: 3rem,3rem;
+  background-size: 3.6rem,3.6rem;
 }
