@@ -15,7 +15,7 @@ use app\home\model\WechatUserSign;
 use think\Db;
 /**
  * Class Coach
- * @package 新闻动态
+ * @package 教练频道
  */
 class Coach extends Base {
     /**
@@ -245,23 +245,52 @@ class Coach extends Base {
 		$this->assign('data',$data);
 		return $this->fetch();
 	}
-
 	/**
-	 * 每周计划
+	 * 每周计划/课时计划/每周总结 列表
 	 */
 	public function weekPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 课时计划
+	 * 每周计划发布
 	 */
-	public function classPlan(){
+	public function pweekPlan(){
 		return $this->fetch();
 	}
 	/**
-	 * 每周总结
+	 * 课时计划发布
 	 */
-	public function weekSummary(){
+	public function pclassPlan(){
+		return $this->fetch();
+	}
+	/**
+	 * 每周总结发布
+	 */
+	public function pweekSummary(){
+		return $this->fetch();
+	}
+	/**
+	 * 每周计划 详情/编辑
+	 */
+	public function dweekPlan(){
+		return $this->fetch();
+	}
+	/**
+	 * 课时计划 详情/编辑
+	 */
+	public function dclassPlan(){
+		return $this->fetch();
+	}
+	/**
+	 * 每周总结 详情/编辑
+	 */
+	public function dweekSummary(){
+		return $this->fetch();
+	}
+	/**
+	 * 每周计划模板
+	 */
+	public function templet(){
 		return $this->fetch();
 	}
 }
