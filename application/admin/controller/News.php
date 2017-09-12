@@ -9,6 +9,7 @@ namespace app\admin\controller;
 
 use think\Controller;
 use app\admin\model\News as NewsModel;
+use app\admin\model\Browse as BrowseModel;
 /**
  * Class News
  * @package 游泳动态控制器
@@ -226,6 +227,8 @@ class News extends Admin {
 	 * 阅读名单
 	 */
 	public function view(){
+        $id = input('id');
+        Browse::where([])
 		return $this->fetch();
 	}
 

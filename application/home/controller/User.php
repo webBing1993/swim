@@ -144,7 +144,7 @@ class User extends Base{
         $collectModelAll = Collect::where(['uid' => $userId])->order($order)->select();
         $res = [];
         foreach ($collectModelAll as $model) {
-            $res[] = Db::name($model['table'])->where(['id' => $model['aid'], 'status' => 1])->field('id,title,create_time,'.$model['type'].' as tab')->find();
+            $res[] = Db::name($model['table'])->where(['id' => $model['aid']])->field('id,title,create_time,'.$model['type'].' as tab')->find();
         }
         $this->assign('res',$res);
 		return $this->fetch();

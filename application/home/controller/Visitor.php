@@ -81,7 +81,7 @@ class Visitor extends Base{
 										"type" => WechatUser::MEMBER_TYPE_STUDENT,
 										"coach_id" => $msg['coach_id'],
 										"name" => $msg['name'],
-										"num" => $current_num,
+										"num" => $current_num+1,
 										"time" => date("H:i:s",$model->create_time),
 										"status_txt" => "迟到",
 								);
@@ -117,7 +117,7 @@ class Visitor extends Base{
 									"type" => WechatUser::MEMBER_TYPE_STUDENT,
 									"coach_id" => $msg['coach_id'],
 									"name" => $msg['name'],
-									"num" => $current_num,
+									"num" => $current_num+1,
 									"time" => date("H:i:s",$model->create_time),
 									"status_txt" => "正常",
 							);
