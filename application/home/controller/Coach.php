@@ -57,6 +57,9 @@ class Coach extends Base {
 	 */
 	public function sign(){
 		$userId = input('did');
+		if(!$userId){
+			return "找不到学员";
+		}
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$userModel['age'] = $userModel['identity'] ? date("Y")-substr($userModel['identity'], 6, 4)+1 : '_ ';
 		$year = input('year', date('Y'));
@@ -166,11 +169,11 @@ class Coach extends Base {
 		$date = input('date', date('Y-m-d'));
 		$res = array('normal' => [], 'abnormal' =>['late' => [], 'absence' => []]);
 		if(strtotime($date) < time()){
-			$useridArr = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->column('name','userid');
+			$useridArr = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order("name")->column('name','userid');
 			//var_dump($useridArr);die;
 			$modelAll = [];
 			if($useridArr){
-				$modelAll = WechatUserSign::where(['userid' => ['in', array_keys($useridArr)], "date" => $date])->select();
+				$modelAll = WechatUserSign::where(['userid' => ['in', array_keys($useridArr)], "date" => $date])->order("create_time desc")->select();
 				//var_dump($modelAll);die;
 			}
 			$all_users = [];
