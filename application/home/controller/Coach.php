@@ -59,10 +59,18 @@ class Coach extends Base {
 		$userId = input('did');
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$userModel['age'] = $userModel['identity'] ? date("Y")-substr($userModel['identity'], 6, 4)+1 : '_ ';
-		$year = date("Y");
-		$month = date("m");
-		$days = date('d')-1;
+		$year = input('year', date('Y'));
+		$month = input('month', date('n'));
+		$month = $month<10 ? '0'.intval($month) : $month;
 		$res = array('normal' => [], 'late' => [], 'absence' => []);
+		if($year.$month > date("Ym")){
+			return json_encode($res);
+		}
+		if($year.$month == date("Ym")){
+			$days = date('d')-1;
+		}else{
+			$days = date('t',strtotime($year.'-'.$month));
+		}
 		$modelAll = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(UNIX_TIMESTAMP(date),'%Y-%m')" => $year.'-'.$month])->select();
 		$all_days = [];
 		if($modelAll) {
