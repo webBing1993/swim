@@ -28,7 +28,7 @@
 <div class="boxs">
 	<div class="box active">
 		{volist name="userList" id="vo"}
-		<a href="{:Url('student?did='.$vo['userid'])}" class="list clear">
+		<a href="{:Url('coach/sign?did='.$vo['userid'])}" class="list clear">
 			<div class="ll fl">
 				{empty name="$vo.header"}
 				<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">

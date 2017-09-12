@@ -35,7 +35,7 @@ class Structure extends Base{
 	public function detail() {
 		$userId = input('did');
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
-		$userList = WechatUser::where(['coach_id' => $userId])->select();
+		$userList = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->select();
 		foreach($userList as $key => $model){
 			$userList[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 			$userList[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();

@@ -86,14 +86,18 @@ class Coach extends Base {
 				}
 			}
 		}
-		$this->assign('userModel',$userModel);
-		$this->assign('normal',json_encode($res['normal']));
-		$this->assign('late',json_encode($res['late']));
-		$this->assign('absence',json_encode($res['absence']));
-		$this->assign('late_count',count($res['late']));
-		$this->assign('absence_count',count($res['absence']));
-		$this->assign('did',$userId);
-		return $this->fetch();
+		if(IS_POST) {
+			return json_encode($res);
+		}else{
+			$this->assign('userModel',$userModel);
+			$this->assign('normal',json_encode($res['normal']));
+			$this->assign('late',json_encode($res['late']));
+			$this->assign('absence',json_encode($res['absence']));
+			$this->assign('late_count',count($res['late']));
+			$this->assign('absence_count',count($res['absence']));
+			$this->assign('did',$userId);
+			return $this->fetch();
+		}
 	}
 	/**
 	 * 我的签到
@@ -186,48 +190,12 @@ class Coach extends Base {
 			}
 			//var_dump($res);die;
 		}
-		$this->assign('res',$res);
-		return $this->fetch();
-	}
-	/**
-	 * 学员签到日期切换（按时间）
-	 */
-	public function changeSign(){
-		$userId = session('userId');
-		//$date = input('date', date('Y-m-d'));
-		$date = input('date', '2017-08-24');
-		$res = array('normal' => [], 'abnormal' =>['late' => [], 'absence' => []]);
-		if(strtotime($date) < time()){
-			$useridArr = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->column('name','userid');
-			//var_dump($useridArr);die;
-			$modelAll = [];
-			if($useridArr){
-				$modelAll = WechatUserSign::where(['userid' => ['in', array_keys($useridArr)], "date" => $date])->select();
-				//var_dump($modelAll);die;
-			}
-			$all_users = [];
-			if($modelAll) {
-				foreach ($modelAll as $model) {
-					$all_users[] = $model['userid'];
-					if ($model['status'] == WechatUserSign::STATUS_NORMAL) {//正常
-						$res['normal'][] = $model['name'];
-					}
-					if ($model['status'] == WechatUserSign::STATUS_LATE) {//迟到
-						$res['abnormal']['late'][] = $model['name'];
-					}
-				}
-			}
-			foreach ($useridArr as $uid => $name) {
-				if(!in_array($uid, $all_users)) {//所有的缺卡
-					$coachSignModel = WechatUserSign::where(['userid' => $userId, "date" => $date])->find();
-					if($coachSignModel){//教练这天有上课
-						$res['abnormal']['absence'][] = $name;//缺卡
-					}
-				}
-			}
-			//var_dump($res);die;
+		if(IS_POST) {
+			return json_encode($res);
+		}else{
+			$this->assign('res',$res);
+			return $this->fetch();
 		}
-		return json_encode($res);
 	}
 	/**
 	 * 个人签到条形码

@@ -25,7 +25,7 @@
 			<div class="note">{$userModel.age}岁&emsp;{$userModel.position}</div>
 		</div>
 	</div>
-	<a href="{:Url('user/student?did='.$userModel['userid'])}" class="todetail">
+	<a href="{:Url('structure/student?did='.$userModel['userid'])}" class="todetail">
 		<span>学员详情</span>
 	</a>
 	<div class="tags">
@@ -162,7 +162,7 @@ var calendar = new Vue({
 					this_.nowMonth = array[1]-1;
 					$.ajax({
 						type:"post",
-						url:"{:Url('Student/changeSign')}",
+						url:"{:Url('sign')}",
 						data:{
 							year:array[0],
 							month:array[1],
