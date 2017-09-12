@@ -142,7 +142,7 @@ function  enter(self,id){
 		success:function(data){
 			if(data.code == 1){
 				$(this_).text('已报名').css({'background':'#d0d0d0','color':'#999999'});
-				var num = $(this_).before('.num span');
+				var num = $(this_).parents('.list').find('.num span');
 				var n = num.text();
 				num.text(++n);
 			}
