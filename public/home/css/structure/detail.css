@@ -167,16 +167,17 @@ a:active {
 }
 .boxs .box:nth-child(2) .list {
   display: block;
-  padding: 4vw;
+  padding: 2vw 4vw;
   width: 100vw;
   background: #ffffff;
   margin-bottom: 2vw;
 }
 .boxs .box:nth-child(2) .list img {
   display: inline-block;
-  width: 14vw;
-  height: 14vw;
+  width: 12vw;
+  height: 12vw;
   margin-right: 2vw;
+  margin-top: 1vw;
 }
 .boxs .box:nth-child(2) .list .content {
   width: 50vw;

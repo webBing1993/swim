@@ -91,7 +91,7 @@
             $(".searchInput").val('');
         });
         //搜索ajax
-        $(".searchInput").on("keyup",function(){
+        $(".searchInput").on("input",function(){
             var val=$(this).val();
             if(!val)
             {
