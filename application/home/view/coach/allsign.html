@@ -109,37 +109,39 @@ $(function(){
 				success:function(data){
 					$('.time span').text(array[0] + "年" + array[1] + "月"+ array[2] + "日");
 					var msg = $.parseJSON(data);
-					console.log(msg);
 					var normal = msg.normal;
-					var nl = normal.length;
+//					var nl = normal.length;
 					var nhtml = '';
-					for(var i = 0 ;i < nl ;i++){
-						var list = normal[i];
+					for(var key in normal){
+						var list = normal[key];
 						nhtml +=
 							'<div class="list">'+
-							'<span>'+list+'</span>'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
 							'<span class="normal"><i class="fa fa-check-circle"></i> 正常 </span></div>'
 					}
 					$('.box').eq(1).html(nhtml);
 					var abnormal = msg.abnormal;
 					var late = abnormal.late;
-					var absence = abnormal.late;
-					var ll = late.length;
-					var al = absence.length;
+					var absence = abnormal.absence;
+//					var ll = late.length;
+//					var al = absence.length;
 					var lhtml = '';
-					for(var m = 0 ;m < ll ;m++){
-						var list = late[m];
+					for(var key in late){
+						var list = late[key];
 						lhtml +=
 							'<div class="list">'+
-							'<span>'+list+'</span>'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
 							'<span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
 
 					}
-					for(var n = 0 ;n < al ;n++){
-						var list = late[n];
+					for(var key in absence){
+						var list = absence[key];
 						lhtml +=
 							'<div class="list">'+
-							'<span>'+list+'</span>'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
 							'<span class="absence">'+
 							'<i class="fa fa-times-circle"></i>'+
 							'缺卡</span></div>';

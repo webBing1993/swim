@@ -11,7 +11,7 @@
 	<div class="list" data-tab="{$key}">
 		<div class="coach">
 			<span class="name limit">教练：{$vo.name}</span>
-			<span class="num limit">学员情况：{$vo.current_num}/{$vo.all_num}</span>
+			<span class="num limit">学员情况：<span>{$vo.current_num}</span>/{$vo.all_num}</span>
 		</div>
 		<div class="content">
 			<div class="students">
@@ -60,11 +60,26 @@ $(function(){
 					},
 					dataType: "Json",
 					success:function(data){
+						var obj = data.data;
+						var html = '';
+						console.log(data.data);
 						speckText(data.msg);
+						if(obj.type == 1){
+							html +=
+								'<div class="list" data-tab='+obj.coach_id+'>'+
+								'<div class="coach">'+
+								'<span class="name limit">教练：'+obj.name+'</span>'+
+								'<span class="num limit">学员情况：0/'+obj.num+'</span>'+
+								'</div>'+
+								'</div>'
+
+						}else{
+
+						}
 						if(data.code == 1){
 							swal({
 								title: '成功',
-								text: data.msg,
+								text: obj.name+data.msg,
 								type: 'success',
 								showConfirmButton:false,
 								timer:3000
