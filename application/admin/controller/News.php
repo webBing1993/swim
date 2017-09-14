@@ -7,9 +7,12 @@
  */
 namespace app\admin\controller;
 
+use think\Db;
 use think\Controller;
 use app\admin\model\News as NewsModel;
-use app\admin\model\Browse as BrowseModel;
+use app\admin\model\Browse;
+use org\Page;
+use think\Config;
 /**
  * Class News
  * @package 游泳动态控制器
@@ -227,8 +230,34 @@ class News extends Admin {
 	 * 阅读名单
 	 */
 	public function view(){
+        $table = input('table');
         $id = input('id');
-        Browse::where([])
+        if(!$table || !$id){
+            return "参数错误";
+        }
+        $total = Db::field('wu.header, wu.avatar, wu.name, wu.mobile, wb.create_time')
+            ->table('sw_browse wb')
+            ->join('sw_wechat_user wu','wb.uid = wu.userid')
+            ->where(['wb.table' => $table, 'wb.aid' => $id, 'wb.status' => 0])
+            ->order('wb.create_time desc')
+            ->count();
+        //var_dump($total);die;
+        $Page = new Page($total, 10);
+        if($total>10) {
+            $Page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+        }
+        $p = $Page->show();
+        $list = Db::field('wu.header, wu.avatar, wu.name, wu.mobile, wb.create_time')
+            ->table('sw_browse wb')
+            ->join('sw_wechat_user wu','wb.uid = wu.userid')
+            ->where(['wb.table' => $table, 'wb.aid' => $id, 'wb.status' => 0])
+            ->order('wb.create_time desc')
+            ->limit($Page->firstRow, 10)
+            ->select();
+        //var_dump($list);die;
+        $this->assign('_page', $p ? $p: '');
+        $this->assign('_total',$total);
+        $this->assign('list',$list);
 		return $this->fetch();
 	}
 

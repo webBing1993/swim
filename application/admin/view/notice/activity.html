@@ -71,7 +71,7 @@
                                 <td>
                                     <a href="{:Url('Notice/activityedit?id='.$vo['id'])}">修改</a>
                                     <a href="{:Url('Notice/enroll?id='.$vo['id'])}">查看报名</a>
-                                    <a href="{:Url('News/view')}">阅读名单</a>
+                                    <a href="{:Url('News/view?id='.$vo['id'].'&table=notice')}">阅读名单</a>
                                     <a href="{:Url('Notice/activitydel?id='.$vo['id'])}" class="confirm ajax-del">删除</a>
                                 </td>
                             </tr>

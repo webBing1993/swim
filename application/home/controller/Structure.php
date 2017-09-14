@@ -21,8 +21,8 @@ class Structure extends Base{
 		$chiefCoachModel = WechatUser::where(['department' => WechatDepartment::DEPARTMENT_CHIEF_COACH])->find();
 		$headCoachList = WechatUser::where(['department' => WechatDepartment::DEPARTMENT_HEAD_COACH])->select();
 		foreach($headCoachList as $key => $model){
-			$headCoachList[$key]['count'] = WechatUser::where(['coach_id' => $model['userid']])->count();
-			$headCoachList[$key]['assistant'] = WechatUser::where(['coach_id' => $model['userid']])->column('name','userid');
+			$headCoachList[$key]['count'] = WechatUser::where(['coach_id' => $model['userid'], 'member_type' => WechatUser::MEMBER_TYPE_COACH])->count();
+			$headCoachList[$key]['assistant'] = WechatUser::where(['coach_id' => $model['userid'], 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('name','userid');
 		}
 		//var_dump($headCoachList);die;
 		$this->assign('chiefCoachModel',$chiefCoachModel);

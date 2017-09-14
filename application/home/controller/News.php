@@ -16,6 +16,8 @@ use app\home\model\Picture;
 use app\home\model\WechatUser;
 use think\Controller;
 use app\home\model\News as NewsModel;
+use think\Url;
+
 /**
  * Class News
  * @package 新闻动态
@@ -66,6 +68,9 @@ class News extends Base {
 
 		$id = input('id');
 		$userId = session('userId');
+		/*if($info['status'] == -1){
+			return $this->redirect('public/404');
+		}*/
 		//浏览加一
 		$info['views'] = array('exp','`views`+1');
 		NewsModel::where('id',$id)->update($info);

@@ -16,10 +16,12 @@ return [
     // 数据库连接DSN配置
     'dsn'         => '',
     // 服务器地址
+    //'hostname'    => '192.168.1.56',
     'hostname'    => '127.0.0.1',
     // 数据库名
     'database'    => 'swim',
     // 数据库用户名
+    //'username'    => 'guest',
     'username'    => 'root',
     // 数据库密码
     'password'    => '',

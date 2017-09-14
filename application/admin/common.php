@@ -1476,4 +1476,12 @@ function array_to_string($array, $field='id', $separator=',') {
 
     return implode($separator, $data);
 }
+/**
+ * @param $param
+ * @param $default
+ * @return mixed
+ */
+function param_to($param, $default){
+    return $param ? $param : $default;
+}
 
