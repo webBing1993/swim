@@ -60,6 +60,8 @@ body .lists .list .content .more {
   text-align: right;
 }
 body .number {
+  margin-top: 4vw;
+  margin-left: 40vw;
   background: transparent;
   color: transparent;
 }

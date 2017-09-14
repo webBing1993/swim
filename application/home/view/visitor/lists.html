@@ -43,18 +43,21 @@
 $(function(){
 	var wh = $(window).height();
 	$('body').height(wh);
+//	setTimeout(function(){
+//		$('.number').focus();
+//	},5000);
+
 	//签到
 	var last = '';
-	$('.number').on('input',function(){
+	var end = true;
+	$('.number').off('input').on('input',function(){
 		var this_ = $(this);
 		var num = this_.val();
-		setTimeout(function(){
-			last = ''
-		},5000);
 		if(num.length == 11 ){
-			if(last!=num){
+			if(last!=num && end == true){
 				//this_.blur();
 				last = num;
+				end = false;
 				$.ajax({
 					type:"post",
 					url:"{:Url('Visitor/sign')}",
@@ -84,7 +87,6 @@ $(function(){
 								'</div>';
 							$('.lists').prepend(html);
 						}else{
-							console.log(obj);
 							html +=
 								'<div class="student">'+
 								'<span class="name limit">'+obj.name+'</span>'+
@@ -117,6 +119,8 @@ $(function(){
 								function (dismiss) {
 									if (dismiss === 'timer') {
 										this_.val('');
+										end = true;
+										last = '';
 									}
 								}
 							);
@@ -133,6 +137,8 @@ $(function(){
 								function (dismiss) {
 									if (dismiss === 'timer') {
 										this_.val('');
+										end = true;
+										last = '';
 									}
 								}
 							);
@@ -182,6 +188,7 @@ $(function(){
 	});
 	$('.bg').off('click').on('click',function(){
 		$('.bg,.roster').fadeOut();
+		$('.number').focus();
 	});
 	$('.more').each(function(){
 		var hh = $(this).parents('.content').height();
@@ -191,7 +198,7 @@ $(function(){
 function speckText(str){
 	//var request=  new URLRequest();
 	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
-	//url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+//	var url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
 
 	//request.url = encodeURI(url);
 	// request.contentType = "audio/mp3"; // for baidu

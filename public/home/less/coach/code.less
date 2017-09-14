@@ -4,27 +4,37 @@
 //layout
 
 .box{
+	overflow: hidden;
 	.wh(100vw,100vh);
 	//background: url("/home/images/coach/bg.jpg") no-repeat;
 	//background-size: 100% 100%;
-	padding-top: 30vh;
-	#qrcode{
-		z-index: 1;
+	//padding-top: 30vh;
+	.bg{
 		position: relative;
-		left:20vw;
-		display: block;
-		.wh(60vw,60vw);
-		border: 2vw solid #ffffff;
-		.header{
-			z-index: 2;
+		top:18vw;
+		.code{
+			width: 100vw;
+		}
+		#qrcode{
+			z-index: 1;
 			position: absolute;
-			top:21vw;
-			left:21vw;
-			.wh(18vw,18vw);
-			border: 2px solid #ffffff;
-			-webkit-border-radius:50%;
-			-moz-border-radius:50%;
-			border-radius:50%;
+			top:35vw;
+			left:23vw;
+			display: block;
+			//.wh(20vw,20vw);
+			border: 2vw solid #ffffff;
+			.header{
+				z-index: 2;
+				position: absolute;
+				top:16vw;
+				left:16vw;
+				.wh(18vw,18vw);
+				border: 2px solid #ffffff;
+				-webkit-border-radius:50%;
+				-moz-border-radius:50%;
+				border-radius:50%;
+			}
 		}
 	}
+
 }

@@ -9,9 +9,13 @@
 
 
 <div class="box">
-	<div id="qrcode">
-		<img src="{$data.header}" alt="条形码" class="header">
+	<div class="bg">
+		<img src="/home/images/coach/code.png" alt="" class="code">
+		<div id="qrcode">
+			<img src="{$data.header}" alt="条形码" class="header">
+		</div>
 	</div>
+
 </div>
 
 {/block}
@@ -21,11 +25,11 @@
 <script>
 $(function(){
 
-	var ww = $('.box').width();
+	var ww = $('body').width();
 	var qrcode = new QRCode($('#qrcode')[0], {
 		text: '{$data.mobile}',
-		width: ww*6/10,
-		height: ww*6/10,
+		width: ww*5/10,
+		height: ww*5/10,
 		correctLevel: QRCode.CorrectLevel.H
 	});
 })
