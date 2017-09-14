@@ -1,22 +1,28 @@
 .box {
+  overflow: hidden;
   width: 100vw;
   height: 100vh;
-  padding-top: 30vh;
 }
-.box #qrcode {
-  z-index: 1;
+.box .bg {
   position: relative;
-  left: 20vw;
+  top: 18vw;
+}
+.box .bg .code {
+  width: 100vw;
+}
+.box .bg #qrcode {
+  z-index: 1;
+  position: absolute;
+  top: 35vw;
+  left: 23vw;
   display: block;
-  width: 60vw;
-  height: 60vw;
   border: 2vw solid #ffffff;
 }
-.box #qrcode .header {
+.box .bg #qrcode .header {
   z-index: 2;
   position: absolute;
-  top: 21vw;
-  left: 21vw;
+  top: 16vw;
+  left: 16vw;
   width: 18vw;
   height: 18vw;
   border: 2px solid #ffffff;

@@ -17,7 +17,6 @@ body .lists {
 }
 body .lists .list {
   color: #ffffff;
-  border-bottom: 1px solid #0090c7;
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
 }
@@ -61,6 +60,8 @@ body .lists .list .content .more {
   text-align: right;
 }
 body .number {
+  margin-top: 4vw;
+  margin-left: 40vw;
   background: transparent;
   color: transparent;
 }

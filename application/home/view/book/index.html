@@ -109,7 +109,7 @@ $('title').text('通讯名录');
             toggleLists($(this))
         });
         //搜索ajax
-        $(".searchInput").on("keyup",function(){
+        $(".searchInput").on("input",function(){
             var val=$(this).val();
             if(!val)
             {
@@ -126,6 +126,7 @@ $('title').text('通讯名录');
                     $(".onloading").removeClass("hidden");
                 },
                 success:function(data){
+                	console.log(data)
                     $(".onloading").addClass("hidden");
                     $(".result_box").removeClass("hidden");
                     $(".result_box").html('');
@@ -140,11 +141,8 @@ $('title').text('通讯名录');
                 var lists = data.data;
                 var html="";
                 for(var i=0;i<lists.length;i++){
-                    if (visit == 0){
-                        html+= "<li><a href='/home/book/userinfo/id/"+lists[i].id+"/did/"+lists[i].did+"'>"
-                    }else {
-                        html+= "<li><a href=''>"
-                    }
+                        html+= "<li><a href='/home/book/userinfo/id/"+lists[i].id+"/did/"+lists[i].did+"'>";
+
                     if (lists[i].header == ''){
                         html+="<img src='/home/images/book/pb.png' alt='头像'>";
                     }else{

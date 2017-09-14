@@ -43,15 +43,21 @@
 $(function(){
 	var wh = $(window).height();
 	$('body').height(wh);
+//	setTimeout(function(){
+//		$('.number').focus();
+//	},5000);
+
 	//签到
 	var last = '';
-	$('.number').on('input',function(){
+	var end = true;
+	$('.number').off('input').on('input',function(){
 		var this_ = $(this);
 		var num = this_.val();
 		if(num.length == 11 ){
-			if(last!=num){
+			if(last!=num && end == true){
 				//this_.blur();
 				last = num;
+				end = false;
 				$.ajax({
 					type:"post",
 					url:"{:Url('Visitor/sign')}",
@@ -62,18 +68,43 @@ $(function(){
 					success:function(data){
 						var obj = data.data;
 						var html = '';
-						console.log(data.data);
-						speckText(data.msg);
+						if(obj.name){
+							speckText(obj.name+data.msg);
+						}else{
+							speckText(data.msg);
+						}
 						if(obj.type == 1){
 							html +=
 								'<div class="list" data-tab='+obj.coach_id+'>'+
 								'<div class="coach">'+
 								'<span class="name limit">教练：'+obj.name+'</span>'+
-								'<span class="num limit">学员情况：0/'+obj.num+'</span>'+
+								'<span class="num limit">学员情况：<span>0</span>/'+obj.num+'</span>'+
 								'</div>'+
-								'</div>'
-
+								'<div class="content">'+
+								'<div class="students">'+
+								'</div>'+
+								'</div>'+
+								'</div>';
+							$('.lists').prepend(html);
 						}else{
+							html +=
+								'<div class="student">'+
+								'<span class="name limit">'+obj.name+'</span>'+
+								'<span class="time limit">'+obj.time+'</span>'+
+								'<span class="st limit">'+ obj.status_txt +'</span>'+
+								'</div>';
+							var list = $('.list[data-tab='+obj.coach_id+']');
+							list.find('.students').prepend(html);
+							list.find('.num span').text(obj.num);
+							var len = list.find('.student').length;
+							if(len == 3){
+								list.find('.content').append('<div class="more limit"><span>更多...</span></div>')
+							}else if(len == 4){
+								list.find('.student').eq(3).remove();
+							}
+							var listclone = list.clone();
+							list.remove();
+							$('.lists').prepend(listclone);
 
 						}
 						if(data.code == 1){
@@ -88,6 +119,8 @@ $(function(){
 								function (dismiss) {
 									if (dismiss === 'timer') {
 										this_.val('');
+										end = true;
+										last = '';
 									}
 								}
 							);
@@ -104,6 +137,8 @@ $(function(){
 								function (dismiss) {
 									if (dismiss === 'timer') {
 										this_.val('');
+										end = true;
+										last = '';
 									}
 								}
 							);
@@ -153,16 +188,17 @@ $(function(){
 	});
 	$('.bg').off('click').on('click',function(){
 		$('.bg,.roster').fadeOut();
+		$('.number').focus();
 	});
 	$('.more').each(function(){
 		var hh = $(this).parents('.content').height();
-		$(this).height(hh).css;
+		$(this).height(hh).css('padding-top',hh - 18);
 	})
 });
 function speckText(str){
 	//var request=  new URLRequest();
 	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
-	//url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
+//	var url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
 
 	//request.url = encodeURI(url);
 	// request.contentType = "audio/mp3"; // for baidu

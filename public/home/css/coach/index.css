@@ -33,7 +33,7 @@ textarea::-webkit-input-placeholder {
   display: inline-block;
   width: 29vw;
   height: 100%;
-  color: #feba57;
+  color: #bfbfbf;
   font-size: 0.8rem;
   line-height: 2rem;
   text-align: center;
@@ -233,6 +233,14 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(2) {
   left: 100vw;
+}
+.boxs .box:nth-child(2) .banner {
+  width: 100vw;
+  height: 32vw;
+}
+.boxs .box:nth-child(2) .banner .banner-img {
+  width: 100%;
+  height: 100%;
 }
 .boxs .box:nth-child(2) .mylist .list {
   display: block;
