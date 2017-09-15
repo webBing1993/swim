@@ -12,6 +12,7 @@ use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
 use app\home\model\WechatDepartment;
 use app\home\model\WechatUserSign;
+use app\home\model\WeekSummary;
 use think\Db;
 /**
  * Class Coach
@@ -230,7 +231,16 @@ class Coach extends Base {
 	 * 每周计划/课时计划/每周总结 列表
 	 */
 	public function weekPlan(){
-		return $this->fetch();
+		$userId = session('userId');
+		$time = input('time', date('Y年m月'));
+		$res = WeekSummary::getWeekSummary($userId, $time);
+		//var_dump($res);die;
+		if(IS_POST) {
+			return json_encode($res);
+		}else{
+			$this->assign('res',$res);
+			return $this->fetch();
+		}
 	}
 	/**
 	 * 每周计划发布/编辑
@@ -248,7 +258,33 @@ class Coach extends Base {
 	 * 每周总结发布/编辑
 	 */
 	public function pweekSummary(){
-		return $this->fetch();
+		if(IS_POST) {
+			$data = input('post.');
+			$weekSummaryModel = new WeekSummary();
+			if(empty($data['id'])) {//新增
+				unset($data['id']);
+				$info = $weekSummaryModel->validate(true)->save($data);
+			}else{//修改
+				$info = $weekSummaryModel->validate(true)->save($data,['id'=>input('id')]);
+			}
+			if($info) {
+				return $this->success("保存成功",Url('weekPlan'));
+			}else{
+				if(empty($weekSummaryModel->getError())) {//未修改内容
+					return $this->success("保存成功",Url('weekPlan'));
+				}else{
+					return $this->error($weekSummaryModel->getError());
+				}
+			}
+		}else{
+			$id = input('id');
+			$msg = [];
+			if($id){
+				$msg = WeekSummary::get($id);
+			}
+			$this->assign('msg', $msg);
+			return $this->fetch();
+		}
 	}
 	/**
 	 * 每周计划 详情
@@ -266,6 +302,10 @@ class Coach extends Base {
 	 * 每周总结 详情
 	 */
 	public function dweekSummary(){
+		$id = input('id');
+		$res = WeekSummary::getWeekSummaryById($id);
+		//var_dump($res);die;
+		$this->assign('res',$res);
 		return $this->fetch();
 	}
 }

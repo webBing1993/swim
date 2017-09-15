@@ -18,8 +18,14 @@ class Structure extends Base{
 	 * 首页
 	 */
 	public function index() {
+		$userId = session('userId');
+		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
+		if($tag_id == WechatTag::TAG_HEAD_COACH) {//主教练
+			$headCoachList = WechatUser::where(['userid' => $userId])->select();
+		}else{
+			$headCoachList = WechatUser::where(['department' => WechatDepartment::DEPARTMENT_HEAD_COACH])->select();
+		}
 		$chiefCoachModel = WechatUser::where(['department' => WechatDepartment::DEPARTMENT_CHIEF_COACH])->find();
-		$headCoachList = WechatUser::where(['department' => WechatDepartment::DEPARTMENT_HEAD_COACH])->select();
 		foreach($headCoachList as $key => $model){
 			$headCoachList[$key]['count'] = WechatUser::where(['coach_id' => $model['userid'], 'member_type' => WechatUser::MEMBER_TYPE_COACH])->count();
 			$headCoachList[$key]['assistant'] = WechatUser::where(['coach_id' => $model['userid'], 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('name','userid');

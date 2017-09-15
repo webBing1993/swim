@@ -16,35 +16,37 @@
 </div>
 <div class="lists">
 	<!--每周计划详情页dweekPlan.html,课时计划详情页dclassPlan.html,每周总结详情页dweekSummary.html-->
+	{volist name="res" id="vo"}
 	<div class="list">
 		<div class="content">
 			<!--每周计划、每周总结-->
-			<div class="title limit">2017年第一周周计划</div>
-			<div class="time">2017-06-06 —— 2017-06-06 </div>
+			<div class="title limit">{$vo.title}</div>
+			<div class="time">{$vo.start_time} —— {$vo.end_time} </div>
 			<!--/每周计划、每周总结-->
 		</div>
 		<div class="note clear">
-			<span>浏览 ： 121</span>
-			<a href="dweekPlan.html" class="fr detail">查看详情</a>
+			<span>浏览 ： {$vo.views}</span>
+			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
 			<a href="pweekPlan.html" class="fr edit">编辑</a>
 		</div>
 	</div>
-	<div class="list">
+	{/volist}
+	<!--<div class="list">
 		<div class="content">
-			<!--课时计划-->
+			&lt;!&ndash;课时计划&ndash;&gt;
 			<div class="time limit">2017-06-06 星期六</div>
 			<div class="content limit">今天好开心好开心好开心今天好开心好开心好开心</div>
-			<!--/课时计划-->
+			&lt;!&ndash;/课时计划&ndash;&gt;
 		</div>
 		<div class="note clear">
 			<span>浏览 ： 121</span>
 			<a href="dweekPlan.html" class="fr detail">查看详情</a>
 			<a href="pweekPlan.html" class="fr edit">编辑</a>
 		</div>
-	</div>
+	</div>-->
 </div>
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
-<a href="pweekPlan.html" class="publish">
+<a href="{:Url('pweekSummary')}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
 {/block}
@@ -79,22 +81,22 @@ function timeSelect(){
 				url:"",
 				data:{
 					time:time
-
 				},
 				success:function(data){
 					var lists = $.parseJSON(data);
 					var len = lists.length;
 					var html = '';
 					for(var i= 0 ;i<len;i++){
+						var list = lists[i];
 						html +=
 							'<div class="list">'+
 							'<div class="content">'+
-							'<div class="title">2017年第一周周计划</div>'+
-							'<div class="time">2017-06-06 —— 2017-06-06 </div>'+
+							'<div class="title">'+list.title+'</div>'+
+							'<div class="time">'+list.start_time+' —— '+list.end_time +'</div>'+
 							'</div>'+
 							'<div class="note clear">'+
-							'<span>浏览 ： 121</span>'+
-							'<a href="detail.html" class="fr detail">查看详情</a>'+
+							'<span>浏览 ： '+list.views+'</span>'+
+							'<a href="{:Url(\'dweekSummary\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
 							'<a href="edit.html" class="fr edit">编辑</a>'+
 							'</div>'+
 							'</div>'
