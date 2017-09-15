@@ -118,7 +118,7 @@ class Wechat extends Admin
                             $user['achievement'] = $value['value'];
                             break;
                         case "所属班级":
-                            $user['class_id'] = $value['value'];
+                            $user['class_id'] = $value['value'] ? $value['value'] : 0;
                             break;
                         /*case "成员类型":
                             $user['member_type'] = $value['value'] ? $value['value'] : 0;
@@ -145,7 +145,7 @@ class Wechat extends Admin
         }
         $data = "用户数:".$i."!";
 
-        return $this->success("同步成功", '', $data);
+        return $this->success("同步成功", Url('user'), $data);
     }
 
     /**
@@ -192,7 +192,7 @@ class Wechat extends Admin
 
         $data = "同步部门数:".(count($list['department'])+1)."!";
 
-        return $this->success("同步成功", '', $data);
+        return $this->success("同步成功", Url('department'), $data);
     }
 
     /**
@@ -249,7 +249,7 @@ class Wechat extends Admin
 
         $data = "同步标签数:".count($tags['taglist'])."!";
 
-        return $this->success("同步成功", '', $data);
+        return $this->success("同步成功", Url('tag'), $data);
     }
     
     public function department(){
