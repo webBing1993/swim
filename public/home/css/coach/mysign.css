@@ -1,6 +1,7 @@
 .banner {
   width: 100vw;
-  height: 50vw;
+  height: 100%;
+  margin-bottom: 10vw;
 }
 .banner img {
   width: 100%;
