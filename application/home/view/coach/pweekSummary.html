@@ -56,6 +56,7 @@ $(function(){
 function weekSave(){
 	$('.save').off('click').on('click',function(){
 		var data ={
+			id:"{$res.id}",
 			title:$('input[name=title]').val(),
 			start:$('input[name=start]').val(),
 			end:$('input[name=end]').val(),

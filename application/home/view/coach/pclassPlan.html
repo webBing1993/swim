@@ -214,6 +214,7 @@ function radio(){
 			$('.rs div').off('click').on('click',function(){
 				var text = $(this).text();
 				$(this).parents('td').replaceWith('<td>'+text+'</td>');
+				radio();
 			});
 		}
 
@@ -278,9 +279,9 @@ function daySave(){
 		}
 		var data ={
 			content:content,
-			load:$('.load span.active').index(),
-			strength:$('.strength span.active').index(),
-			duration:$('.duration span.active').index()
+			load:$('.load span.active').index()+1,
+			strength:$('.strength span.active').index()+1,
+			duration:$('.duration span.active').index()+1
 		};
 		var index = $('.week').attr('data-tab');
 		parts[index] = data;

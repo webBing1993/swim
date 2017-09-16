@@ -13,6 +13,7 @@ use app\home\model\WechatUserTag;
 use app\home\model\WechatDepartment;
 use app\home\model\WechatUserSign;
 use app\home\model\WeekSummary;
+use app\home\model\WeekPlan;
 use think\Db;
 /**
  * Class Coach
@@ -228,12 +229,40 @@ class Coach extends Base {
 		return $this->fetch();
 	}
 	/**
-	 * 每周计划/课时计划/每周总结 列表
+	 * 每周计划/每周总结 列表
 	 */
 	public function weekPlan(){
 		$userId = session('userId');
+		$did = input('did');
 		$time = input('time', date('Y年m月'));
-		$res = WeekSummary::getWeekSummary($userId, $time);
+		$res = [];
+		if($did){//每周总结
+			$res = WeekSummary::getList($userId, $time);
+		}else{//每周计划
+			$res = WeekPlan::getList($userId, $time);
+		}
+		//var_dump($res);die;
+		if(IS_POST) {
+			return json_encode($res);
+		}else{
+			$this->assign('did',$did);
+			$this->assign('res',$res);
+			return $this->fetch();
+		}
+	}
+	/**
+	 * 课时计划列表
+	 */
+	public function classPlan(){
+		$userId = session('userId');
+		$did = input('did');
+		$time = input('time', date('Y年m月'));
+		$res = [];
+		if($did){//每周总结
+			$res = WeekSummary::getList($userId, $time);
+		}else{//每周计划
+			$res = WeekSummary::getList($userId, $time);
+		}
 		//var_dump($res);die;
 		if(IS_POST) {
 			return json_encode($res);
@@ -246,7 +275,36 @@ class Coach extends Base {
 	 * 每周计划发布/编辑
 	 */
 	public function pweekPlan(){
-		return $this->fetch();
+		if(IS_POST) {
+			$data = input('post.');
+			$weekPlanModel = new WeekPlan();
+			$data['start'] = strtotime($data['start']);
+			$data['end'] = strtotime($data['end']);
+			if(empty($data['id'])) {//新增
+				$data['userid'] = session('userId');
+				unset($data['id']);
+				$info = $weekPlanModel->save($data);
+			}else{//修改
+				$info = $weekPlanModel->save($data,['id'=>input('id')]);
+			}
+			if($info) {
+				return $this->success("保存成功",Url('weekPlan'));
+			}else{
+				if(empty($weekPlanModel->getError())) {//未修改内容
+					return $this->success("保存成功",Url('weekPlan'));
+				}else{
+					return $this->error($weekPlanModel->getError());
+				}
+			}
+		}else{
+			$id = input('id');
+			$res = [];
+			if($id){
+				$res = WeekPlan::getModelById($id);
+			}
+			$this->assign('res', $res);
+			return $this->fetch();
+		}
 	}
 	/**
 	 * 课时计划发布/编辑
@@ -261,7 +319,10 @@ class Coach extends Base {
 		if(IS_POST) {
 			$data = input('post.');
 			$weekSummaryModel = new WeekSummary();
+			$data['start'] = strtotime($data['start']);
+			$data['end'] = strtotime($data['end']);
 			if(empty($data['id'])) {//新增
+				$data['userid'] = session('userId');
 				unset($data['id']);
 				$info = $weekSummaryModel->save($data);
 			}else{//修改
@@ -278,9 +339,9 @@ class Coach extends Base {
 			}
 		}else{
 			$id = input('id');
-			$res = '';
+			$res = [];
 			if($id){
-				$res = WeekSummary::getWeekSummaryById($id);
+				$res = WeekSummary::getModelById($id);
 			}
 			$this->assign('res', $res);
 			return $this->fetch();
@@ -290,6 +351,12 @@ class Coach extends Base {
 	 * 每周计划 详情
 	 */
 	public function dweekPlan(){
+		$id = input('id');
+		$info['views'] = array('exp','`views`+1');
+		WeekPlan::where('id',$id)->update($info);
+		$res = WeekPlan::getModelById($id);
+		//var_dump($res);die;
+		$this->assign('res',$res);
 		return $this->fetch();
 	}
 	/**
@@ -303,7 +370,9 @@ class Coach extends Base {
 	 */
 	public function dweekSummary(){
 		$id = input('id');
-		$res = WeekSummary::getWeekSummaryById($id);
+		$info['views'] = array('exp','`views`+1');
+		WeekSummary::where('id',$id)->update($info);
+		$res = WeekSummary::getModelById($id);
 		//var_dump($res);die;
 		$this->assign('res',$res);
 		return $this->fetch();

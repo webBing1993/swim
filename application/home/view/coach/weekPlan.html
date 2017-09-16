@@ -26,8 +26,13 @@
 		</div>
 		<div class="note clear">
 			<span>浏览 ： {$vo.views}</span>
+			{empty name="$did"}
+			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			{else/}
 			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
 			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			{/empty}
 		</div>
 	</div>
 	{/volist}
@@ -80,7 +85,8 @@ function timeSelect(){
 				type:"post",
 				url:"",
 				data:{
-					time:time
+					time:time,
+					did:'{$did}'
 				},
 				success:function(data){
 					var lists = $.parseJSON(data);

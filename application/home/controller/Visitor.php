@@ -45,12 +45,12 @@ class Visitor extends Base{
 				return $this->error("找不到班级！");
 			}
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
-				//学员提前三十分钟可以签到
-				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+30 minute')));
+				//学员提前15分钟可以签到
+				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 				$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 			}else{
-				//教练提前六十分钟可以签到
-				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+60 minute')));
+				//教练提前15分钟可以签到
+				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 				$all_num =  WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 			}
 			$start_time = strtotime($userClass['start_time']);

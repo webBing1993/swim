@@ -2,14 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Administrator
- * Date: 2017/9/14
- * Time: 19:44
+ * Date: 2017/9/16
+ * Time: 17:12
  */
 namespace app\home\model;
 use think\Model;
 use think\Collection;
 
-class WeekSummary extends Model
+class WeekPlan extends Model
 {
     public $insert = [
         'views' => 0,
@@ -17,7 +17,7 @@ class WeekSummary extends Model
     ];
 
     /**
-     * 获取周总结列表
+     * 获取列表
      */
     public static function getList($userId, $time) {
         $map = array(
@@ -34,7 +34,7 @@ class WeekSummary extends Model
         }
     }
     /**
-     * 获取周总结
+     * 获取周计划
      */
     public static function getModelById($id) {
         $map = array(
