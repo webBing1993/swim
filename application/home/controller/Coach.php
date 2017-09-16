@@ -263,9 +263,9 @@ class Coach extends Base {
 			$weekSummaryModel = new WeekSummary();
 			if(empty($data['id'])) {//新增
 				unset($data['id']);
-				$info = $weekSummaryModel->validate(true)->save($data);
+				$info = $weekSummaryModel->save($data);
 			}else{//修改
-				$info = $weekSummaryModel->validate(true)->save($data,['id'=>input('id')]);
+				$info = $weekSummaryModel->save($data,['id'=>input('id')]);
 			}
 			if($info) {
 				return $this->success("保存成功",Url('weekPlan'));
@@ -278,11 +278,11 @@ class Coach extends Base {
 			}
 		}else{
 			$id = input('id');
-			$msg = [];
+			$res = '';
 			if($id){
-				$msg = WeekSummary::get($id);
+				$res = WeekSummary::getWeekSummaryById($id);
 			}
-			$this->assign('msg', $msg);
+			$this->assign('res', $res);
 			return $this->fetch();
 		}
 	}

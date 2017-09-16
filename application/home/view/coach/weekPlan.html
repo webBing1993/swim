@@ -27,7 +27,7 @@
 		<div class="note clear">
 			<span>浏览 ： {$vo.views}</span>
 			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
-			<a href="pweekPlan.html" class="fr edit">编辑</a>
+			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
 		</div>
 	</div>
 	{/volist}
@@ -65,11 +65,11 @@ function timeSelect(){
 		theme: 'android-holo light',
 		display: 'modal',
 		mode: 'scroller',
-		dateFormat: 'yyyy年mm月',
+		dateFormat: 'yy年mm月',
 		lang: 'zh',
 		showNow: true,
 		nowText: "今天",
-		startYear: currYear,
+		startYear: currYear - 10,
 		endYear: currYear + 50,
 		onBeforeShow: function (inst) {
 			inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;

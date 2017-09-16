@@ -11,29 +11,29 @@
 <div class="list clear">
 	<span class="title fl">小结标题</span>
 	<span class="fa fa-angle-right fr"></span>
-	<input type="text" placeholder="如：2017年07月第三周周小结" class="fr limit" name="title">
+	<input type="text" placeholder="如：2017年07月第三周周小结" class="fr limit" name="title" value="{$res.title|default=''}">
 </div>
 <div class="list clear">
 	<span class="title fl">开始时间</span>
 	<span class="fa fa-angle-right fr"></span>
-	<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+	<input type="text" value="{$res.start_time|default=''}" class="fr" readonly="readonly" id="start" name="start">
 </div>
 <div class="list clear">
 	<span class="title fl">结束时间</span>
 	<span class="fa fa-angle-right fr"></span>
-	<input type="text" value="2011-1-1" class="fr"  readonly="readonly" id="end" name="end">
+	<input type="text" value="{$res.end_time|default=''}" class="fr"  readonly="readonly" id="end" name="end">
 </div>
 <div class="list">
 	<span class="title">重点运动员完成情况</span>
 	<div class="content">
-		<textarea name="content" id="content" placeholder="输入不多于300字。"></textarea>
+		<textarea name="content" id="content" placeholder="输入不多于300字。">{$res.content|default=''}</textarea>
 		<div class="sum"><span>0</span>/300</div>
 	</div>
 </div>
 <div class="list summary">
 	<span class="title">周小结</span>
 	<div class="content">
-		<textarea name="summary" id="summary" placeholder="输入不多于300字。"></textarea>
+		<textarea name="summary" id="summary" placeholder="输入不多于300字。">{$res.summary|default=''}</textarea>
 		<div class="sum"><span>0</span>/300</div>
 	</div>
 </div>
@@ -54,7 +54,7 @@ $(function(){
 
 });
 function weekSave(){
-	$('.weeksave').off('click').on('click',function(){
+	$('.save').off('click').on('click',function(){
 		var data ={
 			title:$('input[name=title]').val(),
 			start:$('input[name=start]').val(),
@@ -66,11 +66,23 @@ function weekSave(){
 			$.ajax({
 				type:"post",
 				url:"",
-				data:{
-
-				},
+				data:data,
 				success:function(data){
-					var lists = $.parseJSON(data);
+					var type = '';
+					if(data.code){
+						type = "success";
+					}else{
+						type = "error";
+					}
+					swal({
+						title: '提示',
+						text: data.msg,
+						type: type,
+						showConfirmButton:flase,
+						timer:3000
+					});//跳转data.url
+
+					//var lists = $.parseJSON(data);
 				}
 			});
 		}else{
@@ -104,11 +116,11 @@ function timeSelect(){
 		theme: 'android-holo light',
 		display: 'modal',
 		mode: 'scroller',
-		dateFormat: 'yyyy-mm-dd',
+		dateFormat: 'yy-mm-dd',
 		lang: 'zh',
 		showNow: true,
 		nowText: "今天",
-		startYear: currYear,
+		startYear: currYear - 10,
 		endYear: currYear + 50,
 		onSelect: function (valueText, inst) {
 			var start = $('#start').val();
