@@ -94,13 +94,11 @@ body {
   text-align: center;
   letter-spacing: 0.2rem;
 }
+.main .content {
+  margin-top: 4vw;
+}
 .bg {
   display: none;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: #ffffff;
 }
 .bg .daysave {
@@ -108,10 +106,57 @@ body {
   bottom: 0;
   width: 100vw;
   height: 4.5rem;
-  background: #8ad097;
+  background: #13a4f2;
   color: #ffffff;
   font-size: 1.4rem;
   line-height: 4.5rem;
   text-align: center;
   letter-spacing: 0.3rem;
+}
+.bg .radiogroup {
+  color: #999999;
+  font-size: 1.5rem;
+}
+.bg .radiogroup span {
+  padding: 0 2vw;
+}
+.bg .radiogroup span.active {
+  color: #00b3fb;
+}
+.bg table {
+  margin-left: 2vw;
+  margin-bottom: 4vw;
+}
+.bg table td {
+  position: relative;
+  width: 20vw;
+  text-align: center;
+  line-height: 2.6rem;
+}
+.bg table td .rs {
+  z-index: 2;
+  position: absolute;
+  top: 2rem;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  text-align: center;
+  color: #333333;
+}
+.bg table td .rs div {
+  width: 20vw;
+  height: 2.6rem;
+}
+.bg table td .fa {
+  color: #666666;
+}
+.bg table td:first-child {
+  width: 8vw;
+}
+.bg table tr:last-child {
+  border-bottom: 1px solid #e0e0e0;
+}
+.bg .fa-plus {
+  color: #999999;
+  font-size: 3rem;
+  margin-left: 5vw;
 }

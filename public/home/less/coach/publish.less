@@ -85,21 +85,74 @@ body{
 	text-align: center;
 	letter-spacing: 0.2rem
 }
+.main{
+	//display: none;
+	.content{
+		margin-top: 4vw;
+	}
+}
 .bg{
 	display: none;
-	position: fixed;
-	top:0;
-	bottom: 0;
-	left:0;
-	right:0;
+	//position: fixed;
+	//top:0;
+	//bottom: 0;
+	//left:0;
+	//right:0;
 	background: #ffffff;
 	.daysave{
 		position: fixed;
 		bottom: 0;
 		.wh(100vw,4.5rem);
-		background: #8ad097;
+		background: #13a4f2;
 		.font(#ffffff,@s_title,4.5rem);
 		text-align: center;
 		letter-spacing: 0.3rem
+	}
+	.radiogroup{
+		color:#999999;
+		font-size: 1.5rem;
+		span{
+			padding: 0 2vw;
+			&.active{
+				color: #00b3fb;
+			}
+		}
+	}
+	table{
+		margin-left: 2vw;
+		margin-bottom: 4vw;
+		td{
+			position: relative;
+			width: 20vw;
+			text-align: center;
+			line-height: 2.6rem;
+			.rs{
+				z-index: 2;
+				position: absolute;
+				top:2rem;
+				background: rgb(255, 255, 255);
+				border:1px solid #eaeaea;
+				text-align: center;
+				color:#333333;
+				div{
+					.wh(20vw,2.6rem);
+				}
+			}
+			.fa{
+				//font-size: 2rem;
+				color:#666666;
+			}
+			&:first-child{
+				width: 8vw;
+			}
+		}
+		tr:last-child{
+			border-bottom: 1px solid #e0e0e0;
+		}
+	}
+	.fa-plus{
+		color:#999999;
+		font-size: 3rem;
+		margin-left: 5vw;
 	}
 }
