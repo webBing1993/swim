@@ -93,8 +93,8 @@
 				<td>1</td>
 				<td class="group">1</td>
 				<td class="num">1</td>
-				<td class="distance">400</td>
-				<td class="pose">自由泳</td>
+				<td class="distance">-</td>
+				<td class="pose">-</td>
 			</tr>
 		</table>
 		<span class="fa fa-plus addList"></span>
@@ -133,7 +133,7 @@
 			<span>30</span>
 		</div>
 	</div>
-	<div class="daysave">一键保存</div>
+	<div class="daysave">保存并返回</div>
 </div>
 {/block}
 
@@ -164,8 +164,8 @@ function  addList(){
 			'<td>'+num+'</td>'+
 			'<td class="group">1</td>'+
 			'<td class="num">1</td>'+
-			'<td class="distance">400</td>'+
-			'<td class="pose">自由泳</td>'+
+			'<td class="distance">-</td>'+
+			'<td class="pose">-</td>'+
 			'</tr>';
 		$('table').append(html);
 		radio();
@@ -180,6 +180,16 @@ function radio(){
 		'<div>4</div>'+
 		'<div>5</div>'+
 		'</div>';
+	var numhtml =
+		'<div class="rs">'+
+		'<div>1</div>'+
+		'<div>2</div>'+
+		'<div>3</div>'+
+		'<div>4</div>'+
+		'<div>5</div>'+
+		'<div>10</div>'+
+		'<div>20</div>'+
+		'</div>';
 	var distancehtml =
 			'<div class="rs">'+
 		    '<div>1600</div>'+
@@ -191,15 +201,43 @@ function radio(){
 			'<div>25</div>'+
 			'<div>15</div>'+
 		    '</div>';
-	var posehtml =
+
+	var aposehtml =
+		'<div class="rs">'+
+		'<div>做操</div>'+
+		'<div>拉伸</div>'+
+		'<div>腰腿</div>'+
+		'<div>蛙跳</div>'+
+		'<div>收腹跳</div>'+
+		'<div>关节活动</div>'+
+		'<div>引体向上</div>'+
+		'<div>平板支撑</div>'+
+		'<div>速度</div>'+
+		'<div>分解</div>'+
+		'<div>混合</div>'+
+		'<div>蛙泳</div>'+
+		'<div>仰泳</div>'+
+		'<div>蝶泳</div>'+
+		'<div>自由泳</div>'+
+		'</div>';
+	var bposehtml =
 		'<div class="rs">'+
 		'<div>蛙泳</div>'+
 		'<div>仰泳</div>'+
 		'<div>蝶泳</div>'+
 		'<div>自由泳</div>'+
 		'<div>混合</div>'+
+		'<div>技术</div>'+
+		'<div>拉力</div>'+
 		'</div>';
-	var html = [grouphtml,grouphtml,distancehtml,posehtml];
+	var cposehtml =
+		'<div class="rs">'+
+		'<div>200放松</div>'+
+		'<div>400放松</div>'+
+		'</div>';
+	var index = $('.week').attr('data-tab');
+	var posehtml = [aposehtml,bposehtml,cposehtml];
+	var html = [grouphtml,grouphtml,distancehtml,posehtml[index]];
 	$('.radiogroup span').off('click').on('click',function(){
 		$(this).addClass('active');
 		$(this).siblings('span').removeClass('active');
@@ -328,8 +366,8 @@ function templet(){
 				'<td>1</td>'+
 				'<td class="group">1</td>'+
 				'<td class="num">1</td>'+
-				'<td class="distance">400</td>'+
-				'<td class="pose">自由泳</td>'+
+				'<td class="distance">-</td>'+
+				'<td class="pose">-</td>'+
 				'</tr>';
 			$('table').html(html);
 			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
