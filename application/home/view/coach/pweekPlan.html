@@ -93,7 +93,7 @@
 		<!--</div>-->
 	</div>
 	<div class="list clear">
-		<span class="title fl">负荷强度</span>
+		<span class="title fl">负荷</span>
 		<div class="strength fr radiogroup">
 			<span class="active">低</span>
 			<span>中低</span>
@@ -238,10 +238,10 @@ function daySave(){
 		var len = lists.length;
 		for(var i = 1;i <len ;i++){
 			var list = lists.eq(i);
-			var group = list.find('.group').text();
-			var num = list.find('.num').text();
-			var distance = list.find('.distance').text();
-			var pose = list.find('.pose').text();
+			var group = list.find('td').eq(1).text();
+			var num = list.find('td').eq(2).text();
+			var distance = list.find('td').eq(3).text();
+			var pose = list.find('td').eq(4).text();
 			content.push([group,num,distance,pose])
 		}
 		var data ={

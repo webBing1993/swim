@@ -93,8 +93,8 @@
 				<td>1</td>
 				<td class="group">1</td>
 				<td class="num">1</td>
-				<td class="distance">400</td>
-				<td class="pose">自由泳</td>
+				<td class="distance">-</td>
+				<td class="pose">-</td>
 			</tr>
 		</table>
 		<span class="fa fa-plus addList"></span>
@@ -133,7 +133,7 @@
 			<span>30</span>
 		</div>
 	</div>
-	<div class="daysave">一键保存</div>
+	<div class="daysave">保存并返回</div>
 </div>
 {/block}
 
@@ -164,8 +164,8 @@ function  addList(){
 			'<td>'+num+'</td>'+
 			'<td class="group">1</td>'+
 			'<td class="num">1</td>'+
-			'<td class="distance">400</td>'+
-			'<td class="pose">自由泳</td>'+
+			'<td class="distance">-</td>'+
+			'<td class="pose">-</td>'+
 			'</tr>';
 		$('table').append(html);
 		radio();
@@ -180,6 +180,16 @@ function radio(){
 		'<div>4</div>'+
 		'<div>5</div>'+
 		'</div>';
+	var numhtml =
+		'<div class="rs">'+
+		'<div>1</div>'+
+		'<div>2</div>'+
+		'<div>3</div>'+
+		'<div>4</div>'+
+		'<div>5</div>'+
+		'<div>10</div>'+
+		'<div>20</div>'+
+		'</div>';
 	var distancehtml =
 			'<div class="rs">'+
 		    '<div>1600</div>'+
@@ -191,15 +201,43 @@ function radio(){
 			'<div>25</div>'+
 			'<div>15</div>'+
 		    '</div>';
-	var posehtml =
+
+	var aposehtml =
+		'<div class="rs">'+
+		'<div>做操</div>'+
+		'<div>拉伸</div>'+
+		'<div>腰腿</div>'+
+		'<div>蛙跳</div>'+
+		'<div>收腹跳</div>'+
+		'<div>关节活动</div>'+
+		'<div>引体向上</div>'+
+		'<div>平板支撑</div>'+
+		'<div>速度</div>'+
+		'<div>分解</div>'+
+		'<div>混合</div>'+
+		'<div>蛙泳</div>'+
+		'<div>仰泳</div>'+
+		'<div>蝶泳</div>'+
+		'<div>自由泳</div>'+
+		'</div>';
+	var bposehtml =
 		'<div class="rs">'+
 		'<div>蛙泳</div>'+
 		'<div>仰泳</div>'+
 		'<div>蝶泳</div>'+
 		'<div>自由泳</div>'+
 		'<div>混合</div>'+
+		'<div>技术</div>'+
+		'<div>拉力</div>'+
 		'</div>';
-	var html = [grouphtml,grouphtml,distancehtml,posehtml];
+	var cposehtml =
+		'<div class="rs">'+
+		'<div>200放松</div>'+
+		'<div>400放松</div>'+
+		'</div>';
+	var index = $('.week').attr('data-tab');
+	var posehtml = [aposehtml,bposehtml,cposehtml];
+	var html = [grouphtml,grouphtml,distancehtml,posehtml[index]];
 	$('.radiogroup span').off('click').on('click',function(){
 		$(this).addClass('active');
 		$(this).siblings('span').removeClass('active');
@@ -272,10 +310,10 @@ function daySave(){
 		var len = lists.length;
 		for(var i = 1;i <len ;i++){
 			var list = lists.eq(i);
-			var group = list.find('.group').text();
-			var num = list.find('.num').text();
-			var distance = list.find('.distance').text();
-			var pose = list.find('.pose').text();
+			var group = list.find('td').eq(1).text();
+			var num = list.find('td').eq(2).text();
+			var distance = list.find('td').eq(3).text();
+			var pose = list.find('td').eq(4).text();
 			content.push([group,num,distance,pose])
 		}
 		var data ={
@@ -298,40 +336,50 @@ function daySave(){
 }
 function templet(){
 	$('.templet').off('click').on('click',function(){
-		$('.main').fadeOut();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
 		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		$.ajax({
-			type:"post",
-			url:"",
-			data:{
-				week:index
-			},
-			success:function(data){
-				//返回模板
-				var lists = $.parseJSON(data);
-				var len = lists.length;
-				var html = '';
-				for(var i = 0 ; i< len ;i++){
-					html +=	'<div>末班一</div>'
-				}
-				$('tems').html(html);
-				//显示编辑过的训练内容、负荷量、负荷强度、时间
-				$('#content').val(parts[index].content);
-				$('input[name=load]').val(parts[index].load);
-				$('input[name=strength]').val(parts[index].strength);
-				$('input[name=duration]').val(parts[index].duration);
-				temShow(data);
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		if(parts[index]){
+			var trs = parts[index].content;
+			var len = trs.length;
+			for(var i = 0 ; i<len;i++){
+				html+=
+					'<tr>'+
+					'<td>'+(i+1)+'</td>'+
+					'<td class="group">'+trs[i][0]+'</td>'+
+					'<td class="num">'+trs[i][1]+'</td>'+
+					'<td class="distance">'+trs[i][2]+'</td>'+
+					'<td class="pose">'+trs[i][3]+'</td>'+
+					'</tr>';
 			}
-		});
-	})
+			$('table').html(html);
+			radio();
+			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
+		}else{
+			html +=
+				'<tr>'+
+				'<td>1</td>'+
+				'<td class="group">1</td>'+
+				'<td class="num">1</td>'+
+				'<td class="distance">-</td>'+
+				'<td class="pose">-</td>'+
+				'</tr>';
+			$('table').html(html);
+			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+		}
+		radio()
+	});
 }
 function wordSum(){
-	$('#need,#summary,#content').on('input',function(){
+	$('#need,#summary').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);
 		if(len > 200){
@@ -349,7 +397,7 @@ function timeSelect(){
 		theme: 'android-holo light',
 		display: 'modal',
 		mode: 'scroller',
-		dateFormat: 'yyyy-mm-dd',
+		dateFormat: 'yy-mm-dd',
 		lang: 'zh',
 		showNow: true,
 		nowText: "今天",
