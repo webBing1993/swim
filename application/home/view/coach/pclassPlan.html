@@ -191,16 +191,16 @@ function radio(){
 		'<div>20</div>'+
 		'</div>';
 	var distancehtml =
-			'<div class="rs">'+
-		    '<div>1600</div>'+
-		    '<div>800</div>'+
-		    '<div>400</div>'+
-			'<div>200</div>'+
-			'<div>100</div>'+
-			'<div>50</div>'+
-			'<div>25</div>'+
-			'<div>15</div>'+
-		    '</div>';
+		'<div class="rs">'+
+		'<div>1600</div>'+
+		'<div>800</div>'+
+		'<div>400</div>'+
+		'<div>200</div>'+
+		'<div>100</div>'+
+		'<div>50</div>'+
+		'<div>25</div>'+
+		'<div>15</div>'+
+		'</div>';
 
 	var aposehtml =
 		'<div class="rs">'+
@@ -237,7 +237,7 @@ function radio(){
 		'</div>';
 	var index = $('.week').attr('data-tab');
 	var posehtml = [aposehtml,bposehtml,cposehtml];
-	var html = [grouphtml,grouphtml,distancehtml,posehtml[index]];
+	var html = [grouphtml,numhtml,distancehtml,posehtml[index]];
 	$('.radiogroup span').off('click').on('click',function(){
 		$(this).addClass('active');
 		$(this).siblings('span').removeClass('active');
