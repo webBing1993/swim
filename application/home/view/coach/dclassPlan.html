@@ -116,12 +116,27 @@ function templet(){
 		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		$('#content').val(parts[index].content);
-		$('input[name=load]').val(parts[index].load);
-		$('input[name=strength]').val(parts[index].strength);
-		$('input[name=duration]').val(parts[index].duration);
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+			var trs = parts[index].content;
+			var len = trs.length;
+			for(var i = 0 ; i<len;i++){
+				html+=
+					'<tr>'+
+					'<td>'+(i+1)+'</td>'+
+					'<td class="group">'+trs[i][0]+'</td>'+
+					'<td class="num">'+trs[i][1]+'</td>'+
+					'<td class="distance">'+trs[i][2]+'</td>'+
+					'<td class="pose">'+trs[i][3]+'</td>'+
+					'</tr>';
+			}
+			$('table').html(html);
+			radio();
+			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
 
-	})
+
+	});
 }
 function daySave(){
 	$('.daysave').off('click').on('click',function(){

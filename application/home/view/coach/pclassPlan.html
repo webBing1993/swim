@@ -297,40 +297,50 @@ function daySave(){
 }
 function templet(){
 	$('.templet').off('click').on('click',function(){
-		$('.main').fadeOut();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
 		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		$.ajax({
-			type:"post",
-			url:"",
-			data:{
-				week:index
-			},
-			success:function(data){
-				//返回模板
-				var lists = $.parseJSON(data);
-				var len = lists.length;
-				var html = '';
-				for(var i = 0 ; i< len ;i++){
-					html +=	'<div>末班一</div>'
-				}
-				$('tems').html(html);
-				//显示编辑过的训练内容、负荷量、负荷强度、时间
-				$('#content').val(parts[index].content);
-				$('input[name=load]').val(parts[index].load);
-				$('input[name=strength]').val(parts[index].strength);
-				$('input[name=duration]').val(parts[index].duration);
-				temShow(data);
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		if(parts[index]){
+			var trs = parts[index].content;
+			var len = trs.length;
+			for(var i = 0 ; i<len;i++){
+				html+=
+					'<tr>'+
+					'<td>'+(i+1)+'</td>'+
+					'<td class="group">'+trs[i][0]+'</td>'+
+					'<td class="num">'+trs[i][1]+'</td>'+
+					'<td class="distance">'+trs[i][2]+'</td>'+
+					'<td class="pose">'+trs[i][3]+'</td>'+
+					'</tr>';
 			}
-		});
-	})
+			$('table').html(html);
+			radio();
+			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
+		}else{
+			html +=
+				'<tr>'+
+				'<td>1</td>'+
+				'<td class="group">1</td>'+
+				'<td class="num">1</td>'+
+				'<td class="distance">400</td>'+
+				'<td class="pose">自由泳</td>'+
+				'</tr>';
+			$('table').html(html);
+			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+		}
+
+	});
 }
 function wordSum(){
-	$('#need,#summary,#content').on('input',function(){
+	$('#need,#summary').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);
 		if(len > 200){
@@ -348,7 +358,7 @@ function timeSelect(){
 		theme: 'android-holo light',
 		display: 'modal',
 		mode: 'scroller',
-		dateFormat: 'yyyy-mm-dd',
+		dateFormat: 'yy-mm-dd',
 		lang: 'zh',
 		showNow: true,
 		nowText: "今天",
