@@ -80,15 +80,33 @@
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷量</span>
-		<input type="text" placeholder="请输入负荷量" class="fr limit" name="load" readonly value="1111">
+		<div class="load fr radiogroup">
+			<span class="active">低</span>
+			<span>中低</span>
+			<span>中</span>
+			<span>中高</span>
+			<span>高</span>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷强度</span>
-		<input type="text" placeholder="请输入负荷强度" class="fr limit" name="strength" readonly value="1111">
+		<div class="strength fr radiogroup">
+			<span class="active">低</span>
+			<span>中低</span>
+			<span>中</span>
+			<span>中高</span>
+			<span>高</span>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">时间</span>
-		<input type="text" placeholder="请输入时间" class="fr limit" name="duration" readonly value="1111">
+		<div class="duration fr radiogroup">
+			<span class="active">5</span>
+			<span>10</span>
+			<span>15</span>
+			<span>20</span>
+			<span>30</span>
+		</div>
 	</div>
 	<div class="daysave">返回</div>
 </div>
@@ -105,8 +123,7 @@ $(function(){
 	//返回
 	daySave();
 });
-//console.log('{$contents}');
-var parts='$contents';
+var parts={$contents};
 function templet(){
 	$('.templet').off('click').on('click',function(){
 		var index = $(this).attr('data-tab');
@@ -129,7 +146,6 @@ function templet(){
 					'</tr>';
 			}
 			$('table').html(html);
-			radio();
 			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
