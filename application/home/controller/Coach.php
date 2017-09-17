@@ -14,6 +14,7 @@ use app\home\model\WechatDepartment;
 use app\home\model\WechatUserSign;
 use app\home\model\WeekSummary;
 use app\home\model\WeekPlan;
+use app\home\model\ClassPlan;
 use think\Db;
 /**
  * Class Coach
@@ -268,14 +269,9 @@ class Coach extends Base {
 	 */
 	public function classPlan(){
 		$userId = session('userId');
-		$did = input('did');
 		$time = input('time', date('Y年m月'));
 		$res = [];
-		if($did){//每周总结
-			$res = WeekSummary::getList($userId, $time);
-		}else{//每周计划
-			$res = WeekSummary::getList($userId, $time);
-		}
+		$res = ClassPlan::getList($userId, $time);
 		//var_dump($res);die;
 		if(IS_POST) {
 			return json_encode($res);
@@ -376,6 +372,12 @@ class Coach extends Base {
 	 * 课时计划 详情
 	 */
 	public function dclassPlan(){
+		$id = input('id');
+		$info['views'] = array('exp','`views`+1');
+		ClassPlan::where('id',$id)->update($info);
+		$res = ClassPlan::getModelById($id);
+		var_dump($res);die;
+		$this->assign('res',$res);
 		return $this->fetch();
 	}
 	/**
