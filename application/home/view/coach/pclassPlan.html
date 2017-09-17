@@ -285,11 +285,11 @@ function daySave(){
 		};
 		var index = $('.week').attr('data-tab');
 		parts[index] = data;
-		if(isAll(data)){
+//		if(isAll(data)){
 			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
-		}else{
-			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
-		}
+//		}else{
+//			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
+//		}
 		$('.bg').fadeOut();
 		$('.main').fadeIn();
 		enable_back();
@@ -302,6 +302,7 @@ function templet(){
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
 		fobidden_back();
+		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		$.ajax({
 			type:"post",
