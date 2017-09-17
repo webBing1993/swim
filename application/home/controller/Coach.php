@@ -348,13 +348,18 @@ class Coach extends Base {
 			if($id){
 				$res = ClassPlan::getModelById($id);
 				$contents = $res['contents'];
+				$score_users = [];
+				foreach($res['score'] as $model) {
+					$score_users[] = $model['userid'];
+				}
 				foreach($score as $userid => $name) {
-					if(!in_array($userid, $res['score'])) {
+					if(!in_array($userid, $score_users)) {
 						$res['score'][$userid]['userid'] = $userid;
 						$res['score'][$userid]['name'] = $name;
 						$res['score'][$userid]['score'] = '';
 					}
 				}
+				$res['score'] = array_values($res['score']);
 			}else{
 				$this->assign('score', $score);
 			}
@@ -420,6 +425,20 @@ class Coach extends Base {
 		ClassPlan::where('id',$id)->update($info);
 		$res = ClassPlan::getModelById($id);
 		//var_dump($res);die;
+		$userId = session('userId');
+		$score = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order("name")->column('name','userid');
+		$score_users = [];
+		foreach($res['score'] as $model) {
+			$score_users[] = $model['userid'];
+		}
+		foreach($score as $userid => $name) {
+			if(!in_array($userid, $score_users)) {
+				$res['score'][$userid]['userid'] = $userid;
+				$res['score'][$userid]['name'] = $name;
+				$res['score'][$userid]['score'] = '';
+			}
+		}
+		$res['score'] = array_values($res['score']);
 		$this->assign('contents',json_encode($res['contents']));
 		$this->assign('res',$res);
 		return $this->fetch();

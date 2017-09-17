@@ -50,8 +50,7 @@
 			{empty name="$res.score"}
 			{volist name="score" id="vo"}
 			<div class="student clear">
-				<input type="hidden" name="id" value="{$key}">
-				<span class="name fl" data-tab="zangsna">{$vo}</span>
+				<span class="name fl" data-tab="{$key}">{$vo}</span>
 				<span class="fa fa-angle-right fr"></span>
 				<input type="text" value="" placeholder="请输入成绩" class="fr limit">
 			</div>
@@ -59,7 +58,7 @@
 			{else/}
 			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="zangsna">{$vo.name|default=''}</span>
+				<span class="name fl" data-tab="{$vo.userid}">{$vo.name|default=''}</span>
 				<span class="fa fa-angle-right fr"></span>
 				<input type="text" value="{$vo.score|default=''}" placeholder="请输入成绩" class="fr limit">
 			</div>
@@ -271,12 +270,14 @@ function weekSave(){
 	$('.save').off('click').on('click',function(){
 		var students = $('.student');
 		var len = students.length;
-		var mark = [];
+		var mark = {};
 		for(var i = 0 ; i < len ;i++){
 			var student =students.eq(i);
 			var name = student.find('.name').attr('data-tab');
 			var time = student.find('input').val();
-			mark.push({name:time});
+			if(time!=''){
+				mark[name]=time;
+			}
 		}
 //		console.log(mark);
 		var data ={
@@ -292,9 +293,7 @@ function weekSave(){
 			$.ajax({
 				type:"post",
 				url:"",
-				data:{
-
-				},
+				data:data,
 				success:function(data){
 					var lists = $.parseJSON(data);
 				}
