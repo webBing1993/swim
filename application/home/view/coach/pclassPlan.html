@@ -12,17 +12,17 @@
 	<div class="list clear">
 		<span class="title fl">计划标题</span>
 		<span class="fa fa-angle-right fr"></span>
-		<input type="text" placeholder="请输入标题" class="fr limit" name="title">
+		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="{$res.title|default=''}">
 	</div>
 	<div class="list clear">
 		<span class="title fl">课时时间</span>
 		<span class="fa fa-angle-right fr"></span>
-		<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+		<input type="text" value="{$res.start_time|default=date('Y-m-d')}" class="fr" readonly="readonly" id="start" name="start">
 	</div>
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" placeholder="输入不多于200字。"></textarea>
+			<textarea name="need" id="need" placeholder="输入不多于200字。">{$res.content|default=''}</textarea>
 			<div class="sum"><span>0</span>/200</div>
 		</div>
 	</div>
@@ -43,20 +43,28 @@
 	<div class="list">
 		<!--<span class="title">课后小结</span>-->
 		<div class="content">
-			<textarea name="summary" id="summary" placeholder="输入不多于200字。"></textarea>
+			<textarea name="summary" id="summary" placeholder="输入不多于200字。">{$res.summary|default=''}</textarea>
 			<div class="sum"><span>0</span>/200</div>
 		</div>
 		<div class="students">
+			{empty name="$res.score"}
+			{volist name="score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="zangsna">张三</span>
+				<input type="hidden" name="id" value="{$key}">
+				<span class="name fl" data-tab="zangsna">{$vo}</span>
 				<span class="fa fa-angle-right fr"></span>
-				<input type="text" placeholder="请输入成绩" class="fr limit">
+				<input type="text" value="" placeholder="请输入成绩" class="fr limit">
 			</div>
+			{/volist}
+			{else/}
+			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="lisi">李四</span>
+				<span class="name fl" data-tab="zangsna">{$vo.name|default=''}</span>
 				<span class="fa fa-angle-right fr"></span>
-				<input type="text" placeholder="请输入成绩" class="fr limit">
+				<input type="text" value="{$vo.score|default=''}" placeholder="请输入成绩" class="fr limit">
 			</div>
+			{/volist}
+			{/empty}
 		</div>
 	</div>
 	<div class="save">一键保存</div>

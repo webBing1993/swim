@@ -319,7 +319,50 @@ class Coach extends Base {
 	 * 课时计划发布/编辑
 	 */
 	public function pclassPlan(){
-		return $this->fetch();
+		if(IS_POST) {
+			$data = input('post.');
+			$classPlanModel = new ClassPlan();
+			$data['start'] = strtotime($data['start']);
+			if(empty($data['id'])) {//新增
+				$data['userid'] = session('userId');
+				unset($data['id']);
+				$info = $classPlanModel->save($data);
+			}else{//修改
+				$info = $classPlanModel->save($data,['id'=>input('id')]);
+			}
+			if($info) {
+				return $this->success("保存成功",Url('weekPlan'));
+			}else{
+				if(empty($classPlanModel->getError())) {//未修改内容
+					return $this->success("保存成功",Url('weekPlan'));
+				}else{
+					return $this->error($classPlanModel->getError());
+				}
+			}
+		}else{
+			$id = input('id');
+			$res = [];
+			$contents = [];
+			$userId = session('userId');
+			$score = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order("name")->column('name','userid');
+			if($id){
+				$res = ClassPlan::getModelById($id);
+				$contents = $res['contents'];
+				foreach($score as $userid => $name) {
+					if(!in_array($userid, $res['score'])) {
+						$res['score'][$userid]['userid'] = $userid;
+						$res['score'][$userid]['name'] = $name;
+						$res['score'][$userid]['score'] = '';
+					}
+				}
+			}else{
+				$this->assign('score', $score);
+			}
+			//var_dump($res);die;
+			$this->assign('contents',json_encode($contents));
+			$this->assign('res', $res);
+			return $this->fetch();
+		}
 	}
 	/**
 	 * 每周总结发布/编辑
@@ -377,7 +420,7 @@ class Coach extends Base {
 		ClassPlan::where('id',$id)->update($info);
 		$res = ClassPlan::getModelById($id);
 		//var_dump($res);die;
-		$this->assign('contents',$res['contents']);
+		$this->assign('contents',json_encode($res['contents']));
 		$this->assign('res',$res);
 		return $this->fetch();
 	}
