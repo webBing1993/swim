@@ -105,7 +105,8 @@ $(function(){
 	//返回
 	daySave();
 });
-var parts='<?php print_r($contents);?>';
+//console.log('{$contents}');
+var parts='$contents';
 function templet(){
 	$('.templet').off('click').on('click',function(){
 		var index = $(this).attr('data-tab');
