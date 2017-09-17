@@ -126,14 +126,29 @@ body {
 .bg table {
   margin-left: 2vw;
   margin-bottom: 4vw;
+  width: 92vw;
 }
-.bg table td {
+.bg table tr {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.bg table tr .del {
+  position: absolute;
+  top: 0;
+  right: -80px;
+  text-align: center;
+  background: #ffcb20;
+  color: #fff;
+  width: 80px;
+}
+.bg table tr td {
   position: relative;
   width: 20vw;
   text-align: center;
   line-height: 2.6rem;
 }
-.bg table td .rs {
+.bg table tr td .rs {
   z-index: 2;
   position: absolute;
   top: 2rem;
@@ -142,14 +157,14 @@ body {
   text-align: center;
   color: #333333;
 }
-.bg table td .rs div {
+.bg table tr td .rs div {
   width: 20vw;
   height: 2.6rem;
 }
-.bg table td .fa {
+.bg table tr td .fa {
   color: #666666;
 }
-.bg table td:first-child {
+.bg table tr td:first-child {
   width: 8vw;
 }
 .bg table tr:last-child {
