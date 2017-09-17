@@ -110,6 +110,9 @@ class Statistics extends Base{
 			}
 		}
 		$dt_start = strtotime($start_time);
+		if($dt_start < strtotime(date('2017-09-18'))){
+			$dt_start = strtotime(date('2017-09-18'));
+		}
 		$dt_end = strtotime($end_time);
 		$all_days = [];
 		while ($dt_start<=$dt_end){

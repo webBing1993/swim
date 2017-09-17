@@ -124,6 +124,9 @@ class Coach extends Base {
 		if($year.$month > date("Ym")){
 			return json_encode($res);
 		}
+		if($year.$month < date("201709")){
+			return json_encode($res);
+		}
 		if($year.$month == date("Ym")){
 			$days = date('d')-1;
 		}else{
@@ -142,12 +145,22 @@ class Coach extends Base {
 				}
 			}
 		}
-		for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
-			$i = $i<10 ? '0'.$i : $i;
-			if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
-				$res['rest'][] = intval($i);//缺卡
+		if($year.$month == date("201709")){
+			for ($i=18; $i<=$days; $i++) {//当天不计算缺卡
+				$i = $i<10 ? '0'.$i : $i;
+				if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
+					$res['rest'][] = intval($i);//缺卡
+				}
+			}
+		}else{
+			for ($i=1; $i<=$days; $i++) {//当天不计算缺卡
+				$i = $i<10 ? '0'.$i : $i;
+				if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
+					$res['rest'][] = intval($i);//缺卡
+				}
 			}
 		}
+
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
