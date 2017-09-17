@@ -208,38 +208,28 @@ function weekSave(){
 			end:$('input[name=end]').val(),
 			need:$('#need').val(),
 		};
-//		if(isAll(data)){
-			data[days] =days;
-			$.ajax({
-				type:"post",
-				url:"",
-				data:{
+		data[days] =days;
+		$.ajax({
+			type:"post",
+			url:"",
+			data:{
 
-				},
-				success:function(data){
-					var lists = $.parseJSON(data);
-					swal({
-						title: '成功',
-						text: '保存成功',
-						type: 'success',
-						showConfirmButton:true,
-					}).then(function(isConfirm){
-						if (isConfirm) {
-							window.location.href = '/home/coach/weekPlan'
-						}
-
-			});
-//		}else{
-//			swal({
-//				title: '提示',
-//				text: '请完善您的信息',
-//				type: 'error',
-//				showConfirmButton:true,
-//				timer:3000
-//			})
-//		}
-
-	})
+			},
+			success:function(data)
+			{
+				var lists = $.parseJSON( data );
+				swal( {
+					title: '成功',
+					text: '保存成功',
+					type: 'success',
+					showConfirmButton: true,
+				}).then(function(isConfirm){
+					if (isConfirm) {
+						window.location.href = '/home/coach/weekPlan/did/1'
+					}})
+			}
+			})
+		})
 }
 function daySave(){
 	$('.daysave').off('click').on('click',function(){
