@@ -232,7 +232,7 @@ function weekSave(){
 			var time = student.find('input').val();
 			mark.push({name:time});
 		}
-		console.log(mark);
+//		console.log(mark);
 		var data ={
 			title:$('input[name=title]').val(),
 			start:$('input[name=start]').val(),
@@ -242,6 +242,7 @@ function weekSave(){
 		};
 //		if(isAll(data)){
 			data[parts] =parts;
+		console.log(parts);
 			$.ajax({
 				type:"post",
 				url:"",

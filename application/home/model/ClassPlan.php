@@ -67,13 +67,16 @@ class ClassPlan extends Model
         if($res['contents']){
             $collection = new Collection($res['contents']);
             $res['contents'] = $collection->toArray();
-            var_dump($res['contents']);die;
-            foreach($res['contents'] as $model) {
-                $res['contents']['train'] = ClassTrain::where(['pid' => $model['id']])->field('group, num, distance, pose')->order('`order`')->select();
-                if($res['contents']['train']){
-                    $collection = new Collection($res['contents']['train']);
-                    $res['contents']['train'] = $collection->toArray();
+            foreach($res['contents'] as $key => $model) {
+                $res['contents'][$key]['content'] = ClassTrain::where(['pid' => $model['id']])->field('group, num, distance, pose')->order('`order`')->select();
+                if($res['contents'][$key]['content']){
+                    $collection = new Collection($res['contents'][$key]['content']);
+                    $res['contents'][$key]['content'] = $collection->toArray();
+                    foreach($res['contents'][$key]['content'] as $k =>  $content) {
+                        $res['contents'][$key]['content'][$k] = array_values($content);
+                    }
                 }
+                unset($res['contents'][$key]['id']);
             }
         }
         return $res;

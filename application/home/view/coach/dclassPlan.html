@@ -10,17 +10,17 @@
 	<div class="tag">课时计划</div>
 	<div class="list clear">
 		<span class="title fl">计划标题</span>
-		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="111" readonly>
+		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="{$res.title}" readonly>
 	</div>
 	<div class="list clear">
 		<span class="title fl">课时时间</span>
-		<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+		<input type="text" value="{$res.start_time}" class="fr" readonly="readonly" id="start" name="start">
 	</div>
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" placeholder="输入不多于200字。" readonly>111111111111111111</textarea>
-			<div class="sum">123</div>
+			<textarea name="need" id="need" placeholder="输入不多于200字。" readonly>{$res.content}</textarea>
+			<!--<div class="sum">123</div>-->
 		</div>
 	</div>
 	<div class="tag">计划内容</div>
@@ -40,18 +40,16 @@
 	<div class="list">
 		<!--<span class="title">课后小结</span>-->
 		<div class="content">
-			<textarea name="summary" id="summary" placeholder="输入不多于200字。" readonly>1111111111111111111</textarea>
-			<div class="sum">123</div>
+			<textarea name="summary" id="summary" placeholder="输入不多于200字。" readonly>{$res.summary}</textarea>
+			<!--<div class="sum">123</div>-->
 		</div>
 		<div class="students">
+			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="zangsna">张三</span>
-				<input type="text" value="10'20" class="fr limit" readonly>
+				<span class="name fl" data-tab="zangsna">{$vo.name}</span>
+				<input type="text" value="{$vo.score}" class="fr limit" readonly>
 			</div>
-			<div class="student clear">
-				<span class="name fl" data-tab="lisi">李四</span>
-				<input type="text" value="10'20" class="fr limit" readonly>
-			</div>
+			{/volist}
 		</div>
 	</div>
 </div>
@@ -107,7 +105,7 @@ $(function(){
 	//返回
 	daySave();
 });
-var parts=[];
+var parts='<?php print_r($contents);?>';
 function templet(){
 	$('.templet').off('click').on('click',function(){
 		var index = $(this).attr('data-tab');

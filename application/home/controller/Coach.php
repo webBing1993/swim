@@ -376,7 +376,8 @@ class Coach extends Base {
 		$info['views'] = array('exp','`views`+1');
 		ClassPlan::where('id',$id)->update($info);
 		$res = ClassPlan::getModelById($id);
-		var_dump($res);die;
+		//var_dump($res);die;
+		$this->assign('contents',$res['contents']);
 		$this->assign('res',$res);
 		return $this->fetch();
 	}
