@@ -63,10 +63,18 @@ class ClassPlan extends Model
             $collection = new Collection($res['score']);
             $res['score'] = $collection->toArray();
         }
-        $res['content'] = ClassContent::where(['pid' => $res['id']])->field('train_id, load, strength, duration')->order('type')->select();
-        if($res['content']){
-            $collection = new Collection($res['content']);
-            $res['content'] = $collection->toArray();
+        $res['contents'] = ClassContent::where(['pid' => $res['id']])->field('id, load, strength, duration')->order('type')->select();
+        if($res['contents']){
+            $collection = new Collection($res['contents']);
+            $res['contents'] = $collection->toArray();
+            var_dump($res['contents']);die;
+            foreach($res['contents'] as $model) {
+                $res['contents']['train'] = ClassTrain::where(['pid' => $model['id']])->field('group, num, distance, pose')->order('`order`')->select();
+                if($res['contents']['train']){
+                    $collection = new Collection($res['contents']['train']);
+                    $res['contents']['train'] = $collection->toArray();
+                }
+            }
         }
         return $res;
     }
