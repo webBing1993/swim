@@ -7,12 +7,12 @@
 
 {block name="body"}
 <div class="banner">
-	{empty name="$chiefCoachModel.header"}
-	<div data-tab="<?php echo param_to($chiefCoachModel['avatar'], \think\Config::get('de_header')); ?>"  class="header up"></div>
-	{else/}
-	<div data-tab="{$chiefCoachModel.header|get_cover='path'}"  class="header up"></div>
-	{/empty}
-	<div class="all limit"><span>{$chiefCoachModel.name}</span></div>
+	<!--{empty name="$chiefCoachModel.header"}-->
+	<!--<div data-tab="<?php echo param_to($chiefCoachModel['avatar'], \think\Config::get('de_header')); ?>"  class="header up"></div>-->
+	<!--{else/}-->
+	<!--<div data-tab="{$chiefCoachModel.header|get_cover='path'}"  class="header up"></div>-->
+	<!--{/empty}-->
+	<!--<div class="all limit"><span>{$chiefCoachModel.name}</span></div>-->
 	<div class="lists">
 		{volist name="headCoachList" id="vo"}
 		<a href="{:Url('detail?did='.$vo['userid'])}" class="list clear">
