@@ -200,6 +200,13 @@ function radio(){
 	});
 }
 var days=new Array(7);
+var contents={$contents};
+var clen = contents.length;
+if(clen > 0){
+	for(var i = 0 ; i<clen;i++){
+		days[contents[i].type - 1]= contents[i]
+	}
+}
 function weekSave(){
 	$('.save').off('click').on('click',function(){
 		var data ={
@@ -208,26 +215,36 @@ function weekSave(){
 			start:$('input[name=start]').val(),
 			end:$('input[name=end]').val(),
 			need:$('#need').val(),
-			days:days
 		};
-		$.ajax({
-			type:"post",
-			url:"",
-			data:data,
-			success:function(data)
-			{
-				var lists = $.parseJSON( data );
-				swal( {
-					title: '成功',
-					text: '保存成功',
-					type: 'success',
-					showConfirmButton: true,
-				}).then(function(isConfirm){
-					if (isConfirm) {
-						window.location.href = '/home/coach/weekPlan/did/1'
-					}})
-			}
+		if(isAll(data)){
+			data[days] =days;
+			$.ajax({
+				type:"post",
+				url:"",
+				data:data,
+				success:function(data)
+				{
+					var lists = $.parseJSON( data );
+					swal( {
+						title: '成功',
+						text: '保存成功',
+						type: 'success',
+						showConfirmButton: true,
+					}).then(function(isConfirm){
+						if (isConfirm) {
+							window.location.href = '/home/coach/weekPlan/did/0'
+						}})
+				}
 			})
+		}else{
+			swal({
+				title: '提示',
+				text: '请完善您的信息',
+				type: 'error',
+				showConfirmButton:true,
+				timer:3000
+			})
+			}
 		})
 }
 function daySave(){

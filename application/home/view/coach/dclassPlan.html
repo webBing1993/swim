@@ -128,7 +128,7 @@ var contents={$contents};
 var clen = contents.length;
 if(clen > 0){
 	for(var i = 0 ; i<clen;i++){
-		parts[contents[i].type]= contents[i]
+		parts[contents[i].type-1]= contents[i]
 	}
 }
 function templet(){

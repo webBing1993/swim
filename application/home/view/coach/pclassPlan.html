@@ -268,7 +268,7 @@ var contents={$contents};
 var clen = contents.length;
 if(clen > 0){
 	for(var i = 0 ; i<clen;i++){
-		parts[contents[i].type]= contents[i]
+		parts[contents[i].type -1]= contents[i]
 	}
 }
 
@@ -369,7 +369,6 @@ function templet(){
 					'</tr>';
 			}
 			$('table').html(html);
-			radio();
 			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
