@@ -15,6 +15,9 @@ use app\home\model\WechatUserSign;
 use app\home\model\WeekSummary;
 use app\home\model\WeekPlan;
 use app\home\model\ClassPlan;
+use app\home\model\ClassScore;
+use app\home\model\ClassContent;
+use app\home\model\ClassTrain;
 use think\Db;
 /**
  * Class Coach
@@ -321,23 +324,83 @@ class Coach extends Base {
 	public function pclassPlan(){
 		if(IS_POST) {
 			$data = input('post.');
+			//var_dump($data);die;
 			$classPlanModel = new ClassPlan();
 			$data['start'] = strtotime($data['start']);
+			$mark = isset($data['mark']) ? $data['mark'] : null;
+			$parts = isset($data['parts']) ? $data['parts'] : null;
+			unset($data['mark']);
+			unset($data['parts']);
 			if(empty($data['id'])) {//新增
 				$data['userid'] = session('userId');
 				unset($data['id']);
 				$info = $classPlanModel->save($data);
 			}else{//修改
-				$info = $classPlanModel->save($data,['id'=>input('id')]);
+				$info = $classPlanModel->save($data,['id'=>$data['id']]);
 			}
-			if($info) {
+			//成功||未修改内容
+			if($info || empty($classPlanModel->getError())) {
+				//课时计划成绩
+				ClassScore::where(['pid' => $classPlanModel->id])->delete();
+				$score_id = [];
+				if($mark){
+					foreach($mark as $key => $val){
+						$msg = ['userid'=>$val['id'], 'pid'=>$classPlanModel->id];
+						$insert = ['userid'=>$val['id'], 'name'=>$val['name'], 'score'=>$val['time'], 'order'=>$key+1, 'pid'=>$classPlanModel->id];
+						if(empty(ClassScore::where($msg)->find())) {
+							$classScoreModel = new ClassScore();
+							$classScoreModel->save($insert);
+							$score_id[] = $classScoreModel->id;
+						}
+					}
+				}
+
+				if($score_id){
+					$classPlanModel->save(['score_id' => json_encode($score_id)],['id'=> $classPlanModel->id]);
+				}
+
+				//课时计划内容
+				$train_id_old = ClassContent::where(['pid' => $classPlanModel->id])->field('train_id')->select();
+				foreach ($train_id_old as $old_id) {
+					ClassTrain::where('id', 'in', json_decode($old_id['train_id'], true))->delete();
+				}
+				ClassContent::where(['pid' => $classPlanModel->id])->delete();
+				$plan_id = [];
+				if($parts) {
+					foreach ($parts as $key => $val) {
+						$msg1 = ['type' => $key + 1, 'pid' => $classPlanModel->id];
+						$insert_content = ['type' => $key + 1, 'load' => $val['load'], 'strength' => $val['strength'], 'duration' => $val['duration'], 'pid' => $classPlanModel->id];
+						if (empty(ClassContent::where($msg1)->find())) {
+							$classContentModel = new ClassContent();
+							$save = $classContentModel->save($insert_content);
+							$plan_id[] = $classContentModel->id;
+							if ($save) {
+								$train_id = [];
+								if($val['content']) {
+									foreach ($val['content'] as $k => $v) {
+										//$msg2 = ['pose' => $v[3], 'pid' => $classContentModel->id];
+										$insert_train = ['group' => $v[0], 'num' => $v[1], 'distance' => $v[2], 'pose' => $v[3], 'order' => $k + 1, 'pid' => $classContentModel->id];
+										//if (empty(ClassTrain::where($msg2)->find())) {
+											$classTrainModel = new ClassTrain();
+											$classTrainModel->save($insert_train);
+											$train_id[] = $classTrainModel->id;
+										//}
+									}
+								}
+								if ($train_id) {
+									$classContentModel->save(['train_id' => json_encode($train_id)], ['id' => $classContentModel->id]);
+								}
+							}
+						}
+
+					}
+				}
+				if($plan_id){
+					$classPlanModel->save(['plan_id' => json_encode($plan_id)],['id'=> $classPlanModel->id]);
+				}
 				return $this->success("保存成功",Url('weekPlan'));
 			}else{
-				if(empty($classPlanModel->getError())) {//未修改内容
-					return $this->success("保存成功",Url('weekPlan'));
-				}else{
-					return $this->error($classPlanModel->getError());
-				}
+				return $this->error($classPlanModel->getError());
 			}
 		}else{
 			$id = input('id');

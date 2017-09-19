@@ -22,7 +22,7 @@
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" placeholder="输入不多于200字。">{$res.content|default=''}</textarea>
+			<textarea name="need" id="need" placeholder="输入不多于200字。">{$res.need|default=''}</textarea>
 			<div class="sum"><span>0</span>/200</div>
 		</div>
 	</div>
@@ -96,13 +96,13 @@
 				<td>距离</td>
 				<td>项目</td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td class="group">1</td>
-				<td class="num">1</td>
-				<td class="distance">-</td>
-				<td class="pose">-</td>
-			</tr>
+			<!--<tr>-->
+				<!--<td>1</td>-->
+				<!--<td class="group">1</td>-->
+				<!--<td class="num">1</td>-->
+				<!--<td class="distance">-</td>-->
+				<!--<td class="pose">-</td>-->
+			<!--</tr>-->
 		</table>
 		<span class="fa fa-plus addList"></span>
 		<!--<div class="content">-->
@@ -268,32 +268,35 @@ function weekSave(){
 	$('.save').off('click').on('click',function(){
 		var students = $('.student');
 		var len = students.length;
-		var mark = {};
+		var mark = [];
 		for(var i = 0 ; i < len ;i++){
 			var student =students.eq(i);
-			var name = student.find('.name').attr('data-tab');
+			var id = student.find('.name').attr('data-tab');
+			var name = student.find('.name').text();
 			var time = student.find('input').val();
 			if(time!=''){
-				mark[name]=time;
+				mark[i] = {'id':id,'name':name,'time':time};
 			}
 		}
-//		console.log(mark);
+		console.log(mark);
 		var data ={
+			id:"{$res.id ? $res.id : '';}",
 			title:$('input[name=title]').val(),
 			start:$('input[name=start]').val(),
 			need:$('#need').val(),
 			summary:$('#summary').val(),
-			mark:mark
+			mark:mark,
+			parts:parts
 		};
 //		if(isAll(data)){
-			data[parts] =parts;
+//			data[parts] =parts;
 		console.log(parts);
 			$.ajax({
 				type:"post",
 				url:"",
 				data:data,
 				success:function(data){
-					var lists = $.parseJSON(data);
+//					var lists = $.parseJSON(data);
 				}
 			});
 //		}else{
