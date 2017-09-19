@@ -108,7 +108,7 @@
 			<span>30</span>
 		</div>
 	</div>
-	<div class="daysave">返回</div>
+	<!--<div class="daysave">返回</div>-->
 </div>
 {/block}
 
@@ -129,7 +129,8 @@ function templet(){
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
-		fobidden_back();
+//		fobidden_back();
+		bghide();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
