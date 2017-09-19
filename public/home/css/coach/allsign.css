@@ -7,18 +7,20 @@ a:active {
 .time {
   position: relative;
   width: 100vw;
-  height: 4rem;
+  height: 32vw;
+  background: url("/home/images/coach/banner04.png") no-repeat;
+  background-size: 100vw 32vw;
   text-align: center;
-  color: #333333;
-  font-size: 1.6rem;
-  line-height: 4rem;
+  color: #ffffff;
+  font-size: 1.7rem;
+  line-height: 32vw;
 }
 .time input {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 4rem;
+  height: 32vw;
   color: transparent;
   background: transparent;
 }
