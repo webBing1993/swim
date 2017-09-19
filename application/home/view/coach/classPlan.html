@@ -27,7 +27,7 @@
         <div class="note clear">
             <span>浏览 ： {$vo.views}</span>
             <a href="{:Url('dclassPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
-            <a href="{:Url('dclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+            <a href="{:Url('pclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
         </div>
     </div>
     {/volist}
@@ -73,18 +73,20 @@
                         var lists = $.parseJSON(data);
                         var len = lists.length;
                         var html = '';
+                        var week_arr = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
                         for(var i= 0 ;i<len;i++){
                             var list = lists[i];
+                            var week = list.week-1;
                             html +=
                                     '<div class="list">'+
                                     '<div class="content">'+
-                                    '<div class="title">'+list.title+'</div>'+
-                                    '<div class="time">'+list.start_time+' —— '+list.end_time +'</div>'+
+                                    '<div class="time limit">'+list.start_time+' '+week_arr[week]+'</div>'+
+                                    '<div class="content limit">'+list.title+'</div>'+
                                     '</div>'+
                                     '<div class="note clear">'+
                                     '<span>浏览 ： '+list.views+'</span>'+
-                                    '<a href="{:Url(\'dweekSummary\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
-                                    '<a href="edit.html" class="fr edit">编辑</a>'+
+                                    '<a href="{:Url(\'dclassPlan\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
+                                    '<a href="{:Url(\'pclassPlan\')}?id='+list.id+'" class="fr edit">编辑</a>'+
                                     '</div>'+
                                     '</div>'
                         }
