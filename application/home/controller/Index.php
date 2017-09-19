@@ -42,6 +42,37 @@ class Index extends Controller {
         $this->assign('newsList',$newsList);
         return $this->fetch();
     }
+    public function demo(){
+        $userId = session('userId');
+        $id = input('id', 4);
+        if($id == 1){
+            $tag_id = 1;
+        }
+        if($id == 2){
+            $tag_id = 2;
+        }
+        if($id == 3){
+            $tag_id = 4;
+        }
+        //$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
+        $map = array(
+            'sn.status' => 1,
+            'sn.recommend' => 1,
+            'snt.tagid' =>$tag_id,
+        );
+        $order = array("sn.create_time desc");
+        $newsList = \think\Db::field('sn.id,sn.front_cover,sn.title,sn.create_time')
+            ->table('sw_notice sn')
+            ->join('sw_notice_tag snt','sn.id = snt.pid')
+            ->where($map)
+            ->order($order)
+            ->limit(2)
+            ->select();
+        //$newsList = Notice::where(['status' => 1, 'recommend' => 1])->order('create_time desc')->field('id,front_cover,title,create_time')->limit(2)->select();
+        $this->assign('tag_id',$tag_id);
+        $this->assign('newsList',$newsList);
+        return $this->fetch('index');
+    }
 
     /**
      * 用户登入获取信息
