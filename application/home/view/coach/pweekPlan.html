@@ -94,7 +94,7 @@
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷</span>
-		<div class="strength fr radiogroup">
+		<div class="load fr radiogroup">
 			<span class="active">低</span>
 			<span>中低</span>
 			<span>中</span>
@@ -247,7 +247,7 @@ function daySave(){
 			content:content,
 			load:$('.load span.active').index()+1,
 			duration:$('.duration span.active').index()+1
-		};
+		};console.log(data);
 		var index = $('.week').attr('data-tab');
 		days[index] = data;
 //		if($('input[name=load]').val()!=''&&$('input[name=content]').val()!=''){
@@ -299,7 +299,7 @@ function templet(){
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}
-
+		radio();
 		});
 }
 function wordSum(){
