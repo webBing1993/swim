@@ -193,7 +193,7 @@ function imgfit(){
 		var image = new Image();
 		var ww = up.width();
 		image.src = path ;
-		up.css({"background-image":'url('+path+')'});
+		up.css({"background-image":'url('+path  +')'});
 		image.onload = function(){
 			if(image.width > image.height){
 				up.css({"background-size":'auto '+ww +'px'});
@@ -218,7 +218,18 @@ function enable_back() {
 function back_common() {
 	history.pushState(null, null, document.URL);
 }
-
+function bghide(){
+	//防止页面后退
+	history.pushState(null, null, document.URL);
+	window.addEventListener('popstate',back_com)
+}
+function back_com() {
+	history.pushState(null, null, document.URL);
+	$('.bg').hide();
+	$('.main').fadeIn();
+	history.go(-1);
+	window.removeEventListener('popstate',back_com)
+}
 function isAll(data){
 	var all = true;
 	for(var key in data){
