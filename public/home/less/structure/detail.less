@@ -24,6 +24,7 @@ a:active{
 		-moz-border-radius:50%;
 		border-radius:50%;
 	}
+
 	span{
 		display: inline-block;
 		width: 18vw;
@@ -32,6 +33,7 @@ a:active{
 		left: 0;
 		right: 0;
 		top: 30vw;
+		text-align: center;
 		.font(#ffffff,@c_content,1.6rem);
 		padding-left:2rem;
 		&:before{
@@ -53,6 +55,11 @@ a:active{
 		&.assi:before{
 			content:'助';
 			background: #fd8358;
+		}
+	}
+	@media screen and (min-width: 768px) {
+		span {
+			width: 8vw;
 		}
 	}
 }

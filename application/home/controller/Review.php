@@ -71,5 +71,11 @@ class Review extends Base{
             return $this->error();
         }
     }
-
+	/**
+	 * @return mixed
+	 * 助教证件
+	 */
+	public function carddetail(){
+		return $this->fetch();
+	}
 }

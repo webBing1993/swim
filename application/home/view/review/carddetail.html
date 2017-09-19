@@ -1,0 +1,52 @@
+{extend name="public/common"}
+
+{block name="style"}
+<link rel="stylesheet" href="/static/viewer/viewer.min.css">
+<style>
+	.name{
+		font-size: 1.8rem;
+		line-height: 3rem;
+		text-align: center;
+		margin-top: 4vw;
+	}
+	.cards{
+		padding: 4vw;
+	}
+	.card{
+		display: block;
+		width: 80vw;
+		margin: 4vw auto;
+	}
+	.note{
+		color:#999999;
+	}
+</style>
+{/block}
+
+{block name="body"}
+<div class="name">王佳</div>
+<div></div>
+<div class="cards">
+	<span class="note">社会指导员证:</span>
+	<img src="/home/images/coach/banner.png" alt="社会指导员证" class="card thumbnail"  data-original="">
+	<span class="note">职业资格鉴定证:</span>
+	<img src="/home/images/coach/banner02.png" alt="职业资格鉴定证" class="card thumbnail"  data-original="">
+	<span class="note">救生员证:</span>
+	<img src="/home/images/coach/banner.png" alt="救生员证" class="card thumbnail"  data-original="">
+</div>
+
+{/block}
+
+{block name="script"}
+<script src="/static/viewer/viewer-jquery.min.js"></script>
+<script>
+$(function(){
+	//图片预览
+	$('.cards').viewer({
+		url: 'data-original',
+		toolbar:false,
+		title:false
+	});
+});
+</script>
+{/block}
