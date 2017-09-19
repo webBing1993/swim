@@ -201,8 +201,8 @@ class Visitor extends Base{
 	/**
 	 * 签到列表页
 	 */
-	public function lists(){//date('Y-m-d')
-		$date = '2017-09-11';
+	public function lists(){
+		$date = date('Y-m-d');
 		$coachModel = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_COACH])->order("create_time desc")->field("userid, name, class_id")->select();
 		//var_dump($coachModel);die;
 		$res = [];
