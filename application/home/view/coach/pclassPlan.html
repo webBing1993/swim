@@ -292,12 +292,10 @@ function weekSave(){
 			start:$('input[name=start]').val(),
 			need:$('#need').val(),
 			summary:$('#summary').val(),
-			mark:mark,
-			parts:parts
 		};
-//		if(isAll(data)){
-//			data[parts] =parts;
-		console.log(parts);
+		if(isAll(data)){
+			data[parts] =parts;
+			data[mark] =mark;
 			$.ajax({
 				type:"post",
 				url:"",
@@ -306,15 +304,15 @@ function weekSave(){
 //					var lists = $.parseJSON(data);
 				}
 			});
-//		}else{
-//			swal({
-//				title: '提示',
-//				text: '请完善您的信息',
-//				type: 'error',
-//				showConfirmButton:true,
-//				timer:3000
-//			})
-//		}
+		}else{
+			swal({
+				title: '提示',
+				text: '请完善您的信息',
+				type: 'error',
+				showConfirmButton:true,
+				timer:3000
+			})
+		}
 	})
 }
 function daySave(){
