@@ -63,7 +63,7 @@ class ClassPlan extends Model
             $collection = new Collection($res['score']);
             $res['score'] = $collection->toArray();
         }
-        $res['contents'] = ClassContent::where(['pid' => $res['id']])->field('id, load, strength, duration')->order('type')->select();
+        $res['contents'] = ClassContent::where(['pid' => $res['id']])->field('id, type, load, strength, duration')->order('type')->select();
         if($res['contents']){
             $collection = new Collection($res['contents']);
             $res['contents'] = $collection->toArray();

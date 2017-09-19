@@ -12,22 +12,22 @@
 	<div class="list clear">
 		<span class="title fl">计划标题</span>
 		<span class="fa fa-angle-right fr"></span>
-		<input type="text" placeholder="请输入计划标题" class="fr limit" name="title">
+		<input type="text" placeholder="请输入计划标题" class="fr limit" name="title" value="{$res.title|default=''}">
 	</div>
 	<div class="list clear">
 		<span class="title fl">开始时间</span>
 		<span class="fa fa-angle-right fr"></span>
-		<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start">
+		<input type="text" value="{$res.start_time|default=date('Y-m-d')}" class="fr" readonly="readonly" id="start" name="start">
 	</div>
 	<div class="list clear">
 		<span class="title fl">结束时间</span>
 		<span class="fa fa-angle-right fr"></span>
-		<input type="text" value="2011-1-1" class="fr"  readonly="readonly" id="end" name="end">
+		<input type="text" value="{$res.end_time|default=date('Y-m-d')}" class="fr"  readonly="readonly" id="end" name="end">
 	</div>
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" placeholder="请输入不多于200字。"></textarea>
+			<textarea name="need" id="need" placeholder="请输入不多于200字。">{$res.need|default=''}</textarea>
 			<div class="sum"><span>0</span>/200</div>
 		</div>
 	</div>
@@ -82,8 +82,8 @@
 				<td>1</td>
 				<td class="group">1</td>
 				<td class="num">1</td>
-				<td class="distance">400</td>
-				<td class="pose">自由泳</td>
+				<td class="distance">-</td>
+				<td class="pose">-</td>
 			</tr>
 		</table>
 		<span class="fa fa-plus addList"></span>
@@ -143,8 +143,8 @@ function  addList(){
 			'<td>'+num+'</td>'+
 			'<td class="group">1</td>'+
 			'<td class="num">1</td>'+
-			'<td class="distance">400</td>'+
-			'<td class="pose">自由泳</td>'+
+			'<td class="distance">-</td>'+
+			'<td class="pose">-</td>'+
 			'</tr>';
 		$('table').append(html);
 		radio();
@@ -201,20 +201,19 @@ function radio(){
 }
 var days=new Array(7);
 function weekSave(){
-	$('.weeksave').off('click').on('click',function(){
+	$('.save').off('click').on('click',function(){
 		var data ={
+			id:"{$res.id ? $res.id : '';}",
 			title:$('input[name=title]').val(),
 			start:$('input[name=start]').val(),
 			end:$('input[name=end]').val(),
 			need:$('#need').val(),
+			days:days
 		};
-		data[days] =days;
 		$.ajax({
 			type:"post",
 			url:"",
-			data:{
-
-			},
+			data:data,
 			success:function(data)
 			{
 				var lists = $.parseJSON( data );
@@ -293,8 +292,8 @@ function templet(){
 				'<td>1</td>'+
 				'<td class="group">1</td>'+
 				'<td class="num">1</td>'+
-				'<td class="distance">400</td>'+
-				'<td class="pose">自由泳</td>'+
+				'<td class="distance">-</td>'+
+				'<td class="pose">-</td>'+
 				'</tr>';
 			$('table').html(html);
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');

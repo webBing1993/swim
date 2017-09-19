@@ -10,20 +10,20 @@
 	<div class="tag">周计划</div>
 	<div class="list clear">
 		<span class="title fl">计划标题</span>
-		<input type="text" value="2017年07月第三周周计划" class="fr limit" name="title" readonly>
+		<input type="text" value="{$res.title}" class="fr limit" name="title" readonly>
 	</div>
 	<div class="list clear">
 		<span class="title fl">开始时间</span>
-		<input type="text" value="2011-1-1" class="fr" readonly="readonly" id="start" name="start" >
+		<input type="text" value="{$res.start_time}" class="fr" readonly="readonly" id="start" name="start" >
 	</div>
 	<div class="list clear">
 		<span class="title fl">结束时间</span>
-		<input type="text" value="2011-1-1" class="fr"  readonly="readonly" id="end" name="end">
+		<input type="text" value="{$res.end_time}" class="fr"  readonly="readonly" id="end" name="end">
 	</div>
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" readonly>你好你好</textarea>
+			<textarea name="need" id="need" readonly>{$res.need}</textarea>
 			<div class="sum"><span>0</span>/200</div>
 		</div>
 	</div>
@@ -122,7 +122,8 @@ $(function(){
 	daySave();
 
 });
-var days='';
+var days={$contents};
+console.log(days);
 function daySave(){
 	$('.daysave').off('click').on('click',function(){
 		$('.bg').fadeOut();
