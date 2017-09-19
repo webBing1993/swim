@@ -351,9 +351,14 @@ class Coach extends Base {
 			}
 		}else{
 			$id = input('id');
-			$res = WeekPlan::getModelById($id);
+			$res = [];
+			$contents = [];
+			if($id){
+				$res = WeekPlan::getModelById($id);
+				$contents = $res['contents'];
+			}
 			//var_dump($res);die;
-			$this->assign('contents',json_encode($res['contents']));
+			$this->assign('contents',json_encode($contents));
 			$this->assign('res', $res);
 			return $this->fetch();
 		}
