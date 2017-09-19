@@ -187,6 +187,7 @@ function imgresize(){
 function imgfit(){
 	var ups = $('.up' );
 	var len = ups.length;
+	if(len == 4){len = 5}
 	for(var i = 0 ; i <len ;i++){
 		var up = ups.eq(i);
 		var path = up.attr('data-tab');
