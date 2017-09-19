@@ -26,11 +26,12 @@ body .lists .list .coach {
 }
 body .lists .list .coach .name {
   display: inline-block;
-  width: 49%;
+  width: 59%;
+  background: burlywood;
 }
 body .lists .list .coach .num {
   display: inline-block;
-  width: 46%;
+  width: 36%;
   word-break: break-all;
   text-align: right;
 }
