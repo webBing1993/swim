@@ -7,34 +7,28 @@
 
 {block name="body"}
 <div class="lists">
-	<div class="list" data-tab="1">
+	{volist name="res" id="vo"}
+	<div class="list" data-tab="{$vo.userid}" data-tag="{$vo.class_id}">
 		<div class="coach">
-			<span class="name limit">教练：小三</span>
-			<span class="num limit">已签到：<span>20</span>位学员</span>
-		</div>
-	</div>
-		{volist name="res" id="vo"}
-	<div class="list" data-tab="{$key}">
-		<div class="coach">
-			<span class="name limit">教练：{$vo.name}</span>
+			<span class="name limit">教练：{$vo.name} {$vo.class_name}</span>
 			<span class="num limit">学员情况：<span>{$vo.current_num}</span>/{$vo.all_num}</span>
 		</div>
-		<!--<div class="content">-->
-			<!--<div class="students">-->
-				<!--{volist name="vo.studentList" id="voo"}-->
-				<!--<div class="student">-->
-					<!--<span class="name limit">{$voo.name}</span>-->
-					<!--<span class="time limit">{$voo.create_time}</span>-->
-					<!--<span class="st limit">-->
-						<!--{eq name="voo.status" value="1"}正常{else/}迟到{/eq}-->
-					<!--</span>-->
-				<!--</div>-->
-				<!--{/volist}-->
-			<!--</div>-->
-			<!--{if condition="(count($vo.studentList) == 3)"}-->
-			<!--<div class="more limit"><span>更多...</span></div>-->
-			<!--{/if}-->
-		<!--</div>-->
+		<div class="content">
+			<div class="students">
+				{volist name="vo.studentList" id="voo"}
+				<div class="student">
+					<span class="name limit">{$voo.name}</span>
+					<span class="time limit">{$voo.create_time}</span>
+					<span class="st limit">
+						{eq name="voo.status" value="1"}正常{else/}迟到{/eq}
+					</span>
+				</div>
+				{/volist}
+			</div>
+			{if condition="(count($vo.studentList) == 3)"}
+			<div class="more limit"><span>更多...</span></div>
+			{/if}
+		</div>
 	</div>
 	{/volist}
 </div>
@@ -161,11 +155,13 @@ $(function(){
 	$(".lists").delegate(".more", "click", function () {
 		var this_ = $(this);
 		var id = $(this).parents('.list').attr('data-tab');
+		var cid = $(this).parents('.list').attr('data-tag');
 		$.ajax({
 			type:"post",
 			url:"{:Url('Visitor/listMore')}",
 			data:{
-				id: id
+				id: id,
+				cid: cid
 			},
 			dataType: "Json",
 			success:function(data){
