@@ -44,7 +44,7 @@ class Index extends Controller {
     }
     public function demo(){
         $userId = session('userId');
-        $id = input('id', 4);
+        $id = input('id', 3);
         if($id == 1){
             $tag_id = 1;
         }
