@@ -226,7 +226,7 @@ class Visitor extends Base{
 				}
 			}
 		}
-		var_dump($res);die;
+		//var_dump($res);die;
 		$this->assign('res',$res);
 		return $this->fetch();
 	}
