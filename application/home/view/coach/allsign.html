@@ -1,0 +1,163 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练频道</title>
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+<link rel="stylesheet" href="/home/css/coach/allsign.css">
+{/block}
+
+{block name="body"}
+<div id="w"></div>
+<div class="time">
+	<span><?php echo date('Y年m月d日')?></span>
+	<input value="" class="" readonly="readonly"  type="text" id="start">
+</div>
+<div class="tabbox">
+	<div class="tabs clear">
+		<span class="tab active">异常打卡</span>
+		<span class="tab fr">正常打卡</span>
+	</div>
+</div>
+<div class="boxs">
+	<!--absence：缺卡，late：迟到，normal：正常-->
+	<div class="box active">
+		{volist name="res.abnormal.late" id="vo"}
+		<div class="list">
+			<span>{$vo.name}</span>
+			<span>{$vo.time}</span>
+			<span class="late">
+				<i class="fa fa-exclamation-circle"></i>
+				迟到
+			</span>
+		</div>
+		{/volist}
+		{volist name="res.abnormal.absence" id="vo"}
+		<div class="list">
+			<span>{$vo.name}</span>
+			<span>{$vo.time}</span>
+			<span class="absence">
+				<i class="fa fa-times-circle"></i>
+				缺卡
+			</span>
+		</div>
+		{/volist}
+	</div>
+	<div class="box hidden">
+		{volist name="res.normal" id="vo"}
+		<div class="list">
+			<span>{$vo.name}</span>
+			<span>{$vo.time}</span>
+			<span class="normal">
+				<i class="fa fa-check-circle"></i>
+				正常
+			</span>
+		</div>
+		{/volist}
+	</div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+$(function(){
+	//tab值记录
+	tagRecord('.tab' ,'.box');
+	//tab切换
+	tagSwitch('.tab' ,'.box');
+	//天气
+//	$.getScript('http://php.weather.sina.com.cn/iframe/index/w_cl.php?code=js&day=0&city=&dfc=1&charset=utf-8',function(a){
+//		var s="",r="",q="";for(s in window.SWther.w){
+//			q=SWther.w[s][0];
+//			r={city:s,date:SWther.add.now.split(" ")[0]||"",day_weather:q.s1,night_weather:q.s2,day_temp:q.t1,night_temp:q.t2,day_wind:q.p1,night_wind:q.p2},
+//				$("#w").html(q.s1);
+//			console.log(q);
+//			console.log(r)
+//		}
+//	});
+	//默认提示
+	for(var j = 0 ;j < 2 ;j++){
+		if($('.box').eq(j).find('.list').length == 0){
+			$('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
+		}
+	}
+	//时间选择
+	var currYear = (new Date()).getFullYear();
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.default = {
+		theme: 'android-holo light',
+		display: 'modal',
+		mode: 'scroller',
+		dateFormat: 'yy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear-10,
+		endYear: currYear + 50,
+		onSelect: function (valueText, inst) {
+			var array = valueText.split('-');
+			$.ajax({
+				type:"post",
+				url:"{:Url('allsign')}",
+				data:{
+//					year:array[0],
+//					month:array[1],
+//					day:array[2]
+					date:valueText
+				},
+				success:function(data){
+					$('.time span').text(array[0] + "年" + array[1] + "月"+ array[2] + "日");
+					var msg = $.parseJSON(data);
+					var normal = msg.normal;
+//					var nl = normal.length;
+					var nhtml = '';
+					for(var key in normal){
+						var list = normal[key];
+						nhtml +=
+							'<div class="list">'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
+							'<span class="normal"><i class="fa fa-check-circle"></i> 正常 </span></div>'
+					}
+					$('.box').eq(1).html(nhtml);
+					var abnormal = msg.abnormal;
+					var late = abnormal.late;
+					var absence = abnormal.absence;
+//					var ll = late.length;
+//					var al = absence.length;
+					var lhtml = '';
+					for(var key in late){
+						var list = late[key];
+						lhtml +=
+							'<div class="list">'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
+							'<span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
+
+					}
+					for(var key in absence){
+						var list = absence[key];
+						lhtml +=
+							'<div class="list">'+
+							'<span>'+list.name+'</span>'+
+							'<span>'+list.time+'</span>'+
+							'<span class="absence">'+
+							'<i class="fa fa-times-circle"></i>'+
+							'缺卡</span></div>';
+					}
+					$('.box').eq(0).html(lhtml);
+					for(var j = 0 ;j < 2 ;j++){
+						if($('.box').eq(j).find('.list').length == 0){
+							$('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
+						}
+					}
+				}
+			});
+		}
+	};
+	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+});
+function loadScroll(){}
+</script>
+{/block}

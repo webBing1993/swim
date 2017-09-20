@@ -1,0 +1,435 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>训练档案</title>
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+<link rel="stylesheet" href="/home/css/coach/publish.css">
+{/block}
+
+{block name="body"}
+<div class="main">
+	<div class="tag">课时计划</div>
+	<div class="list clear">
+		<span class="title fl">计划标题</span>
+		<span class="fa fa-angle-right fr"></span>
+		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="{$res.title|default=''}">
+	</div>
+	<div class="list clear">
+		<span class="title fl">课时时间</span>
+		<span class="fa fa-angle-right fr"></span>
+		<input type="text" value="{$res.start_time|default=date('Y-m-d')}" class="fr" readonly="readonly" id="start" name="start">
+	</div>
+	<div class="list">
+		<span class="title">任务需求</span>
+		<div class="content">
+			<textarea name="need" id="need" placeholder="输入不多于200字。">{$res.need|default=''}</textarea>
+			<div class="sum"><span>0</span>/200</div>
+		</div>
+	</div>
+	<div class="tag">计划内容</div>
+	<div class="list clear templet" data-tab="0">
+		<span class="title fl">准备部分</span>
+		<span class="fa fa-angle-right fr"></span>
+	</div>
+	<div class="list clear templet" data-tab="1">
+		<span class="title fl">基本部分</span>
+		<span class="fa fa-angle-right fr"></span>
+	</div>
+	<div class="list clear templet" data-tab="2">
+		<span class="title fl">结束部分</span>
+		<span class="fa fa-angle-right fr"></span>
+	</div>
+	<div class="tag">课后小结</div>
+	<div class="list">
+		<!--<span class="title">课后小结</span>-->
+		<div class="content">
+			<textarea name="summary" id="summary" placeholder="输入不多于200字。">{$res.summary|default=''}</textarea>
+			<div class="sum"><span>0</span>/200</div>
+		</div>
+		<div class="students">
+			{empty name="$res.score"}
+			{volist name="score" id="vo"}
+			<div class="student clear">
+				<span class="name fl" data-tab="{$key}">{$vo}</span>
+				<span class="fa fa-angle-right fr"></span>
+				<input type="text" value="" placeholder="请输入成绩" class="fr limit">
+			</div>
+			{/volist}
+			{else/}
+			{volist name="res.score" id="vo"}
+			<div class="student clear">
+				<span class="name fl" data-tab="{$vo.userid}">{$vo.name|default=''}</span>
+				<span class="fa fa-angle-right fr"></span>
+				<input type="text" value="{$vo.score|default=''}" placeholder="请输入成绩" class="fr limit">
+			</div>
+			{/volist}
+			{/empty}
+		</div>
+	</div>
+	<div class="save">一键保存</div>
+</div>
+
+<!--日模板-->
+<div class="bg">
+	<div class="list clear">
+		<span class="title fl">计划部分</span>
+		<span class="fr limit week" data-tab="0">星期一</span>
+	</div>
+	<!--<div class="list clear choose">-->
+		<!--<span class="title fl">选择模板</span>-->
+		<!--<span class="fa fa-angle-down fr"></span>-->
+		<!--<span class="fr limit tem">自定义</span>-->
+	<!--</div>-->
+	<!--<div class="tems">-->
+		<!--<div>自定义</div>-->
+		<!--<div>末班一</div>-->
+		<!--<div>moban2</div>-->
+		<!--<div>末班一</div>-->
+	<!--</div>-->
+	<div class="list">
+		<span class="title">训练内容</span>
+		<table>
+			<tr>
+				<td>序号</td>
+				<td>组数</td>
+				<td>个数</td>
+				<td>距离</td>
+				<td>项目</td>
+			</tr>
+			<!--<tr>-->
+				<!--<td>1</td>-->
+				<!--<td class="group">1</td>-->
+				<!--<td class="num">1</td>-->
+				<!--<td class="distance">-</td>-->
+				<!--<td class="pose">-</td>-->
+			<!--</tr>-->
+		</table>
+		<span class="fa fa-plus addList"></span>
+		<!--<div class="content">-->
+			<!--<textarea name="content" id="content" placeholder="输入不多于200字。"></textarea>-->
+			<!--<div class="sum"><span>0</span>/200</div>-->
+		<!--</div>-->
+	</div>
+	<div class="list clear">
+		<span class="title fl">负荷量</span>
+		<div class="load fr radiogroup">
+			<span class="active">低</span>
+			<span>中低</span>
+			<span>中</span>
+			<span>中高</span>
+			<span>高</span>
+		</div>
+	</div>
+	<div class="list clear">
+		<span class="title fl">负荷强度</span>
+		<div class="strength fr radiogroup">
+			<span class="active">低</span>
+			<span>中低</span>
+			<span>中</span>
+			<span>中高</span>
+			<span>高</span>
+		</div>
+	</div>
+	<div class="list clear">
+		<span class="title fl">时间</span>
+		<div class="duration fr radiogroup">
+			<span class="active">5</span>
+			<span>10</span>
+			<span>15</span>
+			<span>20</span>
+			<span>30</span>
+		</div>
+	</div>
+	<div class="daysave">保存并返回</div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+$(function(){
+	//时间选择
+	timeSelect();
+	//字数统计
+	wordSum();
+	//内容模板
+	templet();
+	//保存周计划
+	weekSave();
+	//保存日计划
+	daySave();
+	//单选
+	radio();
+	//新增训练内容
+	addList();
+});
+function  addList(){
+	$('.addList').off('click').on('click',function(){
+		var num = $('tr').length;
+		var html =
+			'<tr>'+
+			'<td>'+num+'</td>'+
+			'<td class="group">1</td>'+
+			'<td class="num">1</td>'+
+			'<td class="distance">-</td>'+
+			'<td class="pose">-</td>'+
+			'</tr>';
+		$('table').append(html);
+		radio();
+	})
+}
+function radio(){
+	var grouphtml =
+		'<div class="rs">'+
+		'<div>1</div>'+
+		'<div>2</div>'+
+		'<div>3</div>'+
+		'<div>4</div>'+
+		'<div>5</div>'+
+		'</div>';
+	var numhtml =
+		'<div class="rs">'+
+		'<div>1</div>'+
+		'<div>2</div>'+
+		'<div>3</div>'+
+		'<div>4</div>'+
+		'<div>5</div>'+
+		'<div>10</div>'+
+		'<div>20</div>'+
+		'</div>';
+	var distancehtml =
+		'<div class="rs">'+
+		'<div>1600</div>'+
+		'<div>800</div>'+
+		'<div>400</div>'+
+		'<div>200</div>'+
+		'<div>100</div>'+
+		'<div>50</div>'+
+		'<div>25</div>'+
+		'<div>15</div>'+
+		'</div>';
+	var aposehtml =
+		'<div class="rs">'+
+		'<div>做操</div>'+
+		'<div>拉伸</div>'+
+		'<div>腰腿</div>'+
+		'<div>蛙跳</div>'+
+		'<div>收腹跳</div>'+
+		'<div>关节活动</div>'+
+		'<div>引体向上</div>'+
+		'<div>平板支撑</div>'+
+		'<div>速度</div>'+
+		'<div>分解</div>'+
+		'<div>混合</div>'+
+		'<div>蛙泳</div>'+
+		'<div>仰泳</div>'+
+		'<div>蝶泳</div>'+
+		'<div>自由泳</div>'+
+		'</div>';
+	var bposehtml =
+		'<div class="rs">'+
+		'<div>蛙泳</div>'+
+		'<div>仰泳</div>'+
+		'<div>蝶泳</div>'+
+		'<div>自由泳</div>'+
+		'<div>混合</div>'+
+		'<div>技术</div>'+
+		'<div>拉力</div>'+
+		'</div>';
+	var cposehtml =
+		'<div class="rs">'+
+		'<div>200放松</div>'+
+		'<div>400放松</div>'+
+		'</div>';
+	var index = $('.week').attr('data-tab');
+	var posehtml = [aposehtml,bposehtml,cposehtml];
+	var html = [grouphtml,numhtml,distancehtml,posehtml[index]];
+	$('.radiogroup span').off('click').on('click',function(){
+		$(this).addClass('active');
+		$(this).siblings('span').removeClass('active');
+	});
+	$('td').off('click').on('click',function(){
+		var td = $(this).index();
+		var tr = $(this).parents('tr').index();
+		if(td!=0 && tr!=0){
+			$('.rs').remove();
+			var index = $(this).index();
+			$(this).append(html[index-1]);
+			$('.rs div').off('click').on('click',function(){
+				var text = $(this).text();
+				$(this).parents('td').replaceWith('<td>'+text+'</td>');
+				radio();
+			});
+		}
+	});
+}
+var parts=new Array(3);
+var contents={$contents};
+var clen = contents.length;
+if(clen > 0){
+	for(var i = 0 ; i<clen;i++){
+		parts[contents[i].type -1]= contents[i]
+	}
+}
+
+function weekSave(){
+	$('.save').off('click').on('click',function(){
+		var students = $('.student');
+		var len = students.length;
+		var mark = [];
+		for(var i = 0 ; i < len ;i++){
+			var student =students.eq(i);
+			var id = student.find('.name').attr('data-tab');
+			var name = student.find('.name').text();
+			var time = student.find('input').val();
+			if(time!=''){
+				mark[i] = {'id':id,'name':name,'time':time};
+			}
+		}
+		var data ={
+			id:"{$res.id ? $res.id : '';}",
+			title:$('input[name=title]').val(),
+			start:$('input[name=start]').val(),
+			need:$('#need').val(),
+			summary:$('#summary').val(),
+		};
+		if(isAll(data)){
+			data[parts] =parts;
+			data[mark] =mark;
+			$.ajax({
+				type:"post",
+				url:"",
+				data:data,
+				success:function(data){
+//					var lists = $.parseJSON(data);
+				}
+			});
+		}else{
+			swal({
+				title: '提示',
+				text: '请完善您的信息',
+				type: 'error',
+				showConfirmButton:true,
+				timer:3000
+			})
+		}
+	})
+}
+function daySave(){
+	$('.daysave').off('click').on('click',function(){
+		var content = [];
+		var lists = $('table tr');
+		var len = lists.length;
+		for(var i = 1;i <len ;i++){
+			var list = lists.eq(i);
+			var group = list.find('td').eq(1).text();
+			var num = list.find('td').eq(2).text();
+			var distance = list.find('td').eq(3).text();
+			var pose = list.find('td').eq(4).text();
+			content.push([group,num,distance,pose])
+		}
+		var data ={
+			content:content,
+			load:$('.load span.active').index()+1,
+			strength:$('.strength span.active').index()+1,
+			duration:$('.duration span.active').index()+1
+		};
+		var index = $('.week').attr('data-tab');
+		parts[index] = data;
+//		if(isAll(data)){
+			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
+//		}else{
+//			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
+//		}
+		$('.bg').fadeOut();
+		$('.main').fadeIn();
+		enable_back();
+	})
+}
+function templet(){
+	$('.templet').off('click').on('click',function(){
+		var index = $(this).attr('data-tab');
+		var name = $(this).find('.title').text();
+		$('.week').text(name).attr('data-tab',index);
+		fobidden_back();
+		$('.main').fadeOut();
+		$('.bg').fadeIn();
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		if(parts[index]){
+			var trs = parts[index].content;
+			var len = trs.length;
+			for(var i = 0 ; i<len;i++){
+				html+=
+					'<tr>'+
+					'<td>'+(i+1)+'</td>'+
+					'<td class="group">'+trs[i][0]+'</td>'+
+					'<td class="num">'+trs[i][1]+'</td>'+
+					'<td class="distance">'+trs[i][2]+'</td>'+
+					'<td class="pose">'+trs[i][3]+'</td>'+
+					'</tr>';
+			}
+			$('table').html(html);
+			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
+		}else{
+			html +=
+				'<tr>'+
+				'<td>1</td>'+
+				'<td class="group">1</td>'+
+				'<td class="num">1</td>'+
+				'<td class="distance">-</td>'+
+				'<td class="pose">-</td>'+
+				'</tr>';
+			$('table').html(html);
+			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+		}
+		radio()
+	});
+}
+function wordSum(){
+	$('#need,#summary').on('input',function(){
+		var len = $(this).val().length;
+		$(this).next('.sum').find('span').text(len);
+		if(len > 200){
+			$(this).next('.sum').find('span').addClass('red');
+		}else{
+			$(this).next('.sum').find('span').removeClass('red');
+		}
+	});
+}
+function timeSelect(){
+	var currYear = (new Date()).getFullYear();
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.default = {
+		theme: 'android-holo light',
+		display: 'modal',
+		mode: 'scroller',
+		dateFormat: 'yy-mm-dd',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear,
+		endYear: currYear + 50,
+		onSelect: function (valueText, inst) {
+			var start = $('#start').val();
+		}
+	};
+	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+}
+function temShow(data){
+	$('.choose').off('click').on('click',function(){
+		$('.tems').fadeIn();
+		$('.tems div').off('click').on('click',function(){
+			var index = $(this).index();
+			$('input[name=load]').val(data[index].load);
+			$('input[name=content]').val(data[index].content);
+		});
+	})
+}
+
+</script>
+{/block}

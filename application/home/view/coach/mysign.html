@@ -1,0 +1,246 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练频道</title>
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+<link rel="stylesheet" href="/home/css/coach/mysign.css">
+{/block}
+
+{block name="body"}
+<div class="banner">
+	<img src="/home/images/coach/banner03.png" alt="banner">
+</div>
+<div id="calendar">
+	<div class="sdbox">
+		<div class="top clear">
+			<i class="fa fa-angle-left fl" @click="preMonth"></i>
+			<span class="time">
+				<input value="" class="" readonly="readonly"  type="text" id="start">
+				<span class="now-y-m" >{{ nowYear}}年{{ formatNowMonth }}月 </span>
+			</span>
+			<i class="fa fa-angle-right fr" @click="nextMonth"></i>
+		</div>
+		<div class="title">
+			<span v-for="week in weeks">{{ week }}</span>
+		</div>
+		<div class="content">
+			<ul>
+				<li v-for="(day,index) in days" :class="{'normal' : isNormal(day),'late' : isLate(day),'rest' : isRest(day)}" :key="index">
+					<span>{{ day }}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="color">
+	<span class="normal">正常</span>
+	<span class="late">迟到</span>
+	<span class="rest">休息</span>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/vue/vue.js"></script>
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+var calendar = new Vue({
+	el: '#calendar',
+	data: {
+		weeks: ['日', '一', '二', '三', '四', '五', '六'],
+		days: [],
+		nowMonth: null,
+		nowYear: null,
+		nowDate: null,
+		showModal: false,
+		normal:{$normal},//初始正常
+		late:{$late},//初始迟到
+		rest:{$rest}//初始休息
+	},
+	computed: {
+		today: function() {
+			var date = new Date();
+			if (this.nowYear === date.getFullYear() && this.nowMonth === date.getMonth()) {
+				return (this.getFirstDay(this.nowYear, this.nowMonth) + this.nowDate - 1);
+			}
+			return false;
+		},
+		formatNowMonth: function() {
+			if (this.nowMonth < 9) {
+				return '0' + (this.nowMonth + 1);
+			}
+			return this.nowMonth + 1;
+		}
+	},
+	created(){
+		this.$nextTick(() => {
+			this.nowDate();
+		this.init();
+	})
+	},
+	methods: {
+		// 获取当月天数
+		getDates: function(year, month) {
+			var date = new Date(year, month+1, 0);
+			return date.getDate();
+		},
+		// 获取当月第一天是星期几
+		getFirstDay: function(year, month) {
+			var date = new Date();
+			var firstDay = new Date(year, month, 1);
+			return firstDay.getDay();
+		},
+		nowDate: function() {
+			var date = new Date();
+			this.nowYear = date.getFullYear();
+			this.nowMonth = date.getMonth();
+			this.nowDate = date.getDate();
+		},
+		init: function() {
+			this.days = [];
+			var date = new Date();
+			var dates = this.getDates(this.nowYear, this.nowMonth);
+			var firstDay = this.getFirstDay(this.nowYear, this.nowMonth);
+			var totalLength = 42;
+			if (firstDay != 0) {
+				for (var i = 0; i < firstDay; i++) {
+					this.days.push('');
+				}
+			}
+			for (var m = 0; m < dates; m++) {
+				this.days.push(m + 1);
+			}
+			var daysLength = this.days.length;
+			if (daysLength < totalLength) {
+				for (var n = 0; n < totalLength - daysLength; n++)
+					this.days.push('');
+			}
+			//时间选择
+			var currYear = (new Date()).getFullYear();
+			var opt={};
+			var this_ = this;
+			opt.date = {preset : 'date'};
+			opt.default = {
+				theme: 'android-holo light',
+				display: 'modal',
+				mode: 'scroller',
+				dateFormat: 'yy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+				startYear: currYear-10,
+				endYear: currYear + 50,
+				onBeforeShow: function (inst) {
+					inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;
+				},
+				onSelect: function (valueText, inst) {
+					var array = valueText.split('-');
+					this_.nowYear = array[0];
+					this_.nowMonth = array[1]-1;
+					$.ajax({
+						type:"post",
+						url:"{:Url('Coach/mysign')}",
+						data:{
+							year:array[0],
+							month:array[1]
+						},
+						success:function(msg){
+							var data = $.parseJSON(msg);
+							this_.normal = data.normal;
+							this_.late = data.late;
+							this_.rest = data.rest;
+							this_.init();
+						}
+					});
+				},
+				headerText: function (valueText) { //自定义弹出框头部格式
+					var array = valueText.split('-');
+					return array[0] + "年" + array[1] + "月";
+				}
+			};
+			$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+		},
+		preMonth: function() {
+			if (this.nowMonth <= 0) {
+				this.nowYear -= 1;
+				this.nowMonth = 11;
+			} else {
+				this.nowMonth -= 1;
+			}
+			var this_ = this;
+			$.ajax({
+				type:"post",
+				url:"{:Url('Coach/mysign')}",
+				data:{
+					year:this.nowYear,
+					month:this.nowMonth+1
+				},
+				success:function(msg){
+					var data = $.parseJSON(msg);
+					this_.normal = data.normal;
+					this_.late = data.late;
+					this_.rest = data.rest;
+					this_.init();
+				}
+			});
+
+		},
+		nextMonth: function() {
+			if (this.nowMonth >= 11) {
+				this.nowYear += 1;
+				this.nowMonth = 0;
+			} else {
+				this.nowMonth += 1;
+			}
+			this.init();
+			var this_ = this;
+			$.ajax({
+				type:"post",
+				url:"{:Url('Coach/mysign')}",
+				data:{
+					year:this.nowYear,
+					month:this.nowMonth+1
+				},
+				success:function(msg){
+					var data = $.parseJSON(msg);
+					this_.normal = data.normal;
+					this_.late = data.late;
+					this_.rest = data.rest;
+					this_.init();
+				}
+			});
+		},
+		showDate: function(day) {
+			if (day === '') {
+				return;
+			}
+		},
+		isNormal: function(day){
+			//正常签到
+			if(this.normal.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isLate:function(day){
+			//迟到
+			if(this.late.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isAbsence: function(day){
+			//缺勤
+			if(this.absence.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isRest: function(day){
+			//休息
+			if(this.rest.indexOf(day) !== -1){
+				return true;
+			}
+		},
+	},
+
+});
+
+</script>
+{/block}

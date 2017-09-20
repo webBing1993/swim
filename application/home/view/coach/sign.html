@@ -1,0 +1,234 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>教练频道</title>
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+<link rel="stylesheet" href="/home/css/coach/sign.css">
+{/block}
+
+{block name="body"}
+<div class="banner">
+	<div class="user clear">
+		{if condition="$userModel.gender eq 2"}
+		<div class="sex female fl">
+		{else/}
+		<div class="sex male fl">
+		{/if}
+		{empty name="$userModel.header"}
+		<img src="<?php echo param_to($userModel['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像">
+		{else/}
+		<img src="{$userModel.header|get_cover='path'}" alt="学员头像">
+		{/empty}
+		</div>
+		<div class="msgs fl">
+			<div class="name limit">{$userModel.name}</div>
+			<div class="note">{$userModel.age}岁&emsp;{$userModel.position}</div>
+		</div>
+	</div>
+	<a href="{:Url('structure/student?did='.$userModel['userid'])}" class="todetail">
+		<span>学员详情</span>
+	</a>
+	<div class="tags">
+		<span class="tag">缺卡记录 : {$absence_count}次</span>
+		<span class="tag">迟到记录 : {$late_count}节</span>
+	</div>
+</div>
+<div id="calendar">
+	<div class="header clear">
+		<span class="logo fl"></span>
+		<input value="" class="" readonly="readonly"  type="text" id="start">
+		<span class="now-y-m" >{{ nowYear}}年{{ formatNowMonth }}月 <i class="fa fa-angle-down"></i></span>
+	</div>
+	<div class="sdbox">
+		<div class="top">打卡情况</div>
+		<div class="title">
+			<span v-for="week in weeks">{{ week }}</span>
+		</div>
+		<div class="content">
+			<ul>
+				<li v-for="(day,index) in days" :class="{'normal' : isNormal(day),'late' : isLate(day),'absence' : isAbsence(day)}" :key="index">
+					<span>{{ day }}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+<div class="color">
+	<span class="normal">正常</span>
+	<span class="late">迟到</span>
+	<span class="absence">缺勤</span>
+</div>
+
+
+{/block}
+
+{block name="script"}
+<script src="/static/vue/vue.js"></script>
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+var calendar = new Vue({
+	el: '#calendar',
+	data: {
+		weeks: ['日', '一', '二', '三', '四', '五', '六'],
+		days: [],
+		nowMonth: null,
+		nowYear: null,
+		nowDate: null,
+		showModal: false,
+		normal:{$normal},//初始正常
+		late:{$late},//初始迟到
+		absence:{$absence}//初始缺勤
+	},
+	computed: {
+		today: function() {
+			var date = new Date();
+			if (this.nowYear === date.getFullYear() && this.nowMonth === date.getMonth()) {
+				return (this.getFirstDay(this.nowYear, this.nowMonth) + this.nowDate - 1);
+			}
+			return false;
+		},
+		formatNowMonth: function() {
+			if (this.nowMonth < 9) {
+				return '0' + (this.nowMonth + 1);
+			}
+			return this.nowMonth + 1;
+		}
+	},
+	created(){
+		this.$nextTick(() => {
+			this.nowDate();
+			this.init();
+	})
+	},
+	methods: {
+		// 获取当月天数
+		getDates: function(year, month) {
+			var date = new Date(year, month+1, 0);
+			return date.getDate();
+		},
+		// 获取当月第一天是星期几
+		getFirstDay: function(year, month) {
+			var date = new Date();
+			var firstDay = new Date(year, month, 1);
+			return firstDay.getDay();
+		},
+		nowDate: function() {
+			var date = new Date();
+			this.nowYear = date.getFullYear();
+			this.nowMonth = date.getMonth();
+			this.nowDate = date.getDate();
+		},
+		init: function() {
+			this.days = [];
+			var date = new Date();
+			var dates = this.getDates(this.nowYear, this.nowMonth);
+			var firstDay = this.getFirstDay(this.nowYear, this.nowMonth);
+			var totalLength = 42;
+			if (firstDay != 0) {
+				for (var i = 0; i < firstDay; i++) {
+					this.days.push('');
+				}
+			}
+			for (var m = 0; m < dates; m++) {
+				this.days.push(m + 1);
+			}
+			var daysLength = this.days.length;
+			if (daysLength < totalLength) {
+				for (var n = 0; n < totalLength - daysLength; n++)
+					this.days.push('');
+			}
+			//时间选择
+			var currYear = (new Date()).getFullYear();
+			var opt={};
+			var this_ = this;
+			opt.date = {preset : 'date'};
+			opt.default = {
+				theme: 'android-holo light',
+				display: 'modal',
+				mode: 'scroller',
+				dateFormat: 'yy-mm-dd',
+				lang: 'zh',
+				showNow: true,
+				nowText: "今天",
+				startYear: currYear-10,
+				endYear: currYear + 50,
+				onBeforeShow: function (inst) {
+					inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;
+					},
+				onSelect: function (valueText, inst) {
+					var array = valueText.split('-');
+					this_.nowYear = array[0];
+					this_.nowMonth = array[1]-1;
+					$.ajax({
+						type:"post",
+						url:"{:Url('sign')}",
+						data:{
+							year:array[0],
+							month:array[1],
+							did:"{$did}"
+						},
+						success:function(msg){
+							var data = $.parseJSON(msg);
+							this_.normal = data.normal;
+							this_.late = data.late;
+							this_.absence = data.absence;
+							this_.init();
+						}
+					});
+				},
+				headerText: function (valueText) { //自定义弹出框头部格式
+					var array = valueText.split('-');
+					return array[0] + "年" + array[1] + "月";
+				}
+			};
+			$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+		},
+		preMonth: function() {
+			if (this.nowMonth <= 0) {
+				this.nowYear -= 1;
+				this.nowMonth = 11;
+			} else {
+				this.nowMonth -= 1;
+			}
+			this.init();
+		},
+		nextMonth: function() {
+			if (this.nowMonth >= 11) {
+				this.nowYear += 1;
+				this.nowMonth = 0;
+			} else {
+				this.nowMonth += 1;
+			}
+			this.init();
+		},
+		showDate: function(day) {
+			if (day === '') {
+				return;
+			}
+		},
+		isNormal: function(day){
+			//正常签到
+			if(this.normal.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isLate:function(day){
+			//迟到
+			if(this.late.indexOf(day) !== -1){
+				return true;
+			}
+		},
+		isAbsence: function(day){
+			//缺勤
+			if(this.absence.indexOf(day) !== -1){
+				return true;
+			}
+		},
+
+	},
+
+});
+
+</script>
+{/block}

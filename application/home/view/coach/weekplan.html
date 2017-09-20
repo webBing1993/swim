@@ -1,0 +1,112 @@
+{extend name="public/common"}
+
+{block name="style"}
+<title>训练档案</title>
+<link rel="stylesheet" href="/home/css/coach/weekplan.css">
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
+{/block}
+
+{block name="body"}
+<div class="date clear">
+	<img src="/home/images/coach/cal.png" alt="日历">
+	<label for="start" class="fr">
+	<input value="<?php echo date('Y年m月')?>"  readonly="readonly" id="start" type="text">
+	<i class="fa fa-angle-down"></i>
+	</label>
+</div>
+<div class="lists">
+	<!--每周计划详情页dweekPlan.html,课时计划详情页dclassPlan.html,每周总结详情页dweekSummary.html-->
+	{volist name="res" id="vo"}
+	<div class="list">
+		<div class="content">
+			<!--每周计划、每周总结-->
+			<div class="title limit">{$vo.title}</div>
+			<div class="time">{$vo.start_time} —— {$vo.end_time} </div>
+			<!--/每周计划、每周总结-->
+		</div>
+		<div class="note clear">
+			<span>浏览 ： {$vo.views}</span>
+			{empty name="$did"}
+			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			{else/}
+			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			{/empty}
+		</div>
+	</div>
+	{/volist}
+</div>
+<!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
+{empty name="$did"}
+<a href="{:Url('pweekPlan')}" class="publish">
+	<img src="/home/images/coach/add.png" alt="">
+</a>
+{else/}
+<a href="{:Url('pweekSummary')}" class="publish">
+	<img src="/home/images/coach/add.png" alt="">
+</a>
+{/empty}
+{/block}
+
+{block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script>
+$(function(){
+	timeSelect()
+});
+function timeSelect(){
+	var currYear = (new Date()).getFullYear();
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.default = {
+		theme: 'android-holo light',
+		display: 'modal',
+		mode: 'scroller',
+		dateFormat: 'yy年mm月',
+		lang: 'zh',
+		showNow: true,
+		nowText: "今天",
+		startYear: currYear - 10,
+		endYear: currYear + 50,
+		onBeforeShow: function (inst) {
+			inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;
+		},
+		onSelect: function (valueText, inst) {
+			var time = $('#start').val();
+			$.ajax({
+				type:"post",
+				url:"",
+				data:{
+					time:time,
+					did:'{$did}'
+				},
+				success:function(data){
+					var lists = $.parseJSON(data);
+					var len = lists.length;
+					var html = '';
+					for(var i= 0 ;i<len;i++){
+						var list = lists[i];
+						html +=
+							'<div class="list">'+
+							'<div class="content">'+
+							'<div class="title">'+list.title+'</div>'+
+							'<div class="time">'+list.start_time+' —— '+list.end_time +'</div>'+
+							'</div>'+
+							'<div class="note clear">'+
+							'<span>浏览 ： '+list.views+'</span>'+
+							'<a href="{:Url(\'dweekSummary\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
+							'<a href="{:Url(\'pweekSummary\')}?id='+list.id+'" class="fr edit">编辑</a>'+
+							'</div>'+
+							'</div>'
+					}
+					$('.lists').html(html);
+				}
+			});
+		}
+	};
+	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
+	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
+}
+</script>
+{/block}
