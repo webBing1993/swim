@@ -60,15 +60,20 @@ class Notice extends Base {
 		$Model = new NoticeEnroll();
 		$msg = $Model->where($data)->find();
 		if(empty($msg)) {
-			$res = $Model->create($data);
-			if($res) {
-				NoticeModel::where('id',$id)->setInc("enrollnum");
-				return $this->success("报名成功");
-			}else {
-				return $this->error("报名失败");
+			$info = NoticeModel::where(['id' => $id])->find();
+			if($info['enrollnum']<$info['people']){
+				$res = $Model->create($data);
+				if($res) {
+					NoticeModel::where('id',$id)->setInc("enrollnum");
+					return $this->success("报名成功");
+				}else {
+					return $this->error("报名失败");
+				}
+			}else{
+				return $this->error("人数已满");
 			}
 		}else {
-			return $this->error("已存在报名信息");
+			return $this->error("已报名");
 		}
 	}
 

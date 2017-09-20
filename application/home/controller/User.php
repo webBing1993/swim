@@ -150,6 +150,21 @@ class User extends Base{
             return $this->fetch();
         }
 	}
+    /**
+     * 个人信息编辑(学员)
+     */
+    public function setHeader () {
+        if(IS_POST) {
+            $data = input('post.');
+            $res = WechatUser::where('id',$data['id'])->update($data);
+            //var_dump($data);die;
+            if($res){
+                return $this->success("修改成功");
+            }else{
+                return $this->error("修改失败");
+            }
+        }
+    }
 	/**
 	 * 我的收藏
 	 */

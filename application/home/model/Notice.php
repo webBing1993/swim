@@ -58,13 +58,13 @@ class Notice extends Model {
             ->limit(6)
             ->select();
         //$res = $this->where($map)->order($order)->limit(6)->select();
-        foreach ($res as $value) {
+        foreach ($res as $key => $value) {
             //1已报名 2已截止 3已满
-            if($value['start_time'] > time()) {
-                $value['is_enroll'] = 2;
+            if($value['end_time'] < time()) {
+                $res[$key]['is_enroll'] = 2;
             }else {
                 if($value['enrollnum'] == $value['people']) {
-                    $value['is_enroll'] = 3;
+                    $res[$key]['is_enroll'] = 3;
                 }else {
                     $data = array(
                         'notice_id' => $value['id'],
@@ -73,9 +73,9 @@ class Notice extends Model {
                     );
                     $msg = NoticeEnroll::where($data)->find();
                     if($msg) {
-                        $value['is_enroll'] = 1;
+                        $res[$key]['is_enroll'] = 1;
                     }else {
-                        $value['is_enroll'] = 0;
+                        $res[$key]['is_enroll'] = 0;
                     }
                 }
             }

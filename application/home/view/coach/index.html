@@ -220,7 +220,10 @@ $(function(){
 						$.ajax({
 							type:"post",
 							url:"{:Url('User/setHeader')}",
-							data:{header:msg.data.id},
+							data:{
+								header:msg.data.id,
+								id:'{$userModel.id}'
+							},
 							dataType: "Json",
 							success:function(){
 								console.log(msg.data.id)

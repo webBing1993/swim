@@ -148,7 +148,7 @@ function  enter(self,id){
 			}
 			swal({
 				title: ' ',
-				text: data.code == 1 ? '报名成功！':'报名失败！',
+				text: data.msg,
 				type: data.code == 1 ? 'success':'warning',
 				showConfirmButton:false,
 				timer:1500
