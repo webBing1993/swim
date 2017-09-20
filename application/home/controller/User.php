@@ -9,6 +9,7 @@ use app\home\model\WechatUserTag;
 use app\home\model\Collect;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
+use app\home\model\CertificateReview;
 use think\Db;
 /**
  * 个人中心
@@ -102,7 +103,17 @@ class User extends Base{
             $res = WechatUser::where('id',$data['id'])->update($data);
             if($res) {
                 if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
-
+                    $info = array(
+                        'type' => CertificateReview::TYPE_CERTIFICATE,
+                        'userid' => $model['userid'],
+                        'name' => $data['name'],
+                        'front_cover' => $data['social_certificate'],
+                        'title' => $data['name'],
+                        'social_certificate' => $data['social_certificate'],
+                        'profession_certificate' => $data['profession_certificate'],
+                        'lifeguard_certificate' => $data['lifeguard_certificate'],
+                    );
+                    CertificateReview::create($info);
                 }
                 return $this->success("修改成功");
             }else{
