@@ -250,7 +250,7 @@ class Coach extends Base {
 	/**
 	 * 每周计划/每周总结 列表
 	 */
-	public function weekPlan(){
+	public function weekplan(){
 		$userId = session('userId');
 		$did = input('did');
 		$time = input('time', date('Y年m月'));
@@ -264,7 +264,6 @@ class Coach extends Base {
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
-			clearstatcache();
 			$this->assign('did',$did);
 			$this->assign('res',$res);
 			return $this->fetch();
@@ -273,7 +272,7 @@ class Coach extends Base {
 	/**
 	 * 课时计划列表
 	 */
-	public function classPlan(){
+	public function classplan(){
 		$userId = session('userId');
 		$time = input('time', date('Y年m月'));
 		$res = [];
@@ -283,14 +282,13 @@ class Coach extends Base {
 			return json_encode($res);
 		}else{
 			$this->assign('res',$res);
-			clearstatcache();
 			return $this->fetch();
 		}
 	}
 	/**
 	 * 每周计划发布/编辑
 	 */
-	public function pweekPlan(){
+	public function pweekplan(){
 		if(IS_POST) {
 			$data = input('post.');
 			//var_dump($data);die;
@@ -368,7 +366,7 @@ class Coach extends Base {
 	/**
 	 * 课时计划发布/编辑
 	 */
-	public function pclassPlan(){
+	public function pclassplan(){
 		if(IS_POST) {
 			$data = input('post.');
 			//var_dump($data);die;
@@ -483,7 +481,7 @@ class Coach extends Base {
 	/**
 	 * 每周总结发布/编辑
 	 */
-	public function pweekSummary(){
+	public function pweeksummary(){
 		if(IS_POST) {
 			$data = input('post.');
 			$weekSummaryModel = new WeekSummary();
@@ -518,7 +516,7 @@ class Coach extends Base {
 	/**
 	 * 每周计划 详情
 	 */
-	public function dweekPlan(){
+	public function dweekplan(){
 		$id = input('id');
 		$info['views'] = array('exp','`views`+1');
 		WeekPlan::where('id',$id)->update($info);
@@ -530,7 +528,7 @@ class Coach extends Base {
 	/**
 	 * 课时计划 详情
 	 */
-	public function dclassPlan(){
+	public function dclassplan(){
 		$id = input('id');
 		$info['views'] = array('exp','`views`+1');
 		ClassPlan::where('id',$id)->update($info);
@@ -556,7 +554,7 @@ class Coach extends Base {
 	/**
 	 * 每周总结 详情
 	 */
-	public function dweekSummary(){
+	public function dweeksummary(){
 		$id = input('id');
 		$info['views'] = array('exp','`views`+1');
 		WeekSummary::where('id',$id)->update($info);
