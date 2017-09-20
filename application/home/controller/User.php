@@ -98,8 +98,12 @@ class User extends Base{
 	public function tutoredit () {
         if(IS_POST) {
             $data = input('post.');
+            $model = WechatUser::where(['id' => $data['id']])->find();
             $res = WechatUser::where('id',$data['id'])->update($data);
             if($res) {
+                if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
+
+                }
                 return $this->success("修改成功");
             }else{
                 return $this->error("修改失败");

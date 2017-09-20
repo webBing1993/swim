@@ -264,6 +264,7 @@ class Coach extends Base {
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
+			clearstatcache();
 			$this->assign('did',$did);
 			$this->assign('res',$res);
 			return $this->fetch();
@@ -282,6 +283,7 @@ class Coach extends Base {
 			return json_encode($res);
 		}else{
 			$this->assign('res',$res);
+			clearstatcache();
 			return $this->fetch();
 		}
 	}

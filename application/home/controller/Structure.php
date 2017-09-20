@@ -68,7 +68,11 @@ class Structure extends Base{
 	 */
 	public function coach() {
 		$userId = input('did');
+		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
+		if($tag_id == WechatTag::TAG_HEAD_COACH){
+			$coachModel['tag'] = 1;
+		}
 		$coachModel['age'] = $coachModel['identity'] ? date("Y")-substr($coachModel['identity'], 6, 4)+1 : '_ ';
 		$this->assign('coachModel',$coachModel);
 		return $this->fetch();
