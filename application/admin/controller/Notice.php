@@ -38,7 +38,7 @@ class Notice extends Admin {
         );
         $list = $this->lists('Notice',$map);
         int_to_string($list,array(
-            'status' => array(0=>"已发布",1=>"已发布"),
+            'status' => array(0=>"待审核",1=>"已发布"),
             'recommend' => array( 1=>"推荐" , 0=>"不推荐")
         ));
 
@@ -139,7 +139,7 @@ class Notice extends Admin {
         );
         $list = $this->lists('Notice',$map);
         int_to_string($list,array(
-            'status' => array(0=>"已发布",1=>"已发布"),
+            'status' => array(0=>"待审核",1=>"已发布"),
             'recommend' => array( 1=>"推荐" , 0=>"不推荐")
         ));
 
