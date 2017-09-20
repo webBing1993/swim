@@ -198,7 +198,7 @@ function addLists(data,type){
 				'<div class="video-modal">'+
 				'<iframe frameborder="0" src="'+list.content+'" allowfullscreen></iframe>'+
 				'</div>'+
-				'<img src="'+list.front_cover+'" alt="视频第一帧" class="first">'+
+				'<img src="'+list.src+'" alt="视频第一帧" class="first">'+
 				'<img src="/home/images/common/play.jpg" alt="播放" class="play" onclick="scannum(this,'+list.id+')">'+
 				'</div>'+
 				'<div class="note clear">'+
@@ -210,7 +210,7 @@ function addLists(data,type){
 		}else{
 			html +=
 				'<a href="/home/notice/notice/id/'+ list.id+'.html" class="list">'+
-				'<img src="'+list.path+'" alt="通知图片">'+
+				'<img src="'+list.src+'" alt="通知图片">'+
 				'<div class="lr">'+
 				'<div class="title limit">'+list.title+'</div>'+
 				'<div class="note clear">'+
