@@ -16,19 +16,32 @@
         <ul>
             {volist name="res" id="vo"}
             <li class="swipeout">
-                {empty name="$vo.tab"}
-                <?php $url = Url('news/detail?id='.$vo['id'].'&visit=1');?>
-                <div class="swipeout-content" onclick="jump('{$url}')">
-                    {else/}
+                {if condition="$vo.tab eq 0"}
+                    <?php $url = Url('news/detail?id='.$vo['id'].'&visit=1');?>
+                    <div class="swipeout-content" onclick="jump('{$url}')">
+                {elseif condition="$vo.tab eq 1"/}
                     <?php $url = Url('notice/detail?id='.$vo['id'].'&visit=1');?>
                     <div class="swipeout-content" onclick="jump('{$url}')">
-                        {/empty}
+                {else/}
+                    <?php $url = Url('carddetail?id='.$vo['id']);?>
+                    <div class="swipeout-content" onclick="jump('{$url}')">
+                {/if}
                         <img src="{$vo.front_cover|get_cover='path'}" alt="封面图片">
                         <div class="list">
                             <span class="title" >{$vo.title}</span>
 						<span class="sent_time">
-							<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">{empty name="$vo.tab"}<?php echo \app\home\model\News::TYPE_ARRAY[$vo['type']];?>{else/}<?php echo \app\home\model\Notice::TYPE_ARRAY[$vo['type']];?>{/empty}</span>
+							<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">
+                                {if condition="$vo.tab eq 0"}
+                                <?php echo \app\home\model\News::TYPE_ARRAY[$vo['type']];?>
+                                {elseif condition="$vo.tab eq 1"/}
+                                <?php echo \app\home\model\Notice::TYPE_ARRAY[$vo['type']];?>
+                                {else/}
+                                <?php echo \app\home\model\CertificateReview::TYPE_ARRAY[$vo['type']];?>
+                                {/if}
+                            </span>
+                            {if condition="($vo.tab eq 0) or ($vo.tab eq 1)"}
 							<span>发布人：{$vo.publisher}</span>
+                            {/if}
 							<span>{$vo.create_time|time_format='Y-m-d'}</span>
 						</span>
                         </div>

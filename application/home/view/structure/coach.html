@@ -46,15 +46,15 @@
 			{empty name="$coachModel.tag"}
 			<div class="list clear list_img">
 				<span class="fl">社会指导员证</span>
-				<img src="{empty name='$coachModel.social_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.social_certificate|get_cover='path'}{/empty}" alt="社会指导员证" class="fr card"  data-original="">
+				<img src="{empty name='$coachModel.social_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$coachModel.social_certificate|get_cover='path'}{/empty}" alt="社会指导员证" class="fr card"  data-original="">
 			</div>
 			<div class="list clear list_img">
 				<span class="fl">职业资格鉴定证</span>
-				<img src="{empty name='$coachModel.profession_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.profession_certificate|get_cover='path'}{/empty}" alt="职业资格鉴定证" class="fr card"  data-original="">
+				<img src="{empty name='$coachModel.profession_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$coachModel.profession_certificate|get_cover='path'}{/empty}" alt="职业资格鉴定证" class="fr card"  data-original="">
 			</div>
 			<div class="list clear list_img">
 				<span class="fl">救生员证</span>
-				<img src="{empty name='$coachModel.lifeguard_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$res.lifeguard_certificate|get_cover='path'}{/empty}" alt="救生员证" class="fr card"  data-original="">
+				<img src="{empty name='$coachModel.lifeguard_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$coachModel.lifeguard_certificate|get_cover='path'}{/empty}" alt="救生员证" class="fr card"  data-original="">
 			</div>
 			{/empty}
 			<!--/助教显示-->

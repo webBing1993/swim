@@ -14,6 +14,7 @@
 namespace app\home\controller;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
+use app\home\model\CertificateReview as CertificateReviewModel;
 use think\Db;
 /**
  * 审核页面
@@ -31,7 +32,8 @@ class Review extends Base{
         $where = ' status=0 and recommend=1';
         $res = Db::field('id , type, front_cover, title, content, publisher, create_time, 0 tab')
             ->table('sw_news')
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where." order by create_time desc")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where)
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
             ->where($map)
             ->select();
         //var_dump($res);die;
@@ -51,7 +53,8 @@ class Review extends Base{
         $where = ' status=1 and recommend=1';
         $res = Db::field('id , type, front_cover, title, content, publisher, create_time, 0 tab')
             ->table('sw_news')
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where." order by create_time desc")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where ".$where)
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
             ->where($map)
             ->select();
         //var_dump($res);die;
@@ -63,7 +66,14 @@ class Review extends Base{
         $id = input('id');
         $status = input('status');
         $tab = input('tab');
-        $Model = $tab ? new NoticeModel() : new NewsModel();
+        if($tab == 0){
+            $Model = new NewsModel();
+        }elseif($tab == 1){
+            $Model = new NoticeModel();
+        }else{
+            $Model = new CertificateReviewModel();
+        }
+        //$Model = $tab ? new NoticeModel() : new NewsModel();
         $info = $Model->save(['status' => $status], ['id' => $id]);
         if ($info) {
             return $this->success();
@@ -76,6 +86,9 @@ class Review extends Base{
 	 * 助教证件
 	 */
 	public function carddetail(){
+        $id = input('id');
+        $coachModel = CertificateReviewModel::get($id);
+        $this->assign('coachModel',$coachModel);
 		return $this->fetch();
 	}
 }
