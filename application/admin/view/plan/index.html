@@ -1,7 +1,7 @@
 {extend name="base/common"}
 
 {block name="style"}
-
+<link rel="stylesheet" href="/static/datepicker/bootstrap-datetimepicker.min.css">
 {/block}
 
 {block name="page-header"}
@@ -9,11 +9,11 @@
 	<div class="col-lg-10">
 		<h2>训练档案管理</h2>
 		<ol class="breadcrumb">
-			<li>
+			<!--<li>
 				<a href="{:Url('Notice/activity')}">相关活动</a>
-			</li>
+			</li>-->
 			<li class="active">
-				<strong>报名列表</strong>
+				<strong>导出档案</strong>
 			</li>
 		</ol>
 	</div>
@@ -30,38 +30,62 @@
 					<div class="ibox-tools">
 					</div>
 				</div>
-				<div class="ibox-content">
-					<div class="table-responsive">
-						<table class="table table-striped">
-							<thead>
-							<tr>
-								<th><input class="i-checks check-all" type="checkbox"></th>
-								<th>头像</th>
-								<th>姓名</th>
-								<th>联系方式</th>
-								<th>阅读时间</th>
-							</tr>
-							</thead>
-							<tbody>
+				<div class="ibox-content all">
+					<form id="form" class="form-horizontal" method="post"  enctype="multipart/form-data" >
+						<div class="form-group">
+							<div class="col-lg-1 text-right control-label">
+								<label>教练:</label>
+							</div>
+							<div class="col-lg-11">
+								<select class="form-control" name="userid">
+									{volist name="list" id="vo"}
+									<option value="{$vo.userid}">{$vo.name}</option>
+									{/volist}
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-1 text-right control-label">
+								<label>类型:</label>
+							</div>
+							<div class="col-lg-11">
+								<label class="i-checks">
+									<input type="radio" checked="" value="1" name="type">课时计划
+								</label>
+								<label class="i-checks">
+									<input type="radio"  value="2" name="type">周计划
+								</label>
+								<label class="i-checks">
+									<input type="radio"  value="3" name="type">周总结
+								</label>
+							</div>
+						</div>
+						<div class="form-group" id="timeRange">
+							<div class="col-lg-1 text-right control-label">
+								<label>时间:</label>
+							</div>
+							<div class="col-lg-5">
+								<div class=" input-group " >
+									<div class="date">
+										<input type="text" class="form-control datetimepicker text-center" name="start_time"  value="<?php echo date('Y-m-d')?>"/>
+									</div>
+									<span class="input-group-addon">至</span>
+									<div class="date">
+										<input type="text" class="form-control datetimepicker text-center" name="end_time"  value="<?php echo date('Y-m-d')?>"/>
+									</div>
 
-							<tr>
-								<td><input type="checkbox" class="i-checks ids" name="input[]"></td>
-								<td style="padding-top: 2px;padding-bottom: 2px"><img src="/home/images/index/grzx.png" alt="头像" class="header"></td>
-								<td>张三</td>
-								<td>13800000000</td>
-								<td>2017-01-01</td>
-							</tr>
-
-							</tbody>
-							<tfoot>
-							<tr>
-								<td colspan="10">
-									<div class="page"></div>
-								</td>
-							</tr>
-							</tfoot>
-						</table>
-					</div>
+								</div>
+							</div>
+						</div>
+						<input type="hidden" name="id" value="">
+						<div class="form-group">
+							<div class="col-lg-11 col-lg-offset-1">
+								<button class="btn btn-primary submit-btn post-put" type="button" target-form="form-horizontal" >导出</button>
+								<!--<a class="btn btn-default" href="javascript:window.history.go(-1);">返回</a>-->
+							</div>
+						</div>
+						<div class="selblo"></div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -82,5 +106,70 @@ $(document).ready(function(){
 		$("tbody").find(".ids").iCheck("toggle");
 	});
 });
+</script>
+<!--时间日历-->
+<script src="/static/datepicker/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		//时间日历
+		$( ".datetimepicker" ).datetimepicker( {
+			language:  'cn',
+			format: 'yyyy-mm-dd',
+			forceParse: false,
+			todayBtn: true,
+			autoclose: true,
+			todayHighlight: 1,
+			minuteStep: 5,
+			minView: "month"
+		});
+
+		$(".post-put").off('click').on("click",function(){
+			var userid = $("select[name='userid']").val();
+			var start_time = $("input[name='start_time']").val();
+			var end_time = $("input[name='end_time']").val();
+			var type = $("input[name='type']:checked").val();
+			window.location.href = '{:Url(\'weekSummary\')}?userid='+userid+'&start_time='+start_time+'&end_time='+end_time;
+
+			/*
+			$.ajax({
+				type:"post",
+				url:$("#form").attr("action"),
+				data:data,
+				success:function(data){
+					/!*if(data.code == 1){
+						if (data.url) {
+							updateAlert(data.msg + ' 页面即将自动跳转~','success');
+						}else{
+							updateAlert(data.msg ,'success');
+						}
+						it.prop('disabled','true');
+						it.prev().prop('disabled','true');
+						setTimeout(function(){
+							if (data.url) {
+								location.href=data.url;
+							} else {
+								location.reload();
+							}
+							it.removeAttr('disabled');
+							it.prev().removeAttr('disabled')
+						},2000);
+					} else {
+						updateAlert(data.msg, 'error');
+						it.attr('disabled','true');
+						it.prev().prop('disabled','true');
+						setTimeout(function(){
+							it.removeAttr('disabled');
+							it.prev().removeAttr('disabled')
+						},2000);
+					}*!/
+				}
+			});*/
+			//return false;
+		});
+	})
+
+
+
 </script>
 {/block}
