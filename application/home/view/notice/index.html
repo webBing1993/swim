@@ -12,24 +12,41 @@
 	<span class="tab active">活动</span>
 	<span class="tab">通知</span>
 </div>
+<!--活动轮播-->
+<div class="banners ">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			{volist name="top_activity" id="ta"}
+			<div class="banner swiper-slide">
+				<a href="{:Url('Notice/detail?id='.$ta['id'])}">
+					<img src="{$ta.front_cover|get_cover='path'}" alt="">
+					<div class="title limit">{$ta.title}</div>
+				</a>
+			</div>
+			{/volist}
+			{volist name="top_note" id="tn"}
+			<div class="banner swiper-slide">
+				<a href="{:Url('Notice/detail?id='.$tn['id'])}">
+					<img src="{$tn.front_cover|get_cover='path'}" alt="">
+					<div class="title limit">{$tn.title}</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+	</div>
+</div>
+<!--&lt;!&ndash;通知轮轮播&ndash;&gt;-->
+<!--<div class="banners ">-->
+	<!--<div class="swiper-container">-->
+		<!--<div class="swiper-wrapper">-->
+
+		<!--</div>-->
+	<!--</div>-->
+<!--</div>-->
 <!--轮播+列表-->
 <div class="boxs">
 	<div class="box hidden clear">
-		<!--活动轮播-->
-		<div class="banners ">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					{volist name="top_activity" id="ta"}
-					<div class="banner swiper-slide">
-						<a href="{:Url('Notice/detail?id='.$ta['id'])}">
-							<img src="{$ta.front_cover|get_cover='path'}" alt="">
-							<div class="title limit">{$ta.title}</div>
-						</a>
-					</div>
-					{/volist}
-				</div>
-			</div>
-		</div>
+
 		<div class="nice">精彩活动</div>
 		<!--活动列表-->
 		<div class="lists">
@@ -57,21 +74,7 @@
 	</div>
 	<!--通知部分-->
 	<div class="box hidden">
-		<!--通知轮轮播-->
-		<div class="banners ">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					{volist name="top_note" id="tn"}
-					<div class="banner swiper-slide">
-						<a href="{:Url('Notice/detail?id='.$tn['id'])}">
-							<img src="{$tn.front_cover|get_cover='path'}" alt="">
-							<div class="title limit">{$tn.title}</div>
-						</a>
-					</div>
-					{/volist}
-				</div>
-			</div>
-		</div>
+
 		<!--通知列表-->
 		<div class="lists">
 			{volist name="note" id="no"}
