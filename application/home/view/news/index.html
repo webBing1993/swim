@@ -13,25 +13,26 @@
 	<span class="tab">游泳百科</span>
 	<span class="tab">在线视频</span>
 </div>
+<!--轮播-->
+<div class="banners ">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			{volist name="tops" id="to"}
+			<div class="banner swiper-slide">
+				<a href="{:Url('News/detail?id='.$to['id'])}">
+					<img src="{$to.front_cover|get_cover='path'}" alt="">
+					<div class="title limit">{$to.title}</div>
+				</a>
+			</div>
+			{/volist}
+		</div>
+	</div>
+</div>
 <!--三个模块-->
 <div class="boxs">
 	<!--新闻动态-->
 	<div class="box hidden clear">
-		<!--轮播-->
-		<div class="banners ">
-			<div class="swiper-container">
-				<div class="swiper-wrapper">
-					{volist name="tops" id="to"}
-					<div class="banner swiper-slide">
-						<a href="{:Url('News/detail?id='.$to['id'])}">
-							<img src="{$to.front_cover|get_cover='path'}" alt="">
-							<div class="title limit">{$to.title}</div>
-						</a>
-					</div>
-					{/volist}
-				</div>
-			</div>
-		</div>
+
 		<!--列表-->
 		<div class="lists">
 			{volist name="news" id="ne"}
