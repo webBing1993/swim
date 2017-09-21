@@ -144,7 +144,7 @@ body {
 }
 .bg table tr td {
   position: relative;
-  width: 20vw;
+  width: 18vw;
   text-align: center;
   line-height: 2.6rem;
 }
@@ -165,7 +165,9 @@ body {
 .bg table tr td .fa {
   color: #666666;
 }
-.bg table tr td:first-child {
+.bg table tr td:first-child,
+.bg table tr td:nth-child(2),
+.bg table tr td:nth-child(3) {
   width: 8vw;
 }
 .bg table tr:last-child {

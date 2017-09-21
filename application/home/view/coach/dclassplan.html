@@ -68,14 +68,15 @@
 				<td>个数</td>
 				<td>距离</td>
 				<td>项目</td>
+				<td>详情</td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td class="group">1</td>
-				<td class="num">1</td>
-				<td class="distance">-</td>
-				<td class="pose">-</td>
-			</tr>
+			<!--<tr>-->
+				<!--<td>1</td>-->
+				<!--<td class="group">1</td>-->
+				<!--<td class="num">1</td>-->
+				<!--<td class="distance">-</td>-->
+				<!--<td class="pose">-</td>-->
+			<!--</tr>-->
 		</table>
 	</div>
 	<div class="list clear">
@@ -140,7 +141,7 @@ function templet(){
 		bghide();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
 		if(parts[index]){
 			var trs = parts[index].content;
 			var len = trs.length;
@@ -152,28 +153,29 @@ function templet(){
 					'<td class="num">'+trs[i][1]+'</td>'+
 					'<td class="distance">'+trs[i][2]+'</td>'+
 					'<td class="pose">'+trs[i][3]+'</td>'+
+					'<td class="detail">'+trs[i][4]+'</td>'+
 					'</tr>';
 			}
 			$('table').html(html);
+			$('#contentself').val(parts[index].contentself);
 			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
-			html+=
-				'<tr>'+
-				'<td>'+1+'</td>'+
-				'<td class="group">1</td>'+
-				'<td class="num">1</td>'+
-				'<td class="distance">-</td>'+
-				'<td class="pose">-</td>'+
-				'</tr>';
+			html+='';
+//				'<tr>'+
+//				'<td>'+1+'</td>'+
+//				'<td class="group">1</td>'+
+//				'<td class="num">1</td>'+
+//				'<td class="distance">-</td>'+
+//				'<td class="pose">-</td>'+
+//				'</tr>';
 			$('table').html(html);
+			$('#contentself').val('');
 			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}
-
-
 	});
 }
 function daySave(){

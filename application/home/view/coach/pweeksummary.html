@@ -63,7 +63,7 @@ function weekSave(){
 			content:$('#content').val(),
 			summary:$('#summary').val(),
 		};
-		if(isAll(data)){
+//		if(isAll(data)){
 			$.ajax({
 				type:"post",
 				url:"",
@@ -75,26 +75,26 @@ function weekSave(){
 					}else{
 						type = "error";
 					}
-					swal({
+					swal( {
 						title: '提示',
 						text: data.msg,
-						type: type,
-						showConfirmButton:flase,
-						timer:3000
-					});//跳转data.url
-
-					//var lists = $.parseJSON(data);
+						type:  type,
+						showConfirmButton: true,
+					}).then(function(isConfirm){
+						if (isConfirm) {
+							window.location.href = '/home/coach/weekPlan/did/1'
+						}})
 				}
 			});
-		}else{
-			swal({
-				title: '提示',
-				text: '请完善您的信息',
-				type: 'error',
-				showConfirmButton:true,
-				timer:3000
-			})
-		}
+//		}else{
+//			swal({
+//				title: '提示',
+//				text: '请完善您的信息',
+//				type: 'error',
+//				showConfirmButton:true,
+//				timer:3000
+//			})
+//		}
 
 	})
 }

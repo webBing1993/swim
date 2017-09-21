@@ -95,6 +95,7 @@
 				<td>个数</td>
 				<td>距离</td>
 				<td>项目</td>
+				<td>详情</td>
 			</tr>
 			<!--<tr>-->
 				<!--<td>1</td>-->
@@ -109,6 +110,12 @@
 			<!--<textarea name="content" id="content" placeholder="输入不多于200字。"></textarea>-->
 			<!--<div class="sum"><span>0</span>/200</div>-->
 		<!--</div>-->
+	</div>
+	<div class="list">
+		<span class="title">自定义训练内容</span>
+		<div class="content">
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。"></textarea>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷量</span>
@@ -131,7 +138,7 @@
 		</div>
 	</div>
 	<div class="list clear">
-		<span class="title fl">时间</span>
+		<span class="title fl">时间(min)</span>
 		<div class="duration fr radiogroup">
 			<span class="active">5</span>
 			<span>10</span>
@@ -173,6 +180,7 @@ function  addList(){
 			'<td class="num">1</td>'+
 			'<td class="distance">-</td>'+
 			'<td class="pose">-</td>'+
+			'<td class="detail">-</td>'+
 			'</tr>';
 		$('table').append(html);
 		radio();
@@ -194,7 +202,9 @@ function radio(){
 		'<div>3</div>'+
 		'<div>4</div>'+
 		'<div>5</div>'+
+		'<div>8</div>'+
 		'<div>10</div>'+
+		'<div>16</div>'+
 		'<div>20</div>'+
 		'</div>';
 	var distancehtml =
@@ -241,9 +251,16 @@ function radio(){
 		'<div>200放松</div>'+
 		'<div>400放松</div>'+
 		'</div>';
+	var detailhtml =
+		'<div class="rs">'+
+		'<div>手</div>'+
+		'<div>腿</div>'+
+		'<div>手+腿</div>'+
+		'<div>分解+配合</div>'+
+		'</div>';
 	var index = $('.week').attr('data-tab');
 	var posehtml = [aposehtml,bposehtml,cposehtml];
-	var html = [grouphtml,numhtml,distancehtml,posehtml[index]];
+	var html = [numhtml,numhtml,distancehtml,posehtml[index],detailhtml];
 	$('.radiogroup span').off('click').on('click',function(){
 		$(this).addClass('active');
 		$(this).siblings('span').removeClass('active');
@@ -293,7 +310,7 @@ function weekSave(){
 			need:$('#need').val(),
 			summary:$('#summary').val(),
 		};
-		if(isAll(data)){
+//		if(isAll(data)){
 			data[parts] =parts;
 			data[mark] =mark;
 			$.ajax({
@@ -301,18 +318,27 @@ function weekSave(){
 				url:"",
 				data:data,
 				success:function(data){
-//					var lists = $.parseJSON(data);
+					var lists = $.parseJSON( data );
+					swal( {
+						title: '成功',
+						text: '保存成功',
+						type: 'success',
+						showConfirmButton: true,
+					}).then(function(isConfirm){
+						if (isConfirm) {
+							window.location.href = '/home/coach/classplan'
+						}})
 				}
 			});
-		}else{
-			swal({
-				title: '提示',
-				text: '请完善您的信息',
-				type: 'error',
-				showConfirmButton:true,
-				timer:3000
-			})
-		}
+//		}else{
+//			swal({
+//				title: '提示',
+//				text: '请完善您的信息',
+//				type: 'error',
+//				showConfirmButton:true,
+//				timer:3000
+//			})
+//		}
 	})
 }
 function daySave(){
@@ -326,10 +352,12 @@ function daySave(){
 			var num = list.find('td').eq(2).text();
 			var distance = list.find('td').eq(3).text();
 			var pose = list.find('td').eq(4).text();
-			content.push([group,num,distance,pose])
+			var detail = list.find('td').eq(5).text();
+			content.push([group,num,distance,pose,detail])
 		}
 		var data ={
 			content:content,
+			contentself:$('#contentself').val(),
 			load:$('.load span.active').index()+1,
 			strength:$('.strength span.active').index()+1,
 			duration:$('.duration span.active').index()+1
@@ -354,7 +382,7 @@ function templet(){
 		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
 		if(parts[index]){
 			var trs = parts[index].content;
 			var len = trs.length;
@@ -366,22 +394,26 @@ function templet(){
 					'<td class="num">'+trs[i][1]+'</td>'+
 					'<td class="distance">'+trs[i][2]+'</td>'+
 					'<td class="pose">'+trs[i][3]+'</td>'+
+					'<td class="detail">'+trs[i][4]+'</td>'+
 					'</tr>';
 			}
 			$('table').html(html);
+			$('#contentself').val(parts[index].contentself);
 			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
-			html +=
-				'<tr>'+
-				'<td>1</td>'+
-				'<td class="group">1</td>'+
-				'<td class="num">1</td>'+
-				'<td class="distance">-</td>'+
-				'<td class="pose">-</td>'+
-				'</tr>';
+			html +='';
+//				'<tr>'+
+//				'<td>1</td>'+
+//				'<td class="group">1</td>'+
+//				'<td class="num">1</td>'+
+//				'<td class="distance">-</td>'+
+//				'<td class="pose">-</td>'+
+//				'<td class="detail">-</td>'+
+//				'</tr>';
 			$('table').html(html);
+			$('#contentself').val('');
 			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');

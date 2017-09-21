@@ -71,21 +71,27 @@
 				<td>组数</td>
 				<td>个数</td>
 				<td>距离</td>
-				<td>项目</td>
+				<td>详情</td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td class="group">1</td>
-				<td class="num">1</td>
-				<td class="distance">400</td>
-				<td class="pose">自由泳</td>
-			</tr>
+			<!--<tr>-->
+				<!--<td>1</td>-->
+				<!--<td class="group">1</td>-->
+				<!--<td class="num">1</td>-->
+				<!--<td class="distance">400</td>-->
+				<!--<td class="pose">自由泳</td>-->
+			<!--</tr>-->
 		</table>
 		<!--<span class="fa fa-plus addList"></span>-->
 		<!--<div class="content">-->
 		<!--<textarea name="content" id="content" placeholder="输入不多于200字。"></textarea>-->
 		<!--<div class="sum"><span>0</span>/200</div>-->
 		<!--</div>-->
+	</div>
+	<div class="list">
+		<span class="title">自定义训练内容</span>
+		<div class="content">
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。"></textarea>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷强度</span>
@@ -145,8 +151,7 @@ function templet(){
 //		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
-		console.log(days)
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
 		if(days[index]){
 			var trs = days[index].content;
 			var len = trs.length;
@@ -161,18 +166,20 @@ function templet(){
 					'</tr>';
 			}
 			$('table').html(html);
+			$('#contentself').val(days[index].contentself);
 			$('.strength span').eq(days[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
-			html+=
-				'<tr>'+
-				'<td>1</td>'+
-				'<td class="group">1</td>'+
-				'<td class="num">1</td>'+
-				'<td class="distance">-</td>'+
-				'<td class="pose">-</td>'+
-				'</tr>';
+			html+='';
+//				'<tr>'+
+//				'<td>1</td>'+
+//				'<td class="group">1</td>'+
+//				'<td class="num">1</td>'+
+//				'<td class="distance">-</td>'+
+//				'<td class="pose">-</td>'+
+//				'</tr>';
 			$('table').html(html);
+			$('#contentself').val('');
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}

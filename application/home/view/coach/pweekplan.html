@@ -77,20 +77,28 @@
 				<td>个数</td>
 				<td>距离</td>
 				<td>项目</td>
+				<td>详情</td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td class="group">1</td>
-				<td class="num">1</td>
-				<td class="distance">-</td>
-				<td class="pose">-</td>
-			</tr>
+			<!--<tr>-->
+				<!--<td>1</td>-->
+				<!--<td class="group">1</td>-->
+				<!--<td class="num">1</td>-->
+				<!--<td class="distance">-</td>-->
+				<!--<td class="pose">-</td>-->
+				<!--<td class="detail">-</td>-->
+			<!--</tr>-->
 		</table>
 		<span class="fa fa-plus addList"></span>
 		<!--<div class="content">-->
 		<!--<textarea name="content" id="content" placeholder="输入不多于200字。"></textarea>-->
 		<!--<div class="sum"><span>0</span>/200</div>-->
 		<!--</div>-->
+	</div>
+	<div class="list">
+		<span class="title">自定义训练内容</span>
+		<div class="content">
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。"></textarea>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷</span>
@@ -145,6 +153,7 @@ function  addList(){
 			'<td class="num">1</td>'+
 			'<td class="distance">-</td>'+
 			'<td class="pose">-</td>'+
+			'<td class="detail">-</td>'+
 			'</tr>';
 		$('table').append(html);
 		radio();
@@ -158,6 +167,11 @@ function radio(){
 		'<div>3</div>'+
 		'<div>4</div>'+
 		'<div>5</div>'+
+		'<div>6</div>'+
+		'<div>8</div>'+
+		'<div>10</div>'+
+		'<div>16</div>'+
+		'<div>20</div>'+
 		'</div>';
 	var distancehtml =
 		'<div class="rs">'+
@@ -177,8 +191,16 @@ function radio(){
 		'<div>蝶泳</div>'+
 		'<div>自由泳</div>'+
 		'<div>混合</div>'+
+		'<div>潜泳</div>'+
 		'</div>';
-	var html = [grouphtml,grouphtml,distancehtml,posehtml];
+	var detailhtml =
+		'<div class="rs">'+
+		'<div>手</div>'+
+		'<div>腿</div>'+
+		'<div>手+腿</div>'+
+		'<div>分解+配合</div>'+
+		'</div>';
+	var html = [grouphtml,grouphtml,distancehtml,posehtml,detailhtml];
 	$('.radiogroup span').off('click').on('click',function(){
 		$(this).addClass('active');
 		$(this).siblings('span').removeClass('active');
@@ -216,7 +238,7 @@ function weekSave(){
 			end:$('input[name=end]').val(),
 			need:$('#need').val(),
 		};
-		if(isAll(data)){
+//		if(isAll(data)){
 			data[days] =days;
 			$.ajax({
 				type:"post",
@@ -236,15 +258,15 @@ function weekSave(){
 						}})
 				}
 			})
-		}else{
-			swal({
-				title: '提示',
-				text: '请完善您的信息',
-				type: 'error',
-				showConfirmButton:true,
-				timer:3000
-			})
-			}
+//		}else{
+//			swal({
+//				title: '提示',
+//				text: '请完善您的信息',
+//				type: 'error',
+//				showConfirmButton:true,
+//				timer:3000
+//			})
+//			}
 		})
 }
 function daySave(){
@@ -258,10 +280,12 @@ function daySave(){
 			var num = list.find('td').eq(2).text();
 			var distance = list.find('td').eq(3).text();
 			var pose = list.find('td').eq(4).text();
-			content.push([group,num,distance,pose])
+			var detail = list.find('td').eq(5).text();
+			content.push([group,num,distance,pose,detail])
 		}
 		var data ={
 			content:content,
+			contentself:$('#contentself').val(),
 			load:$('.load span.active').index()+1,
 			duration:$('.duration span.active').index()+1
 		};console.log(data);
@@ -285,7 +309,7 @@ function templet(){
 		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> </tr>';
+		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
 		if(days[index]){
 			var trs = days[index].content;
 			var len = trs.length;
@@ -297,22 +321,26 @@ function templet(){
 					'<td class="num">'+trs[i][1]+'</td>'+
 					'<td class="distance">'+trs[i][2]+'</td>'+
 					'<td class="pose">'+trs[i][3]+'</td>'+
+					'<td class="detail">'+trs[i][4]+'</td>'+
 					'</tr>';
 			}
 			$('table').html(html);
 			radio();
+			$('#contentself').val(days[index].contentself);
 			$('.strength span').eq(days[index].strength-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
-			html +=
-				'<tr>'+
-				'<td>1</td>'+
-				'<td class="group">1</td>'+
-				'<td class="num">1</td>'+
-				'<td class="distance">-</td>'+
-				'<td class="pose">-</td>'+
-				'</tr>';
+			html +='';
+//				'<tr>'+
+//				'<td>1</td>'+
+//				'<td class="group">1</td>'+
+//				'<td class="num">1</td>'+
+//				'<td class="distance">-</td>'+
+//				'<td class="pose">-</td>'+
+//				'<td class="detail">-</td>'+
+//				'</tr>';
 			$('table').html(html);
+			$('#contentself').val('');
 			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}
