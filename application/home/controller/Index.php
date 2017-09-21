@@ -20,7 +20,7 @@ use think\Log;
 /**
  * 主页
  */
-class Index extends Controller {
+class Index extends Base {
     public function index(){
         $userId = session('userId');
         $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
