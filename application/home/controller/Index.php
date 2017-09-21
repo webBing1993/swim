@@ -21,37 +21,6 @@ use think\Log;
  * 主页
  */
 class Index extends Controller {
-
-    public function _initialize()
-    {
-        session('requestUri', 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
-        $userId = session('userId');
-
-        if (Config::get('WEB_SITE_CLOSE')) {
-            return $this->error('站点维护中，请稍后访问~');
-        }
-
-        //如果是游客的话默认userid为visitors
-        if ($userId == 'visitor') {
-            session('nickname', '游客');
-            session('header', '/home/images/vistor.jpg');
-        } else {
-            //微信认证
-            $Wechat = new TPQYWechat(Config::get('work'));
-            // 1用户认证是否登陆
-            if (empty($userId)) {
-                $redirect_uri = Config::get("work.login");
-                $url = $Wechat->getOauthRedirect($redirect_uri);
-                $this->redirect($url);
-            }
-
-            // 2获取jsapi_ticket
-            $jsApiTicket = session('jsapiticket');
-            if (empty($jsApiTicket) || $jsApiTicket == '') {
-                session('jsapiticket', $Wechat->getJsTicket()); // 官方7200,设置7000防止误差
-            }
-        }
-    }
     public function index(){
         $userId = session('userId');
         $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
