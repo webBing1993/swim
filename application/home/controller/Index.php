@@ -23,10 +23,6 @@ use think\Log;
 class Index extends Controller {
     public function index(){
         $userId = session('userId');
-        // 用户认证是否登陆
-        if (empty($userId)) {
-            $this->login();
-        }
         $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
         $map = array(
             'sn.status' => 1,
