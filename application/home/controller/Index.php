@@ -23,6 +23,13 @@ use think\Log;
 class Index extends Controller {
     public function index(){
         $userId = session('userId');
+        // 用户认证是否登陆
+        if (empty($userId)) {
+            $redirect_uri = Config::get("work.login");
+            //微信认证
+            $Wechat = new TPQYWechat(Config::get('work'));
+            $Wechat->getOauthRedirect($redirect_uri);
+        }
         $tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
         $map = array(
             'sn.status' => 1,
