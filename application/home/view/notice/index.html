@@ -132,6 +132,10 @@ $(function(){
 			box.eq(i).find('.tip').text('没有更多了');
 		}
 	}
+	var bannerlen = $('.swiper-slide').length;
+	if(bannerlen==0){
+		$('.banners').hide();
+	}
 });
 function  enter(self,id){
 	var this_ = self;
