@@ -87,6 +87,7 @@ class News extends Base {
 		$info['link'] = "http://".$_SERVER['SERVER_NAME'].$_SERVER['REDIRECT_URL'];
 		$info['desc'] = str_replace('&nbsp;','',strip_tags($info['content']));
 		dump($info);
+		return '';
 		//获取 文章点赞
 		$likeModel = new Like();
 		$like = $likeModel->getLike(1,$id,$userId);
