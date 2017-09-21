@@ -86,6 +86,11 @@ class News extends Base {
 		$info['share_image'] = "http://".$_SERVER['SERVER_NAME'].$image['path'];
 		$info['link'] = "http://".$_SERVER['SERVER_NAME'].$_SERVER['REDIRECT_URL'];
 		$info['desc'] = str_replace('&nbsp;','',strip_tags($info['content']));
+		$info['desc'] = str_replace(" ",'',$info['desc']);
+		$info['desc'] = str_replace("\n",'',$info['desc']);
+		//$info['desc'] = substr($info['desc'], 0, 150);
+		//var_dump($info['desc']);die;
+
 		//获取 文章点赞
 		$likeModel = new Like();
 		$like = $likeModel->getLike(1,$id,$userId);
