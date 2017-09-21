@@ -97,7 +97,7 @@
 	<div class="list">
 		<span class="title">自定义训练内容</span>
 		<div class="content">
-			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。"></textarea>
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。">{$res.contentself|default=''}</textarea>
 		</div>
 	</div>
 	<div class="list clear">
@@ -239,7 +239,7 @@ function weekSave(){
 			need:$('#need').val(),
 		};
 //		if(isAll(data)){
-			data[days] =days;
+			data['days'] =days;
 			$.ajax({
 				type:"post",
 				url:"",
@@ -283,16 +283,20 @@ function daySave(){
 			var detail = list.find('td').eq(5).text();
 			content.push([group,num,distance,pose,detail])
 		}
-		var data ={
-			content:content,
-			contentself:$('#contentself').val(),
-			load:$('.load span.active').index()+1,
-			duration:$('.duration span.active').index()+1
-		};console.log(data);
-		var index = $('.week').attr('data-tab');
-		days[index] = data;
-//		if($('input[name=load]').val()!=''&&$('input[name=content]').val()!=''){
+		if(len!=1){
+			var data ={
+				content:content,
+				contentself:$('#contentself').val(),
+				load:$('.load span.active').index()+1,
+				duration:$('.duration span.active').index()+1
+			};console.log(data);
+			var index = $('.week').attr('data-tab');
+			days[index] = data;
 			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
+		}
+
+//		if($('input[name=load]').val()!=''&&$('input[name=content]').val()!=''){
+//		$('.templet').eq(index).find('.fa-angle-right').addClass('green');
 //		}else{
 //			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
 //		}
@@ -327,7 +331,7 @@ function templet(){
 			$('table').html(html);
 			radio();
 			$('#contentself').val(days[index].contentself);
-			$('.strength span').eq(days[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.load span').eq(days[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
 			html +='';
@@ -341,7 +345,7 @@ function templet(){
 //				'</tr>';
 			$('table').html(html);
 			$('#contentself').val('');
-			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}
 		radio();

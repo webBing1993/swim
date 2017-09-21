@@ -10,16 +10,16 @@
 	<div class="tag">课时计划</div>
 	<div class="list clear">
 		<span class="title fl">计划标题</span>
-		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="{$res.title}" readonly>
+		<input type="text" placeholder="请输入标题" class="fr limit" name="title" value="{$res.title|default=''}" readonly>
 	</div>
 	<div class="list clear">
 		<span class="title fl">课时时间</span>
-		<input type="text" value="{$res.start_time}" class="fr" readonly="readonly" id="start" name="start">
+		<input type="text" value="{$res.start_time|default=date('Y-m-d')}" class="fr" readonly="readonly" id="start" name="start">
 	</div>
 	<div class="list">
 		<span class="title">任务需求</span>
 		<div class="content">
-			<textarea name="need" id="need" placeholder="输入不多于200字。" readonly>{$res.need}</textarea>
+			<textarea name="need" id="need" placeholder="输入不多于200字。" readonly>{$res.need|default=''}</textarea>
 			<!--<div class="sum">123</div>-->
 		</div>
 	</div>
@@ -40,14 +40,14 @@
 	<div class="list">
 		<!--<span class="title">课后小结</span>-->
 		<div class="content">
-			<textarea name="summary" id="summary" placeholder="输入不多于200字。" readonly>{$res.summary}</textarea>
+			<textarea name="summary" id="summary" placeholder="输入不多于200字。" readonly>{$res.summary|default=''}</textarea>
 			<!--<div class="sum">123</div>-->
 		</div>
 		<div class="students">
 			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="zangsna">{$vo.name}</span>
-				<input type="text" value="{$vo.score}" class="fr limit" readonly>
+				<span class="name fl" data-tab="zangsna">{$vo.name|default=''}</span>
+				<input type="text" value="{$vo.score|default=''}" class="fr limit" readonly>
 			</div>
 			{/volist}
 		</div>
@@ -78,6 +78,12 @@
 				<!--<td class="pose">-</td>-->
 			<!--</tr>-->
 		</table>
+	</div>
+	<div class="list">
+		<span class="title">自定义训练内容</span>
+		<div class="content">
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。">{$res.contentself|default=''}</textarea>
+		</div>
 	</div>
 	<div class="list clear">
 		<span class="title fl">负荷量</span>

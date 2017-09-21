@@ -71,6 +71,7 @@
 				<td>组数</td>
 				<td>个数</td>
 				<td>距离</td>
+				<td>项目</td>
 				<td>详情</td>
 			</tr>
 			<!--<tr>-->
@@ -94,8 +95,8 @@
 		</div>
 	</div>
 	<div class="list clear">
-		<span class="title fl">负荷强度</span>
-		<div class="strength fr radiogroup">
+		<span class="title fl">负荷</span>
+		<div class="load fr radiogroup">
 			<span class="active">低</span>
 			<span>中低</span>
 			<span>中</span>
@@ -163,11 +164,12 @@ function templet(){
 					'<td class="num">'+trs[i][1]+'</td>'+
 					'<td class="distance">'+trs[i][2]+'</td>'+
 					'<td class="pose">'+trs[i][3]+'</td>'+
+					'<td class="detail">'+trs[i][4]+'</td>'+
 					'</tr>';
 			}
 			$('table').html(html);
 			$('#contentself').val(days[index].contentself);
-			$('.strength span').eq(days[index].strength-1).addClass('active').siblings('span').removeClass('active');
+			$('.load span').eq(days[index].load-1).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
 			html+='';
@@ -180,7 +182,7 @@ function templet(){
 //				'</tr>';
 			$('table').html(html);
 			$('#contentself').val('');
-			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
 			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
 		}
 	});

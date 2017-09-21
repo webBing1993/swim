@@ -251,20 +251,24 @@ class Coach extends Base {
 	 * 每周计划/每周总结 列表
 	 */
 	public function weekplan(){
-		$userId = session('userId');
-		$did = input('did');
+		$userId = input('did', session('userId'));
+		$id = input('id');
 		$time = input('time', date('Y年m月'));
 		$res = [];
-		if($did){//每周总结
+		if($id){//每周总结
 			$res = WeekSummary::getList($userId, $time);
 		}else{//每周计划
 			$res = WeekPlan::getList($userId, $time);
 		}
-		//var_dump($res);die;
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
-			$this->assign('did',$did);
+			$edit_button = 0;
+			if($userId != session('userId')){
+				$edit_button = 1;
+			}
+			$this->assign('id',$id);
+			$this->assign('edit_button',$edit_button);
 			$this->assign('res',$res);
 			return $this->fetch();
 		}
@@ -273,7 +277,7 @@ class Coach extends Base {
 	 * 课时计划列表
 	 */
 	public function classplan(){
-		$userId = session('userId');
+		$userId = input('did', session('userId'));
 		$time = input('time', date('Y年m月'));
 		$res = [];
 		$res = ClassPlan::getList($userId, $time);
@@ -281,6 +285,11 @@ class Coach extends Base {
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
+			$edit_button = 0;
+			if($userId != session('userId')){
+				$edit_button = 1;
+			}
+			$this->assign('edit_button',$edit_button);
 			$this->assign('res',$res);
 			return $this->fetch();
 		}
@@ -294,6 +303,7 @@ class Coach extends Base {
 			//var_dump($data);die;
 			$weekPlanModel = new WeekPlan();
 			$data['start'] = strtotime($data['start']);
+			$data['end'] = strtotime($data['end']);
 			$days = isset($data['days']) ? $data['days'] : null;
 			unset($data['days']);
 			if(empty($data['id'])) {//新增
@@ -316,17 +326,17 @@ class Coach extends Base {
 					foreach ($days as $key => $val) {
 						if($val){
 							$msg1 = ['type' => $key + 1, 'pid' => $weekPlanModel->id];
-							$insert_content = ['type' => $key + 1, 'load' => $val['load'], 'duration' => $val['duration'], 'pid' => $weekPlanModel->id];
+							$insert_content = ['type' => $key + 1, 'contentself' => $val['contentself'], 'load' => $val['load'], 'duration' => $val['duration'], 'pid' => $weekPlanModel->id];
 							if (empty(WeekContent::where($msg1)->find())) {
 								$weekContentModel = new WeekContent();
 								$save = $weekContentModel->save($insert_content);
 								$plan_id[] = $weekContentModel->id;
 								if ($save) {
 									$train_id = [];
-									if($val['content']) {
+									if(isset($val['content'])) {
 										foreach ($val['content'] as $k => $v) {
 											//$msg2 = ['pose' => $v[3], 'pid' => $weekContentModel->id];
-											$insert_train = ['group' => $v[0], 'num' => $v[1], 'distance' => $v[2], 'pose' => $v[3], 'order' => $k + 1, 'pid' => $weekContentModel->id];
+											$insert_train = ['group' => $v[0], 'num' => $v[1], 'distance' => $v[2], 'pose' => $v[3], 'detail' => $v[4], 'order' => $k + 1, 'pid' => $weekContentModel->id];
 											//if (empty(WeekTrain::where($msg2)->find())) {
 											$weekTrainModel = new WeekTrain();
 											$a=$weekTrainModel->save($insert_train);
@@ -415,17 +425,17 @@ class Coach extends Base {
 					foreach ($parts as $key => $val) {
 						if($val){
 							$msg1 = ['type' => $key + 1, 'pid' => $classPlanModel->id];
-							$insert_content = ['type' => $key + 1, 'load' => $val['load'], 'strength' => $val['strength'], 'duration' => $val['duration'], 'pid' => $classPlanModel->id];
+							$insert_content = ['type' => $key + 1, 'contentself' => $val['contentself'], 'load' => $val['load'], 'strength' => $val['strength'], 'duration' => $val['duration'], 'pid' => $classPlanModel->id];
 							if (empty(ClassContent::where($msg1)->find())) {
 								$classContentModel = new ClassContent();
 								$save = $classContentModel->save($insert_content);
 								$plan_id[] = $classContentModel->id;
 								if ($save) {
 									$train_id = [];
-									if($val['content']) {
+									if(isset($val['content'])) {
 										foreach ($val['content'] as $k => $v) {
 											//$msg2 = ['pose' => $v[3], 'pid' => $classContentModel->id];
-											$insert_train = ['group' => $v[0], 'num' => $v[1], 'distance' => $v[2], 'pose' => $v[3], 'order' => $k + 1, 'pid' => $classContentModel->id];
+											$insert_train = ['group' => $v[0], 'num' => $v[1], 'distance' => $v[2], 'pose' => $v[3], 'detail' => $v[4], 'order' => $k + 1, 'pid' => $classContentModel->id];
 											//if (empty(ClassTrain::where($msg2)->find())) {
 											$classTrainModel = new ClassTrain();
 											$classTrainModel->save($insert_train);

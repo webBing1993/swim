@@ -114,7 +114,7 @@
 	<div class="list">
 		<span class="title">自定义训练内容</span>
 		<div class="content">
-			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。"></textarea>
+			<textarea name="contentself" id="contentself" placeholder="请输入自定义训练内容。">{$res.contentself|default=''}</textarea>
 		</div>
 	</div>
 	<div class="list clear">
@@ -311,8 +311,8 @@ function weekSave(){
 			summary:$('#summary').val(),
 		};
 //		if(isAll(data)){
-			data[parts] =parts;
-			data[mark] =mark;
+			data['parts'] =parts;
+			data['mark'] =mark;
 			$.ajax({
 				type:"post",
 				url:"",
@@ -355,17 +355,21 @@ function daySave(){
 			var detail = list.find('td').eq(5).text();
 			content.push([group,num,distance,pose,detail])
 		}
-		var data ={
-			content:content,
-			contentself:$('#contentself').val(),
-			load:$('.load span.active').index()+1,
-			strength:$('.strength span.active').index()+1,
-			duration:$('.duration span.active').index()+1
-		};
-		var index = $('.week').attr('data-tab');
-		parts[index] = data;
-//		if(isAll(data)){
+		if(len!=1){
+			var data ={
+				content:content,
+				contentself:$('#contentself').val(),
+				load:$('.load span.active').index()+1,
+				strength:$('.strength span.active').index()+1,
+				duration:$('.duration span.active').index()+1
+			};
+			var index = $('.week').attr('data-tab');
+			parts[index] = data;
 			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
+		}
+
+//		if(isAll(data)){
+//			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
 //		}else{
 //			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
 //		}

@@ -26,19 +26,24 @@
 		</div>
 		<div class="note clear">
 			<span>浏览 ： {$vo.views}</span>
-			{empty name="$did"}
+			{empty name="$id"}
 			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
-			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			{empty name="$edit_button"}
+			<a href="{:Url('pweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			{/empty}
 			{else/}
 			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
+			{empty name="$edit_button"}
 			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			{/empty}
 			{/empty}
 		</div>
 	</div>
 	{/volist}
 </div>
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
-{empty name="$did"}
+{empty name="$edit_button"}
+{empty name="$id"}
 <a href="{:Url('pweekPlan')}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
@@ -46,6 +51,7 @@
 <a href="{:Url('pweekSummary')}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
+{/empty}
 {/empty}
 {/block}
 
@@ -79,7 +85,7 @@ function timeSelect(){
 				url:"",
 				data:{
 					time:time,
-					did:'{$did}'
+					id:'{$id}'
 				},
 				success:function(data){
 					var lists = $.parseJSON(data);

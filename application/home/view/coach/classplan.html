@@ -27,15 +27,19 @@
         <div class="note clear">
             <span>浏览 ： {$vo.views}</span>
             <a href="{:Url('dclassPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
+            {empty name="$edit_button"}
             <a href="{:Url('pclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+            {/empty}
         </div>
     </div>
     {/volist}
 </div>
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
+{empty name="$edit_button"}
 <a href="{:Url('pclassPlan')}" class="publish">
     <img src="/home/images/coach/add.png" alt="">
 </a>
+{/empty}
 {/block}
 
 {block name="script"}
