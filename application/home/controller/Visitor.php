@@ -6,6 +6,7 @@
  */
 namespace app\home\controller;
 use app\home\model\WechatUser;
+use app\home\model\WechatUserTag;
 use app\home\model\WechatUserSign;
 use app\home\model\UserClass;
 use think\Db;
