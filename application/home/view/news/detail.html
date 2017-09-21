@@ -283,10 +283,11 @@ function ueLimit(){
 	});
 }
 </script>
-<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
 	//---微信接口JS-SDK的调用
 	wx.config({
+		beta: true,
 		debug: true,
 		appId: '{$jsSign.appid}', // 必填，公众号的唯一标识
 		timestamp: {$jsSign['timestamp']}, // 必填，生成签名的时间戳，切记时间戳是整数型，别加引号
