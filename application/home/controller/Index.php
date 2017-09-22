@@ -43,15 +43,17 @@ class Index extends Controller {
         return $this->fetch();
     }
     public function demo(){
-        $userId = session('userId');
         $id = input('id', 3);
         if($id == 1){
+            session('userId', 'xsfyyjxuxing439126');
             $tag_id = 1;
         }
         if($id == 2){
+            session('userId', 'chenjia520333');
             $tag_id = 2;
         }
         if($id == 3){
+            session('userId', 'cyysky');
             $tag_id = 4;
         }
         //$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
