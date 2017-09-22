@@ -122,7 +122,7 @@ class Coach extends Base {
 	 * 我的签到
 	 */
 	public function mysign() {
-		$userId = session('userId');
+		$userId = input('did', session('userId'));
 		$year = input('year', date('Y'));
 		$month = input('month', date('n'));
 		$month = $month<10 ? '0'.intval($month) : $month;
@@ -170,6 +170,7 @@ class Coach extends Base {
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
+			$this->assign('did',$userId);
 			$this->assign('normal',json_encode($res['normal']));
 			$this->assign('late',json_encode($res['late']));
 			$this->assign('rest',json_encode($res['rest']));

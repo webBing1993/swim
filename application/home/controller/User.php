@@ -102,6 +102,9 @@ class User extends Base{
             $model = WechatUser::where(['id' => $data['id']])->find();
             $res = WechatUser::where('id',$data['id'])->update($data);
             if($res) {
+                $data['social_certificate'] = isset($data['social_certificate'])?$data['social_certificate']:'';
+                $data['profession_certificate'] = isset($data['profession_certificate'])?$data['profession_certificate']:'';
+                $data['lifeguard_certificate'] = isset($data['lifeguard_certificate'])?$data['lifeguard_certificate']:'';
                 if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
                     $info = array(
                         'type' => CertificateReview::TYPE_CERTIFICATE,

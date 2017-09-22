@@ -43,6 +43,13 @@
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
 		<input type="text" value="{$res.education}" class="fr" name="education">
 	</div>
+	{notempty name="$res.tag"}
+	<div class="list clear">
+		<span class="fl">技术职称</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="{$res.technical_title}" class="fr" name="technical_title">
+	</div>
+	{/notempty}
 	<!--<div class="list clear">-->
 		<!--<span class="fl">部门</span>-->
 		<!--<img src="/home/images/user/pen.png" alt="笔" class="fr pen">-->
@@ -117,6 +124,7 @@ $(function(){
 //					department:$("input[name='department']").val(),
 //					position:$("input[name='position']").val(),
 					identity:$("input[name='identity']").val(),
+					technical_title:$("input[name='technical_title']").val(),
 					social_certificate:$("input[name='social_certificate']").attr('data-tab'),
 					profession_certificate:$("input[name='profession_certificate']").attr('data-tab'),
 					lifeguard_certificate:$("input[name='lifeguard_certificate']").attr('data-tab'),

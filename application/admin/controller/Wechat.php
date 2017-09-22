@@ -120,6 +120,9 @@ class Wechat extends Admin
                         case "所属班级":
                             $user['class_id'] = $value['value'] ? $value['value'] : 0;
                             break;
+                        case "技术职称":
+                            $user['technical_title'] = $value['value'];
+                            break;
                         /*case "成员类型":
                             $user['member_type'] = $value['value'] ? $value['value'] : 0;
                             break;*/

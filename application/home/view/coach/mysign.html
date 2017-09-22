@@ -141,7 +141,8 @@ var calendar = new Vue({
 						url:"{:Url('Coach/mysign')}",
 						data:{
 							year:array[0],
-							month:array[1]
+							month:array[1],
+							did:"{$did}"
 						},
 						success:function(msg){
 							var data = $.parseJSON(msg);
@@ -172,7 +173,8 @@ var calendar = new Vue({
 				url:"{:Url('Coach/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth+1
+					month:this.nowMonth+1,
+					did:"{$did}"
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);
@@ -198,7 +200,8 @@ var calendar = new Vue({
 				url:"{:Url('Coach/mysign')}",
 				data:{
 					year:this.nowYear,
-					month:this.nowMonth+1
+					month:this.nowMonth+1,
+					did:"{$did}"
 				},
 				success:function(msg){
 					var data = $.parseJSON(msg);
