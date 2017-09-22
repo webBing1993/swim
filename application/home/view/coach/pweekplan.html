@@ -244,9 +244,8 @@ function weekSave(){
 				type:"post",
 				url:"",
 				data:data,
-				success:function(data)
-				{
-					var lists = $.parseJSON( data );
+				success:function(data){
+//					var lists = $.parseJSON( data );
 					swal( {
 						title: '成功',
 						text: '保存成功',
@@ -254,7 +253,7 @@ function weekSave(){
 						showConfirmButton: true,
 					}).then(function(isConfirm){
 						if (isConfirm) {
-							window.location.href = '/home/coach/weekPlan/did/0'
+							window.location.href = '/home/coach/weekPlan/id/0'
 						}})
 				}
 			})
