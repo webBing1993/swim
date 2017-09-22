@@ -54,6 +54,7 @@ class News extends Admin {
             }
         }else{
             $this->default_pic();
+            $this->assign('num',rand(101, 112));
             $this->assign('msg','');
 
             return $this->fetch('edit');
@@ -132,6 +133,7 @@ class News extends Admin {
             }
         }else{
             $this->default_pic();
+            $this->assign('num',rand(101, 112));
             $this->assign('msg','');
 
             return $this->fetch('wikiedit');
@@ -197,6 +199,7 @@ class News extends Admin {
             }
         }else{
             $this->default_pic();
+            $this->assign('num',rand(101, 112));
             $this->assign('msg','');
 
             return $this->fetch('videoedit');

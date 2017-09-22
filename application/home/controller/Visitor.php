@@ -6,6 +6,7 @@
  */
 namespace app\home\controller;
 use app\home\model\WechatUser;
+use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
 use app\home\model\WechatUserSign;
 use app\home\model\UserClass;
@@ -79,6 +80,13 @@ class Visitor extends Base{
 			$current_num = 0;
 			//学员签到先判断教练是否签到
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
+				$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
+				if($tag_id == WechatTag::TAG_STUDENT_READY){
+					$num = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
+					if($num>=15){
+						return $this->error("本月已满15节课");
+					}
+				}
 				if($msg['coach_id']){
 					$coachSign = WechatUserSign::checkUserSign($msg['coach_id']);
 				}

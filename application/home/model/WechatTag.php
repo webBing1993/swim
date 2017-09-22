@@ -17,12 +17,14 @@ class WechatTag extends Model {
     const TAG_ASSISTANT = 3;
     const TAG_STUDENT = 4;
     const TAG_VISITOR = 5;
+    const TAG_STUDENT_READY = 6;
     const TAG_ARRAY = [
         self::TAG_LEADER  => '领导',
         self::TAG_HEAD_COACH  => '主教练',
         self::TAG_ASSISTANT  => '助教',
         self::TAG_STUDENT  => '学员',
         self::TAG_VISITOR  => '游客',
+        self::TAG_STUDENT_READY  => '预备学员',
     ];
 
     public function tag(){
