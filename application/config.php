@@ -50,14 +50,25 @@ return [
 
     //游客模块
     'visitor' => [
-        'appid' => 'ww462067a674db3d65',
+        'appid' => 'wwc2778c4e14ba4809',
         'appsecret' => 'LNvpUNXhfFJUEEQqsxtFKgSapSBnyC6VS65Yf1WdbmY',
         'agentid' => 1000006
+    ],
+    //消息模块
+    'news' => [
+        'appid' => 'wwc2778c4e14ba4809',
+        'appsecret' => 'zq0-StU_DOZ_Jxx11hzuqaDX5Y9RevtmS4AyrXpgVs4',
+        'agentid' => 1000004
     ],
 
     //默认头像图片
     'de_header' => '/home/images/common/default.png',
     //默认证书图片
     'de_card' => '/home/images/common/card.png',
+
+    // 推送域名
+    'http_url' => 'http://xpf.swim.cn',
+    //推送接受用户  @all全部
+    'touser' => 'ben',
 
 ];

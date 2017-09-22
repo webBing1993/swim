@@ -15,7 +15,10 @@ namespace app\home\controller;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
 use app\home\model\CertificateReview as CertificateReviewModel;
+use think\Config;
 use think\Db;
+use app\admin\model\Picture;
+use com\wechat\TPQYWechat;
 /**
  * 审核页面
  */
@@ -76,6 +79,43 @@ class Review extends Base{
         //$Model = $tab ? new NoticeModel() : new NewsModel();
         $info = $Model->save(['status' => $status], ['id' => $id]);
         if ($info) {
+            if($tab==1 && $status == 1){
+                $httpUrl = config('http_url');
+                $focus = $Model->where('id',$id)->find();
+                $title = $focus['title'];
+                $content = str_replace('&nbsp;','',strip_tags($focus['content']));
+                $content = str_replace(" ",'',$content);
+                $content = str_replace("\n",'',$content);
+                $content = mb_substr($content, 0, 100);
+                $url = $httpUrl."/home/notice/detail/id/".$focus['id'].".html";
+                $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+
+                $img = Picture::get($focus['front_cover']);
+                $path = $httpUrl.$img['path'];
+                $info = array(
+                    "title" => $pre.$title,
+                    "description" => $content,
+                    "url" => $url,
+                    "picurl" => $path,
+                );
+
+                //重组成article数据
+                $send = array();
+                $send['articles'][0] = $info;
+                //发送给企业号
+                $Wechat = new TPQYWechat(Config::get('news'));
+                $touser = config('touser');
+                $newsConf = config('news');
+                $message = array(
+                    "touser" => $touser, //发送给全体，@all
+                    "msgtype" => 'news',
+                    "agentid" => $newsConf['agentid'],
+                    "news" => $send,
+                    "safe" => "0"
+                );
+                $msg = $Wechat->sendMessage($message);
+
+            }
             return $this->success();
         } else {
             return $this->error();

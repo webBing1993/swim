@@ -55,7 +55,7 @@ class Wechat
     const MSGTYPE_LINK = 'link';
     const MSGTYPE_EVENT = 'event';
     const MSGTYPE_MUSIC = 'music';
-    const MSGTYPE_NEWS = 'policy';
+    const MSGTYPE_NEWS = 'news';
     const MSGTYPE_VOICE = 'voice';
     const MSGTYPE_VIDEO = 'video';
     const EVENT_SUBSCRIBE = 'subscribe';       //订阅
@@ -1799,7 +1799,7 @@ class Wechat
 
     /**
      * 获取永久素材列表(认证后的订阅号可用)
-     * @param string $type 素材的类型,图片（image）、视频（video）、语音 （voice）、图文（policy）
+     * @param string $type 素材的类型,图片（image）、视频（video）、语音 （voice）、图文（news）
      * @param int $offset 全部素材的偏移位置，0表示从第一个素材
      * @param int $count 返回素材的数量，取值在1到20之间
      * @return boolean|array
@@ -2389,7 +2389,7 @@ class Wechat
 
     /**
      * 发送客服消息
-     * @param array $data 消息结构{"touser":"OPENID","msgtype":"policy","policy":{...}}
+     * @param array $data 消息结构{"touser":"OPENID","msgtype":"news","news":{...}}
      * @return boolean|array
      */
     public function sendCustomMessage($data){

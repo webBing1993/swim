@@ -26,7 +26,7 @@ class QYWechat
     const MSGTYPE_LINK 		= 'link';    	//暂不支持
     const MSGTYPE_EVENT 	= 'event';
     const MSGTYPE_MUSIC 	= 'music';    	//暂不支持
-    const MSGTYPE_NEWS 		= 'policy';
+    const MSGTYPE_NEWS 		= 'news';
     const MSGTYPE_VOICE 	= 'voice';
     const MSGTYPE_VIDEO 	= 'video';
 
@@ -1976,7 +1976,7 @@ class QYWechat
 	 *                 "media_id" => "MEDIA_ID"
 	 *         ),
 	 *
-	 *         "policy" => array(			//不支持保密
+	 *         "news" => array(			//不支持保密
 	 *                 "articles" => array(    //articles  图文消息，一个图文消息支持1到10个图文
 	 *                     array(
 	 *                         "title" => "Title",             //标题
