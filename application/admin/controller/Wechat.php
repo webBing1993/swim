@@ -32,10 +32,10 @@ class Wechat extends Admin
         $map = ['name' => ['like', "%$name%"]];
         $list = $this->lists("WechatUser", $map);
         $department = WechatDepartment::column('id, name');
-
         foreach ($list as $key=>$value) {
             $departmentId = $value['department'];
             if($departmentId){
+            	if ($departmentId ==1){$departmentId =2;}
                 $name = $department[$departmentId];
                 $list[$key]['department'] = $name;
             }else{

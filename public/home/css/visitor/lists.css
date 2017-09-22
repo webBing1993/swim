@@ -27,7 +27,7 @@ body .lists .list .coach {
 body .lists .list .coach .name {
   display: inline-block;
   width: 59%;
-  background: burlywood;
+  background: rgba(222, 184, 135, 0.4);
 }
 body .lists .list .coach .num {
   display: inline-block;
