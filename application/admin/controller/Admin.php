@@ -9,6 +9,8 @@
 
 namespace app\admin\controller;
 use app\admin\model\Menu;
+use app\admin\model\Picture;
+use com\wechat\TPQYWechat;
 use org\Auth;
 use org\Page;
 use think\Cache;
@@ -449,5 +451,47 @@ class Admin extends Controller {
             return $this->error($msg);
         }
 
+    }
+
+    /**
+     * 图文推送公用方法
+     */
+    public function push($model, $url, $pre){
+        $httpUrl = config('http_url');
+        $title = $model['title'];
+        $content = str_replace('&nbsp;','',strip_tags($model['content']));
+        $content = str_replace(" ",'',$content);
+        $content = str_replace("\n",'',$content);
+        $content = mb_substr($content, 0, 100);
+        $img = Picture::get($model['front_cover']);
+        $path = $httpUrl.$img['path'];
+        $info = array(
+            "title" => $pre.$title,
+            "description" => $content,
+            "url" => $httpUrl.$url,
+            "picurl" => $path,
+        );
+        //重组成article数据
+        $send = array();
+        $send['articles'][0] = $info;
+        //发送给企业号
+        $Wechat = new TPQYWechat(Config::get('news'));
+        $newsConf = config('news');
+        $message = array(
+            "msgtype" => 'news',
+            "agentid" => $newsConf['agentid'],
+            "news" => $send,
+            "safe" => "0"
+        );
+        if($httpUrl == "http://swim.0571ztnet.com"){
+            if(isset($model['tag'])){
+                $message['totag'] = join('|', json_decode($model['tag'], true));
+            }else{
+                $message['touser'] = config('touser');//发送给全体，@all
+            }
+        }else{
+            $message['touser'] = config('touser');//发送给全体，@all
+        }
+        return $Wechat->sendMessage($message);
     }
 }

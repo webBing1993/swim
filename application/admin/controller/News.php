@@ -50,43 +50,12 @@ class News extends Admin {
             $newModel = new NewsModel();
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                $httpUrl = config('http_url');
-                $focus = NewsModel::where('id',$newModel->id)->find();
-                $title = $focus['title'];
-                $content = str_replace('&nbsp;','',strip_tags($focus['content']));
-                $content = str_replace(" ",'',$content);
-                $content = str_replace("\n",'',$content);
-                $content = mb_substr($content, 0, 100);
-                //$str = strip_tags($focus['content']);
-                //$des = mb_substr($str,0,100);
-                //$content = str_replace("&nbsp;","",$des);  //空格符替换成空
-                $url = $httpUrl."/home/news/detail/id/".$focus['id'].".html";
-                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
-
-                $img = Picture::get($focus['front_cover']);
-                $path = $httpUrl.$img['path'];
-                $info = array(
-                    "title" => $pre.$title,
-                    "description" => $content,
-                    "url" => $url,
-                    "picurl" => $path,
-                );
-
-                //重组成article数据
-                $send = array();
-                $send['articles'][0] = $info;
-                //发送给企业号
-                $Wechat = new TPQYWechat(Config::get('news'));
-                $touser = config('touser');
-                $newsConf = config('news');
-                $message = array(
-                    "touser" => $touser, //发送给全体，@all
-                    "msgtype" => 'news',
-                    "agentid" => $newsConf['agentid'],
-                    "news" => $send,
-                    "safe" => "0"
-                );
-                $msg = $Wechat->sendMessage($message);
+                if($data['recommend'] == 0){
+                    $focus = NewsModel::where('id',$newModel->id)->find();
+                    $url = "/home/news/detail/id/".$focus['id'].".html";
+                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                    $this->push($focus, $url, $pre);
+                }
 
                 return $this->success("新增成功",Url('News/index'));
             }else{
@@ -165,45 +134,15 @@ class News extends Admin {
                 unset($data['id']);
             }
             $newModel = new NewsModel();
+            if($data['recommend'] == 1) $data['status'] = 0;
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                $httpUrl = config('http_url');
-                $focus = NewsModel::where('id',$newModel->id)->find();
-                $title = $focus['title'];
-                $content = str_replace('&nbsp;','',strip_tags($focus['content']));
-                $content = str_replace(" ",'',$content);
-                $content = str_replace("\n",'',$content);
-                $content = mb_substr($content, 0, 100);
-                //$str = strip_tags($focus['content']);
-                //$des = mb_substr($str,0,100);
-                //$content = str_replace("&nbsp;","",$des);  //空格符替换成空
-                $url = $httpUrl."/home/news/detail/id/".$focus['id'].".html";
-                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
-
-                $img = Picture::get($focus['front_cover']);
-                $path = $httpUrl.$img['path'];
-                $info = array(
-                    "title" => $pre.$title,
-                    "description" => $content,
-                    "url" => $url,
-                    "picurl" => $path,
-                );
-
-                //重组成article数据
-                $send = array();
-                $send['articles'][0] = $info;
-                //发送给企业号
-                $Wechat = new TPQYWechat(Config::get('news'));
-                $touser = config('touser');
-                $newsConf = config('news');
-                $message = array(
-                    "touser" => $touser, //发送给全体，@all
-                    "msgtype" => 'news',
-                    "agentid" => $newsConf['agentid'],
-                    "news" => $send,
-                    "safe" => "0"
-                );
-                $msg = $Wechat->sendMessage($message);
+                if($data['recommend'] == 0){
+                    $focus = NewsModel::where('id',$newModel->id)->find();
+                    $url = "/home/news/detail/id/".$focus['id'].".html";
+                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                    $this->push($focus, $url, $pre);
+                }
 
                 return $this->success("新增成功",Url('News/wiki'));
             }else{
@@ -269,45 +208,15 @@ class News extends Admin {
                 unset($data['id']);
             }
             $newModel = new NewsModel();
+            if($data['recommend'] == 1) $data['status'] = 0;
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                $httpUrl = config('http_url');
-                $focus = NewsModel::where('id',$newModel->id)->find();
-                $title = $focus['title'];
-                $content = str_replace('&nbsp;','',strip_tags($focus['content']));
-                $content = str_replace(" ",'',$content);
-                $content = str_replace("\n",'',$content);
-                $content = mb_substr($content, 0, 100);
-                //$str = strip_tags($focus['content']);
-                //$des = mb_substr($str,0,100);
-                //$content = str_replace("&nbsp;","",$des);  //空格符替换成空
-                $url = $httpUrl."/home/news/detail/id/".$focus['id'].".html";
-                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
-
-                $img = Picture::get($focus['front_cover']);
-                $path = $httpUrl.$img['path'];
-                $info = array(
-                    "title" => $pre.$title,
-                    "description" => $content,
-                    "url" => $url,
-                    "picurl" => $path,
-                );
-
-                //重组成article数据
-                $send = array();
-                $send['articles'][0] = $info;
-                //发送给企业号
-                $Wechat = new TPQYWechat(Config::get('news'));
-                $touser = config('touser');
-                $newsConf = config('news');
-                $message = array(
-                    "touser" => $touser, //发送给全体，@all
-                    "msgtype" => 'news',
-                    "agentid" => $newsConf['agentid'],
-                    "news" => $send,
-                    "safe" => "0"
-                );
-                $msg = $Wechat->sendMessage($message);
+                if($data['recommend'] == 0){
+                    $focus = NewsModel::where('id',$newModel->id)->find();
+                    $url = "/home/news/detail/id/".$focus['id'].".html";
+                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                    $this->push($focus, $url, $pre);
+                }
 
                 return $this->success("新增成功",Url('News/video'));
             }else{

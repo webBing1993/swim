@@ -68,6 +68,13 @@ class Notice extends Admin {
                         NoticeTag::create($msg);
                     }
                 }
+                if($data['recommend'] == 0){
+                    $focus = NoticeModel::where('id',$noticeModel->id)->find();
+                    $url = "/home/notice/detail/id/".$focus['id'].".html";
+                    $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                    $this->push($focus, $url, $pre);
+                }
+
                 return $this->success('新增相关通知成功',Url('Notice/index'));
             }else{
                 return $this->error($noticeModel->getError());
@@ -160,6 +167,7 @@ class Notice extends Admin {
             $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
             $noticeModel = new NoticeModel();
+            if($data['recommend'] == 1) $data['status'] = 0;
             if (!empty($data['start_time']) && !empty($data['end_time'])){
                 $data['start_time'] = strtotime($data['start_time']);
                 $data['end_time'] = strtotime($data['end_time']);
@@ -172,6 +180,13 @@ class Notice extends Admin {
                         NoticeTag::create($msg);
                     }
                 }
+                if($data['recommend'] == 0){
+                    $focus = NoticeModel::where('id',$noticeModel->id)->find();
+                    $url = "/home/notice/detail/id/".$focus['id'].".html";
+                    $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                    $this->push($focus, $url, $pre);
+                }
+
                 return $this->success("新增相关活动成功",Url('Notice/activity'));
             }else{
                 return $this->error($noticeModel->getError());
