@@ -89,8 +89,13 @@
 }
 .lists .list .note a.edit {
   color: #999999;
-  padding: 0 4vw;
+  padding: 0 3vw;
 }
 .lists .list .note a.detail {
   color: #3cb152;
+  padding: 0 0 0 3vw;
+}
+.lists .list .note .del {
+  color: #999999;
+  padding: 0 3vw;
 }

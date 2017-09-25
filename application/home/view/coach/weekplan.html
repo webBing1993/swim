@@ -37,6 +37,7 @@
 			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
 			{/empty}
 			{/empty}
+			<span class="del fr" onclick="listDel(this,1,'id')">删除</span>
 		</div>
 	</div>
 	{/volist}
@@ -61,6 +62,19 @@
 $(function(){
 	timeSelect()
 });
+function listDel(e,a,b){
+	$(e).parents('.list').remove();
+	$.ajax({
+		type:"post",
+		url:"",
+		data:{
+			type:a,
+			id:b
+		},
+		success:function(data){
+		}
+	});
+}
 function timeSelect(){
 	var currYear = (new Date()).getFullYear();
 	var opt={};

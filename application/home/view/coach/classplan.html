@@ -30,6 +30,7 @@
             {empty name="$edit_button"}
             <a href="{:Url('pclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
             {/empty}
+			<span class="del fr" onclick="listDel(this,'id')">删除</span>
         </div>
     </div>
     {/volist}
@@ -48,6 +49,18 @@
     $(function(){
         timeSelect()
     });
+	function listDel(e,b){
+		$(e).parents('.list').remove();
+		$.ajax({
+			type:"post",
+			url:"",
+			data:{
+				id:b
+			},
+			success:function(data){
+			}
+		});
+	}
     function timeSelect(){
         var currYear = (new Date()).getFullYear();
         var opt={};
