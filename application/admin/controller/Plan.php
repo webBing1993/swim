@@ -145,7 +145,7 @@ class Plan extends Admin {
 		$doc .= join("\r\n", $html);
 		$doc .= '</body></html>';
 		//var_dump($doc);die;
-		header('Content-Disposition: attachment; filename="'.$data['userid'].'周训练小结.doc"');
+		header('Content-Disposition: attachment; filename="'.$data['userid'].'周训练小结'.$data['start_time'].'-'.$data['end_time'].'.doc"');
 		die(mb_convert_encoding($doc,'UTF-8','UTF-8'));
 	}
 	public function classPlan(){
