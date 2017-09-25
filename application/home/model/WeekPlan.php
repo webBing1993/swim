@@ -22,6 +22,7 @@ class WeekPlan extends Model
      */
     public static function getList($userId, $time) {
         $map = array(
+            'status' => 0,
             'userid' => $userId,
             "FROM_UNIXTIME(start,'%Y年%m月')" => $time,
         );
