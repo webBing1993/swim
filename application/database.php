@@ -24,7 +24,7 @@ return [
     //'username'    => 'guest',
     'username'    => 'root',
     // 数据库密码
-    'password'    => '',
+    'password'    => '123456',
     // 数据库连接端口
     'hostport'    => '3306',
     // 数据库连接参数
