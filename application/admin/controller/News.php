@@ -50,10 +50,12 @@ class News extends Admin {
             $newModel = new NewsModel();
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                if($data['recommend'] == 0){
-                    $focus = NewsModel::where('id',$newModel->id)->find();
-                    $url = "/home/news/detail/id/".$focus['id'].".html";
-                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                $focus = NewsModel::where('id',$newModel->id)->find();
+                $url = "/home/news/detail/id/".$focus['id'].".html";
+                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                if($data['recommend'] == 1){
+                    $this->push_review($pre);
+                }else{
                     $this->push($focus, $url, $pre);
                 }
 
@@ -137,10 +139,12 @@ class News extends Admin {
             if($data['recommend'] == 1) $data['status'] = 0;
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                if($data['recommend'] == 0){
-                    $focus = NewsModel::where('id',$newModel->id)->find();
-                    $url = "/home/news/detail/id/".$focus['id'].".html";
-                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                $focus = NewsModel::where('id',$newModel->id)->find();
+                $url = "/home/news/detail/id/".$focus['id'].".html";
+                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                if($data['recommend'] == 1){
+                    $this->push_review($pre);
+                }else{
                     $this->push($focus, $url, $pre);
                 }
 
@@ -211,10 +215,12 @@ class News extends Admin {
             if($data['recommend'] == 1) $data['status'] = 0;
             $info = $newModel->validate(true)->save($data);
             if($info) {
-                if($data['recommend'] == 0){
-                    $focus = NewsModel::where('id',$newModel->id)->find();
-                    $url = "/home/news/detail/id/".$focus['id'].".html";
-                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                $focus = NewsModel::where('id',$newModel->id)->find();
+                $url = "/home/news/detail/id/".$focus['id'].".html";
+                $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                if($data['recommend'] == 1){
+                    $this->push_review($pre);
+                }else{
                     $this->push($focus, $url, $pre);
                 }
 

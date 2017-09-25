@@ -60,6 +60,12 @@ return [
         'appsecret' => 'zq0-StU_DOZ_Jxx11hzuqaDX5Y9RevtmS4AyrXpgVs4',
         'agentid' => 1000004
     ],
+    //消息审核模块
+    'review' => [
+        'appid' => 'wwc2778c4e14ba4809',
+        'appsecret' => 'ainNsCe_K7ZRI2UbMxLi8inZQG6QFEIvpyXBeIkcLHc',
+        'agentid' => 1000007
+    ],
 
     //默认头像图片
     'de_header' => '/home/images/common/default.png',

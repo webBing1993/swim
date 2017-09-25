@@ -70,51 +70,29 @@ class Review extends Base{
         $status = input('status');
         $tab = input('tab');
         if($tab == 0){
-            $Model = new NewsModel();
+            $info = NewsModel::update(['status' => $status], ['id' => $id]);
         }elseif($tab == 1){
-            $Model = new NoticeModel();
+            $info = NoticeModel::update(['status' => $status], ['id' => $id]);
         }else{
-            $Model = new CertificateReviewModel();
+            $info = CertificateReviewModel::update(['status' => $status], ['id' => $id]);
         }
         //$Model = $tab ? new NoticeModel() : new NewsModel();
-        $info = $Model->save(['status' => $status], ['id' => $id]);
+        //$info = $Model::save(['status' => $status], ['id' => $id]);
+
         if ($info) {
-            if($tab==1 && $status == 1){
-                $httpUrl = config('http_url');
-                $focus = $Model->where('id',$id)->find();
-                $title = $focus['title'];
-                $content = str_replace('&nbsp;','',strip_tags($focus['content']));
-                $content = str_replace(" ",'',$content);
-                $content = str_replace("\n",'',$content);
-                $content = mb_substr($content, 0, 100);
-                $url = $httpUrl."/home/notice/detail/id/".$focus['id'].".html";
-                $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
-
-                $img = Picture::get($focus['front_cover']);
-                $path = $httpUrl.$img['path'];
-                $info = array(
-                    "title" => $pre.$title,
-                    "description" => $content,
-                    "url" => $url,
-                    "picurl" => $path,
-                );
-
-                //重组成article数据
-                $send = array();
-                $send['articles'][0] = $info;
-                //发送给企业号
-                $Wechat = new TPQYWechat(Config::get('news'));
-                $touser = config('touser');
-                $newsConf = config('news');
-                $message = array(
-                    "touser" => $touser, //发送给全体，@all
-                    "msgtype" => 'news',
-                    "agentid" => $newsConf['agentid'],
-                    "news" => $send,
-                    "safe" => "0"
-                );
-                $msg = $Wechat->sendMessage($message);
-
+            if($tab<=1 && $status == 1){
+                if($tab == 0){
+                    $focus = NewsModel::where('id',$id)->find();
+                    $url = "/home/news/detail/id/".$focus['id'].".html";
+                    $pre = "【".NewsModel::TYPE_ARRAY[$focus['type']]."】";
+                }elseif($tab == 1){
+                    $focus = NoticeModel::where('id',$id)->find();
+                    $url = "/home/notice/detail/id/".$focus['id'].".html";
+                    $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                }else{
+                    return $this->error();
+                }
+                $this->push($focus, $url, $pre);
             }
             return $this->success();
         } else {

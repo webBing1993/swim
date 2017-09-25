@@ -23,6 +23,7 @@ class Notice extends Validate {
         'address' => 'require',
         'people' => 'require',
         'publisher' => 'require',
+        'tag' => 'require',
     ];
 
     protected $message = [
@@ -37,11 +38,12 @@ class Notice extends Validate {
         'address.require' => '地址不能为空',
         'people.require' => '人数不能为空',
         'publisher.require' => '发布人不能为空',
+        'tag.require' => '发送标签不能为空',
     ];
 
     protected $scene = [
-        'act' => ['front_cover','title','content','people','start_time','end_time','publisher'],
-        'other' => ['front_cover','title','content','publisher'],
+        'act' => ['front_cover','title','content','people','start_time','end_time','publisher','tag'],
+        'other' => ['front_cover','title','content','publisher','tag'],
     ];
 
 }

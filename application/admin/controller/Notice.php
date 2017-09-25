@@ -68,10 +68,13 @@ class Notice extends Admin {
                         NoticeTag::create($msg);
                     }
                 }
-                if($data['recommend'] == 0){
-                    $focus = NoticeModel::where('id',$noticeModel->id)->find();
-                    $url = "/home/notice/detail/id/".$focus['id'].".html";
-                    $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+
+                $focus = NoticeModel::where('id',$noticeModel->id)->find();
+                $url = "/home/notice/detail/id/".$focus['id'].".html";
+                $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                if($data['recommend'] == 1){
+                    $this->push_review($pre);
+                }else{
                     $this->push($focus, $url, $pre);
                 }
 
@@ -180,10 +183,12 @@ class Notice extends Admin {
                         NoticeTag::create($msg);
                     }
                 }
-                if($data['recommend'] == 0){
-                    $focus = NoticeModel::where('id',$noticeModel->id)->find();
-                    $url = "/home/notice/detail/id/".$focus['id'].".html";
-                    $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                $focus = NoticeModel::where('id',$noticeModel->id)->find();
+                $url = "/home/notice/detail/id/".$focus['id'].".html";
+                $pre = "【".NoticeModel::TYPE_ARRAY[$focus['type']]."】";
+                if($data['recommend'] == 1){
+                    $this->push_review($pre);
+                }else{
                     $this->push($focus, $url, $pre);
                 }
 

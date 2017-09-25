@@ -10,6 +10,8 @@
 namespace app\admin\controller;
 use app\admin\model\Menu;
 use app\admin\model\Picture;
+use app\admin\model\WechatTag;
+use app\home\model\WechatUserSign;
 use com\wechat\TPQYWechat;
 use org\Auth;
 use org\Page;
@@ -489,6 +491,32 @@ class Admin extends Controller {
             }else{
                 $message['touser'] = config('touser');//发送给全体，@all
             }
+        }else{
+            $message['touser'] = config('touser');//发送给全体，@all
+        }
+        return $Wechat->sendMessage($message);
+    }
+    /**
+     * 文本卡片推送公用方法
+     */
+    public function push_review($pre){
+        $httpUrl = config('http_url');
+        $send = array(
+            "title" => "审核通知",
+            "description" => "您有一条".$pre."未审核<br>请尽快审核",
+            "url" => $httpUrl."/home/review/reviewlist",
+        );
+        //发送给企业号
+        $Wechat = new TPQYWechat(Config::get('review'));
+        $newsConf = config('review');
+        $message = array(
+            "msgtype" => 'textcard',
+            "agentid" => $newsConf['agentid'],
+            "textcard" => $send,
+            "safe" => "0"
+        );
+        if($httpUrl == "http://swim.0571ztnet.com"){
+            $message['totag'] = WechatTag::TAG_LEADER;
         }else{
             $message['touser'] = config('touser');//发送给全体，@all
         }
