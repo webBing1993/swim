@@ -30,14 +30,15 @@
 			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
 			<a href="{:Url('pweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			<span class="del fr" onclick="listDel(this,1,'{$vo.id}')">删除</span>
 			{/empty}
 			{else/}
 			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
 			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			<span class="del fr" onclick="listDel(this,2,'{$vo.id}')">删除</span>
 			{/empty}
 			{/empty}
-			<span class="del fr" onclick="listDel(this,1,'id')">删除</span>
 		</div>
 	</div>
 	{/volist}
@@ -63,10 +64,10 @@ $(function(){
 	timeSelect()
 });
 function listDel(e,a,b){
-	$(e).parents('.list').remove();
+ 	$(e).parents('.list').remove();
 	$.ajax({
 		type:"post",
-		url:"",
+		url:"{:Url('del')}",
 		data:{
 			type:a,
 			id:b

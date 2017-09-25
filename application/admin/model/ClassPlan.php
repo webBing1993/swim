@@ -5,11 +5,11 @@
  * Date: 2017/9/17
  * Time: 14:31
  */
-namespace app\home\model;
+namespace app\admin\model;
 use think\Model;
 use think\Collection;
 
-class ClassPlan extends Model
+class ClassPlan extends Base
 {
     const WEEK_SUNDAY = 1;
     const WEEK_MONDAY = 2;
@@ -64,12 +64,12 @@ class ClassPlan extends Model
             $collection = new Collection($res['score']);
             $res['score'] = $collection->toArray();
         }
-        $res['contents'] = ClassContent::where(['pid' => $res['id']])->field('id, type, contentself, load, strength, duration')->order('type')->select();
+        $res['contents'] = ClassContent::where(['pid' => $res['id']])->field('id, type, load, strength, duration')->order('type')->select();
         if($res['contents']){
             $collection = new Collection($res['contents']);
             $res['contents'] = $collection->toArray();
             foreach($res['contents'] as $key => $model) {
-                $res['contents'][$key]['content'] = ClassTrain::where(['pid' => $model['id']])->field('group, num, distance, pose, detail')->order('`order`')->select();
+                $res['contents'][$key]['content'] = ClassTrain::where(['pid' => $model['id']])->field('group, num, distance, pose')->order('`order`')->select();
                 if($res['contents'][$key]['content']){
                     $collection = new Collection($res['contents'][$key]['content']);
                     $res['contents'][$key]['content'] = $collection->toArray();

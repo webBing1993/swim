@@ -5,11 +5,11 @@
  * Date: 2017/9/14
  * Time: 19:44
  */
-namespace app\home\model;
+namespace app\admin\model;
 use think\Model;
 use think\Collection;
 
-class WeekSummary extends Model
+class WeekSummary extends Base
 {
     public $insert = [
         'views' => 0,

@@ -574,4 +574,27 @@ class Coach extends Base {
 		$this->assign('res',$res);
 		return $this->fetch();
 	}
+	/**
+	 * 删除
+	 */
+	public function del(){
+		$type = input('type');
+		$id = input('id');
+		if($type == 0){
+			$Model = new ClassPlan();
+		}elseif($type == 1){
+			$Model = new WeekPlan();
+		}elseif($type == 2){
+			$Model = new WeekSummary();
+		}else{
+			return $this->error("参数错误");
+		}
+		$data['status'] = '-1';
+		$info = $Model->where('id',$id)->update($data);
+		if($info) {
+			return $this->success("删除成功");
+		}else{
+			return $this->error("删除失败");
+		}
+	}
 }

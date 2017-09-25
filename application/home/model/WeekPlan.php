@@ -13,6 +13,7 @@ class WeekPlan extends Model
 {
     public $insert = [
         'views' => 0,
+        'status' => 0,
         'create_time' => NOW_TIME,
     ];
 

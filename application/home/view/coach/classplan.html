@@ -29,8 +29,8 @@
             <a href="{:Url('dclassPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
             {empty name="$edit_button"}
             <a href="{:Url('pclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+            <span class="del fr" onclick="listDel(this,'{$vo.id}')">删除</span>
             {/empty}
-			<span class="del fr" onclick="listDel(this,'id')">删除</span>
         </div>
     </div>
     {/volist}
@@ -53,8 +53,9 @@
 		$(e).parents('.list').remove();
 		$.ajax({
 			type:"post",
-			url:"",
+			url:"{:Url('del')}",
 			data:{
+                type:0,
 				id:b
 			},
 			success:function(data){
