@@ -169,6 +169,9 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
+	$('.student .name').off('click').on('click',function(){
+		$(this).toggleClass('green');
+	})
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -299,8 +302,9 @@ function weekSave(){
 			var id = student.find('.name').attr('data-tab');
 			var name = student.find('.name').text();
 			var time = student.find('input').val();
+			var good = student.find('.name').hasClass('green')?'1':'0';
 			if(time!=''){
-				mark[i] = {'id':id,'name':name,'time':time};
+				mark[i] = {'id':id,'name':name,'time':time,'good':good};
 			}else{
 				mark[i] = {};
 			}

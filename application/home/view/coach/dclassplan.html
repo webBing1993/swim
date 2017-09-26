@@ -129,6 +129,9 @@ $(function(){
 	templet();
 	//返回
 	daySave();
+	$('.student .name').off('click').on('click',function(){
+		$(this).toggleClass('green');
+	})
 });
 var parts=new Array(3);
 var contents={$contents};

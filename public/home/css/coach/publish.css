@@ -67,6 +67,13 @@ body {
 .list .content .sum span.red {
   color: indianred;
 }
+.list .name {
+  display: inline-block;
+  width: 20vw;
+}
+.list .name.green {
+  color: #3cb152;
+}
 .tems {
   display: none;
   margin: 0 auto;
