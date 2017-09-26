@@ -301,6 +301,8 @@ function weekSave(){
 			var time = student.find('input').val();
 			if(time!=''){
 				mark[i] = {'id':id,'name':name,'time':time};
+			}else{
+				mark[i] = {};
 			}
 		}
 		var data ={
