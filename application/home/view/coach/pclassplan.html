@@ -58,7 +58,7 @@
 			{else/}
 			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="{$vo.userid}">{$vo.name|default=''}</span>
+				<span class="name fl {notempty name='vo.good'} green {/notempty}" data-tab="{$vo.userid}">{$vo.name|default=''}</span>
 				<span class="fa fa-angle-right fr"></span>
 				<input type="text" value="{$vo.score|default=''}" placeholder="请输入成绩" class="fr limit">
 			</div>

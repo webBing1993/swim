@@ -60,7 +60,7 @@ class ClassPlan extends Model
             'id' => $id,
         );
         $res = self::where($map)->field("*, FROM_UNIXTIME(start,'%Y-%m-%d') start_time")->find()->toArray();
-        $res['score'] = ClassScore::where(['pid' => $res['id']])->field('userid, name, score')->order('`order`')->select();
+        $res['score'] = ClassScore::where(['pid' => $res['id']])->field('userid, name, score, good')->order('`order`')->select();
         if($res['score']){
             $collection = new Collection($res['score']);
             $res['score'] = $collection->toArray();

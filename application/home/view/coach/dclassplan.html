@@ -46,7 +46,7 @@
 		<div class="students">
 			{volist name="res.score" id="vo"}
 			<div class="student clear">
-				<span class="name fl" data-tab="zangsna">{$vo.name|default=''}</span>
+				<span class="name fl {notempty name='vo.good'} green {/notempty}" data-tab="zangsna">{$vo.name|default=''}</span>
 				<input type="text" value="{$vo.score|default=''}" class="fr limit" readonly>
 			</div>
 			{/volist}

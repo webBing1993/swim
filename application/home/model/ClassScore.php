@@ -12,6 +12,7 @@ use think\Collection;
 class ClassScore extends Model
 {
     public $insert = [
+        'good' => 0,
         'create_time' => NOW_TIME,
     ];
 

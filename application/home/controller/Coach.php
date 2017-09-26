@@ -402,7 +402,7 @@ class Coach extends Base {
 				if($mark){
 					foreach($mark as $key => $val){
 						$msg = ['userid'=>$val['id'], 'pid'=>$classPlanModel->id];
-						$insert = ['userid'=>$val['id'], 'name'=>$val['name'], 'score'=>$val['time'], 'order'=>$key+1, 'pid'=>$classPlanModel->id];
+						$insert = ['userid'=>$val['id'], 'name'=>$val['name'], 'score'=>$val['time'], 'good'=>$val['good'], 'order'=>$key+1, 'pid'=>$classPlanModel->id];
 						if(empty(ClassScore::where($msg)->find())) {
 							$classScoreModel = new ClassScore();
 							$classScoreModel->save($insert);
