@@ -14,6 +14,8 @@ use app\home\model\Comment;
 use app\home\model\Like;
 use app\home\model\Picture;
 use app\user\model\WechatUser;
+use app\home\model\News as NewsModel;
+use app\home\model\Notice as NoticeModel;
 use think\Config;
 use think\Controller;
 use com\wechat\TPQYWechat;
@@ -351,6 +353,15 @@ class Base extends Controller
         $history = $browserModel->where($data)->find();
 
         if (empty($history)) {
+            //浏览加一
+            $info['views'] = array('exp','`views`+1');
+            if($type == 1){
+                NewsModel::where('id',$aid)->update($info);
+            }elseif($type == 2){
+                NoticeModel::where('id',$aid)->update($info);
+            }else{
+                return $this->error("无该数据表");
+            }
             $browserModel->create($data);
         }
     }

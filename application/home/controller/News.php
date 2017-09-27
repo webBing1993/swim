@@ -72,8 +72,8 @@ class News extends Base {
 			return $this->redirect('public/404');
 		}*/
 		//浏览加一
-		$info['views'] = array('exp','`views`+1');
-		NewsModel::where('id',$id)->update($info);
+		/*$info['views'] = array('exp','`views`+1');
+		NewsModel::where('id',$id)->update($info);*/
 
 		if($userId != "visitor"){
 			//浏览不存在则存入pb_browse表

@@ -87,8 +87,8 @@ class Notice extends Base {
 		$id = input('id');
 		$userId = session('userId');
 		//浏览加一
-		$info['views'] = array('exp','`views`+1');
-		NoticeModel::where('id',$id)->update($info);
+		/*$info['views'] = array('exp','`views`+1');
+		NoticeModel::where('id',$id)->update($info);*/
 
 		if($userId != "visitor"){
 			//浏览不存在则存入pb_browse表

@@ -80,5 +80,20 @@ class Student extends Base{
 			return $this->fetch();
 		}
 	}
+	/**
+	 * 个人签到条形码
+	 */
+	public function code(){
+		$userId = session('userId');
+		$res = WechatUser::where(['userid' => $userId])->field('mobile, header, avatar')->find()->toArray();
+		$data['mobile'] = $res['mobile'];
+		if(empty($res['header'])){
+			$data['header'] = param_to($res['avatar'], \think\Config::get('de_header'));
+		}else{
+			$data['header'] = get_cover($res['header'], 'path');
+		}
+		$this->assign('data',$data);
+		return $this->fetch();
+	}
 
 }
