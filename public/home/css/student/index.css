@@ -288,7 +288,8 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(2) .mylist .list:nth-child(1) .name:after,
 .boxs .box:nth-child(2) .mylist .list:nth-child(2) .name:after,
-.boxs .box:nth-child(2) .mylist .list:nth-child(3) .name:after {
+.boxs .box:nth-child(2) .mylist .list:nth-child(3) .name:after,
+.boxs .box:nth-child(2) .mylist .list:nth-child(4) .name:after {
   position: absolute;
   left: 0;
   top: 0.7rem;
@@ -306,5 +307,9 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(2) .mylist .list:nth-child(3) .name:after {
   background: url('/home/images/coach/user4.png') 0 0 no-repeat;
+  background-size: 3.6rem,3.6rem;
+}
+.boxs .box:nth-child(2) .mylist .list:nth-child(4) .name:after {
+  background: url('/home/images/coach/wdewm.png') 0 0 no-repeat;
   background-size: 3.6rem,3.6rem;
 }

@@ -28,10 +28,12 @@
 		<span class="fl">手机号</span>
 		<a class="fr" href="tel:{$res.mobile}">{$res.mobile}</a>
 	</div>
+	{empty name="$res.tag"}
 	<div class="list clear">
 		<span class="fl">身份证号</span>
 		<span class="fr">{$res.identity}</span>
 	</div>
+	{/empty}
 </div>
 <div class="lists">
 	<div class="list clear">
