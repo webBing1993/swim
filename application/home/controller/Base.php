@@ -371,10 +371,14 @@ class Base extends Controller
     public function push($model, $url, $pre){
         $httpUrl = config('http_url');
         $title = $model['title'];
-        $content = str_replace('&nbsp;','',strip_tags($model['content']));
-        $content = str_replace(" ",'',$content);
-        $content = str_replace("\n",'',$content);
-        $content = mb_substr($content, 0, 100);
+        if($pre == "【在线视频】"){
+            $content = "";
+        }else{
+            $content = str_replace('&nbsp;','',strip_tags($model['content']));
+            $content = str_replace(" ",'',$content);
+            $content = str_replace("\n",'',$content);
+            $content = mb_substr($content, 0, 100);
+        }
         $img = Picture::get($model['front_cover']);
         $path = $httpUrl.$img['path'];
         $info = array(

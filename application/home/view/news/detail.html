@@ -10,7 +10,13 @@
 		<div class="title limit_">{$detail.title}</div>
 		<div class="note">{$detail.publisher}/{$detail.create_time|time_format='Y-m-d'}</div>
 		<div class="content">
-			<div class="ue">{$detail.content}</div>
+			<div class="ue">
+				{eq name="$detail.type" value="3"}
+				<iframe class="videocon" frameborder="0" src="{$detail.content}" allowfullscreen style="max-width:100%;margin:0 auto;display: block"></iframe>
+				{else/}
+				{$detail.content}
+				{/eq}
+			</div>
 			<div class="note">
 				<span class="read">{$detail.views}</span>
 				<!--good、good_-->
