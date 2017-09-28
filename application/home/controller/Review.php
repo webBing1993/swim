@@ -15,6 +15,7 @@ namespace app\home\controller;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
 use app\home\model\CertificateReview as CertificateReviewModel;
+use app\home\model\WechatUser;
 use think\Config;
 use think\Db;
 use app\admin\model\Picture;
@@ -94,6 +95,11 @@ class Review extends Base{
                 }
                 $this->push($focus, $url, $pre);
             }
+            if($tab==2){
+                $coachModel = CertificateReviewModel::get($id);
+                WechatUser::where('userid',$coachModel['userid'])->update(['certificate_status'=>$status]);
+            }
+
             return $this->success();
         } else {
             return $this->error();

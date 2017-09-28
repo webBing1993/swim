@@ -43,7 +43,7 @@
 				<span class="fl">学历</span>
 				<span class="fr">{$coachModel.education}</span>
 			</div>
-			{empty name="$coachModel.tag"}
+			{if condition="($coachModel.tag != 1) AND ($coachModel.certificate_status == 1)"}
 			<div class="list clear list_img">
 				<span class="fl">社会指导员证</span>
 				<img src="{empty name='$coachModel.social_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$coachModel.social_certificate|get_cover='path'}{/empty}" alt="社会指导员证" class="fr card"  data-original="">
@@ -56,7 +56,7 @@
 				<span class="fl">救生员证</span>
 				<img src="{empty name='$coachModel.lifeguard_certificate'}<?php echo '/home/images/common/card.png';?>{else/}{$coachModel.lifeguard_certificate|get_cover='path'}{/empty}" alt="救生员证" class="fr card"  data-original="">
 			</div>
-			{/empty}
+			{/if}
 			<!--/助教显示-->
 		</div>
 	</div>

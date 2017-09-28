@@ -117,6 +117,7 @@ class User extends Base{
                         'lifeguard_certificate' => $data['lifeguard_certificate'],
                     );
                     CertificateReview::create($info);
+                    WechatUser::where('id',$data['id'])->update(['certificate_status'=>0]);
                 }
                 return $this->success("修改成功");
             }else{
