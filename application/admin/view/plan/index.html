@@ -97,7 +97,7 @@
 <script src="/admin/js/plugins/iCheck/icheck.min.js"></script>
 <script>
 $(document).ready(function(){
-	highlight_subnav("{:Url('Notice/activity')}");
+	highlight_subnav("{:Url('plan/index')}");
 	$('.i-checks').iCheck({
 		checkboxClass: 'icheckbox_square-green',
 		radioClass: 'iradio_square-green',
@@ -126,17 +126,18 @@ $(document).ready(function(){
 
 		$(".post-put").off('click').on("click",function(){
 			var userid = $("select[name='userid']").val();
+			var name = $("select[name='userid']").find("option:selected").text();
 			var start_time = $("input[name='start_time']").val();
 			var end_time = $("input[name='end_time']").val();
 			var type = $("input[name='type']:checked").val();
 			if(type==1){
-				window.location.href = '{:Url(\'classPlan\')}?userid='+userid+'&start_time='+start_time+'&end_time='+end_time;
+				window.location.href = '{:Url(\'classPlan\')}?userid='+userid+'&name='+name+'&start_time='+start_time+'&end_time='+end_time;
 			}
 			if(type==2){
-				window.location.href = '{:Url(\'weekPlan\')}?userid='+userid+'&start_time='+start_time+'&end_time='+end_time;
+				window.location.href = '{:Url(\'weekPlan\')}?userid='+userid+'&name='+name+'&start_time='+start_time+'&end_time='+end_time;
 			}
 			if(type==3){
-				window.location.href = '{:Url(\'weekSummary\')}?userid='+userid+'&start_time='+start_time+'&end_time='+end_time;
+				window.location.href = '{:Url(\'weekSummary\')}?userid='+userid+'&name='+name+'&start_time='+start_time+'&end_time='+end_time;
 			}
 
 			/*
