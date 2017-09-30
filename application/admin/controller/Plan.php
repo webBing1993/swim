@@ -304,8 +304,8 @@ class Plan extends Admin {
 			}
 			//var_dump($model);die;
 			$xls = [];
+			$weekday = ClassPlan::WEEK_ARRAY[date("w",$model['start'])+1];
 			$start = date("n月j日",$model['start']);
-			$weekday = ClassPlan::WEEK_ARRAY[(date("w", date("Ymd",$model['start']))+1)];
 			$xls[] = "
 				<table>
 				<tr>
