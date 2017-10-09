@@ -27,15 +27,19 @@
 		<div class="note clear">
 			<span>浏览 ： {$vo.views}</span>
 			{empty name="$id"}
-			<a href="{:Url('dweekPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweekplan?id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
-			<a href="{:Url('pweekPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+			<!--{empty name="$vo.overtime"}-->
+			<a href="{:Url('pweekplan?id='.$vo.id)}" class="fr edit">编辑</a>
+			<!--{/empty}-->
 			<span class="del fr" onclick="listDel(this,1,'{$vo.id}')">删除</span>
 			{/empty}
 			{else/}
-			<a href="{:Url('dweekSummary?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweeksummary?id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
-			<a href="{:Url('pweekSummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			<!--{empty name="$vo.overtime"}-->
+			<a href="{:Url('pweeksummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			<!--{/empty}-->
 			<span class="del fr" onclick="listDel(this,2,'{$vo.id}')">删除</span>
 			{/empty}
 			{/empty}
@@ -46,11 +50,11 @@
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
 {empty name="$edit_button"}
 {empty name="$id"}
-<a href="{:Url('pweekPlan')}" class="publish">
+<a href="{:Url('pweekplan')}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
 {else/}
-<a href="{:Url('pweekSummary')}" class="publish">
+<a href="{:Url('pweeksummary')}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
 {/empty}
@@ -136,6 +140,8 @@ function timeSelect(){
 					var lists = $.parseJSON(data);
 					var len = lists.length;
 					var html = '';
+					var id = {$id};
+					var edit_button = {$edit_button};
 					for(var i= 0 ;i<len;i++){
 						var list = lists[i];
 						html +=
@@ -145,11 +151,37 @@ function timeSelect(){
 							'<div class="time">'+list.start_time+' —— '+list.end_time +'</div>'+
 							'</div>'+
 							'<div class="note clear">'+
-							'<span>浏览 ： '+list.views+'</span>'+
-							'<a href="{:Url(\'dweekSummary\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
-							'<a href="{:Url(\'pweekSummary\')}?id='+list.id+'" class="fr edit">编辑</a>'+
-							'</div>'+
-							'</div>'
+							'<span>浏览 ： '+list.views+'</span>';
+						if(!id){
+							html +=
+									'<a href="{:Url(\'dweekplan\')}?id='+list.id+'" class="fr detail">查看详情</a>';
+							if(!edit_button) {
+								//if(!list.overtime) {
+									html +=
+											'<a href="{:Url(\'pweekplan\')}?id=' + list.id + '" class="fr edit">编辑</a>' ;
+								//}
+								html +=
+										'<span class="del fr" onclick="listDel(this,1,\''+list.id+'\')">删除</span>';
+							}
+								html +=
+										'</div>' +
+										'</div>'
+						}else{
+							html +=
+									'<a href="{:Url(\'dweeksummary\')}?id='+list.id+'" class="fr detail">查看详情</a>';
+							if(!edit_button) {
+								//if(!list.overtime) {
+									html +=
+											'<a href="{:Url(\'pweeksummary\')}?id=' + list.id + '" class="fr edit">编辑</a>';
+								//}
+								html +=
+										'<span class="del fr" onclick="listDel(this,2,\''+list.id+'\')">删除</span>';
+							}
+								html +=
+										'</div>' +
+										'</div>'
+						}
+
 					}
 					$('.lists').html(html);
 				}

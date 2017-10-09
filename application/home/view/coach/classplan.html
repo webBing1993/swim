@@ -26,9 +26,11 @@
         </div>
         <div class="note clear">
             <span>浏览 ： {$vo.views}</span>
-            <a href="{:Url('dclassPlan?id='.$vo.id)}" class="fr detail">查看详情</a>
+            <a href="{:Url('dclassplan?id='.$vo.id)}" class="fr detail">查看详情</a>
             {empty name="$edit_button"}
-            <a href="{:Url('pclassPlan?id='.$vo.id)}" class="fr edit">编辑</a>
+            <!--{empty name="$vo.overtime"}-->
+            <a href="{:Url('pclassplan?id='.$vo.id)}" class="fr edit">编辑</a>
+            <!--{/empty}-->
             <span class="del fr" onclick="listDel(this,'{$vo.id}')">删除</span>
             {/empty}
         </div>
@@ -37,7 +39,7 @@
 </div>
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
 {empty name="$edit_button"}
-<a href="{:Url('pclassPlan')}" class="publish">
+<a href="{:Url('pclassplan')}" class="publish">
     <img src="/home/images/coach/add.png" alt="">
 </a>
 {/empty}
@@ -121,6 +123,7 @@
                         var len = lists.length;
                         var html = '';
                         var week_arr = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+                        var edit_button = {$edit_button};
                         for(var i= 0 ;i<len;i++){
                             var list = lists[i];
                             var week = list.week-1;
@@ -132,8 +135,16 @@
                                     '</div>'+
                                     '<div class="note clear">'+
                                     '<span>浏览 ： '+list.views+'</span>'+
-                                    '<a href="{:Url(\'dclassPlan\')}?id='+list.id+'" class="fr detail">查看详情</a>'+
-                                    '<a href="{:Url(\'pclassPlan\')}?id='+list.id+'" class="fr edit">编辑</a>'+
+                                    '<a href="{:Url(\'dclassplan\')}?id='+list.id+'" class="fr detail">查看详情</a>';
+                            if(!edit_button){
+                                //if(!list.overtime) {
+                                    html +=
+                                            '<a href="{:Url(\'pclassplan\')}?id=' + list.id + '" class="fr edit">编辑</a>';
+                                //}
+                                html +=
+                                        '<span class="del fr" onclick="listDel(this,\''+list.id+'\')">删除</span>';
+                            }
+                            html +=
                                     '</div>'+
                                     '</div>'
                         }

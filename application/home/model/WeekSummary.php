@@ -27,7 +27,7 @@ class WeekSummary extends Model
             "FROM_UNIXTIME(start,'%Y年%m月')" => $time,
         );
         $order = array("start");
-        $res = self::where($map)->field("*, FROM_UNIXTIME(start,'%Y-%m-%d') start_time, FROM_UNIXTIME(end,'%Y-%m-%d') end_time")->order($order)->select();
+        $res = self::where($map)->field("*, FROM_UNIXTIME(start,'%Y-%m-%d') start_time, FROM_UNIXTIME(end,'%Y-%m-%d') end_time, CASE WHEN (UNIX_TIMESTAMP()-create_time)>864000 THEN 1 ELSE 0 END as overtime")->order($order)->select();
         if($res){
             $collection = new Collection($res);
             return $collection->toArray();
