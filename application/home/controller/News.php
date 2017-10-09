@@ -48,11 +48,17 @@ class News extends Base {
 	 * 视频点击
 	 */
 	public function video() {
-		$map = array(
-			'id' => input('id')
+		$id = input('id');
+		$userId = session('userId');
+		if($userId != "visitor"){
+			//浏览不存在则存入pb_browse表
+			$this->browser(1,$userId,$id);
+		}
+		/*$map = array(
+				'id' => input('id')
 		);
-		$res = NewsModel::where($map)->setInc('views');
-		if($res) {
+		$res = NewsModel::where($map)->setInc('views');*/
+		if(true) {
 			return $this->success("播放成功");
 		}else {
 			return $this->error("播放失败");

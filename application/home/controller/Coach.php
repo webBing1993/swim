@@ -130,7 +130,7 @@ class Coach extends Base {
 		if($year.$month > date("Ym")){
 			return json_encode($res);
 		}
-		if($year.$month < date("201709")){
+		if($year.$month < date("201710")){
 			return json_encode($res);
 		}
 		if($year.$month == date("Ym")){
@@ -151,8 +151,8 @@ class Coach extends Base {
 				}
 			}
 		}
-		if($year.$month == date("201709")){
-			for ($i=18; $i<=$days; $i++) {//当天不计算缺卡
+		if($year.$month == date("201710")){
+			for ($i=9; $i<=$days; $i++) {//当天不计算缺卡
 				$i = $i<10 ? '0'.$i : $i;
 				if(!in_array($year.'-'.$month.'-'.$i, $all_days)){//所有的缺卡
 					$res['rest'][] = intval($i);//缺卡
