@@ -136,8 +136,9 @@ class Wechat extends Admin
                 }
                 if(!empty($user['upper_coach'])){
                     $user['coach_id'] = WechatUser::where(['name'=>$user['upper_coach']])->value('userid');
-                } else {
-					$user['coach_id'] ='';
+                }
+                if(empty($user['coach_id'])) {
+                    $user['coach_id'] = '';
 				}
                 unset($user['upper_coach']);
                 if(WechatUser::get(['userid'=>$user['userid']])) {
