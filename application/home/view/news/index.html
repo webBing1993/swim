@@ -237,9 +237,18 @@ function addLists(data,type){
 }
 //视频浏览量
 function scannum(e,id){
+
+	// 安卓视频bug修改
+	pushHistory();
+	var me = $(e).parents('.list').find('.video-modal');
+	window.addEventListener( "popstate", function( e ){
+		var b = me.html();
+		me.fadeOut().html('');
+		me.html(b);
+	}, false );
+
 	//视频播放
 	$(e).parents('.list').find('.video-modal').fadeIn();
-	//
 	var scan = $(e).parents('.list').find('.scan');
 	var n = scan.text();
 	scan.text(++n);
@@ -257,6 +266,16 @@ function scannum(e,id){
 	});
 
 }
+// 返回事件绑定
+function pushHistory(){
+	var sta = {
+		title: "title"
+	};
+	if( window.history.state === null ){
+		window.history.pushState( sta, "title" );
+	}
+}
+
 //视频点赞
 function isGood(e,id){
 	var n = $(e ).text();
