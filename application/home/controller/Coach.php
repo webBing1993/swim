@@ -20,6 +20,7 @@ use app\home\model\ClassContent;
 use app\home\model\ClassTrain;
 use app\home\model\WeekContent;
 use app\home\model\WeekTrain;
+use app\home\model\UserClass;
 use think\Db;
 /**
  * Class Coach
@@ -34,29 +35,60 @@ class Coach extends Base {
 		$userModel = WechatUser::where(['userid' => $userId])->find();
 		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
 		if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练
-			$headStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order('enrollday desc')->select();
+			$headStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order('class_id, enrollday desc')->select();
+			$headStudent = [];
 			foreach($headStudentModel as $key => $model){
-				$headStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$headStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$userClassModel = UserClass::where(['id' => $model['class_id']])->field('start_time, end_time')->find();
+				$class = $userClassModel['start_time'].' - '.$userClassModel['end_time'];
+				$headStudent[$class][$key]['userid'] = $model['userid'];
+				$headStudent[$class][$key]['header'] = $model['header'];
+				$headStudent[$class][$key]['avatar'] = $model['avatar'];
+				$headStudent[$class][$key]['gender'] = $model['gender'];
+				$headStudent[$class][$key]['name'] = $model['name'];
+				$headStudent[$class][$key]['height'] = $model['height'];
+				$headStudent[$class][$key]['weight'] = $model['weight'];
+				$headStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
+				$headStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 			}
+//			var_dump($headStudent);die;
 			$this->assign('userModel', $userModel);
 			$this->assign('tag', false);
-			$this->assign('headStudentModel',$headStudentModel);
+			$this->assign('headStudentModel',$headStudent);
 		}else{//助教
-			$longStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->order('enrollday desc')->select();
-			$potentialStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->order('enrollday desc')->select();
+			$longStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->order('class_id, enrollday desc')->select();
+			$potentialStudentModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT, 'department' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->order('class_id, enrollday desc')->select();
+			$longStudent = [];
 			foreach($longStudentModel as $key => $model){
-				$longStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$longStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$userClassModel = UserClass::where(['id' => $model['class_id']])->field('start_time, end_time')->find();
+				$class = $userClassModel['start_time'].' - '.$userClassModel['end_time'];
+				$longStudent[$class][$key]['userid'] = $model['userid'];
+				$longStudent[$class][$key]['header'] = $model['header'];
+				$longStudent[$class][$key]['avatar'] = $model['avatar'];
+				$longStudent[$class][$key]['gender'] = $model['gender'];
+				$longStudent[$class][$key]['name'] = $model['name'];
+				$longStudent[$class][$key]['height'] = $model['height'];
+				$longStudent[$class][$key]['weight'] = $model['weight'];
+				$longStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
+				$longStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 			}
+			$potentialStudent = [];
 			foreach($potentialStudentModel as $key => $model){
-				$potentialStudentModel[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$potentialStudentModel[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$userClassModel = UserClass::where(['id' => $model['class_id']])->field('start_time, end_time')->find();
+				$class = $userClassModel['start_time'].' - '.$userClassModel['end_time'];
+				$potentialStudent[$class][$key]['userid'] = $model['userid'];
+				$potentialStudent[$class][$key]['header'] = $model['header'];
+				$potentialStudent[$class][$key]['avatar'] = $model['avatar'];
+				$potentialStudent[$class][$key]['gender'] = $model['gender'];
+				$potentialStudent[$class][$key]['name'] = $model['name'];
+				$potentialStudent[$class][$key]['height'] = $model['height'];
+				$potentialStudent[$class][$key]['weight'] = $model['weight'];
+				$potentialStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
+				$potentialStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 			}
 			$this->assign('userModel', $userModel);
 			$this->assign('tag', true);
-			$this->assign('longStudentModel',$longStudentModel);
-			$this->assign('potentialStudentModel',$potentialStudentModel);
+			$this->assign('longStudentModel',$longStudent);
+			$this->assign('potentialStudentModel',$potentialStudent);
 		}
 		return $this->fetch();
 	}

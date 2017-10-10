@@ -5,6 +5,7 @@
  * Date: 2017-08-15 9:44
  */
 namespace app\home\controller;
+use app\home\model\UserClass;
 use app\home\model\WechatUser;
 use app\home\model\WechatDepartment;
 use app\home\model\WechatTag;
@@ -41,10 +42,20 @@ class Structure extends Base{
 	public function detail() {
 		$userId = input('did');
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
-		$userList = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->select();
-		foreach($userList as $key => $model){
-			$userList[$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-			$userList[$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+		$userModelAll = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order('class_id, enrollday desc')->select();
+		$userList = [];
+		foreach($userModelAll as $key => $model){
+			$userClassModel = UserClass::where(['id' => $model['class_id']])->field('start_time, end_time')->find();
+			$class = $userClassModel['start_time'].' - '.$userClassModel['end_time'];
+			$userList[$class][$key]['userid'] = $model['userid'];
+			$userList[$class][$key]['header'] = $model['header'];
+			$userList[$class][$key]['avatar'] = $model['avatar'];
+			$userList[$class][$key]['gender'] = $model['gender'];
+			$userList[$class][$key]['name'] = $model['name'];
+			$userList[$class][$key]['height'] = $model['height'];
+			$userList[$class][$key]['weight'] = $model['weight'];
+			$userList[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
+			$userList[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 		}
 		//var_dump($userList);die;
 		$this->assign('coachModel',$coachModel);

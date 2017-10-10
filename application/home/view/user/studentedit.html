@@ -159,7 +159,9 @@ $(function(){
 					data:data,
 					dataType: "Json",
 					success:function(){
-						window.location.href="/home/student/index"
+						history.go(-1);
+						location.reload();
+						//window.location.href="/home/student/index"
 					}
 				})
 			}else{

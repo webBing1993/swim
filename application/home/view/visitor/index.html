@@ -10,10 +10,12 @@
 	<img src="/home/images/common/banner.jpg" alt="banner">
 </div>
 <div class="logos clear">
+	{if condition="($tag_id) AND ($tag_id != 5)"}
 	<a href="{:Url('Book/index')}" class="logo">
 		<img src="/home/images/index/zzjg.png" alt="通讯名录">
 		<span>通讯名录</span>
 	</a>
+	{/if}
 	<a href="{:Url('News/index')}" class="logo">
 		<img src="/home/images/index/xxfb.png" alt="新闻发布">
 		<span>新闻发布</span>

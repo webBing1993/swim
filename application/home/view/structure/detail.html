@@ -3,6 +3,12 @@
 {block name="style"}
 <title>教练信息</title>
 <link rel="stylesheet" href="/home/css/structure/detail.css">
+<style>
+	.class_name{padding: 0 4vw; color:#fba220; text-align: center; letter-spacing: 2px; line-height: 10vw }
+	.students .list:last-child{
+		margin-bottom: 0!important;
+	}
+</style>
 {/block}
 
 {block name="body"}
@@ -27,29 +33,34 @@
 </div>
 <div class="boxs">
 	<div class="box active">
-		{volist name="userList" id="vo"}
-		<a href="{:Url('coach/sign?did='.$vo['userid'])}" class="list clear">
-			<div class="ll fl">
-				{empty name="$vo.header"}
-				<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
-				{else/}
-				<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
-				{/empty}
-				{if condition="$vo.gender eq 2"}
-				<img src="/home/images/coach/female.png" alt="女" class="sex">
-				{else/}
-				<img src="/home/images/coach/male.png" alt="男" class="sex">
-				{/if}
-			</div>
-			<div class="lr fr">
-				<div class="top">
-					<span class="name limit">{$vo.name}</span>
-					<span class="age limit">{$vo.age}岁</span>
+		{volist name="userList" id="model"}
+		<div class="class_name">{$key}</div>
+		<div class="students">
+			{volist name="model" id="vo"}
+			<a href="{:Url('coach/sign?did='.$vo['userid'])}" class="list clear">
+				<div class="ll fl">
+					{empty name="$vo.header"}
+					<img src="<?php echo param_to($vo['avatar'], \think\Config::get('de_header')); ?>" alt="学员头像" class="user">
+					{else/}
+					<img src="{$vo.header|get_cover='path'}" alt="学员头像" class="user">
+					{/empty}
+					{if condition="$vo.gender eq 2"}
+					<img src="/home/images/coach/female.png" alt="女" class="sex">
+					{else/}
+					<img src="/home/images/coach/male.png" alt="男" class="sex">
+					{/if}
 				</div>
-				<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
-				<div class="note">课程 : 已上{$vo.count}节</div>
-			</div>
-		</a>
+				<div class="lr fr">
+					<div class="top">
+						<span class="name limit">{$vo.name}</span>
+						<span class="age limit">{$vo.age}岁</span>
+					</div>
+					<div class="note">身高 : {$vo.height|param_to='_'} cm 体重 : {$vo.weight|param_to='_'} kg</div>
+					<div class="note">课程 : 已上{$vo.count}节</div>
+				</div>
+			</a>
+			{/volist}
+		</div>
 		{/volist}
 	</div>
 	<div class="box hidden">
