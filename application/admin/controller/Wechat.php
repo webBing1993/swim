@@ -105,7 +105,7 @@ class Wechat extends Admin
                         case "上级教练":
                             $user['upper_coach'] = $value['value'];
                             break;
-                        case "家庭住址":
+                        case "家庭地址":
                             $user['address'] = $value['value'];
                             break;
                         case "就读学校":

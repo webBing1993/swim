@@ -127,12 +127,6 @@ $(function(){
 			cancelButtonText: "取消"
 		}).then(function(isConfirm){
 			if (isConfirm) {
-				swal({
-					title: '上传成功',
-					text: '即将返回个人中心',
-					type: 'success',
-					showConfirmButton:false
-				});
 				var data={
 					header:$("input[name='header']").attr('data-tab'),
 					name:$("input[name='name']").val(),
@@ -158,9 +152,25 @@ $(function(){
 					url:"{:Url('User/studentedit')}",
 					data:data,
 					dataType: "Json",
-					success:function(){
-						history.go(-1);
-						location.reload();
+					success:function(data){
+						if(data.code){
+							swal({
+								title: '',
+								text: data.msg,
+								type: 'success',
+								showConfirmButton:false
+							});
+							setTimeout(function(){
+								history.go(-1);
+							},1500);
+						} else{
+							swal({
+								title: '',
+								text: data.msg,
+								type: 'error',
+								showConfirmButton:false
+							});
+						}
 						//window.location.href="/home/student/index"
 					}
 				})

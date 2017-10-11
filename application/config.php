@@ -37,7 +37,7 @@ return [
         'var_page' => 'page',
         'list_rows'=> 12
     ],
-    
+
     //游泳模块
     'work' => array(
         'login' => 'http://swim.0571ztnet.com/home/index/login',
@@ -45,6 +45,15 @@ return [
 //        'encodingaeskey' => 'XO7KtGSIpsnGPR24x3UmfTnLXSmEfogGhmRqUkoefNj',
         'appid' => 'wwc2778c4e14ba4809',
         'appsecret' => 'Kv-8VAYDn5tj8q4Rl0PEVog6Qtn3269SqV5s3WKIscg',
+        'agentid' => 1000005
+    ),
+    //通讯录模块
+    'mail' => array(
+        'login' => 'http://swim.0571ztnet.com/home/index/login',
+//        'token' => 'RMRUYhgJh7C',
+//        'encodingaeskey' => 'XO7KtGSIpsnGPR24x3UmfTnLXSmEfogGhmRqUkoefNj',
+        'appid' => 'wwc2778c4e14ba4809',
+        'appsecret' => 'UQKeB8EtsBfqxLru0BppTyLpKONzk0I4h4GdlAx0_Ps',
         'agentid' => 1000005
     ),
 

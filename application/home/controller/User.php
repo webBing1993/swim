@@ -10,6 +10,8 @@ use app\home\model\Collect;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
 use app\home\model\CertificateReview;
+use com\wechat\QYWechat;
+use think\Config;
 use think\Db;
 /**
  * 个人中心
@@ -100,28 +102,49 @@ class User extends Base{
         if(IS_POST) {
             $data = input('post.');
             $model = WechatUser::where(['id' => $data['id']])->find();
-            $res = WechatUser::where('id',$data['id'])->update($data);
-            if($res) {
-                $data['social_certificate'] = isset($data['social_certificate'])?$data['social_certificate']:'';
-                $data['profession_certificate'] = isset($data['profession_certificate'])?$data['profession_certificate']:'';
-                $data['lifeguard_certificate'] = isset($data['lifeguard_certificate'])?$data['lifeguard_certificate']:'';
-                if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
-                    $info = array(
-                        'type' => CertificateReview::TYPE_CERTIFICATE,
-                        'userid' => $model['userid'],
-                        'name' => $data['name'],
-                        'front_cover' => $data['social_certificate'],
-                        'title' => $data['name'],
-                        'social_certificate' => $data['social_certificate'],
-                        'profession_certificate' => $data['profession_certificate'],
-                        'lifeguard_certificate' => $data['lifeguard_certificate'],
-                    );
-                    CertificateReview::create($info);
-                    WechatUser::where('id',$data['id'])->update(['certificate_status'=>0]);
+            $param = array(
+                'userid' => $model['userid'],
+                'name' => $data['name'],
+                'mobile' => $data['mobile'],
+                'gender' => $data['gender'],
+                'extattr' => ['attrs' => array(
+                    ["name" => "学历", "value" => $data['education']],
+                )]
+            );
+            if(!empty($data['identity'])){
+                $param['extattr']['attrs'][] = ["name" => "身份证号", "value" => $data['identity']];
+            }
+            if(!empty($data['technical_title'])){
+                $param['extattr']['attrs'][] = ["name" => "技术职称", "value" => $data['technical_title']];
+            }
+            $Wechat = new QYWechat(Config::get('mail'));
+            $rs = $Wechat->updateUser($param);
+            if($rs){
+                $res = WechatUser::where('id',$data['id'])->update($data);
+                if($res) {
+                    $data['social_certificate'] = isset($data['social_certificate'])?$data['social_certificate']:'';
+                    $data['profession_certificate'] = isset($data['profession_certificate'])?$data['profession_certificate']:'';
+                    $data['lifeguard_certificate'] = isset($data['lifeguard_certificate'])?$data['lifeguard_certificate']:'';
+                    if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
+                        $info = array(
+                            'type' => CertificateReview::TYPE_CERTIFICATE,
+                            'userid' => $model['userid'],
+                            'name' => $data['name'],
+                            'front_cover' => $data['social_certificate'],
+                            'title' => $data['name'],
+                            'social_certificate' => $data['social_certificate'],
+                            'profession_certificate' => $data['profession_certificate'],
+                            'lifeguard_certificate' => $data['lifeguard_certificate'],
+                        );
+                        CertificateReview::create($info);
+                        WechatUser::where('id',$data['id'])->update(['certificate_status'=>0]);
+                    }
+                    return $this->success("修改成功");
+                }else{
+                    return $this->error("修改失败");
                 }
-                return $this->success("修改成功");
             }else{
-                return $this->error("修改失败");
+                return $this->error("企业号通讯录同步未开启，请联系管理员打开");
             }
         }else {
             $id = input('id');
@@ -141,11 +164,36 @@ class User extends Base{
 	public function studentedit () {
         if(IS_POST) {
             $data = input('post.');
-            $res = WechatUser::where('id',$data['id'])->update($data);
-            if($res) {
-                return $this->success("修改成功");
+            $model = WechatUser::where('id',$data['id'])->find();
+            $param = array(
+                'userid' => $model['userid'],
+                'name' => $data['name'],
+                'mobile' => $data['mobile'],
+                'gender' => $data['gender'],
+                'extattr' => ['attrs' => array(
+                    ["name" => "出生年月", "value" => $data['birthday']],
+                    ["name" => "监护人", "value" => $data['guardian']],
+                    ["name" => "身高", "value" => $data['height']],
+                    ["name" => "体重", "value" => $data['weight']],
+                    ["name" => "原教练", "value" => $data['ever_coach']],
+                    ["name" => "家庭地址", "value" => $data['address']],
+                    ["name" => "学历", "value" => $data['education']],
+                    ["name" => "就读学校", "value" => $data['school']],
+                    ["name" => "学籍号", "value" => $data['student_code']],
+                    ["name" => "文化成绩", "value" => $data['achievement']],
+                )]
+            );
+            $Wechat = new QYWechat(Config::get('mail'));
+            $rs = $Wechat->updateUser($param);
+            if($rs){
+                $res = WechatUser::where('id',$data['id'])->update($data);
+                if($res) {
+                    return $this->success("修改成功");
+                }else{
+                    return $this->error("修改失败");
+                }
             }else{
-                return $this->error("修改失败");
+                return $this->error("企业号通讯录同步未开启，请联系管理员打开");
             }
         }else {
             $id = input('id');
