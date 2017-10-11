@@ -3,6 +3,7 @@
 {block name="style"}
 <title>学员信息</title>
 <link rel="stylesheet" href="/home/css/user/personal.css">
+<link rel="stylesheet" href="/static/mobiscroll/mobiscroll.2.13.2.css">
 {/block}
 
 {block name="body"}
@@ -27,7 +28,7 @@
 	<div class="list clear">
 		<span class="fl">出生年月</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value='{empty name="$res.birthday"}{$res.birthday_year}-{$res.birthday_month}{else/}{$res.birthday}{/empty}' class="fr" name="birthday">
+		<input  id="date" value='{empty name="$res.birthday"}{$res.birthday_year}-{$res.birthday_month}{else/}{$res.birthday}{/empty}' class="fr" name="birthday">
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>
@@ -112,6 +113,7 @@
 {/block}
 
 {block name="script"}
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
 $(function(){
 	//头像大小自适应
@@ -233,5 +235,45 @@ $(function(){
 	})
 });
 
+
+
+//初始化日期控件
+/** 日期控件    start */
+var now = new Date();
+var currYear = now.getFullYear();
+var currMonth = now.getMonth() + 1;
+var currDay = now.getDate();
+
+//mobiScroll插件选项
+var opt1 = {
+    theme: 'android-holo light',
+    display: 'modal',
+    mode: 'scroller',
+    dateFormat: 'yy-mm',
+    lang: 'zh',
+    showNow: true,
+    startYear: currYear-100,
+    endYear: currYear,
+    nowText: "今天",
+    onSelect:function(textVale,inst){ //选中时触发事件
+        var array = textVale.split('-');
+        $('date').val(array[0]+'-'+array[1]);
+    },
+    onBeforeShow: function (inst) {
+        inst.settings.wheels[0].length>2?inst.settings.wheels[0].pop():null;
+    },
+    headerText: function (valueText) { //自定义弹出框头部格式
+        var array = valueText.split('-');
+        return array[0] + "年" + array[1] + "月";
+    }
+};
+
+//时间面板显示日期
+$("#date").mobiscroll().date(opt1);
+
+
+function showTime(){
+    alert($('#date').val());
+}
 </script>
 {/block}
