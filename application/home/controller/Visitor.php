@@ -78,9 +78,9 @@ class Visitor extends Base{
 			$userId = $msg['userid'];
 			$all_num = 0;
 			$current_num = 0;
+			$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
 			//学员签到先判断教练是否签到
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
-				$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
 				if($tag_id == WechatTag::TAG_STUDENT_READY){
 					$num = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 					if($num>=15){
@@ -89,22 +89,57 @@ class Visitor extends Base{
 				}
 				if($msg['coach_id']){
 					$coachSign = WechatUserSign::checkUserSign($msg['coach_id']);
-				}
-				if(empty($coachSign)){
-					return $this->error("教练还未签到");
+					if(empty($coachSign)){
+						return $this->error("教练还未签到");
+					}
 				}
 			}
-			if(!$msg['class_id']){
-				return $this->error("找不到班级");
-			}
-			$userClass = UserClass::where(['id'=>$msg['class_id']])->find();
-			if(!$userClass){
-				return $this->error("找不到班级！");
+			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
+				if(!$msg['class_id']){
+					return $this->error("找不到班级");
+				}
+				$userClass = UserClass::where(['id'=>$msg['class_id']])->find();
+				if(!$userClass){
+					return $this->error("找不到班级！");
+				}
 			}
 			if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
 				//学员提前15分钟可以签到
-				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
-				$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
+				if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
+					$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
+					$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
+					if($current_num>=25){
+						return $this->error("名额已满");
+					}
+				}else{//特殊学员
+					$userSign = WechatUserSign::checkUserSign($userId);
+					if(!empty($userSign)){
+						return $this->error("今天已签到");
+					}
+					$data = array(
+							'userid' => $userId,
+							'name' => $msg['name'],
+							'mobile' => input('mobile'),
+							'class_id' => $msg['class_id'],
+							'date' => date('Y-m-d'),
+							'member_type' => $msg['member_type'],
+							'coach_id' => $msg['coach_id'],
+					);
+					if($model = WechatUserSign::create($data)) {//正常
+						$response = array(
+								"type" => WechatUser::MEMBER_TYPE_STUDENT,
+								"coach_id" => $msg['coach_id'],
+								"name" => $msg['name'],
+								"num" => 1,
+								"time" => date("H:i:s",$model->create_time),
+								"status_txt" => "正常",
+								"class_id" => $msg['class_id'],
+						);
+						return $this->success("签到成功", '', $response);
+					}else {
+						return $this->error("签到失败");
+					}
+				}
 			}else{
 				//教练提前15分钟可以签到
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
