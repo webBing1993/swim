@@ -27,7 +27,7 @@
 	<div class="list clear">
 		<span class="fl">出生年月</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
-		<input type="text" value="{$res.birthday}" class="fr" name="birthday">
+		<input type="text" value='{empty name="$res.birthday"}{$res.birthday_year}-{$res.birthday_month}{else/}{$res.birthday}{/empty}' class="fr" name="birthday">
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>

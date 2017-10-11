@@ -21,7 +21,7 @@
 	</div>
 	<div class="list clear">
 		<span class="fl">出生年月</span>
-		<span class="fr">{$res.birthday_year}-{$res.birthday_month}</span>
+		<span class="fr">{empty name="$res.birthday"}{$res.birthday_year}-{$res.birthday_month}{else/}{$res.birthday}{/empty}</span>
 	</div>
 	<div class="list clear">
 		<span class="fl">性别</span>

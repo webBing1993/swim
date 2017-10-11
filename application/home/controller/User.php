@@ -198,6 +198,8 @@ class User extends Base{
         }else {
             $id = input('id');
             $res = WechatUser::get($id);
+            $res['birthday_year'] = $res['identity'] ? substr($res['identity'], 6, 4) : null;
+            $res['birthday_month'] = $res['identity'] ? substr($res['identity'], 10, 2) : null;
             $this->assign('res',$res);
             return $this->fetch();
         }
