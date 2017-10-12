@@ -16,10 +16,10 @@
 {block name="page-header"}
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>班级管理</h2>
+        <h2>学员管理</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="{:Url('News/index')}">班级列表</a>
+                <a href="{:Url('News/index')}">学员列表</a>
             </li>
             <li class="active">
                 <strong>{empty name="msg"}新增{else/}编辑{/empty}</strong>
@@ -49,47 +49,57 @@
                             <div class="col-lg-1 text-right control-label">
                                 <label>名称:</label>
                             </div>
-                            <div class="col-lg-11">
-                                <input type="text" placeholder="请输入名称" class="form-control form_title" name="name" value="{$msg.name || default=''}">
+                            <div class="col-lg-2">
+                                <input type="text" placeholder="请输入名称" class="form-control form_title" name="name" value="{$msg.name || default=''}" readonly>
                             </div>
                         </div>
-                        {empty name="msg"}
-                        <div class="form-group" id="timeRange">
+                        {if condition="($msg.department == \app\admin\model\WechatDepartment::DEPARTMENT_ASSISTANT) OR ($msg.member_type != \app\admin\model\WechatUser::MEMBER_TYPE_COACH)"}
+                        <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
-                                <label>上课时间:</label>
+                                <label>教练:</label>
                             </div>
-                            <div class="col-lg-5">
-                                <div class=" input-group " >
-                                    <div class="date">
-                                        <input type="text" class="form-control datetimepicker text-center" name="start_time"  value="18:00"/>
-                                    </div>
-                                    <span class="input-group-addon">至</span>
-                                    <div class="date">
-                                        <input type="text" class="form-control datetimepicker text-center" name="end_time"  value="18:00"/>
-                                    </div>
-
-                                </div>
+                            <div class="col-lg-2">
+                                <select class="form-control" data-placeholder="--请选择教练--" name="coach_id" id="coach">
+                                    {volist name="coach" id="vo"}
+                                    <option value="{$vo.userid}" {eq name="$msg.coach_id" value="$vo.userid"}selected{/eq} data-id="{$vo.department}">{$vo.name}</option>
+                                    {/volist}
+                                </select>
                             </div>
                         </div>
-                        {else/}
-                        <div class="form-group" id="timeRange">
+                        {/if}
+                        <div class="form-group">
                             <div class="col-lg-1 text-right control-label">
-                                <label>上课时间:</label>
+                                <label>职位信息:</label>
                             </div>
-                            <div class="col-lg-5">
-                                <div class=" input-group " >
-                                    <div class="date">
-                                        <input type="text" class="form-control datetimepicker text-center" name="start_time"  value="{$msg.start_time}"/>
-                                    </div>
-                                    <span class="input-group-addon">至</span>
-                                    <div class="date">
-                                        <input type="text" class="form-control datetimepicker text-center" name="end_time"  value="{$msg.end_time}"/>
-                                    </div>
-
-                                </div>
+                            <div class="col-lg-2">
+                                {if condition="($msg.member_type == \app\admin\model\WechatUser::MEMBER_TYPE_COACH)"}
+                                <input type="text" placeholder="请输入职位信息" class="form-control form_title" name="position" value="{$msg.position || default=''}" readonly>
+                                {else/}
+                                {if condition="($msg.department == \app\admin\model\WechatDepartment::DEPARTMENT_HEAD_STUDENT)"}
+                                <select class="form-control" data-placeholder="--请选择职位信息--" name="position">
+                                    <option value="11" selected>主力学员</option>
+                                </select>
+                                {else/}
+                                <select class="form-control" data-placeholder="--请选择职位信息--" name="position">
+                                    <option value="12" {eq name="$msg.department" value="12"}selected{/eq}>长期学员</option>
+                                    <option value="13" {eq name="$msg.department" value="13"}selected{/eq}>潜力学员</option>
+                                </select>
+                                {/if}
+                                {/if}
                             </div>
                         </div>
-                        {/empty}
+                        <div class="form-group">
+                            <div class="col-lg-1 text-right control-label">
+                                <label>班级:</label>
+                            </div>
+                            <div class="col-lg-2">
+                                <select class="form-control" data-placeholder="--请选择班级--" name="class_id">
+                                    {volist name="class" id="vo"}
+                                    <option value="{$vo.id}" {eq name="$msg.class_id" value="$vo.id"}selected{/eq}>{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
                         <input type="hidden" name="id" value="{$msg.id || default=''}">
                         <div class="form-group">
                             <div class="col-lg-11 col-lg-offset-1">
@@ -120,18 +130,41 @@
             radioClass: 'iradio_square-green'
         });
 
-        highlight_subnav("{:Url('Userclass/index')}");
+        highlight_subnav("{:Url('headcoach')}");
 
+        $("#coach").off('change').on("change",function(){
+            var id = $(this).find("option:selected").attr('data-id');
+           if(id == 9) {
+               var html = "<option value='"+11+"'"+" selected>主力学员</option>";
+               $("select[name='position']").html('');
+               $("select[name='position']").append(html);
+           } else {
+               var html = "<option value='"+12+"'"+" selected>长期学员</option>"+
+                       "<option value='"+13+"'"+" >潜力学员</option>";
+               $("select[name='position']").html('');
+               $("select[name='position']").append(html);
+           }
+        });
 
         //发布
         $(".post-put").off('click').on("click",function(){
             var it=$(this);
             var data = {
                 id:$("input[name='id']").val(),
-                name:$("input[name='name']").val(),
-                start_time:$("input[name='start_time']").val(),
-                end_time:$("input[name='end_time']").val(),
+                class_id:$("select[name='class_id']").val(),
             };
+            var coach_id = $("select[name='coach_id']").val();
+            if(coach_id){
+                data['coach_id'] = coach_id;
+                data['now_coach'] = $("select[name='coach_id']").find("option:selected").text();
+            }
+            var position = $("input[name='position']").val();
+            if(position){
+                data['position'] = position;
+            }else{
+                data['department'] = $("select[name='position']").val();
+                data['position'] = $("select[name='position']").find("option:selected").text();
+            }
             $.ajax({
                 type:"post",
                 url:$("#form").attr("action"),
@@ -146,11 +179,7 @@
                         it.prop('disabled','true');
                         it.prev().prop('disabled','true');
                         setTimeout(function(){
-                            if (data.url) {
-                                location.href=data.url;
-                            } else {
-                                location.reload();
-                            }
+                            window.history.go(-1);
                             it.removeAttr('disabled');
                             it.prev().removeAttr('disabled')
                         },2000);
