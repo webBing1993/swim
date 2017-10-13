@@ -108,7 +108,7 @@ class Visitor extends Base{
 				if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
 					$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 					$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-					if($current_num>=2){
+					if($current_num>=25){
 						return $this->error("名额已满");
 					}
 				}else{//特殊学员
