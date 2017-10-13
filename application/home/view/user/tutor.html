@@ -89,6 +89,10 @@ $(function(){
 	//头像自适应
 	imgfit();
 });
-
+window.onpageshow = function(e){
+	if(e.persisted){
+		window.location.reload();
+	}
+}
 </script>
 {/block}

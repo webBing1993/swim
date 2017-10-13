@@ -26,12 +26,11 @@ class Base extends Controller
     public function _initialize()
     {
         session('userId', 'tinasun1984');
-//        session('header','/home/images/vistor.jpg');
-//        session('nickname','游客');
-
         session('requestUri', 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
         $userId = session('userId');
-
+//        if($userId=='ben'){
+//            session('userId', 'tinasun1984');
+//        }
         if (Config::get('WEB_SITE_CLOSE')) {
             return $this->error('站点维护中，请稍后访问~');
         }

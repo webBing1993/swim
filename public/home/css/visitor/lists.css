@@ -21,19 +21,21 @@ body .lists .list {
   padding-bottom: 1.5rem;
 }
 body .lists .list .coach {
-  font-size: 2rem;
+  font-size: 0;
   line-height: 2.6rem;
 }
 body .lists .list .coach .name {
   display: inline-block;
   width: 59%;
   background: rgba(222, 184, 135, 0.4);
+  font-size:2rem;
 }
 body .lists .list .coach .num {
   display: inline-block;
   width: 36%;
   word-break: break-all;
   text-align: right;
+  font-size:2rem;
 }
 body .lists .list .content {
   height: auto;
