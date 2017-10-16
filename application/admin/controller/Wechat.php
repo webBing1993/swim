@@ -253,12 +253,11 @@ class Wechat extends Admin
                 }
             }
         }
-        for($i=1;$i<=10;$i++){
-            $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'teshuxueyuan'.$i];
-            if(empty(WechatUserTag::where($data)->find())){
-                WechatUserTag::create($data);
-            }
+        $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'teshuxueyuan'];
+        if(empty(WechatUserTag::where($data)->find())){
+            WechatUserTag::create($data);
         }
+
 
         $data = "同步标签数:".count($tags['taglist'])."!";
 

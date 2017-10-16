@@ -112,10 +112,10 @@ class Visitor extends Base{
 						return $this->error("名额已满");
 					}
 				}else{//特殊学员
-					$userSign = WechatUserSign::checkUserSign($userId);
+					/*$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
 						return $this->error("今天已签到");
-					}
+					}*/
 					$data = array(
 							'userid' => $userId,
 							'name' => $msg['name'],
