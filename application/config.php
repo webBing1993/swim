@@ -77,7 +77,7 @@ return [
     ],
 
     //默认头像图片
-    'de_header' => '/home/images/common/default.png',
+    'de_header' => '/home/images/book/pb.png',
     //默认证书图片
     'de_card' => '/home/images/common/card.png',
 

@@ -226,7 +226,7 @@ class Wechat extends Admin
         WechatUserTag::where('1=1')->delete();
         foreach ($tags['taglist'] as $value) {
             $users = $Wechat->getTag($value['tagid']);
-            if(empty($users['userlist'])){
+            if(!empty($users['partylist'])){
                 foreach ($users['partylist'] as $user){
                     $info = $Wechat->getUserListInfo($user);
                     foreach ($info['userlist'] as $val){
@@ -240,7 +240,8 @@ class Wechat extends Admin
                         }
                     }
                 };
-            }else{
+            }
+            if(!empty($users['userlist'])){
                 foreach ($users['userlist'] as $user) {
                     $data = ['tagid'=>$value['tagid'], 'userid'=>$user['userid']];
                     if(empty(WechatUserTag::where($data)->find())){
