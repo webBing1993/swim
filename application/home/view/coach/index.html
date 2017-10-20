@@ -3,8 +3,43 @@
 {block name="style"}
 <title>教练频道</title>
 <link rel="stylesheet" href="/home/css/coach/index.css">
+<link rel="stylesheet" href="/home/css/structure/mobileSelect.css">
+<link rel="stylesheet" href="/home/css/structure/public.css">
 <style>
-	.class_name{padding: 0 4vw; color:#fba220; text-align: center; letter-spacing: 2px; line-height: 10vw }
+	.hideKey {
+		background-color: #f9f9f9;
+		text-align: center;
+		font-size: 1.3rem;
+		line-height: 8vw;
+		display: inline-block;
+		width: 100vw;
+	}
+	.class_name{
+		position: fixed;
+		right: 0;
+		bottom: 22vw;
+		width: 32vw;
+		height: 9.4vw;
+		line-height: 9.4vw;
+		text-align: center;
+		background: -webkit-linear-gradient(left, #6cd9ff , #50c9ff);
+		color: #ffffff;
+		border-radius: 10vw 0vw 0vw 10vw;
+		z-index: 999;
+		box-shadow: 0 3px 5px #87e6fc;
+	}
+	.class_name span {
+		width: 100%;
+		height: 100%;
+		display: inline-block;
+		font-size: 1.3rem;
+	}
+	.class_name>img{
+		width: 4.8vw;
+		position: absolute;
+		top: 3.2vw;
+		right: 1vw;
+	}
 	.students .list:last-child{
 		margin-bottom: 0!important;
 	}
@@ -18,19 +53,18 @@
 	<div class="box hidden clear">
 		<div class="content">
 			<!--学员标签-->
-			<div class="tags">
-				{empty name="$tag"}
-				<div class="tag active">主力学员</div>
-				{else/}
-				<div class="tag active">长期学员</div>
-				<div class="tag">潜力学员</div>
-				{/empty}
+			<div class="tabbox">
+				<div class="tags clear">
+					<div class="tag active">主力学员</div>
+					<div class="tag fr">潜力学员</div>
+				</div>
 			</div>
 			<!--列表-->
 			{empty name="$tag"}
 			<div class="lists">
+				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="headStudentModel" id="model"}
-				<div class="class_name">{$key}</div>
+				<span class="hideKey">{$key}</span>
 				<div class="students">
 					{volist name="model" id="vo"}
 					<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
@@ -59,10 +93,12 @@
 				</div>
 				{/volist}
 			</div>
+			<div class="lists"></div>
 			{else/}
 			<div class="lists">
+				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="longStudentModel" id="model"}
-				<div class="class_name">{$key}</div>
+				<span class="hidden hideKey">{$key}</span>
 				<div class="students">
 					{volist name="model" id="vo"}
 					<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
@@ -92,8 +128,9 @@
 				{/volist}
 			</div>
 			<div class="lists">
+				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="potentialStudentModel" id="model"}
-				<div class="class_name">{$key}</div>
+				<span class="hidden hideKey">{$key}</span>
 				<div class="students">
 					{volist name="model" id="vo"}
 					<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
@@ -194,6 +231,7 @@
 {/block}
 
 {block name="script"}
+<script src="/home/js/mobileSelect.js"></script>
 <script>
 $(function(){
 	//tab值记录
@@ -261,6 +299,49 @@ $(function(){
 			return;
 		}
 	});
+    // 右侧固定时间条
+    $(".box").find(".class_name").eq(1).hide();
+    $(".class_name").find("span").html($(".hideKey").html());
+    $(window).scroll(function() {
+        var t = $(window).scrollTop();
+        var $study=$(".students").eq(1).find("a");
+        if(t>=$study.length*$study.outerHeight()){
+            $(".class_name").find("span").html($(".hideKey:last-of-type").html());
+        }else{
+            $(".class_name").find("span").html($(".hideKey").html());
+        }
+    });
+    // 弹出窗
+    var mobileSelect1 = new MobileSelect({
+        trigger: ".class_name span",
+        title: '',
+        wheels: [
+            {data:['5:30 - 17:00']}
+        ],
+        position:[0] //初始化定位
+    });
+    $(".mobileSelect .ensure").on("touchstart",function (e) {
+        var t = $(".class_name span").html();
+        for(var i = 0; i < $(".hideKey").length; i++ ) {
+            if($(".hideKey").eq(i).html() == t) {
+                var $study = $(".students").eq(i-1);
+                if(i == 0) {
+                    $('body,html').animate({scrollTop:0},1000);
+                    return false;
+                }else if(i == 1){
+                    $('body,html').animate({scrollTop:$study.height() + $(".hideKey").height() + $(".banner").height() + $(".tabbox").height()},1000);
+                    return false;
+                }
+            }
+        }
+        return false;
+    });
+   // tab值切换
+	$(".tags .tag").on("click",function(){
+		var Index=$(this).index();
+		$(".content").find(".lists").eq(Index).show().siblings(".lists").hide()
+	})
+
 });
 function tagswich(){
 	var list = $('.box').eq(0).find('.lists');

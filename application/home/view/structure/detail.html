@@ -3,8 +3,43 @@
 {block name="style"}
 <title>教练信息</title>
 <link rel="stylesheet" href="/home/css/structure/detail.css">
+<link rel="stylesheet" href="/home/css/structure/mobileSelect.css">
+<link rel="stylesheet" href="/home/css/structure/public.css">
 <style>
-	.class_name{padding: 0 4vw; color:#fba220; text-align: center; letter-spacing: 2px; line-height: 10vw }
+	.class_name{
+		position: fixed;
+		right: 0;
+		bottom: 25vw;
+		width: 32vw;
+		height: 9.4vw;
+		text-align: center;
+		line-height: 9.4vw;
+		background: -webkit-linear-gradient(left, #6cd9ff , #50c9ff);
+		color: #ffffff;
+		border-radius: 10vw 0vw 0vw 10vw;
+		z-index: 99;
+		box-shadow: 0 3px 5px #87e6fc;
+	}
+	.hideKey {
+		background-color: #f9f9f9;
+		text-align: center;
+		font-size: 1.3rem;
+		line-height: 8vw;
+		display: inline-block;
+		width: 100vw;
+	}
+	.class_name span {
+		width: 100%;
+		height: 100%;
+		display: inline-block;
+		font-size: 1.3rem;
+	}
+	.class_name>img{
+        width: 4.8vw;
+		position: absolute;
+		top: 3.2vw;
+		right: 1vw;
+	}
 	.students .list:last-child{
 		margin-bottom: 0!important;
 	}
@@ -33,8 +68,9 @@
 </div>
 <div class="boxs">
 	<div class="box active">
+		<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 		{volist name="userList" id="model"}
-		<div class="class_name">{$key}</div>
+		<span class="hideKey">{$key}</span>
 		<div class="students">
 			{volist name="model" id="vo"}
 			<a href="{:Url('coach/sign?did='.$vo['userid'])}" class="list clear">
@@ -109,12 +145,53 @@
 {/block}
 
 {block name="script"}
+<script src="/home/js/mobileSelect.js"></script>
 <script>
 $(function(){
-	//tab值记录
+	// tab值记录
 	tabRecord('.tab' ,'.box');
-	//tab切换
+	// tab切换
 	tabSwitch('.tab' ,'.box');
+    // 右侧固定时间条
+    $(".box").find(".class_name").eq(1).hide();
+    $(".class_name").find("span").html($(".hideKey").html());
+    $(window).scroll(function() {
+        var t = $(window).scrollTop();
+        var $study=$(".students").eq(1).find("a");
+		if(t>=$study.length*$study.outerHeight()){
+            $(".class_name").find("span").html($(".hideKey:last-of-type").html());
+        }else{
+            $(".class_name").find("span").html($(".hideKey").html());
+		}
+	});
+	// 弹出窗
+
+    var mobileSelect1 = new MobileSelect({
+            trigger: ".class_name span",
+            title: '',
+            wheels: [
+                {data:['7:00 - 18:00','8:00 - 19:00']}
+            ],
+            position:[0] //初始化定位
+        });
+	$(".mobileSelect .ensure").on("touchstart",function (e) {
+	    var t = $(".class_name span").html();
+	   	for(var i = 0; i < $(".hideKey").length; i++ ) {
+	   	    if($(".hideKey").eq(i).html() == t) {
+                var $study = $(".students").eq(i-1);
+                if(i == 0) {
+                    $('body,html').animate({scrollTop:0},1000);
+                    return false;
+                }else if(i == 1){
+                    $('body,html').animate({scrollTop:$study.height() + $(".hideKey").height() + $(".banner").height() + $(".tabbox").height()},1000);
+                    return false;
+				}
+			}
+		}
+		return false;
+    });
+
+
 });
 function loadScroll(){}
 </script>
