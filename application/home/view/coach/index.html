@@ -53,15 +53,17 @@
 	<div class="box hidden clear">
 		<div class="content">
 			<!--学员标签-->
+			{empty name="$tag"}
+			{else/}
 			<div class="tabbox">
 				<div class="tags clear">
-					<div class="tag active">主力学员</div>
+					<div class="tag active">长期学员</div>
 					<div class="tag fr">潜力学员</div>
 				</div>
 			</div>
+			{/empty}
 			<!--列表-->
 			{empty name="$tag"}
-			<div class="lists"></div>
 			<div class="lists">
 				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="headStudentModel" id="model"}
