@@ -40,6 +40,9 @@
 		top: 3.2vw;
 		right: 1vw;
 	}
+	.hideKey1{
+		display:none;
+	}
 	.students .list:last-child{
 		margin-bottom: 0!important;
 	}
@@ -130,7 +133,7 @@
 				</div>
 				{/volist}
 			</div>
-			<div class="lists">
+			<div class="lists hideKey1">
 				<!--<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>-->
 				{volist name="potentialStudentModel" id="model"}
 				<span class="hideKey">{$key}</span>
@@ -305,27 +308,35 @@ $(function(){
     // 右侧固定时间条
     $(".box").find(".class_name").eq(1).hide();
     $(".class_name").find("span").html($(".hideKey").html());
+
+    var date = {$class_arr};
+
     $(window).scroll(function() {
         var t = $(window).scrollTop();
-        var $study=$(".students").eq(1).find("a");
-        if(t>=$study.length*$study.outerHeight()){
-            $(".class_name").find("span").html($(".hideKey:last-of-type").html());
-        }else{
-            $(".class_name").find("span").html($(".hideKey").html());
+        for(var i = 0; i < date.length; i++) {
+            var $study=$(".students").eq(i).find("a");
+            if(t>=$study.length*$study.outerHeight()){
+                $(".class_name").find("span").html(date[i]);
+            }else {
+                $(".class_name").find("span").html(date[i-1]);
+            }
         }
     });
+
+
     // 弹出窗
     var mobileSelect1 = new MobileSelect({
         trigger: ".class_name span",
         title: '',
         wheels: [
-            {data:["7.00 - 18.00"]}
+            {data:date}
         ],
         position:[0] //初始化定位
     });
 
     $(".mobileSelect .ensure").on("touchstart",function (e) {
         var t = $(".class_name span").html();
+        console.log(t);
         for(var i = 0; i < $(".hideKey").length; i++ ) {
             if($(".hideKey").eq(i).html() == t) {
                 var $study = $(".students").eq(i-1);
@@ -333,7 +344,7 @@ $(function(){
                     $('body,html').animate({scrollTop:0},1000);
                     return false;
                 }else if(i == 1){
-                    $('body,html').animate({scrollTop:$study.height() + $(".hideKey").height() + $(".banner").height() + $(".tabbox").height()},1000);
+                    $('body,html').animate({scrollTop:$study.height()},1000);
                     return false;
                 }
             }
@@ -352,20 +363,73 @@ if($(".lists").eq(0).find(".students").length == 0) {
 
 function tagswich(){
 	var list = $('.box').eq(0).find('.lists');
-	list.eq(1).hide();
-	$('.tag').off('click').on('click',function(){
-		var index = $(this).index();
+
+	$('.tag').off('click').on('click',function(e){
+	    //  解绑滚动事件
+        $(window).unbind("scroll");
+        $('.box').find('.lists').hide();
+
+        var index = $(this).index();
+        list = $('.box').eq(0).find('.lists').eq(index);
+        list.fadeIn();
+
+	    $(".mobileSelect").remove();
 		$(this).siblings('.tag').removeClass('active');
 		$(".class_name").show();
 		if($(".lists").eq(index).find(".students").length == 0) {
             $(".class_name").hide();
 		}
 		$(this).addClass('active');
-		list.eq(index).siblings('.lists').hide();
-		list.eq(index).fadeIn();
 
+		var date = [];
+		if($(this).index() == 0) {
+		    date = {$class_arr};
+		}else {
+		    date = {$class_arr2};
+		}
+        $(".class_name span").html(date[0]);
+        var mobileSelect2 = new MobileSelect({
+            trigger: ".class_name span",
+            title: '',
+            wheels: [
+                {data:date}
+            ],
+            position:[0] //初始化定位
+        });
+
+        $(window).scroll(function() {
+            var t = $(window).scrollTop();
+            for(var i = 0; i < date.length; i++) {
+                var $study=$(".students").eq(i).find("a");
+                if(t>=$study.length*$study.outerHeight() - $(".hideKey").height() + $(".tabbox").height()){
+                    $(".class_name").find("span").html(date[i]);
+                }else {
+                    $(".class_name").find("span").html(date[i-1]);
+				}
+            }
+        });
+
+        $(".mobileSelect .ensure").on("touchstart",function (e) {
+            var t = $(".class_name span").html();
+            for(var i = 0; i < date.length; i++ ) {
+				var $study = $(".students").eq(i);
+				if(date[i] == t) {
+					if(i == 0) {
+						$('body,html').animate({scrollTop:0},1000);
+						return false;
+					}else if(i == 1){
+						$('body,html').animate({scrollTop:$study.height() + $(".content").find(".lists").eq(1).find(".hideKey").height() + $(".tabbox").height()},1000);
+						return false;
+					}
+				}
+            }
+            return false;
+        });
+//		return false;
+//		$(this).unbind("click");
 	});
 }
+
 function imgfit(){
 	var up = $('.up' );
 	var path = up.attr('data-tab');
