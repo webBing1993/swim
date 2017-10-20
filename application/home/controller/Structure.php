@@ -44,9 +44,11 @@ class Structure extends Base{
 		$coachModel = WechatUser::where(['userid' => $userId])->find();
 		$userModelAll = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->order('class_id, enrollday desc')->select();
 		$userList = [];
+		$class_arr = [];
 		foreach($userModelAll as $key => $model){
 			$userClassModel = UserClass::where(['id' => $model['class_id']])->field('start_time, end_time')->find();
 			$class = $userClassModel['start_time'].' - '.$userClassModel['end_time'];
+			$class_arr[$class] = $class;
 			$userList[$class][$key]['userid'] = $model['userid'];
 			$userList[$class][$key]['header'] = $model['header'];
 			$userList[$class][$key]['avatar'] = $model['avatar'];
@@ -57,8 +59,10 @@ class Structure extends Base{
 			$userList[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
 			$userList[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 		}
-		//var_dump($userList);die;
+		$class_arr = json_encode(array_values($class_arr));
+		//var_dump($class_arr);die;
 		$this->assign('coachModel',$coachModel);
+		$this->assign('class_arr',$class_arr);
 		$this->assign('userList',$userList);
 		return $this->fetch();
 	}
