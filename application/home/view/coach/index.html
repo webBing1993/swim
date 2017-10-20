@@ -63,9 +63,10 @@
 			</div>
 			{/empty}
 			<!--列表-->
+
 			{empty name="$tag"}
+			<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 			<div class="lists">
-				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="headStudentModel" id="model"}
 				<span class="hideKey">{$key}</span>
 				<div class="students">
@@ -97,10 +98,10 @@
 				{/volist}
 			</div>
 			{else/}
+			<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 			<div class="lists">
-				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
 				{volist name="longStudentModel" id="model"}
-				<span class="hidden hideKey">{$key}</span>
+				<span class="hideKey">{$key}</span>
 				<div class="students">
 					{volist name="model" id="vo"}
 					<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
@@ -130,9 +131,9 @@
 				{/volist}
 			</div>
 			<div class="lists">
-				<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>
+				<!--<div class="class_name"><span></span><img src="/home/images/structure/right.png"/></div>-->
 				{volist name="potentialStudentModel" id="model"}
-				<span class="hidden hideKey">{$key}</span>
+				<span class="hideKey">{$key}</span>
 				<div class="students">
 					{volist name="model" id="vo"}
 					<a href="{:Url('sign?did='.$vo['userid'])}" class="list clear">
@@ -318,10 +319,11 @@ $(function(){
         trigger: ".class_name span",
         title: '',
         wheels: [
-            {data:['5:30 - 17:00']}
+            {data:["7.00 - 18.00"]}
         ],
         position:[0] //初始化定位
     });
+
     $(".mobileSelect .ensure").on("touchstart",function (e) {
         var t = $(".class_name span").html();
         for(var i = 0; i < $(".hideKey").length; i++ ) {
@@ -338,22 +340,30 @@ $(function(){
         }
         return false;
     });
-   // tab值切换
-	$(".tags .tag").on("click",function(){
-		var Index=$(this).index();
-		$(".content").find(".lists").eq(Index).show().siblings(".lists").hide()
-	})
 
 });
+
+// 初始化判断是否有学员列表
+if($(".lists").eq(0).find(".students").length == 0) {
+    $(".class_name").hide();
+}else {
+    $(".class_name").show();
+}
+
 function tagswich(){
 	var list = $('.box').eq(0).find('.lists');
 	list.eq(1).hide();
 	$('.tag').off('click').on('click',function(){
 		var index = $(this).index();
 		$(this).siblings('.tag').removeClass('active');
+		$(".class_name").show();
+		if($(".lists").eq(index).find(".students").length == 0) {
+            $(".class_name").hide();
+		}
 		$(this).addClass('active');
 		list.eq(index).siblings('.lists').hide();
 		list.eq(index).fadeIn();
+
 	});
 }
 function imgfit(){
