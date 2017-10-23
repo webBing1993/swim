@@ -54,8 +54,10 @@ class Coach extends Base {
 			}
 			$class_arr = json_encode(array_values($class_arr));
 //			var_dump($headStudent);die;
+			$class_arr2 = json_encode([]);
 			$this->assign('userModel', $userModel);
 			$this->assign('class_arr',$class_arr);
+			$this->assign('class_arr2',$class_arr2);
 			$this->assign('tag', false);
 			$this->assign('headStudentModel',$headStudent);
 		}else{//助教
