@@ -3,6 +3,18 @@
 {block name="style"}
 <title>签到频道</title>
 <link rel="stylesheet" href="/home/css/visitor/lists.css">
+<link rel="stylesheet" href="/admin/css/plugins/toastr/toastr.min.css">
+<style>
+	#toast-container > div {
+		opacity: 1;
+	}
+	.toast-message {
+		font-size: 18px;
+	}
+	#toast-container.toast-bottom-center > div, #toast-container.toast-top-center > div {
+		width: 50%;
+	}
+</style>
 {/block}
 
 {block name="body"}
@@ -13,191 +25,26 @@
 			<span class="name limit">教练：{$vo.name}/ {$vo.class_name}</span>
 			<span class="num limit">学员情况：<span>{$vo.current_num}</span>/{$vo.all_num}</span>
 		</div>
-		<!--<div class="content">-->
-			<!--<div class="students">-->
-				<!--{volist name="vo.studentList" id="voo"}-->
-				<!--<div class="student">-->
-					<!--<span class="name limit">{$voo.name}</span>-->
-					<!--<span class="time limit">{$voo.create_time}</span>-->
-					<!--<span class="st limit">-->
-						<!--{eq name="voo.status" value="1"}正常{else/}迟到{/eq}-->
-					<!--</span>-->
-				<!--</div>-->
-				<!--{/volist}-->
-			<!--</div>-->
-			<!--{if condition="(count($vo.studentList) == 3)"}-->
-			<!--<div class="more limit"><span>更多...</span></div>-->
-			<!--{/if}-->
-		<!--</div>-->
 	</div>
 	{/volist}
 </div>
-<input type="text" autofocus class="number" maxlength="11">
+<input type="text"  class="number" maxlength="11" >
 <!--<div class="sign">签到</div>-->
 <div class="bg"></div>
 <ul class="roster"></ul>
 {/block}
 
 {block name="script"}
+<script src="/admin/js/plugins/toastr/toastr.min.js"></script>
 <script>
+    var a = '';
 $(function(){
 	var wh = $(window).height();
 	$('body').height(wh);
-//	setTimeout(function(){
-//		$('.number').focus();
-//	},5000);
 
 	//签到
 	var last = '';
 	var end = true;
-	$('.number').off('input').on('input',function(){
-
-		var this_ = $(this);
-		var num = this_.val();
-		if(num.length == 11 ){
-			if(last!=num && end == true){
-				//this_.blur();
-				last = num;
-				end = false;
-				$.ajax({
-					type:"post",
-					url:"{:Url('Visitor/sign')}",
-					data:{
-						mobile: num
-					},
-					dataType: "Json",
-					success:function(data){
-						var obj = data.data;
-						var html = '';
-						var name = '';
-						console.log(obj.length);
-						if(obj){
-							if(obj[0].type == 1){
-								for (var i=0;i<obj.length;i++) {
-
-									html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
-											'<div class="'+'coach'+'">'+
-											'<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-											'<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
-											'</div>'+
-											'</div>';
-								}
-
-								name = obj[0].name;
-								$('.lists').prepend(html);
-
-							}else{
-								obj = obj[0];
-								// class_id 为空是特殊学员
-								if (obj.class_id!==0) {
-									name = obj.name;
-
-									//							html +=
-									//								'<div class="student">'+
-									//								'<span class="name limit">'+obj.name+'</span>'+
-									//								'<span class="time limit">'+obj.time+'</span>'+
-									//								'<span class="st limit">'+ obj.status_txt +'</span>'+
-									//								'</div>';
-									var list = $('.list[data-tab=' + obj.coach_id + '][data-tag=' + obj.class_id + ']');
-									//							list.find('.students').prepend(html);
-									list.find('.num span').text(obj.num);
-									//							var len = list.find('.student').length;
-									//							if(len == 3){
-									//								list.find('.content').append('<div class="more limit"><span>更多...</span></div>')
-									//							}else if(len == 4){
-									//								list.find('.student').eq(3).remove();
-									//							}
-									var listclone = list.clone();
-									list.remove();
-									$('.lists').prepend(listclone);
-								}
-
-							}
-						}
-
-
-						if(name){
-							speckText(name+data.msg);
-						}else{
-							speckText(data.msg);
-						}
-						if(data.code == 1){
-							swal({
-								title: '成功',
-								text: name+data.msg,
-								type: 'success',
-								showConfirmButton:false,
-								timer:3000
-							}).then(
-								function () {},
-								function (dismiss) {
-									if (dismiss === 'timer') {
-										this_.val('');
-										end = true;
-										last = '';
-									}
-								}
-							);
-						}else{
-							swal({
-								title: '失败',
-								text: data.msg,
-								type: 'error',
-								showConfirmButton:false,
-								//							confirmButtonText:'确定',
-								timer:3000
-							}).then(
-								function () {},
-								function (dismiss) {
-									if (dismiss === 'timer') {
-										this_.val('');
-										end = true;
-										last = '';
-									}
-								}
-							);
-						}
-					}
-				})
-			}else{
-				this_.val('');
-			}
-		}
-
-	});
-	//点击更多的名单
-	$(".lists").delegate(".more", "click", function () {
-		var this_ = $(this);
-		var id = $(this).parents('.list').attr('data-tab');
-		var cid = $(this).parents('.list').attr('data-tag');
-		$.ajax({
-			type:"post",
-			url:"{:Url('Visitor/listMore')}",
-			data:{
-				id: id,
-				cid: cid
-			},
-			dataType: "Json",
-			success:function(data){
-				var lists = $.parseJSON(data.data);
-				var len = lists.length;
-				var html = '';
-				for(var i = 0 ;i<len;i++){
-					var list = lists[i];
-					var status = list.status==1?"<i class='fa fa-check-circle'></i>正常":"<i class='fa fa-exclamation-circle'></i>迟到";
-
-					html+=
-						'<li>'+
-						'<span class="name limit">'+list.name+'</span>'+
-						'<span class="time limit">'+list.create_time+'</span>'+
-						'<span class="st limit">'+status+'</span>'+
-						'</li>'
-				}
-				$('.roster').html(html);
-				$('.bg,.roster').fadeIn();
-			}
-		})
-	});
 	//初始化签到
 	$('.sign').on('click',function(){
 		history.go(0)
@@ -210,25 +57,191 @@ $(function(){
 		var hh = $(this).parents('.content').height();
 		$(this).height(hh).css('padding-top',hh - 18);
 	})
+
+
+    var clean;
+    document.onkeyup = function (event) {
+        var e = event || window.event;
+        var keyCode = e.key;
+        if (end == true && a.length < 11) {
+            a += keyCode;
+		} else {
+            if(a.length == 11) {
+                var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
+                var nubmer = a;
+
+                if (!re.test(nubmer)) {
+                    a = '';
+                    end = false;
+                    toastr.error('无效的二维码');
+                    speckText('无效的二维码');
+					if (clean) {
+						clearTimeout(clean);
+						clean = null;
+					}
+                    clean = setTimeout(function(){
+                        end = true;
+                    },1500);
+
+                    return false;
+                }
+
+                var num = a;
+                if(last!=num && end == true){
+                    last = num;
+                    end = false;
+                    $.ajax({
+                        type:"post",
+                        url:"{:Url('Visitor/sign')}",
+                        data:{
+                            mobile: num
+                        },
+                        dataType: "Json",
+                        success:function(data){
+                            var obj = data.data;
+                            var html = '';
+                            var name = '';
+                            if(obj){
+                                if(obj[0].type == 1){
+                                    for (var i=0;i<obj.length;i++) {
+
+                                        html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
+                                            '<div class="'+'coach'+'">'+
+                                            '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
+                                            '<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
+                                            '</div>'+
+                                            '</div>';
+                                    }
+
+                                    name = obj[0].name;
+                                    $('.lists').prepend(html);
+
+                                }else{
+                                    obj = obj[0];
+                                    // class_id 为空是特殊学员
+                                    if (obj.class_id!==0) {
+                                        name = obj.name;
+
+                                        //							html +=
+                                        //								'<div class="student">'+
+                                        //								'<span class="name limit">'+obj.name+'</span>'+
+                                        //								'<span class="time limit">'+obj.time+'</span>'+
+                                        //								'<span class="st limit">'+ obj.status_txt +'</span>'+
+                                        //								'</div>';
+                                        var list = $('.list[data-tab=' + obj.coach_id + '][data-tag=' + obj.class_id + ']');
+                                        //							list.find('.students').prepend(html);
+                                        list.find('.num span').text(obj.num);
+                                        //							var len = list.find('.student').length;
+                                        //							if(len == 3){
+                                        //								list.find('.content').append('<div class="more limit"><span>更多...</span></div>')
+                                        //							}else if(len == 4){
+                                        //								list.find('.student').eq(3).remove();
+                                        //							}
+                                        var listclone = list.clone();
+                                        list.remove();
+                                        $('.lists').prepend(listclone);
+                                    }
+
+                                }
+                            }
+
+
+                            if(name){
+                                speckText(name+data.msg);
+                            }else{
+                                speckText(data.msg);
+                            }
+                            if(data.code == 1){
+
+                                setTimeout(function(){
+                                    a = '';
+                                    end = true;
+                                    last ='';
+                                },1500);
+                                toastr.success(name+data.msg);
+//                            alert('成功');
+//                            swal({
+//                                title: '成功',
+//                                text: name+data.msg,
+//                                type: 'success',
+//                                showConfirmButton:false,
+//                                timer:1000
+//                            }).then(
+//                                function () {},
+//                                function (dismiss) {
+//                                    if (dismiss === 'timer') {
+//                                        a = '';
+//                                        end = true;
+//                                        last = '';
+//                                    }
+//                                }
+//                            );
+                            }else{
+                                setTimeout(function(){
+                                    a = '';
+                                    end = true;
+                                    last ='';
+                                },1500);
+                                toastr.error(data.msg);
+//                            alert('失败');
+
+//                            swal({
+//                                title: '失败',
+//                                text: data.msg,
+//                                type: 'error',
+//                                showConfirmButton:false,
+//                                //							confirmButtonText:'确定',
+//                                timer:1000
+//                            }).then(
+//                                function () {},
+//                                function (dismiss) {
+//                                    if (dismiss === 'timer') {
+//                                        a = '';
+//                                        end = true;
+//                                        last = '';
+//                                    }
+//                                }
+//                            );
+                            }
+                        }
+                    })
+                }else{
+                    a = '';
+                }
+
+            }
+		}
+
+    }
+
+
+
 });
+
+// 播放声音
 function speckText(str){
-	//var request=  new URLRequest();
 	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
-//	var url = "http://translate.google.cn/translate_tts?ie=UTF-8&tl=zh-CN&total=1&idx=0&textlen=19&prev=input&q=" + encodeURI(str); // google
-
-	//request.url = encodeURI(url);
-	// request.contentType = "audio/mp3"; // for baidu
-	//request.contentType = "audio/mpeg"; // for google
-
 	var n = new Audio(url);
-
 	n.src = url;
-
 	n.play();
-
-	// $("...").play();
-	// var sound = new Sound(request);
-	// sound.play();
 }
+
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "positionClass": "toast-top-center",
+    "onclick": null,
+    "showDuration": "500",
+    "hideDuration": "500",
+    "timeOut": "10000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut",
+    "progressBar":true
+}
+
+
 </script>
 {/block}
