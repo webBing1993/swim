@@ -76,6 +76,7 @@ class Visitor extends Base{
 		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
 		if(!empty($msg)) {
 			$userId = $msg['userid'];
+			$user_name = WechatUser::getName($userId);
 			$all_num = 0;
 			$current_num = 0;
 			$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
@@ -84,7 +85,7 @@ class Visitor extends Base{
 				if($tag_id == WechatTag::TAG_STUDENT_READY){
 					$num = WechatUserSign::where(['userid' => $userId, "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 					if($num>=15){
-						return $this->error("本月已满15节课");
+						return $this->error($user_name."本月已满15节课");
 					}
 				}
 				if($msg['coach_id']){
@@ -99,11 +100,11 @@ class Visitor extends Base{
 			}
 			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
 				if(!$msg['class_id']){
-					return $this->error("未设置上课时间");
+					return $this->error($user_name."未设置上课时间");
 				}
 				$userClass = UserClass::where(['id'=>$msg['class_id']])->find();
 				if(!$userClass){
-					return $this->error("上课时间设置错误！");
+					return $this->error($user_name."上课时间设置错误！");
 				}
 				$class_name = UserClass::getName($msg['class_id']);
 			}
@@ -159,7 +160,7 @@ class Visitor extends Base{
 					}else{//迟到
 						$userSign = WechatUserSign::checkUserSign($userId);
 						if(!empty($userSign)){
-							return $this->error("今天已签到");
+							return $this->error($user_name."今天已签到");
 						}
 						if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 							$data = array(
@@ -222,7 +223,7 @@ class Visitor extends Base{
 				}else{//正常
 					$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
-						return $this->error("今天已签到");
+						return $this->error($user_name."今天已签到");
 					}
 					if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 						$data = array(
