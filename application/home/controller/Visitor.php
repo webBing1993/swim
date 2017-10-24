@@ -76,7 +76,7 @@ class Visitor extends Base{
 		if(empty(input('mobile'))){
 			return $this->error("无效的二维码");
 		}
-		if(!preg_match('/^\\d{11}$/',input('mobile'))){
+		if(!preg_match('/^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[01678])\\d{8}$/',input('mobile'))){
 			return $this->error("无效的二维码");
 		}
 		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
