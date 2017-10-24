@@ -81,7 +81,7 @@ class Visitor extends Base{
 		}
 		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
 		if(empty($msg)) {
-			return $this->error("找不到该学员\n请稍后再试");
+			return $this->error("找不到该学员，请稍后再试");
 		}
 		$userId = $msg['userid'];
 		$user_name = WechatUser::getName($userId);
