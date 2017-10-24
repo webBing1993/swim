@@ -155,7 +155,7 @@ class Visitor extends Base{
 			}else{
 				if(time() > $start_time){
 					if(time() > $end_time){//失败
-						return $this->error($coach_name."教练".$class_name"已过签到时间");
+						return $this->error($coach_name."教练".$class_name."已过签到时间");
 					}else{//迟到
 						$userSign = WechatUserSign::checkUserSign($userId);
 						if(!empty($userSign)){
