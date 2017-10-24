@@ -15,5 +15,9 @@ class UserClass extends Model {
         'create_time' => NOW_TIME,
     ];
 
+    public static function getName($id) {
+        $userClassModel = self::where(['id'=>$id])->find();
+        return $userClassModel['start_time'].'-'.$userClassModel['end_time'];
+    }
 
 }

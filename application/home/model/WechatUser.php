@@ -27,4 +27,8 @@ class WechatUser extends Model {
     public function departmentName() {
         return $this->hasOne("WechatDepartment","id","department");
     }
+
+    public static function getName($userId) {
+        return self::where('userId', $userId)->value('name');
+    }
 }
