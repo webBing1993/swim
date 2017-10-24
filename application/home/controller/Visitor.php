@@ -73,7 +73,14 @@ class Visitor extends Base{
 	}
 
 	public function sign() {
-		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
+		if(!preg_match('/^\\d{11}$/',input('mobile'))){
+			return $this->error("无效的二维码");
+		}
+		if(empty(input('mobile'))){
+			return $this->error("无效的二维码");
+		}else{
+			$msg = WechatUser::where(['mobile' => input('mobile')])->find();
+		}
 		if(!empty($msg)) {
 			$userId = $msg['userid'];
 			$user_name = WechatUser::getName($userId);
@@ -283,7 +290,7 @@ class Visitor extends Base{
 				}
 			}
 		}else {
-			return $this->error("无效的二维码");
+			return $this->error("未录入该学员");
 		}
 	}
 	/**
