@@ -296,7 +296,7 @@ class Visitor extends Base{
 	 * 签到列表页
 	 */
 	public function fillDefect(){
-		$coach_ids = input('id');
+		$coach_ids = input('CoachId');
 		if(empty($coach_ids)){
 			return $this->error('参数为空');
 		}
