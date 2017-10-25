@@ -31,11 +31,11 @@
 			<span class="{eq name='$res.gender' value='2'}active{/eq} fr">女</span>
 		</div>
 	</div>
-	<div class="list clear">
+	<!--<div class="list clear">
 		<span class="fl">手机号</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
 		<input type="text" value="{$res.mobile}" class="fr" name="mobile">
-	</div>
+	</div>-->
 </div>
 <div class="lists">
 	<div class="list clear">
@@ -113,7 +113,7 @@ $(function(){
 					header:$("input[name='header']").attr('data-tab'),
 					name:$("input[name='name']").val(),
 					gender:$(".sex span.active").index()+1,
-					mobile:$("input[name='mobile']").val(),
+					//mobile:$("input[name='mobile']").val(),
 					education:$("input[name='education']").val(),
 //					department:$("input[name='department']").val(),
 //					position:$("input[name='position']").val(),
