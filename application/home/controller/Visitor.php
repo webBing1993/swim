@@ -73,6 +73,14 @@ class Visitor extends Base{
 	}
 
 	public function sign() {
+
+
+
+
+
+
+
+
 		if(empty(input('mobile'))){
 			return $this->error("无效的二维码");
 		}
@@ -121,9 +129,9 @@ class Visitor extends Base{
 			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 				$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-				if($current_num>=25){
-					return $this->error($coach_name."教练".$class_name."名额已满");
-				}
+//				if($current_num>=25){
+//					return $this->error($coach_name."教练".$class_name."名额已满");
+//				}
 			}else{//特殊学员
 				/*$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
