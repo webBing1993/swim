@@ -458,9 +458,9 @@ class Visitor extends Base{
 			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
 				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 				$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-				if($current_num>=25){
+				/*if($current_num>=25){
 					return $this->error($coach_name."教练".$class_name."名额已满", '', $response);
-				}
+				}*/
 			}else{//特殊学员
 				/*$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
@@ -476,9 +476,9 @@ class Visitor extends Base{
 						'coach_id' => $msg['coach_id'],
 				);
 				if($model = WechatUserSign::create($data)) {//正常
-					return $this->success("签到成功", '', $response);
+					return $this->success($user_name."签到成功", '', $response);
 				}else {
-					return $this->error("签到失败", '', $response);
+					return $this->error($user_name."签到失败", '', $response);
 				}
 			}
 		}else{
@@ -512,9 +512,9 @@ class Visitor extends Base{
 						if($model = WechatUserSign::create($data)) {//迟到
 							$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
 							$response = array_values($res);
-							return $this->success("签到成功", '', $response);
+							return $this->success($user_name."签到成功", '', $response);
 						}else {
-							return $this->error("签到失败", '', $response);
+							return $this->error($user_name."签到失败", '', $response);
 						}
 					}else{//教练
 						$classList =  WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->field('class_id')->group('class_id')->select();
@@ -545,7 +545,7 @@ class Visitor extends Base{
 							);
 						}
 						array_unshift($response, $new_coach);
-						return $this->success("签到成功", '', $response);
+						return $this->success($user_name."教练签到成功", '', $response);
 					}
 				}
 			}else{//正常
@@ -566,9 +566,9 @@ class Visitor extends Base{
 					if($model = WechatUserSign::create($data)) {
 						$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
 						$response = array_values($res);
-						return $this->success("签到成功", '', $response);
+						return $this->success($user_name."签到成功", '', $response);
 					}else {
-						return $this->error("签到失败", '', $response);
+						return $this->error($user_name."签到失败", '', $response);
 					}
 				}else {//教练
 					$classList =  WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->field('class_id')->group('class_id')->select();
@@ -598,7 +598,7 @@ class Visitor extends Base{
 						);
 					}
 					array_unshift($response, $new_coach);
-					return $this->success("签到成功", '', $response);
+					return $this->success($user_name."教练签到成功", '', $response);
 				}
 			}
 		}
