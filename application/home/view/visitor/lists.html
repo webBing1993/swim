@@ -196,6 +196,7 @@
             }
 		}
     }
+
     function test(test) {
         var keyCode = test;
         if (false) {
@@ -230,97 +231,75 @@
                     end = false;
 
                     // 判断是否需要更新班级信息
-                    var CoachId = {}; // 教练ID数组
-                    for (var i=0;i<$('.list').length;i++) {
-                        var id = $('.list').eq(i).attr('data-tab');
-                        if (!CoachId[id]){
-                            CoachId[id] = id;
-                        }
-                    }
-                    CoachId = JSON.stringify(CoachId);
-                    $.ajax({
-                        type: "post",
-                        url: "{:Url('Visitor/fillDefect')}",
-                        data: {CoachId:CoachId},
-                        dataType: "Json",
-                        success: function(data){
-                            var obj = data.data;
-                            var html = '';
-                            var name = '';
-                            if(obj) {
-                                for (var i = 0; i < obj.length; i++) {
-                                    html += '<div class="' + 'list' + '" data-tab=' + obj[i].coach_id + ' data-tag=' + obj[i].class_id + '>' +
-                                        '<div class="' + 'coach' + '">' +
-                                        '<span class="' + 'name limit' + '">教练：' + obj[i].name + '/' + obj[i].class_name + '</span>' +
-                                        '<span class="' + 'num limit' + '">学员情况：<span>' + obj[i].current_num + '</span>/' + obj[i].all_num + '</span>' +
-                                        '</div>' +
-                                        '</div>';
-                                }
-                                $('.lists').prepend(html);
-                            }
-                        }
-                    });
+//                    var CoachId = {}; // 教练ID数组
+//                    for (var i=0;i<$('.list').length;i++) {
+//                        var id = $('.list').eq(i).attr('data-tab');
+//                        if (!CoachId[id]){
+//                            CoachId[id] = id;
+//                        }
+//                    }
+//                    CoachId = JSON.stringify(CoachId);
+//                    $.ajax({
+//                        type: "post",
+//                        url: "{:Url('Visitor/fillDefect')}",
+//                        data: {CoachId:CoachId},
+//                        dataType: "Json",
+//                        success: function(data){
+//                            var obj = data.data;
+//                            var html = '';
+//                            var name = '';
+//                            if(obj) {
+//                                for (var i = 0; i < obj.length; i++) {
+//                                    html += '<div class="' + 'list' + '" data-tab=' + obj[i].coach_id + ' data-tag=' + obj[i].class_id + '>' +
+//                                        '<div class="' + 'coach' + '">' +
+//                                        '<span class="' + 'name limit' + '">教练：' + obj[i].name + '/' + obj[i].class_name + '</span>' +
+//                                        '<span class="' + 'num limit' + '">学员情况：<span>' + obj[i].current_num + '</span>/' + obj[i].all_num + '</span>' +
+//                                        '</div>' +
+//                                        '</div>';
+//                                }
+//                                $('.lists').prepend(html);
+//                            }
+//                        }
+//                    });
 
                     // 签到更新
                     $.ajax({
                         type:"post",
-                        url:"{:Url('Visitor/sign')}",
+                        url:"{:Url('Visitor/newSign')}",
                         data:{
                             mobile: num
                         },
                         dataType: "Json",
                         success:function(data){
+
                             var obj = data.data;
                             var html = '';
                             var name = '';
                             if(obj){
-                                if(obj[0].type == 1){
-                                    for (var i=0;i<obj.length;i++) {
-                                        html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
-                                            '<div class="'+'coach'+'">'+
-                                            '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-                                            '<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
-                                            '</div>'+
-                                            '</div>';
-                                    }
-                                    name = obj[0].name;
-                                    $('.lists').prepend(html);
-
-                                }else{
-                                    obj = obj[0];
-                                    // class_id 为空是特殊学员
-                                    if (obj.class_id!==0) {
-                                        name = obj.name;
-                                        var list = $('.list[data-tab=' + obj.coach_id + '][data-tag=' + obj.class_id + ']');
-                                        list.find('.num span').text(obj.num);
-                                        var listclone = list.clone();
-                                        list.remove();
-                                        $('.lists').prepend(listclone);
-                                    }
-
-                                }
+								for (var i=0;i<obj.length;i++) {
+									html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
+										'<div class="'+'coach'+'">'+
+										'<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
+										'<span class="'+'num limit'+'">学员情况：<span>'+obj[i].current_num+'</span>/'+obj[i].all_num+'</span>'+
+										'</div>'+
+										'</div>';
+								}
+                                $('.lists').html('');
+								$('.lists').prepend(html);
                             }
 
-                            if(name){
-                                speckText(name+data.msg);
-                            }else{
-                                speckText(data.msg);
-                            }
+							speckText(data.msg);
 
                             if(data.code == 1){
-                                setTimeout(function(){
-                                    a = '';
-                                    end = true;
-                                    last ='';
-                                },1000);
-                                toastr.success(name+data.msg);
+								a = '';
+								end = true;
+								last ='';
+                                toastr.success(data.msg);
 
                             } else {
-                                setTimeout(function(){
-                                    a = '';
-                                    end = true;
-                                    last ='';
-                                },1000);
+								a = '';
+								end = true;
+								last ='';
                                 toastr.error(data.msg);
 
                             }
