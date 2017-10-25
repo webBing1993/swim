@@ -105,6 +105,7 @@
 						type: "post",
 						url: "{:Url('Visitor/fillDefect')}",
 						data: CoachId,
+                        dataType: "Json",
 						success: function(data){
                             var obj = data.data;
                             var html = '';
@@ -231,15 +232,16 @@
                     // 判断是否需要更新班级信息
                     var CoachId = {}; // 教练ID数组
                     for (var i=0;i<$('.list').length;i++) {
-                        var id = $('.list').eq(0).attr('data-tab');
-                        if (!CoachId.id){
-                            CoachId.id = id;
+                        var id = $('.list').eq(i).attr('data-tab');
+                        if (!CoachId[id]){
+                            CoachId[id] = id;
                         }
                     }
+                    CoachId = JSON.stringify(CoachId);
                     $.ajax({
                         type: "post",
                         url: "{:Url('Visitor/fillDefect')}",
-                        data: CoachId,
+                        data: {CoachId:CoachId},
                         dataType: "Json",
                         success: function(data){
                             var obj = data.data;
