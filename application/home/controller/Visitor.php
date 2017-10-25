@@ -357,7 +357,7 @@ class Visitor extends Base{
 				$res[$userid.$class_id]['class_id'] = $class_id;
 				$res[$userid.$class_id]['current_num'] = WechatUserSign::where(['coach_id' => $userid, 'class_id' => $class_id, 'date' => $date, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 				$res[$userid.$class_id]['all_num'] =  WechatUser::where(['coach_id' => $userid, 'class_id' => $class_id, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-				$res[$userid.$class_id]['all_num'] = $res[$userid.$class_id]['all_num']>25 ? 25 : $res[$userid.$class_id]['all_num'];
+				//$res[$userid.$class_id]['all_num'] = $res[$userid.$class_id]['all_num']>25 ? 25 : $res[$userid.$class_id]['all_num'];
 				/*$studentList = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_STUDENT, "coach_id" => $userid, 'class_id' => $class_id])->field("userid, name, status, FROM_UNIXTIME(create_time, '%H:%i:%s') create_time")->order("create_time desc")->limit(3)->select();
 				$res[$userid.$class_id]['studentList'] = [];
 				if($studentList){
@@ -404,7 +404,7 @@ class Visitor extends Base{
 				$response[$userid.$class_id]['class_id'] = $class_id;
 				$response[$userid.$class_id]['current_num'] = WechatUserSign::where(['coach_id' => $userid, 'class_id' => $class_id, 'date' => $date, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 				$response[$userid.$class_id]['all_num'] =  WechatUser::where(['coach_id' => $userid, 'class_id' => $class_id, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-				$response[$userid.$class_id]['all_num'] = $response[$userid.$class_id]['all_num']>25 ? 25 : $response[$userid.$class_id]['all_num'];
+				//$response[$userid.$class_id]['all_num'] = $response[$userid.$class_id]['all_num']>25 ? 25 : $response[$userid.$class_id]['all_num'];
 			}
 		}
 		$res = $response;
@@ -534,7 +534,7 @@ class Visitor extends Base{
 							);
 							WechatUserSign::create($data);
 							$all_num =  WechatUser::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-							$all_num = $all_num>25 ? 25 : $all_num;
+							//$all_num = $all_num>25 ? 25 : $all_num;
 							$new_coach[] = array(
 									"class_name" => UserClass::getName($model['class_id']),
 									"userid" => $userId,
@@ -587,7 +587,7 @@ class Visitor extends Base{
 						);
 						WechatUserSign::create($data);
 						$all_num =  WechatUser::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
-						$all_num = $all_num>25 ? 25 : $all_num;
+						//$all_num = $all_num>25 ? 25 : $all_num;
 						$new_coach[] = array(
 								"class_name" => UserClass::getName($model['class_id']),
 								"userid" => $userId,
