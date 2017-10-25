@@ -519,7 +519,10 @@ class Visitor extends Base{
 						);
 						if($model = WechatUserSign::create($data)) {//迟到
 							$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
+							$new_user = $res[$msg['coach_id'].$msg['class_id']];
+							unset($res[$msg['coach_id'].$msg['class_id']]);
 							$response = array_values($res);
+							array_unshift($response, $new_user);
 							return $this->success($user_name."签到成功", '', $response);
 						}else {
 							return $this->error($user_name."签到失败", '', $response);
@@ -543,7 +546,7 @@ class Visitor extends Base{
 							WechatUserSign::create($data);
 							$all_num =  WechatUser::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 							//$all_num = $all_num>25 ? 25 : $all_num;
-							$new_coach[] = array(
+							$new_coach = array(
 									"class_name" => UserClass::getName($model['class_id']),
 									"userid" => $userId,
 									"name" => $msg['name'],
@@ -573,7 +576,10 @@ class Visitor extends Base{
 					);
 					if($model = WechatUserSign::create($data)) {
 						$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
+						$new_user = $res[$msg['coach_id'].$msg['class_id']];
+						unset($res[$msg['coach_id'].$msg['class_id']]);
 						$response = array_values($res);
+						array_unshift($response, $new_user);
 						return $this->success($user_name."签到成功", '', $response);
 					}else {
 						return $this->error($user_name."签到失败", '', $response);
@@ -596,7 +602,7 @@ class Visitor extends Base{
 						WechatUserSign::create($data);
 						$all_num =  WechatUser::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 						//$all_num = $all_num>25 ? 25 : $all_num;
-						$new_coach[] = array(
+						$new_coach = array(
 								"class_name" => UserClass::getName($model['class_id']),
 								"userid" => $userId,
 								"name" => $msg['name'],
@@ -605,6 +611,7 @@ class Visitor extends Base{
 								"all_num" => $all_num,
 						);
 					}
+					var_dump($response);die;
 					array_unshift($response, $new_coach);
 					return $this->success($user_name."教练签到成功", '', $response);
 				}
