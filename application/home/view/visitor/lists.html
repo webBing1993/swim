@@ -29,7 +29,6 @@
 	{/volist}
 </div>
 <input type="text"  class="number" maxlength="11" >
-<!--<div class="sign">签到</div>-->
 <div class="bg"></div>
 <ul class="roster"></ul>
 {/block}
@@ -56,7 +55,7 @@ $(function(){
 	$('.more').each(function(){
 		var hh = $(this).parents('.content').height();
 		$(this).height(hh).css('padding-top',hh - 18);
-	})
+	});
 
 
     var clean;
@@ -90,6 +89,36 @@ $(function(){
                 if(last!=num && end == true){
                     last = num;
                     end = false;
+
+                    // 判断是否需要更新班级信息
+					var CoachId = {}; // 教练ID数组
+					for (var i=0;i<$('.list').length;i++) {
+                        var id = $('.list').eq(0).attr('data-tab');
+					    if (!CoachId.id){
+                            CoachId.id = id;
+						}
+					}
+					$.ajax({
+						type: "post",
+						url: "",
+						id: CoachId,
+						success: function(data){
+                            var obj = data.data;
+                            var html = '';
+                            var name = '';
+                            for (var i=0;i<obj.length;i++) {
+                                html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
+                                    '<div class="'+'coach'+'">'+
+                                    '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
+                                    '<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
+                                    '</div>'+
+                                    '</div>';
+                            }
+                            $('.lists').prepend(html);
+						}
+					});
+
+					// 签到更新
                     $.ajax({
                         type:"post",
                         url:"{:Url('Visitor/sign')}",
@@ -104,7 +133,6 @@ $(function(){
                             if(obj){
                                 if(obj[0].type == 1){
                                     for (var i=0;i<obj.length;i++) {
-
                                         html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
                                             '<div class="'+'coach'+'">'+
                                             '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
@@ -112,7 +140,6 @@ $(function(){
                                             '</div>'+
                                             '</div>';
                                     }
-
                                     name = obj[0].name;
                                     $('.lists').prepend(html);
 
@@ -121,22 +148,8 @@ $(function(){
                                     // class_id 为空是特殊学员
                                     if (obj.class_id!==0) {
                                         name = obj.name;
-
-                                        //							html +=
-                                        //								'<div class="student">'+
-                                        //								'<span class="name limit">'+obj.name+'</span>'+
-                                        //								'<span class="time limit">'+obj.time+'</span>'+
-                                        //								'<span class="st limit">'+ obj.status_txt +'</span>'+
-                                        //								'</div>';
                                         var list = $('.list[data-tab=' + obj.coach_id + '][data-tag=' + obj.class_id + ']');
-                                        //							list.find('.students').prepend(html);
                                         list.find('.num span').text(obj.num);
-                                        //							var len = list.find('.student').length;
-                                        //							if(len == 3){
-                                        //								list.find('.content').append('<div class="more limit"><span>更多...</span></div>')
-                                        //							}else if(len == 4){
-                                        //								list.find('.student').eq(3).remove();
-                                        //							}
                                         var listclone = list.clone();
                                         list.remove();
                                         $('.lists').prepend(listclone);
@@ -145,77 +158,38 @@ $(function(){
                                 }
                             }
 
-
                             if(name){
                                 speckText(name+data.msg);
                             }else{
                                 speckText(data.msg);
                             }
+
                             if(data.code == 1){
-
                                 setTimeout(function(){
                                     a = '';
                                     end = true;
                                     last ='';
-                                },1500);
+                                },1000);
                                 toastr.success(name+data.msg);
-//                            alert('成功');
-//                            swal({
-//                                title: '成功',
-//                                text: name+data.msg,
-//                                type: 'success',
-//                                showConfirmButton:false,
-//                                timer:1000
-//                            }).then(
-//                                function () {},
-//                                function (dismiss) {
-//                                    if (dismiss === 'timer') {
-//                                        a = '';
-//                                        end = true;
-//                                        last = '';
-//                                    }
-//                                }
-//                            );
-                            }else{
+
+                            } else {
                                 setTimeout(function(){
                                     a = '';
                                     end = true;
                                     last ='';
-                                },1500);
+                                },1000);
                                 toastr.error(data.msg);
-//                            alert('失败');
 
-//                            swal({
-//                                title: '失败',
-//                                text: data.msg,
-//                                type: 'error',
-//                                showConfirmButton:false,
-//                                //							confirmButtonText:'确定',
-//                                timer:1000
-//                            }).then(
-//                                function () {},
-//                                function (dismiss) {
-//                                    if (dismiss === 'timer') {
-//                                        a = '';
-//                                        end = true;
-//                                        last = '';
-//                                    }
-//                                }
-//                            );
                             }
                         }
                     })
-                }else{
+                } else {
+
                     a = '';
                 }
-
             }
 		}
-
     }
-
-
-
 });
 
 // 播放声音
@@ -226,6 +200,7 @@ function speckText(str){
 	n.play();
 }
 
+// 提醒框配置
 toastr.options = {
     "closeButton": true,
     "debug": false,
@@ -241,7 +216,6 @@ toastr.options = {
     "hideMethod": "fadeOut",
     "progressBar":true
 }
-
 
 </script>
 {/block}
