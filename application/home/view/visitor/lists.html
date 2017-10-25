@@ -104,7 +104,7 @@ $(function(){
 					$.ajax({
 						type: "post",
 						url: "{:Url('Visitor/fillDefect')}",
-						data: {id:CoachId},
+						data: CoachId,
 						success: function(data){
                             var obj = data.data;
                             var html = '';
