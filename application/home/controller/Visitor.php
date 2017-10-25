@@ -295,6 +295,51 @@ class Visitor extends Base{
 	/**
 	 * 签到列表页
 	 */
+	public function fillDefect(){
+		$coach_ids = input('id');
+		if(empty($coach_ids)){
+			return $this->error('参数为空');
+		}
+		$coach_ids = json_decode($coach_ids, true);
+		$date = date('Y-m-d');
+		$coachModel = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_COACH])->order("create_time desc")->group('userid')->column('userid');
+		if($coachModel){
+			$collection = new Collection($coachModel);
+			$coachModel = $collection->toArray();
+		}
+		$coach_id_arr = array_diff($coachModel, $coach_ids);
+		//var_dump($coach_id_arr);die;
+		if($coach_id_arr){
+			$response = [];
+			foreach($coach_id_arr as $userId) {
+				$msg = WechatUser::where(['userid' => $userId])->find();
+				$classList = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->field('class_id')->group('class_id')->select();
+				if (!$classList) {
+					$classList = WechatUser::where(['userid' => $userId])->field('class_id')->select();
+				}
+				foreach ($classList as $model) {
+					$current_num = WechatUserSign::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
+					$all_num = WechatUser::where(['coach_id' => $userId, 'class_id' => $model['class_id'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
+					$all_num = $all_num > 25 ? 25 : $all_num;
+					$response[] = array(
+							"type" => WechatUser::MEMBER_TYPE_COACH,
+							"coach_id" => $userId,
+							"name" => $msg['name'],
+							"current_num" => $current_num,
+							"all_num" => $all_num,
+							"class_id" => $model['class_id'],
+							"class_name" => UserClass::getName($model['class_id']),
+					);
+				}
+			}
+			return $this->success("加载成功", '', $response);
+		}else{
+			return $this->error("加载失败");
+		}
+	}
+	/**
+	 * 签到列表页
+	 */
 	public function lists(){
 		$date = date('Y-m-d');
 		$coachModel = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_COACH])->order("create_time desc")->field("userid, name, class_id")->select();

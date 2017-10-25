@@ -100,21 +100,23 @@ $(function(){
 					}
 					$.ajax({
 						type: "post",
-						url: "",
+						url: "{:Url('Visitor/fillDefect')}",
 						id: CoachId,
 						success: function(data){
                             var obj = data.data;
                             var html = '';
                             var name = '';
-                            for (var i=0;i<obj.length;i++) {
-                                html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
-                                    '<div class="'+'coach'+'">'+
-                                    '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-                                    '<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
-                                    '</div>'+
-                                    '</div>';
-                            }
-                            $('.lists').prepend(html);
+							if(obj) {
+								for (var i = 0; i < obj.length; i++) {
+									html += '<div class="' + 'list' + '" data-tab=' + obj[i].coach_id + ' data-tag=' + obj[i].class_id + '>' +
+											'<div class="' + 'coach' + '">' +
+											'<span class="' + 'name limit' + '">教练：' + obj[i].name + '/' + obj[i].class_name + '</span>' +
+											'<span class="' + 'num limit' + '">学员情况：<span>' + obj[i].current_num + '</span>/' + obj[i].all_num + '</span>' +
+											'</div>' +
+											'</div>';
+								}
+								$('.lists').prepend(html);
+							}
 						}
 					});
 
