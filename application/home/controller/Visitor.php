@@ -296,10 +296,10 @@ class Visitor extends Base{
 	 * 签到列表页
 	 */
 	public function fillDefect(){
-		$coach_ids = input('CoachId');
-		if(empty($coach_ids)){
-			return $this->error('参数为空');
-		}
+		$coach_ids = input('CoachId', array());
+//		if(empty($coach_ids)){
+//			return $this->error('参数为空');
+//		}
 		$coach_ids = json_decode($coach_ids, true);
 		$date = date('Y-m-d');
 		$coachModel = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_COACH])->order("create_time desc")->group('userid')->column('userid');
