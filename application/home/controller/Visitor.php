@@ -73,14 +73,6 @@ class Visitor extends Base{
 	}
 
 	public function sign() {
-
-
-
-
-
-
-
-
 		if(empty(input('mobile'))){
 			return $this->error("无效的二维码");
 		}
@@ -554,8 +546,8 @@ class Visitor extends Base{
 									"current_num" => 0,
 									"all_num" => $all_num,
 							);
+							array_unshift($response, $new_coach);
 						}
-						array_unshift($response, $new_coach);
 						return $this->success($user_name."教练签到成功", '', $response);
 					}
 				}
@@ -610,9 +602,8 @@ class Visitor extends Base{
 								"current_num" => 0,
 								"all_num" => $all_num,
 						);
+						array_unshift($response, $new_coach);
 					}
-					var_dump($response);die;
-					array_unshift($response, $new_coach);
 					return $this->success($user_name."教练签到成功", '', $response);
 				}
 			}
