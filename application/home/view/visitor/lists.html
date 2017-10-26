@@ -96,6 +96,7 @@
                         dataType: "Json",
                         success:function(data){
                             var obj = data.data;
+                            speckText(data.msg);
                             var html = '';
                             var name = '';
                             if(obj){
@@ -111,7 +112,6 @@
                                 $('.lists').prepend(html);
                             }
 
-                            speckText(data.msg);
 
                             if(data.code == 1){
                                 a = '';
