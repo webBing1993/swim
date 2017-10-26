@@ -62,29 +62,23 @@
     document.onkeyup = function (event) {
         var e = event || window.event;
         var keyCode = e.key;
+        if (a.length >= 11) {return false;}
         if (end == true && a.length < 10) {
             a += keyCode;
-            console.log(a);
 		} else {
-            if(a.length < 11) {
+            if(a.length < 11 && end == true) {
                 a += keyCode;
-                console.log(a);
                 var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
                 var nubmer = a;
 
                 if (!re.test(nubmer)) {
-                    a = '';
                     end = false;
                     toastr.error('无效的二维码');
                     speckText('无效的二维码');
-					if (clean) {
-						clearTimeout(clean);
-						clean = null;
-					}
-                    clean = setTimeout(function(){
+                    setTimeout(function(){
+                        a = '';
                         end = true;
-                    },1000);
-
+                    },1500);
                     return false;
                 }
 
@@ -92,175 +86,6 @@
                 if(last!=num && end == true){
                     last = num;
                     end = false;
-
-                    // 判断是否需要更新班级信息
-					var CoachId = {}; // 教练ID数组
-					for (var i=0;i<$('.list').length;i++) {
-                        var id = $('.list').eq(0).attr('data-tab');
-					    if (!CoachId.id){
-                            CoachId.id = id;
-						}
-					}
-					$.ajax({
-						type: "post",
-						url: "{:Url('Visitor/fillDefect')}",
-						data: CoachId,
-                        dataType: "Json",
-						success: function(data){
-                            var obj = data.data;
-                            var html = '';
-                            var name = '';
-							if(obj) {
-								for (var i = 0; i < obj.length; i++) {
-									html += '<div class="' + 'list' + '" data-tab=' + obj[i].coach_id + ' data-tag=' + obj[i].class_id + '>' +
-											'<div class="' + 'coach' + '">' +
-											'<span class="' + 'name limit' + '">教练：' + obj[i].name + '/' + obj[i].class_name + '</span>' +
-											'<span class="' + 'num limit' + '">学员情况：<span>' + obj[i].current_num + '</span>/' + obj[i].all_num + '</span>' +
-											'</div>' +
-											'</div>';
-								}
-								$('.lists').prepend(html);
-							}
-						}
-					});
-
-					// 签到更新
-                    $.ajax({
-                        type:"post",
-                        url:"{:Url('Visitor/sign')}",
-                        data:{
-                            mobile: num
-                        },
-                        dataType: "Json",
-                        success:function(data){
-                            var obj = data.data;
-                            var html = '';
-                            var name = '';
-                            if(obj){
-                                if(obj[0].type == 1){
-                                    for (var i=0;i<obj.length;i++) {
-                                        html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
-                                            '<div class="'+'coach'+'">'+
-                                            '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-                                            '<span class="'+'num limit'+'">学员情况：<span>0</span>/'+obj[i].num+'</span>'+
-                                            '</div>'+
-                                            '</div>';
-                                    }
-                                    name = obj[0].name;
-                                    $('.lists').prepend(html);
-
-                                }else{
-                                    obj = obj[0];
-                                    // class_id 为空是特殊学员
-                                    if (obj.class_id!==0) {
-                                        name = obj.name;
-                                        var list = $('.list[data-tab=' + obj.coach_id + '][data-tag=' + obj.class_id + ']');
-                                        list.find('.num span').text(obj.num);
-                                        var listclone = list.clone();
-                                        list.remove();
-                                        $('.lists').prepend(listclone);
-                                    }
-
-                                }
-                            }
-
-                            if(name){
-                                speckText(name+data.msg);
-                            }else{
-                                speckText(data.msg);
-                            }
-
-                            if(data.code == 1){
-                                setTimeout(function(){
-                                    a = '';
-                                    end = true;
-                                    last ='';
-                                },1000);
-                                toastr.success(name+data.msg);
-
-                            } else {
-                                setTimeout(function(){
-                                    a = '';
-                                    end = true;
-                                    last ='';
-                                },1000);
-                                toastr.error(data.msg);
-
-                            }
-                        }
-                    })
-                } else {
-
-                    a = '';
-                }
-            }
-		}
-    }
-
-    function test(test) {
-        var keyCode = test;
-        if (false) {
-            a += keyCode;
-            console.log(a);
-        } else {
-            if(a.length < 11) {
-                a = test;
-                console.log(a);
-                var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 //判断正整数 /^[1-9]+[0-9]*]*$/
-                var nubmer = a;
-
-                if (!re.test(nubmer)) {
-                    a = '';
-                    end = false;
-                    toastr.error('无效的二维码');
-                    speckText('无效的二维码');
-                    if (clean) {
-                        clearTimeout(clean);
-                        clean = null;
-                    }
-                    clean = setTimeout(function(){
-                        end = true;
-                    },1000);
-
-                    return false;
-                }
-
-                var num = a;
-                if(last!=num && end == true){
-                    last = num;
-                    end = false;
-
-                    // 判断是否需要更新班级信息
-//                    var CoachId = {}; // 教练ID数组
-//                    for (var i=0;i<$('.list').length;i++) {
-//                        var id = $('.list').eq(i).attr('data-tab');
-//                        if (!CoachId[id]){
-//                            CoachId[id] = id;
-//                        }
-//                    }
-//                    CoachId = JSON.stringify(CoachId);
-//                    $.ajax({
-//                        type: "post",
-//                        url: "{:Url('Visitor/fillDefect')}",
-//                        data: {CoachId:CoachId},
-//                        dataType: "Json",
-//                        success: function(data){
-//                            var obj = data.data;
-//                            var html = '';
-//                            var name = '';
-//                            if(obj) {
-//                                for (var i = 0; i < obj.length; i++) {
-//                                    html += '<div class="' + 'list' + '" data-tab=' + obj[i].coach_id + ' data-tag=' + obj[i].class_id + '>' +
-//                                        '<div class="' + 'coach' + '">' +
-//                                        '<span class="' + 'name limit' + '">教练：' + obj[i].name + '/' + obj[i].class_name + '</span>' +
-//                                        '<span class="' + 'num limit' + '">学员情况：<span>' + obj[i].current_num + '</span>/' + obj[i].all_num + '</span>' +
-//                                        '</div>' +
-//                                        '</div>';
-//                                }
-//                                $('.lists').prepend(html);
-//                            }
-//                        }
-//                    });
 
                     // 签到更新
                     $.ajax({
@@ -276,30 +101,30 @@
                             var html = '';
                             var name = '';
                             if(obj){
-								for (var i=0;i<obj.length;i++) {
-									html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
-										'<div class="'+'coach'+'">'+
-										'<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-										'<span class="'+'num limit'+'">学员情况：<span>'+obj[i].current_num+'</span>/'+obj[i].all_num+'</span>'+
-										'</div>'+
-										'</div>';
-								}
+                                for (var i=0;i<obj.length;i++) {
+                                    html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
+                                        '<div class="'+'coach'+'">'+
+                                        '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
+                                        '<span class="'+'num limit'+'">学员情况：<span>'+obj[i].current_num+'</span>/'+obj[i].all_num+'</span>'+
+                                        '</div>'+
+                                        '</div>';
+                                }
                                 $('.lists').html('');
-								$('.lists').prepend(html);
+                                $('.lists').prepend(html);
                             }
 
-							speckText(data.msg);
+                            speckText(data.msg);
 
                             if(data.code == 1){
-								a = '';
-								end = true;
-								last ='';
+                                a = '';
+                                end = true;
+                                last ='';
                                 toastr.success(data.msg);
 
                             } else {
-								a = '';
-								end = true;
-								last ='';
+                                a = '';
+                                end = true;
+                                last ='';
                                 toastr.error(data.msg);
 
                             }
@@ -310,9 +135,8 @@
                     a = '';
                 }
             }
-        }
+		}
     }
-
 
 // 播放声音
 function speckText(str){
