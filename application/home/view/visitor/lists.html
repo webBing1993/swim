@@ -87,7 +87,7 @@
                 if(last!=num && end == true){
                     last = num;
                     end = false;
-
+                    alert(2);
                     // 签到更新
                     $.ajax({
                         type:"post",
@@ -97,7 +97,7 @@
                         },
                         dataType: "Json",
                         success:function(data){
-
+                            alert(3);
                             var obj = data.data;
                             var html = '';
                             var name = '';
