@@ -127,7 +127,7 @@ class Visitor extends Base{
 			}else{//特殊学员
 				/*$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
-					return $this->error("今天已签到");
+					return $this->success("今天已签到");
 				}*/
 				$data = array(
 						'userid' => $userId,
@@ -168,7 +168,7 @@ class Visitor extends Base{
 				}else{//迟到
 					$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
-						return $this->error($user_name."今天已签到");
+						return $this->success($user_name."今天已签到");
 					}
 					if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 						$data = array(
@@ -231,7 +231,7 @@ class Visitor extends Base{
 			}else{//正常
 				$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
-					return $this->error($user_name."今天已签到");
+					return $this->success($user_name."今天已签到");
 				}
 				if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 					$data = array(
@@ -464,7 +464,7 @@ class Visitor extends Base{
 			}else{//特殊学员
 				/*$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
-					return $this->error("今天已签到", '', $response);
+					return $this->success("今天已签到", '', $response);
 				}*/
 				$data = array(
 						'userid' => $userId,
@@ -496,7 +496,7 @@ class Visitor extends Base{
 				}else{//迟到
 					$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
-						return $this->error($user_name."今天已签到", '', $response);
+						return $this->success($user_name."今天已签到", '', $response);
 					}
 					if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 						$data = array(
@@ -554,7 +554,7 @@ class Visitor extends Base{
 			}else{//正常
 				$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
-					return $this->error($user_name."今天已签到", '', $response);
+					return $this->success($user_name."今天已签到", '', $response);
 				}
 				if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 					$data = array(
