@@ -143,7 +143,7 @@
 
 // 播放声音
 function speckText(str){
-	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(str);        // baidu
+	var url = "http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=7&text=" + encodeURI(str);        // baidu
 	var n = new Audio(url);
 	n.src = url;
 	n.play();
