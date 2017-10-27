@@ -124,13 +124,18 @@
                                 last ='';
                                 toastr.success(data.msg);
 
+                            } else if (data.code ==2) {
+
+                                a = '';
+                                end = true;
+                                last ='';
+                                toastr.warning(data.msg);
                             } else {
                                 a = '';
                                 end = true;
                                 last ='';
                                 toastr.error(data.msg);
-
-                            }
+							}
                         }
                     })
                 } else {
