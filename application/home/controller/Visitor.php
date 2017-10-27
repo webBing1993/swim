@@ -388,6 +388,12 @@ class Visitor extends Base{
 		}
 	}
 
+	/**
+	 * 签到
+	 * @return array
+	 * @throws \think\db\exception\DataNotFoundException
+	 * @throws \think\db\exception\ModelNotFoundException
+	 */
 	public function newSign() {
 		$date = date('Y-m-d');
 		$coachModel = WechatUserSign::where(["date" => $date, "member_type" => WechatUser::MEMBER_TYPE_COACH])->order("create_time desc")->field("userid, name, class_id")->select();
@@ -466,10 +472,6 @@ class Visitor extends Base{
 					return $this->error($coach_name."教练".$class_name."名额已满", '', $response);
 				}
 			}else{//特殊学员
-				/*$userSign = WechatUserSign::checkUserSign($userId);
-				if(!empty($userSign)){
-					return $this->success("今天已签到", '', $response);
-				}*/
 				$data = array(
 						'userid' => $userId,
 						'name' => $msg['name'],
@@ -500,7 +502,7 @@ class Visitor extends Base{
 				}else{//迟到
 					$userSign = WechatUserSign::checkUserSign($userId);
 					if(!empty($userSign)){
-						return $this->success($user_name."今天已签到", '', $response);
+						return $this->result($response, 2, $user_name."今天已签到");
 					}
 					if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 						$data = array(
@@ -558,7 +560,7 @@ class Visitor extends Base{
 			}else{//正常
 				$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
-					return $this->success($user_name."今天已签到", '', $response);
+					return $this->result($response, 2, $user_name."今天已签到");
 				}
 				if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {//学员
 					$data = array(
