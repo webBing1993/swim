@@ -434,7 +434,7 @@ class Visitor extends Base{
 				}
 			}
 			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
-				if($msg['coach_id']){
+				if(!empty($msg['coach_id'])){
 					$coach_name = WechatUser::getName($msg['coach_id']);
 					$coachSign = WechatUserSign::checkUserSign($msg['coach_id']);
 					if(empty($coachSign)){
