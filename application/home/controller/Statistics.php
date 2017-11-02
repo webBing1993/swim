@@ -37,7 +37,7 @@ class Statistics extends Base{
 			$s_type = 2;
 			$pid = $userId;
 		}else{
-			return "您暂无权限";
+			return $this ->fetch('user/null');
 		}
 		$query = Db::field('wus.*, wu.department, wu2.department coach_department')
 				->table('sw_wechat_user_sign wus')

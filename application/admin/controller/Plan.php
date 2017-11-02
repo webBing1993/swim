@@ -93,7 +93,7 @@ class Plan extends Admin {
 		$doc .= join("\r\n", $html);
 		$doc .= '</body></html>';
 		//var_dump($doc);die;
-		header('Content-Disposition: attachment; filename="'.$data['name'].'周训练小结'.$data['start_time'].'~'.$data['end_time'].'.doc"');
+		header('Content-Disposition: attachment; filename="'.$data['name'].'周训练小结['.$data['start_time'].']~['.$data['end_time'].'].doc"');
 		die(mb_convert_encoding($doc,'UTF-8','UTF-8'));
 	}
 
@@ -258,7 +258,7 @@ class Plan extends Admin {
 		$doc .= join("\r\n", $html);
 		$doc .= '</body></html>';
 //		var_dump($doc); return ;
-		header('Content-Disposition: attachment; filename="'.$data['name'].'周训练计划'.$data['start_time'].'~'.$data['end_time'].'.doc"');
+		header('Content-Disposition: attachment; filename="'.$data['name'].'周训练计划['.$data['start_time'].']~['.$data['end_time'].'].doc"');
 		die(mb_convert_encoding($doc,'UTF-8','UTF-8'));
 	}
 
@@ -435,7 +435,7 @@ class Plan extends Admin {
 		$doc .= join("\r\n", $html);
 		$doc .= '</body></html>';
 		//var_dump($doc);return ;
-		header('Content-Disposition: attachment; filename="'.$data['name'].'课时计划'.$data['start_time'].'~'.$data['end_time'].'.doc"');
+		header('Content-Disposition: attachment; filename="'.$data['name'].'课时计划['.$data['start_time'].']~['.$data['end_time'].'].doc"');
 		die(mb_convert_encoding($doc,'UTF-8','UTF-8'));
 	}
 

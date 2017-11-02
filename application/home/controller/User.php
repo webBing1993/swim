@@ -246,4 +246,8 @@ class User extends Base{
             return $this->error("加载失败");
         }
     }
+    // 暂无权限
+    public function null(){
+        return $this->fetch();
+    }
 }

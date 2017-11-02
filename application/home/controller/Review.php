@@ -15,7 +15,9 @@ namespace app\home\controller;
 use app\home\model\News as NewsModel;
 use app\home\model\Notice as NoticeModel;
 use app\home\model\CertificateReview as CertificateReviewModel;
+use app\home\model\WechatTag;
 use app\home\model\WechatUser;
+use app\home\model\WechatUserTag;
 use think\Config;
 use think\Db;
 use app\admin\model\Picture;
@@ -29,6 +31,11 @@ class Review extends Base{
      * 未审核列表
      */
     public function reviewlist() {
+        $userId = session('userId');
+        $tag = WechatUserTag::where(['userid' => $userId, 'tagid' => WechatTag::TAG_LEADER])->find();
+        if(!$tag){
+            return $this ->fetch('user/null');
+        }
         $map = array(
             'status' => 0,
             'recommend' => 1
@@ -50,6 +57,11 @@ class Review extends Base{
      * 已审核列表
      */
     public function passlist() {
+        $userId = session('userId');
+        $tag = WechatUserTag::where(['userid' => $userId, 'tagid' => WechatTag::TAG_LEADER])->find();
+        if(!$tag){
+            return $this ->fetch('user/null');
+        }
         $map = array(
             'status' => 1,
             'recommend' => 1
