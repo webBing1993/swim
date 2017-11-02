@@ -43,12 +43,12 @@ class Plan extends Admin {
 		$start_time = strtotime($data['start_time']);
 		$end_time = strtotime($data['end_time']);
 		//var_dump($data);die;
-		$list = WeekSummary::where(['userid' => $data['userid']])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
+		$list = WeekSummary::where(['userid' => $data['userid'], 'status' => 0])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
 		//var_dump($list->fetchSql()->select());die;
 		//var_dump($list);die;
 		if(!$list){
 			echo "<meta http-equiv='Content-Type'' content='text/html; charset=utf-8'>";
-			echo "<script>alert('没有数据不允许导出！');</script>";
+			echo "<script>alert('没有数据不允许导出！');history.go(-1);</script>";
 			exit;
 		}
 		$html = [];
@@ -105,12 +105,12 @@ class Plan extends Admin {
 		$start_time = strtotime($data['start_time']);
 		$end_time = strtotime($data['end_time']);
 		//var_dump($data);die;
-		$list = WeekPlan::where(['userid' => $data['userid']])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
+		$list = WeekPlan::where(['userid' => $data['userid'], 'status' => 0])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
 		//var_dump($list->fetchSql()->select());die;
 		//var_dump($list);die;
 		if(!$list){
 			echo "<meta http-equiv='Content-Type'' content='text/html; charset=utf-8'>";
-			echo "<script>alert('没有数据不允许导出！');</script>";
+			echo "<script>alert('没有数据不允许导出！');history.go(-1);</script>";
 			exit;
 		}
 		$html = [];
@@ -270,12 +270,12 @@ class Plan extends Admin {
 		$start_time = strtotime($data['start_time']);
 		$end_time = strtotime($data['end_time']);
 		//var_dump($data);die;
-		$list = ClassPlan::where(['userid' => $data['userid']])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
+		$list = ClassPlan::where(['userid' => $data['userid'], 'status' => 0])->where('start',['>=',$start_time],['<=',$end_time],'and')->select();
 		//var_dump($list->fetchSql()->select());die;
 		//var_dump($list);die;
 		if(!$list){
 			echo "<meta http-equiv='Content-Type'' content='text/html; charset=utf-8'>";
-			echo "<script>alert('没有数据不允许导出！');</script>";
+			echo "<script>alert('没有数据不允许导出！');history.go(-1);</script>";
 			exit;
 		}
 		$html = [];
