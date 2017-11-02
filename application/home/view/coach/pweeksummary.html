@@ -99,6 +99,8 @@ function weekSave(){
 	})
 }
 function wordSum(){
+    var len = $("#content").val().length;
+    $('.sum').find('span').text(len);
 	$('#summary,#content').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);
@@ -131,7 +133,10 @@ function timeSelect(){
 	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
 	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
 }
-
+window.addEventListener("popstate", function(e) {
+    console.log(123);
+    window.history.go(-1);
+}, false);
 
 </script>
 {/block}

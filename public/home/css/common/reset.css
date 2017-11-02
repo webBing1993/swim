@@ -83,3 +83,6 @@ html{
         font-size: 75%!important; /* 12÷16=75% */
     }
 }
+.clearfix {
+    zoom: 1;
+}

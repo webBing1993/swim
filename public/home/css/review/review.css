@@ -63,6 +63,13 @@ li {
 	position:absolute;
 	bottom: 3vw;
 }
+.list .sent_time .name{
+	display: inline-block;
+	width: 35vw;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .list .sent_time>span:last-child{
 	display:inline-block;
 	float:right;

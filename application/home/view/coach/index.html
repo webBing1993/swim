@@ -174,21 +174,37 @@
 			<img src="/home/images/coach/banner02.png" alt="训练档案banner" class="banner-img">
 		</div>
 		<div class="mylist">
-			<a href="{:Url('Coach/allsign')}" class="list">
+			<a href="{:Url('Coach/allsign')}" class="list clearfix">
 				<img src="/home/images/coach/mid1.png" alt="学员签到logo">
-				学员签到
+				<div class="content fl">
+					<div class="name">学员签到</div>
+					<div class="detail">可查阅学员签到具体信息</div>
+				</div>
+				<i class="fa fa-angle-right fr"></i>
 			</a>
-			<a href="{:Url('Coach/weekplan?id=0')}" class="list">
+			<a href="{:Url('Coach/weekplan?id=0')}" class="list clearfix">
 				<img src="/home/images/coach/mzjh.png" alt="每周计划logo">
-				每周计划
+				<div class="content fl">
+					<div class="name">每周计划</div>
+					<div class="detail">可制定每周训练计划</div>
+				</div>
+				<i class="fa fa-angle-right fr"></i>
 			</a>
-			<a href="{:Url('Coach/classplan')}" class="list">
+			<a href="{:Url('Coach/classplan')}" class="list clearfix">
 				<img src="/home/images/coach/ksjh.png" alt="课时计划logo">
-				课时计划
+				<div class="content fl">
+					<div class="name">课时计划</div>
+					<div class="detail">可制定课时计划</div>
+				</div>
+				<i class="fa fa-angle-right fr"></i>
 			</a>
-			<a href="{:Url('Coach/weekplan?id=1')}" class="list">
+			<a href="{:Url('Coach/weekplan?id=1')}" class="list clearfix">
 				<img src="/home/images/coach/mzzj.png" alt="每周总结logo">
-				每周总结
+				<div class="content fl">
+					<div class="name">每周总结</div>
+					<div class="detail">可制定每周训练计划</div>
+				</div>
+				<i class="fa fa-angle-right fr"></i>
 			</a>
 		</div>
 
@@ -343,7 +359,7 @@ $(function(){
                 if(i == 0) {
                     $('body,html').animate({scrollTop:0},1000);
                     return false;
-                }else if(i == 1){
+                }else if(i >= 1){
                     $('body,html').animate({scrollTop:$study.height()},1000);
                     return false;
                 }

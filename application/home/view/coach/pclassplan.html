@@ -432,6 +432,8 @@ function templet(){
 	});
 }
 function wordSum(){
+    var len = $('#need').val().length;
+   $('.sum').find('span').text(len);
 	$('#need,#summary').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);

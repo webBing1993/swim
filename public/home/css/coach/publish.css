@@ -55,7 +55,7 @@ body {
 .list .content textarea {
   width: 84vw;
   min-height: 30vw;
-  color: #999999;
+  color: #333;
   background: #fcfcfc;
 }
 .list .content .sum {

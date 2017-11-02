@@ -142,6 +142,8 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
+	//判断是否有值
+//    Judge ();
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -216,6 +218,7 @@ function radio(){
 				var text = $(this).text();
 				$(this).parents('td').replaceWith('<td>'+text+'</td>');
 				radio();
+               /// Judge ();
 			});
 		}
 
@@ -247,7 +250,7 @@ function weekSave(){
 				success:function(data){
 //					var lists = $.parseJSON( data );
 					swal( {
-						title: '成功',
+						title: '提示',
 						text: '保存成功',
 						type: 'success',
 						showConfirmButton: true,
@@ -280,6 +283,19 @@ function daySave(){
 			var distance = list.find('td').eq(3).text();
 			var pose = list.find('td').eq(4).text();
 			var detail = list.find('td').eq(5).text();
+            if(distance == "-" || pose == '-' || detail =='-'){
+                swal({
+                    title: '提示',
+                    text: '请填写完整信息',
+                    type: 'error',
+                    showConfirmButton: true,
+                    timer: 2000
+                })
+            }else {
+                $('.bg').fadeOut();
+				$('.main').fadeIn();
+				enable_back();
+			}
 			content.push([group,num,distance,pose,detail])
 		}
 		if(len!=1){
@@ -288,7 +304,8 @@ function daySave(){
 				contentself:$('#contentself').val(),
 				load:$('.load span.active').index()+1,
 				duration:$('.duration span.active').index()+1
-			};console.log(data);
+			};
+			console.log(data);
 			var index = $('.week').attr('data-tab');
 			days[index] = data;
 			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
@@ -299,9 +316,9 @@ function daySave(){
 //		}else{
 //			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
 //		}
-		$('.bg').fadeOut();
-		$('.main').fadeIn();
-		enable_back();
+//		$('.bg').fadeOut();
+//		$('.main').fadeIn();
+//		enable_back();
 	})
 }
 function templet(){
@@ -351,6 +368,8 @@ function templet(){
 		});
 }
 function wordSum(){
+     var len = $("#need").val().length;
+    $('.sum').find('span').text(len);
 	$('#need,#load,#content').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);
@@ -393,7 +412,6 @@ function temShow(data){
 		});
 	})
 }
-
 
 </script>
 {/block}

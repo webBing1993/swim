@@ -30,7 +30,7 @@
 					<div class="list">
 						<span class="title" >{$vo.title}</span>
 						<span class="sent_time">
-							<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">
+							<span style="margin-right: 5px;font-weight: bolder;display: block;height:5.2vw;line-height:6.2vw;">
 								{if condition="$vo.tab eq 0"}
 								<?php echo \app\home\model\News::TYPE_ARRAY[$vo['type']];?>
 								{elseif condition="$vo.tab eq 1"/}
@@ -40,7 +40,7 @@
 								{/if}
 							</span>
 							{if condition="($vo.tab eq 0) or ($vo.tab eq 1)"}
-							<span>发布人：{$vo.publisher}</span>
+							<span class="name">发布人：{$vo.publisher}</span>
 							{/if}
 							<span>{$vo.create_time|time_format='Y-m-d'}</span>
 						</span>
