@@ -58,7 +58,8 @@ class Notice extends Admin {
             }
             $data['tag'] = $data['tag'] ? json_encode($data['tag']) : null;
             $data['create_user'] = $_SESSION['think']['user_auth']['id'];
-            if($data['recommend'] == 1) $data['status'] = 0;
+            //if($data['recommend'] == 1) $data['status'] = 0;
+            $data['status'] = 0;
             $model = $noticeModel->validate('Notice.other')->save($data);
             if($model) {
                 //NoticeTag::where(['pid' => $noticeModel->id])->delete();

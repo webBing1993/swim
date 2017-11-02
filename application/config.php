@@ -82,7 +82,7 @@ return [
     'de_card' => '/home/images/common/card.png',
 
     // 推送域名
-    'http_url' => 'http://xpf.swim.cn',
+    'http_url' => 'http://xpf.pb.cn',
     //推送接受用户  @all全部
     'touser' => 'ben',
 
