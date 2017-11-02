@@ -528,7 +528,7 @@ class Coach extends Base {
 					}
 				}
 				$res['score'] = $res['score']?array_values($res['score']):null;
-				var_dump($res);die;
+				//var_dump($res);die;
 			}else{
 				$this->assign('score', $score);
 			}
