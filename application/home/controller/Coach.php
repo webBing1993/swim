@@ -527,7 +527,7 @@ class Coach extends Base {
 						$res['score'][$userid]['score'] = '';
 					}
 				}
-				$res['score'] = array_values($res['score']);
+				$res['score'] = $res['score']?array_values($res['score']):[];
 			}else{
 				$this->assign('score', $score);
 			}
