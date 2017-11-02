@@ -526,10 +526,9 @@ class Coach extends Base {
 					}
 				}
 				$res['score'] = array_values($res['score']);
-			}else{
-				$this->assign('score', $score);
 			}
 			//var_dump($res);die;
+			$this->assign('score', $score);
 			$this->assign('contents',json_encode($contents));
 			$this->assign('res', $res);
 			return $this->fetch();
