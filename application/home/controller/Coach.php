@@ -515,8 +515,10 @@ class Coach extends Base {
 				$res = ClassPlan::getModelById($id);
 				$contents = $res['contents'];
 				$score_users = [];
-				foreach($res['score'] as $model) {
-					$score_users[] = $model['userid'];
+				if($res['score']){
+					foreach($res['score'] as $model) {
+						$score_users[] = $model['userid'];
+					}
 				}
 				foreach($score as $userid => $name) {
 					if(!in_array($userid, $score_users)) {
@@ -526,9 +528,10 @@ class Coach extends Base {
 					}
 				}
 				$res['score'] = array_values($res['score']);
+			}else{
+				$this->assign('score', $score);
 			}
 			//var_dump($res);die;
-			$this->assign('score', $score);
 			$this->assign('contents',json_encode($contents));
 			$this->assign('res', $res);
 			return $this->fetch();
