@@ -27,8 +27,8 @@
 	{volist name="res" id="vo"}
 	<div class="list" data-tab="{$vo.userid}" data-tag="{$vo.class_id}">
 		<div class="coach">
-			<span class="name limit">教练：{$vo.name}/ {$vo.class_name}</span>
-			<span class="num limit">学员情况：<span>{$vo.current_num}</span>/{$vo.all_num}</span>
+			<span class="name limit">教练: {$vo.name}/ {$vo.class_name}</span>
+			<span class="num limit">学员情况: <span>{$vo.current_num}</span>/{$vo.all_num}</span>
 		</div>
 	</div>
 	{/volist}
@@ -108,8 +108,8 @@
                                 for (var i=0;i<obj.length;i++) {
                                     html += '<div class="'+'list'+'" data-tab='+obj[i].coach_id+' data-tag='+obj[i].class_id+'>'+
                                         '<div class="'+'coach'+'">'+
-                                        '<span class="'+'name limit'+'">教练：'+obj[i].name+'/'+obj[i].class_name+'</span>'+
-                                        '<span class="'+'num limit'+'">学员情况：<span>'+obj[i].current_num+'</span>/'+obj[i].all_num+'</span>'+
+                                        '<span class="'+'name limit'+'">教练: '+obj[i].name+'/'+obj[i].class_name+'</span>'+
+                                        '<span class="'+'num limit'+'">学员情况: <span>'+obj[i].current_num+'</span>/'+obj[i].all_num+'</span>'+
                                         '</div>'+
                                         '</div>';
                                 }
