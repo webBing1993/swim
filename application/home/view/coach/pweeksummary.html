@@ -54,31 +54,47 @@ $(function(){
 
 });
 function weekSave(){
-	$('.save').off('click').on('click',function(){
+    $('.save').off('click').on('click',function(){
+        var data ={
+            id:"{$res.id ? $res.id : '';}",
+            title:$('input[name=title]').val(),
+            start:$('input[name=start]').val(),
+            end:$('input[name=end]').val(),
+            content:$('#content').val(),
+            summary:$('#summary').val()
+        };
         var title = $('input[name=title]').val();
-        var need = $('#need').val();
+        var content = $('#content').val();
         var summary = $('#summary').val();
-        if (title != "" && need != ""  &&summary !="") {
-            swal( {
-                title: '提示',
-                text: '保存成功',
-                type: 'success',
-                showConfirmButton: true
-            })
-            $('button').on('click',function(){
-                window.location.href = '/home/coach/weekPlan/id/0'
-            })
-        } else{
+        if (title == "" || content == "" || summary == "") {
             swal({
                 title: '提示',
                 text: '请完善您的信息',
                 type: 'error',
-                showConfirmButton:true,
-                timer:3000
+                showConfirmButton: true,
+                timer: 3000
+            })
+        } else {
+            swal({
+                title: '成功',
+                text: '保存成功',
+                type: 'success',
+                showConfirmButton: true
+            }).then(function (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: data,
+                    success: function (data) {
+                        if (isConfirm) {
+                            window.location.href = '/home/coach/weekplan/id/1.html'
+                        }
+                    }
+
+                })
             })
         }
     })
-
 }
 function wordSum(){
     var len = $("#content").val().length;

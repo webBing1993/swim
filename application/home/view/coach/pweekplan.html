@@ -142,8 +142,8 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
-	//判断是否有值
-//    Judge ();
+    //退出缓存
+     isOut();
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -218,7 +218,7 @@ function radio(){
 				var text = $(this).text();
 				$(this).parents('td').replaceWith('<td>'+text+'</td>');
 				radio();
-               /// Judge ();
+
 			});
 		}
 
@@ -232,30 +232,65 @@ if(clen > 0){
 		days[contents[i].type - 1]= contents[i]
 	}
 }
+
 function weekSave(){
-	$('.save').off('click').on('click',function(){
-		var title = $('input[name=title]').val();
-		var need = $('#need').val();
-		if (title != "" && need != "") {
-            swal( {
+    $('.save').off('click').on('click',function() {
+        var students = $('.student');
+        var len = students.length;
+        var mark = [];
+        for (var i = 0; i < len; i++) {
+            var student = students.eq(i);
+            var id = student.find('.name').attr('data-tab');
+            var name = student.find('.name').text();
+            var time = student.find('input').val();
+            var good = student.find('.name').hasClass('green') ? '1' : '0';
+            if (time != '') {
+                mark[i] = {'id': id, 'name': name, 'time': time, 'good': good};
+            } else {
+                mark[i] = {};
+            }
+        }
+        var data = {
+            id: "{$res.id ? $res.id : '';}",
+            title: $('input[name=title]').val(),
+            start: $('input[name=start]').val(),
+            end: $('input[name=end]').val(),
+            need: $('#need').val()
+        };
+        data['days'] = days;
+        data['mark'] = mark;
+
+        var title = $('input[name=title]').val();
+        var need = $('#need').val();
+        if (title == "" || need == "") {
+            swal({
                 title: '提示',
+                text: '请完善您的信息',
+                type: 'error',
+                showConfirmButton: true,
+                timer: 3000
+            })
+        } else {
+            swal({
+                title: '成功',
                 text: '保存成功',
                 type: 'success',
                 showConfirmButton: true
+            }).then(function (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: data,
+                    success: function (data) {
+                        if (isConfirm) {
+                            window.location.href = '/home/coach/weekplan/id/0.html'
+                        }
+                    }
+
+                })
             })
-            $('button').on('click',function(){
-                window.location.href = '/home/coach/weekPlan/id/0'
-            })
-		} else{
-			swal({
-				title: '提示',
-				text: '请完善您的信息',
-				type: 'error',
-				showConfirmButton:true,
-				timer:3000
-			})
-			}
-		})
+        }
+    })
 }
 function daySave(){
 	$('.daysave').off('click').on('click',function(){
@@ -390,6 +425,47 @@ function temShow(data){
 		});
 	})
 }
+//退出清理tab缓存
+function isOut(){
+    pushHistory();
+    setTimeout(function(){
+        window.addEventListener("popstate", function(e) {
+            delCookie("type");
+            window.location.href = "/home/index/index.html";
+        }, false);
+    },200)
+}
+//防止恶意刷新
+function pushHistory(){
+    var sta = {
+        title: "title"
+    };
+    if( window.history.state === null )
+    {
+        window.history.pushState( sta, "title" );
+    }
+}
+function setCookie(name,value){
+    var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
+}
+function getCookie(name){
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return arr[2];
+    else
+        return null;
+}
+function delCookie(name){
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
 
 </script>
 {/block}
