@@ -28,7 +28,7 @@
         {volist name="list" id="vo"}
         <li>
             <a href="{:Url('Book/userlist?did='.$vo['id'])}" class="list_header " data-pid="">
-                <span>{$vo.name}</span><span class="fr rt_icon"></span>
+                <span>{$vo.name}</span><span class="fr rt_icon">{$vo.num}</span>
             </a>
         </li>
         {/volist}

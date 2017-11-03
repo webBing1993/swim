@@ -64,6 +64,7 @@ class Structure extends Base{
 		$this->assign('coachModel',$coachModel);
 		$this->assign('class_arr',$class_arr);
 		$this->assign('userList',$userList);
+		$this->assign('num',count($userList));
 		return $this->fetch();
 	}
 	/**

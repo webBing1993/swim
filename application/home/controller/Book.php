@@ -8,6 +8,7 @@
  */
 
 namespace app\home\controller;
+use app\admin\model\WechatDepartmentUser;
 use app\home\model\WechatDepartment;
 use app\home\model\WechatUser;
 use app\home\model\WechatTag;
@@ -83,7 +84,13 @@ class Book extends Base
     public function  deplist(){
         $this->anonymous();
         $did = input('get.did');   // 获取部门列表
-        $list = Db::table('sw_wechat_department')->where('parentid',$did)->order('id')->field('id,name')->select();
+        $list = Db::table('sw_wechat_department')->where('parentid',$did)->order('id')->field('id,name,"" num')->select();
+        if($did == 7){
+            foreach($list as $k => $v){
+                $list[$k]['num'] = WechatDepartmentUser::where('departmentid',$v['id'])->count();
+            }
+        }
+
         $this->assign('list',$list);
         $dep = WechatDepartment::get($did);     //三级名称
         $parent = WechatDepartment::get($dep['parentid']); //二级名称
@@ -128,6 +135,11 @@ class Book extends Base
                 $list[$key]['header'] = param_to($User['avatar'], \think\Config::get('de_header'));
             }else{
                 $list[$key]['header'] = get_cover($User['header'], 'path');
+            }
+            if($did==WechatDepartment::DEPARTMENT_HEAD_COACH || $did==WechatDepartment::DEPARTMENT_ASSISTANT || $did==WechatDepartment::DEPARTMENT_COACH_READY){
+                $list[$key]['num'] = WechatUser::where(['coach_id' => $value['userid'], 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
+            }else{
+                $list[$key]['num'] = '';
             }
         }
 
