@@ -234,41 +234,27 @@ if(clen > 0){
 }
 function weekSave(){
 	$('.save').off('click').on('click',function(){
-		var data ={
-			id:"{$res.id ? $res.id : '';}",
-			title:$('input[name=title]').val(),
-			start:$('input[name=start]').val(),
-			end:$('input[name=end]').val(),
-			need:$('#need').val(),
-		};
-//		if(isAll(data)){
-			data['days'] =days;
-			$.ajax({
-				type:"post",
-				url:"",
-				data:data,
-				success:function(data){
-//					var lists = $.parseJSON( data );
-					swal( {
-						title: '提示',
-						text: '保存成功',
-						type: 'success',
-						showConfirmButton: true,
-					}).then(function(isConfirm){
-						if (isConfirm) {
-							window.location.href = '/home/coach/weekPlan/id/0'
-						}})
-				}
+		var title = $('input[name=title]').val();
+		var need = $('#need').val();
+		if (title != "" && need != "") {
+            swal( {
+                title: '提示',
+                text: '保存成功',
+                type: 'success',
+                showConfirmButton: true
+            })
+            $('button').on('click',function(){
+                window.location.href = '/home/coach/weekPlan/id/0'
+            })
+		} else{
+			swal({
+				title: '提示',
+				text: '请完善您的信息',
+				type: 'error',
+				showConfirmButton:true,
+				timer:3000
 			})
-//		}else{
-//			swal({
-//				title: '提示',
-//				text: '请完善您的信息',
-//				type: 'error',
-//				showConfirmButton:true,
-//				timer:3000
-//			})
-//			}
+			}
 		})
 }
 function daySave(){
@@ -351,14 +337,6 @@ function templet(){
 			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
 		}else{
 			html +='';
-//				'<tr>'+
-//				'<td>1</td>'+
-//				'<td class="group">1</td>'+
-//				'<td class="num">1</td>'+
-//				'<td class="distance">-</td>'+
-//				'<td class="pose">-</td>'+
-//				'<td class="detail">-</td>'+
-//				'</tr>';
 			$('table').html(html);
 			$('#contentself').val('');
 			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');

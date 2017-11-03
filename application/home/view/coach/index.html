@@ -18,7 +18,7 @@
 		position: fixed;
 		right: 0;
 		bottom: 22vw;
-		width: 32vw;
+		width: 35vw;
 		height: 9.4vw;
 		line-height: 9.4vw;
 		text-align: center;
@@ -37,7 +37,7 @@
 	.class_name>img{
 		width: 4.8vw;
 		position: absolute;
-		top: 3.2vw;
+		top: 3.5vw;
 		right: 1vw;
 	}
 	.hideKey1{
@@ -354,8 +354,10 @@ $(function(){
         var t = $(".class_name span").html();
         console.log(t);
         for(var i = 0; i < $(".hideKey").length; i++ ) {
+
             if($(".hideKey").eq(i).html() == t) {
                 var $study = $(".students").eq(i-1);
+                console.log($study);
                 if(i == 0) {
                     $('body,html').animate({scrollTop:0},1000);
                     return false;
@@ -427,14 +429,17 @@ function tagswich(){
 
         $(".mobileSelect .ensure").on("touchstart",function (e) {
             var t = $(".class_name span").html();
+            var $study = 0;
             for(var i = 0; i < date.length; i++ ) {
-				var $study = $(".students").eq(i);
+                var height = $(".students").eq(i).height();
+                $study += parseFloat(height);
+//                var $study = $(".students").eq(i).height() 7                         + $(".students").eq(i-1).height();
 				if(date[i] == t) {
 					if(i == 0) {
 						$('body,html').animate({scrollTop:0},1000);
 						return false;
-					}else if(i == 1){
-						$('body,html').animate({scrollTop:$study.height() + $(".content").find(".lists").eq(1).find(".hideKey").height() + $(".tabbox").height()},1000);
+					}else if(i >= 1){
+						$('body,html').animate({scrollTop:$study + i * $(".content").find(".lists").eq(1).find(".hideKey").height() + $(".tabbox").height()},1000);
 						return false;
 					}
 				}

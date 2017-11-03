@@ -133,7 +133,7 @@ body{
 }
 .lists a .fr{
 	box-sizing: border-box;
-	width:13.33vw;
+	width:9.33vw;
 	height:14.4vw;
 	text-align: right;
 	margin-right: 4vw;
@@ -152,4 +152,8 @@ body{
 
 .hidden{
 	display: none;
+}
+.lists a .fr  b{
+	font-weight: 500;
+	margin-right:3vw;
 }
