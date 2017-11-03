@@ -293,126 +293,147 @@ if(clen > 0){
 }
 
 function weekSave(){
-	$('.save').off('click').on('click',function(){
-		var students = $('.student');
-		var len = students.length;
-		var mark = [];
-		for(var i = 0 ; i < len ;i++){
-			var student =students.eq(i);
-			var id = student.find('.name').attr('data-tab');
-			var name = student.find('.name').text();
-			var time = student.find('input').val();
-			var good = student.find('.name').hasClass('green')?'1':'0';
-			if(time!=''){
-				mark[i] = {'id':id,'name':name,'time':time,'good':good};
-			}else{
-				mark[i] = {};
-			}
-		}
+	$('.save').off('click').on('click',function() {
+        var students = $('.student');
+        var len = students.length;
+        var mark = [];
+        for (var i = 0; i < len; i++) {
+            var student = students.eq(i);
+            var id = student.find('.name').attr('data-tab');
+            var name = student.find('.name').text();
+            var time = student.find('input').val();
+            var good = student.find('.name').hasClass('green') ? '1' : '0';
+            if (time != '') {
+                mark[i] = {'id': id, 'name': name, 'time': time, 'good': good};
+            } else {
+                mark[i] = {};
+            }
+        }
+        var data = {
+            id: "{$res.id ? $res.id : '';}",
+            title: $('input[name=title]').val(),
+            start: $('input[name=start]').val(),
+            need: $('#need').val(),
+            summary: $('#summary').val(),
+        };
+        data['parts'] = parts;
+        data['mark'] = mark;
 
         var title = $('input[name=title]').val();
         var need = $('#need').val();
-        if (title != "" && need != "") {
-            swal( {
-                title: '提示',
-                text: '保存成功',
-                type: 'success',
-                showConfirmButton: true
-            })
-            $('button').on('click',function(){
-                window.location.href = '/home/coach/weekPlan/id/0'
-            })
-        } else{
+        if (title == "" || need == "") {
             swal({
                 title: '提示',
                 text: '请完善您的信息',
                 type: 'error',
-                showConfirmButton:true,
-                timer:3000
+                showConfirmButton: true,
+                timer: 3000
+            })
+        } else {
+            swal({
+                title: '成功',
+                text: '保存成功',
+                type: 'success',
+                showConfirmButton: true
+            }).then(function (isConfirm) {
+                $.ajax({
+                    type: "post",
+                    url: "",
+                    data: data,
+                    success: function (data) {
+                        if (isConfirm) {
+                            window.location.href = '/home/coach/classplan'
+                        }
+                    }
+
+                })
             })
         }
     })
 }
-function daySave(){
-	$('.daysave').off('click').on('click',function(){
-		var content = [];
-		var lists = $('table tr');
-		var len = lists.length;
-		for(var i = 1;i <len ;i++){
-			var list = lists.eq(i);
-			var group = list.find('td').eq(1).text();
-			var num = list.find('td').eq(2).text();
-			var distance = list.find('td').eq(3).text();
-			var pose = list.find('td').eq(4).text();
-			var detail = list.find('td').eq(5).text();
-            if(distance == "-" || pose == '-' || detail =='-'){
-                swal({
-                    title: '提示',
-                    text: '请填写完整信息',
-                    type: 'error',
-                    showConfirmButton: true,
-                    timer: 2000
-                })
-            }else {
-                $('.bg').fadeOut();
-                $('.main').fadeIn();
-                enable_back();
-            }
-			content.push([group,num,distance,pose,detail])
-		}
-		if(len!=1){
-			var data ={
-				content:content,
-				contentself:$('#contentself').val(),
-				load:$('.load span.active').index()+1,
-				//strength:$('.strength span.active').index()+1,
-				duration:$('.duration span.active').index()+1
-			};
-			var index = $('.week').attr('data-tab');
-			parts[index] = data;
-			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
-		}
+
+
+        function daySave() {
+            $('.daysave').off('click').on('click', function () {
+                var content = [];
+                var lists = $('table tr');
+                var len = lists.length;
+                for (var i = 1; i < len; i++) {
+                    var list = lists.eq(i);
+                    var group = list.find('td').eq(1).text();
+                    var num = list.find('td').eq(2).text();
+                    var distance = list.find('td').eq(3).text();
+                    var pose = list.find('td').eq(4).text();
+                    var detail = list.find('td').eq(5).text();
+                    if (distance != "-" && pose != '-' && detail != '-') {
+                        $('.bg').fadeOut();
+                        $('.main').fadeIn();
+                        enable_back();
+                    } else {
+                        swal({
+                            title: '提示',
+                            text: '请填写完整信息',
+                            type: 'error',
+                            showConfirmButton: true,
+                            timer: 2000
+                        })
+                    }
+                    content.push([group, num, distance, pose, detail]);
+                if (len != 1) {
+                    var data = {
+                        content: content,
+                        contentself: $('#contentself').val(),
+                        load: $('.load span.active').index() + 1,
+                        //strength:$('.strength span.active').index()+1,
+                        duration: $('.duration span.active').index() + 1
+                    };
+                    var index = $('.week').attr('data-tab');
+                    parts[index] = data;
+                    $('.templet').eq(index).find('.fa-angle-right').addClass('green');
+                }
+                }
 
 //		if(isAll(data)){
 //			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
 //		}else{
 //			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
 //		}
-		$('.bg').fadeOut();
-		$('.main').fadeIn();
-		enable_back();
-	})
-}
-function templet(){
-	$('.templet').off('click').on('click',function(){
-		var index = $(this).attr('data-tab');
-		var name = $(this).find('.title').text();
-		$('.week').text(name).attr('data-tab',index);
-		fobidden_back();
-		$('.main').fadeOut();
-		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
-		if(parts[index]){
-			var trs = parts[index].content;
-			var len = trs.length;
-			for(var i = 0 ; i<len;i++){
-				html+=
-					'<tr>'+
-					'<td>'+(i+1)+'</td>'+
-					'<td class="group">'+trs[i][0]+'</td>'+
-					'<td class="num">'+trs[i][1]+'</td>'+
-					'<td class="distance">'+trs[i][2]+'</td>'+
-					'<td class="pose">'+trs[i][3]+'</td>'+
-					'<td class="detail">'+trs[i][4]+'</td>'+
-					'</tr>';
-			}
-			$('table').html(html);
-			$('#contentself').val(parts[index].contentself);
-			$('.load span').eq(parts[index].load-1).addClass('active').siblings('span').removeClass('active');
-			$('.strength span').eq(parts[index].strength-1).addClass('active').siblings('span').removeClass('active');
-			$('.duration span').eq(parts[index].duration-1).addClass('active').siblings('span').removeClass('active');
-		}else{
-			html +='';
+//                $('.bg').fadeOut();
+//                $('.main').fadeIn();
+//                enable_back();
+            })
+        }
+
+        function templet() {
+            $('.templet').off('click').on('click', function () {
+                var index = $(this).attr('data-tab');
+                var name = $(this).find('.title').text();
+                $('.week').text(name).attr('data-tab', index);
+                fobidden_back();
+                $('.main').fadeOut();
+                $('.bg').fadeIn();
+                var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
+                if (parts[index]) {
+                    var trs = parts[index].content;
+                    var len = trs.length;
+                    for (var i = 0; i < len; i++) {
+                        html +=
+                            '<tr>' +
+                            '<td>' + (i + 1) + '</td>' +
+                            '<td class="group">' + trs[i][0] + '</td>' +
+                            '<td class="num">' + trs[i][1] + '</td>' +
+                            '<td class="distance">' + trs[i][2] + '</td>' +
+                            '<td class="pose">' + trs[i][3] + '</td>' +
+                            '<td class="detail">' + trs[i][4] + '</td>' +
+                            '</tr>';
+                    }
+                    $('table').html(html);
+                    $('#contentself').val(parts[index].contentself);
+                    $('.load span').eq(parts[index].load - 1).addClass('active').siblings('span').removeClass('active');
+                    $('.strength span').eq(parts[index].strength - 1).addClass('active').siblings('span').removeClass('active');
+                    $('.duration span').eq(parts[index].duration - 1).addClass('active').siblings('span').removeClass('active');
+                } else {
+                    html += '';
 //				'<tr>'+
 //				'<td>1</td>'+
 //				'<td class="group">1</td>'+
@@ -421,58 +442,61 @@ function templet(){
 //				'<td class="pose">-</td>'+
 //				'<td class="detail">-</td>'+
 //				'</tr>';
-			$('table').html(html);
-			$('#contentself').val('');
-			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
-			$('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
-			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
-		}
-		radio()
-	});
-}
-function wordSum(){
-    var len = $('#need').val().length;
-   $('.sum').find('span').text(len);
-	$('#need,#summary').on('input',function(){
-		var len = $(this).val().length;
-		$(this).next('.sum').find('span').text(len);
-		if(len > 200){
-			$(this).next('.sum').find('span').addClass('red');
-		}else{
-			$(this).next('.sum').find('span').removeClass('red');
-		}
-	});
-}
-function timeSelect(){
-	var currYear = (new Date()).getFullYear();
-	var opt={};
-	opt.date = {preset : 'date'};
-	opt.default = {
-		theme: 'android-holo light',
-		display: 'modal',
-		mode: 'scroller',
-		dateFormat: 'yy-mm-dd',
-		lang: 'zh',
-		showNow: true,
-		nowText: "今天",
-		startYear: currYear,
-		endYear: currYear + 50,
-		onSelect: function (valueText, inst) {
-			var start = $('#start').val();
-		}
-	};
-	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
-}
-function temShow(data){
-	$('.choose').off('click').on('click',function(){
-		$('.tems').fadeIn();
-		$('.tems div').off('click').on('click',function(){
-			var index = $(this).index();
-			$('input[name=load]').val(data[index].load);
-			$('input[name=content]').val(data[index].content);
-		});
-	})
-}
+                    $('table').html(html);
+                    $('#contentself').val('');
+                    $('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+                    $('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+                    $('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+                }
+                radio()
+            });
+        }
+
+        function wordSum() {
+            var len = $('#need').val().length;
+            $('.sum').find('span').text(len);
+            $('#need,#summary').on('input', function () {
+                var len = $(this).val().length;
+                $(this).next('.sum').find('span').text(len);
+                if (len > 200) {
+                    $(this).next('.sum').find('span').addClass('red');
+                } else {
+                    $(this).next('.sum').find('span').removeClass('red');
+                }
+            });
+        }
+
+        function timeSelect() {
+            var currYear = (new Date()).getFullYear();
+            var opt = {};
+            opt.date = {preset: 'date'};
+            opt.default = {
+                theme: 'android-holo light',
+                display: 'modal',
+                mode: 'scroller',
+                dateFormat: 'yy-mm-dd',
+                lang: 'zh',
+                showNow: true,
+                nowText: "今天",
+                startYear: currYear,
+                endYear: currYear + 50,
+                onSelect: function (valueText, inst) {
+                    var start = $('#start').val();
+                }
+            };
+            $("#start").mobiscroll($.extend(opt['date'], opt['default']));
+        }
+
+        function temShow(data) {
+            $('.choose').off('click').on('click', function () {
+                $('.tems').fadeIn();
+                $('.tems div').off('click').on('click', function () {
+                    var index = $(this).index();
+                    $('input[name=load]').val(data[index].load);
+                    $('input[name=content]').val(data[index].content);
+                });
+            })
+        }
 
 </script>
 {/block}

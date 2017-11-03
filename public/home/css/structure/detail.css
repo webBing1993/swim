@@ -34,10 +34,21 @@ a:active {
   top: 30vw;
   text-align: center;
   color: #ffffff;
-  font-size: #666666;
   line-height: 1.6rem;
   padding-left: 2rem;
 }
+.banner>p{
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 36vw;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+
 .banner span:before {
   display: inline-block;
   width: 1.6rem;
