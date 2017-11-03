@@ -309,43 +309,7 @@ function weekSave(){
 				mark[i] = {};
 			}
 		}
-//		var data ={
-//			id:"{$res.id ? $res.id : '';}",
-//			title:$('input[name=title]').val(),
-//			start:$('input[name=start]').val(),
-//			need:$('#need').val(),
-//			summary:$('#summary').val(),
-//		};
-////		if(isAll(data)){
-//			data['parts'] =parts;
-//			data['mark'] =mark;
-//			$.ajax({
-//				type:"post",
-//				url:"",
-//				data:data,
-//				success:function(data){
-////					var lists = $.parseJSON( data );
-//					swal( {
-//						title: '成功',
-//						text: '保存成功',
-//						type: 'success',
-//						showConfirmButton: true,
-//					}).then(function(isConfirm){
-//						if (isConfirm) {
-//							window.location.href = '/home/coach/classplan'
-//						}})
-//				}
-//			});
-////		}else{
-////			swal({
-////				title: '提示',
-////				text: '请完善您的信息',
-////				type: 'error',
-////				showConfirmButton:true,
-////				timer:3000
-////			})
-////		}
-//	})
+
         var title = $('input[name=title]').val();
         var need = $('#need').val();
         if (title != "" && need != "") {
