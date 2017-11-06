@@ -142,8 +142,6 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
-    //退出缓存
-     isOut();
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -233,8 +231,8 @@ if(clen > 0){
 	}
 }
 
-function weekSave(){
-    $('.save').off('click').on('click',function() {
+function weekSave() {
+    $('.save').off('click').on('click', function () {
         var students = $('.student');
         var len = students.length;
         var mark = [];
@@ -277,11 +275,13 @@ function weekSave(){
                 type: 'success',
                 showConfirmButton: true
             }).then(function (isConfirm) {
+                console.log(456456456)
                 $.ajax({
                     type: "post",
                     url: "",
                     data: data,
                     success: function (data) {
+                        console.log(1213123)
                         if (isConfirm) {
                             window.location.href = '/home/coach/weekplan/id/0.html'
                         }
@@ -291,20 +291,20 @@ function weekSave(){
             })
         }
     })
-}
+};
 function daySave(){
-	$('.daysave').off('click').on('click',function(){
-		var content = [];
-		var lists = $('table tr');
-		var len = lists.length;
-		for(var i = 1;i <len ;i++){
-			var list = lists.eq(i);
-			var group = list.find('td').eq(1).text();
-			var num = list.find('td').eq(2).text();
-			var distance = list.find('td').eq(3).text();
-			var pose = list.find('td').eq(4).text();
-			var detail = list.find('td').eq(5).text();
-            if(distance == "-" || pose == '-' || detail =='-'){
+	$('.daysave').off('click').on('click',function() {
+        var content = [];
+        var lists = $('table tr');
+        var len = lists.length;
+        for (var i = 1; i < len; i++) {
+            var list = lists.eq(i);
+            var group = list.find('td').eq(1).text();
+            var num = list.find('td').eq(2).text();
+            var distance = list.find('td').eq(3).text();
+            var pose = list.find('td').eq(4).text();
+            var detail = list.find('td').eq(5).text();
+            if (distance == "-" || pose == '-' || detail == '-') {
                 swal({
                     title: '提示',
                     text: '请填写完整信息',
@@ -312,35 +312,26 @@ function daySave(){
                     showConfirmButton: true,
                     timer: 2000
                 })
-            }else {
+            } else {
                 $('.bg').fadeOut();
-				$('.main').fadeIn();
-				enable_back();
-			}
-			content.push([group,num,distance,pose,detail])
-		}
-		if(len!=1){
-			var data ={
-				content:content,
-				contentself:$('#contentself').val(),
-				load:$('.load span.active').index()+1,
-				duration:$('.duration span.active').index()+1
-			};
-			console.log(data);
-			var index = $('.week').attr('data-tab');
-			days[index] = data;
-			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
-		}
-
-//		if($('input[name=load]').val()!=''&&$('input[name=content]').val()!=''){
-//		$('.templet').eq(index).find('.fa-angle-right').addClass('green');
-//		}else{
-//			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
-//		}
-//		$('.bg').fadeOut();
-//		$('.main').fadeIn();
-//		enable_back();
-	})
+                $('.main').fadeIn();
+                enable_back();
+            }
+            content.push([group, num, distance, pose, detail])
+        }
+        if (len != 1) {
+            var data = {
+                content: content,
+                contentself: $('#contentself').val(),
+                load: $('.load span.active').index() + 1,
+                duration: $('.duration span.active').index() + 1
+            };
+            console.log(data);
+            var index = $('.week').attr('data-tab');
+            days[index] = data;
+            $('.templet').eq(index).find('.fa-angle-right').addClass('green');
+        }
+    })
 }
 function templet(){
 	$('.templet').off('click').on('click',function(){
@@ -425,47 +416,5 @@ function temShow(data){
 		});
 	})
 }
-//退出清理tab缓存
-function isOut(){
-    pushHistory();
-    setTimeout(function(){
-        window.addEventListener("popstate", function(e) {
-            delCookie("type");
-            window.location.href = "/home/index/index.html";
-        }, false);
-    },200)
-}
-//防止恶意刷新
-function pushHistory(){
-    var sta = {
-        title: "title"
-    };
-    if( window.history.state === null )
-    {
-        window.history.pushState( sta, "title" );
-    }
-}
-function setCookie(name,value){
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
-}
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-        return arr[2];
-    else
-        return null;
-}
-function delCookie(name){
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
-
-
 </script>
 {/block}

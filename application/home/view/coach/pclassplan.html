@@ -170,7 +170,7 @@ $(function(){
 	//新增训练内容
 	addList();
 	//退出缓存
-     isOut();
+//     isOut();
 	$('.student .name').off('click').on('click',function(){
 		$(this).toggleClass('green');
 	})
@@ -343,11 +343,14 @@ function weekSave(){
                     url: "",
                     data: data,
                     success: function (data) {
+                        console.log(data.summary);
                         if (isConfirm) {
-                            window.location.href = '/home/coach/classplan'
+                            window.location.href = '/home/coach/classplan.html'
                         }
+                    },
+					error: function (e) {
+						console.log(5465);
                     }
-
                 })
             })
         }
@@ -386,7 +389,7 @@ function weekSave(){
                         content: content,
                         contentself: $('#contentself').val(),
                         load: $('.load span.active').index() + 1,
-                        //strength:$('.strength span.active').index()+1,
+                        strength:$('.strength span.active').index()+1,
                         duration: $('.duration span.active').index() + 1
                     };
                     var index = $('.week').attr('data-tab');
