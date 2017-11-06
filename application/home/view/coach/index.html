@@ -329,12 +329,15 @@ $(function(){
 
     $(window).scroll(function() {
         var t = $(window).scrollTop();
+        var $study;
         for(var i = 0; i < date.length; i++) {
-            var $study=$(".students").eq(i).find("a");
-            if(t>=$study.length*$study.outerHeight()){
+//            var $study=$(".students").eq(i).find("a");
+            var height = $(".students").eq(i).outerHeight();
+            $study += parseFloat(height);
+            if(t >= $study - $(".hideKey").height() + $(".tabbox").height()){
                 $(".class_name").find("span").html(date[i]);
-            }else {
-                $(".class_name").find("span").html(date[i-1]);
+            }else if(t == 0) {
+                $(".class_name").find("span").html(date[0]);
             }
         }
     });
@@ -352,20 +355,22 @@ $(function(){
 
     $(".mobileSelect .ensure").on("touchstart",function (e) {
         var t = $(".class_name span").html();
-        console.log(t);
-        for(var i = 0; i < $(".hideKey").length; i++ ) {
-
-            if($(".hideKey").eq(i).html() == t) {
-                var $study = $(".students").eq(i-1);
-                console.log($study);
-                if(i == 0) {
-                    $('body,html').animate({scrollTop:0},1000);
-                    return false;
-                }else if(i >= 1){
-                    $('body,html').animate({scrollTop:$study.height()},1000);
-                    return false;
-                }
-            }
+        var $study = 0;
+        for(i in date) {
+            var height = $(".students").eq(i-1).height();
+            if (i == 0) {
+                height = 0;
+			}
+            $study += parseFloat(height);
+			if(date[i] == t) {
+				if(i == 0) {
+					$('body,html').animate({scrollTop:0},1000);
+					return false;
+				}else if(i >= 1){
+					$('body,html').animate({scrollTop:$study + i * $(".content").find(".lists").find(".hideKey").eq(0).height() + $(".tabbox").height()},1000);
+					return false;
+				}
+			}
         }
         return false;
     });
@@ -378,7 +383,6 @@ if($(".lists").eq(0).find(".students").length == 0) {
 }else {
     $(".class_name").show();
 }
-
 function tagswich(){
 	var list = $('.box').eq(0).find('.lists');
 
@@ -431,9 +435,11 @@ function tagswich(){
             var t = $(".class_name span").html();
             var $study = 0;
             for(var i = 0; i < date.length; i++ ) {
-                var height = $(".students").eq(i).height();
+                var height = $(".students").eq(i-1).height();
+                if(i == 0) {
+                    height = 0;
+				}
                 $study += parseFloat(height);
-//                var $study = $(".students").eq(i).height() 7                         + $(".students").eq(i-1).height();
 				if(date[i] == t) {
 					if(i == 0) {
 						$('body,html').animate({scrollTop:0},1000);
