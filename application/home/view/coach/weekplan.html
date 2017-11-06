@@ -147,9 +147,9 @@ function timeSelect(){
 					for(var i= 0 ;i<len;i++){
 						var list = lists[i];
 						html +=
-							'<div class="list">'+
+							'<div class="list ">'+
 							'<div class="content">'+
-							'<div class="title">'+list.title+'</div>'+
+							'<div class="title limit">'+list.title+'</div>'+
 							'<div class="time">'+list.start_time+' —— '+list.end_time +'</div>'+
 							'</div>'+
 							'<div class="note clear">'+
@@ -215,7 +215,7 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/index/index.html";
+            window.location.href = "/home/visitor/index.html";
         }, false);
     },200)
 }
