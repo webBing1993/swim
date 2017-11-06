@@ -24,7 +24,7 @@ body {
 .list input {
   background: transparent;
   width: 66vw;
-  color: #999999;
+  color: #333;
   text-align: right;
 }
 .list .fa-angle-right,
@@ -57,6 +57,10 @@ body {
   min-height: 30vw;
   color: #333;
   background: #fcfcfc;
+}
+.list .content textarea:disabled {
+  color: #000;
+  opacity: 1
 }
 .list .content .sum {
   text-align: right;
