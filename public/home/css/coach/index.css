@@ -248,10 +248,10 @@ textarea::-webkit-input-placeholder {
   display: block;
   padding: 0 4vw;
   width: 100vw;
-  height: 5rem;
+  height:15vw ;
   color: #666666;
   font-size: 1.4rem;
-  line-height: 5rem;
+  line-height: 15vw;
   border-bottom: 1px solid #dedede;
 }
 .boxs .box:nth-child(3) .mylist .list span {
@@ -260,7 +260,8 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(3) .mylist .list span.name {
   position: relative;
-  padding-left: 5rem;
+  padding-left: 15vw;
+  font-size: 1.4rem;
 }
 .boxs .box:nth-child(3) .mylist .list span.fa {
   color: #999999;
@@ -279,19 +280,19 @@ textarea::-webkit-input-placeholder {
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(1) .name {
   background: url('/home/images/coach/user1.png') 0 0.7rem no-repeat;
-  background-size: 3.6rem,3.6rem;
+  background-size:10.8vw,10.8vw;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(2) .name {
   background: url('/home/images/coach/user2.png') 0 0.7rem no-repeat;
-  background-size: 3.6rem,3.6rem;
+  background-size: 10.8vw,10.8vw;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(3) .name {
   background: url('/home/images/coach/user4.png') 0 0.7rem no-repeat;
-  background-size: 3.6rem,3.6rem;
+  background-size: 10.8vw,10.8vw;
 }
 .boxs .box:nth-child(3) .mylist .list:nth-child(4) .name {
   background: url('/home/images/coach/wdewm.png') 0 0.7rem no-repeat;
-  background-size: 3.6rem,3.6rem;
+  background-size: 10.8vw,10.8vw;
 }
 
 .mylist .content{

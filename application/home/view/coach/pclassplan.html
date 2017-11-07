@@ -169,8 +169,7 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
-	//退出缓存
-//     isOut();
+
 	$('.student .name').off('click').on('click',function(){
 		$(this).toggleClass('green');
 	})
@@ -384,172 +383,115 @@ function weekSave(){
                         })
                     }
                     content.push([group, num, distance, pose, detail]);
-                if (len != 1) {
-                    var data = {
-                        content: content,
-                        contentself: $('#contentself').val(),
-                        load: $('.load span.active').index() + 1,
-                        strength:$('.strength span.active').index()+1,
-                        duration: $('.duration span.active').index() + 1
-                    };
-                    var index = $('.week').attr('data-tab');
-                    parts[index] = data;
-                    $('.templet').eq(index).find('.fa-angle-right').addClass('green');
-                }
-                }
-
-//		if(isAll(data)){
-//			$('.templet').eq(index).find('.fa-angle-right').addClass('green');
-//		}else{
-//			$('.templet').eq(index).find('.fa-angle-right').removeClass('green');
-//		}
-//                $('.bg').fadeOut();
-//                $('.main').fadeIn();
-//                enable_back();
-            })
-        }
-
-        function templet() {
-            $('.templet').off('click').on('click', function () {
-                pushHistory();
-                var index = $(this).attr('data-tab');
-                var name = $(this).find('.title').text();
-                $('.week').text(name).attr('data-tab', index);
-               // fobidden_back();
-                $('.main').fadeOut();
-                $('.bg').fadeIn();
-                var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
-                if (parts[index]) {
-                    var trs = parts[index].content;
-                    var len = trs.length;
-                    for (var i = 0; i < len; i++) {
-                        html +=
-                            '<tr>' +
-                            '<td>' + (i + 1) + '</td>' +
-                            '<td class="group">' + trs[i][0] + '</td>' +
-                            '<td class="num">' + trs[i][1] + '</td>' +
-                            '<td class="distance">' + trs[i][2] + '</td>' +
-                            '<td class="pose">' + trs[i][3] + '</td>' +
-                            '<td class="detail">' + trs[i][4] + '</td>' +
-                            '</tr>';
+                    if (len != 1) {
+                        var data = {
+                            content: content,
+                            contentself: $('#contentself').val(),
+                            load: $('.load span.active').index() + 1,
+                            strength: $('.strength span.active').index() + 1,
+                            duration: $('.duration span.active').index() + 1
+                        };
+                        var index = $('.week').attr('data-tab');
+                        parts[index] = data;
+                        $('.templet').eq(index).find('.fa-angle-right').addClass('green');
                     }
-                    $('table').html(html);
-                    $('#contentself').val(parts[index].contentself);
-                    $('.load span').eq(parts[index].load - 1).addClass('active').siblings('span').removeClass('active');
-                    $('.strength span').eq(parts[index].strength - 1).addClass('active').siblings('span').removeClass('active');
-                    $('.duration span').eq(parts[index].duration - 1).addClass('active').siblings('span').removeClass('active');
-                } else {
-                    html += '';
-//				'<tr>'+
-//				'<td>1</td>'+
-//				'<td class="group">1</td>'+
-//				'<td class="num">1</td>'+
-//				'<td class="distance">-</td>'+
-//				'<td class="pose">-</td>'+
-//				'<td class="detail">-</td>'+
-//				'</tr>';
-                    $('table').html(html);
-                    $('#contentself').val('');
-                    $('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
-                    $('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
-                    $('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
                 }
-                radio()
-            });
-        }
+             })
+		}
 
-        function wordSum() {
-            var len = $('#need').val().length;
-            var len1 = $('#summary').val().length;
-            $('#need').next('.sum').find('span').text(len);
-            $('#summary').next('.sum').find('span').text(len1);
-            $('#need').on('input', function () {
-                var len = $(this).val().length;
 
-                $(this).next('.sum').find('span').text(len);
-                if (len > 200) {
-                    $(this).next('.sum').find('span').addClass('red');
-                } else {
-                    $(this).next('.sum').find('span').removeClass('red');
+                function templet() {
+                    $('.templet').off('click').on('click', function () {
+                        pushHistory();
+                        var index = $(this).attr('data-tab');
+                        var name = $(this).find('.title').text();
+                        $('.week').text(name).attr('data-tab', index);
+                        // fobidden_back();
+                        $('.main').fadeOut();
+                        $('.bg').fadeIn();
+                        var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
+                        if (parts[index]) {
+                            var trs = parts[index].content;
+                            var len = trs.length;
+                            for (var i = 0; i < len; i++) {
+                                html +=
+                                    '<tr>' +
+                                    '<td>' + (i + 1) + '</td>' +
+                                    '<td class="group">' + trs[i][0] + '</td>' +
+                                    '<td class="num">' + trs[i][1] + '</td>' +
+                                    '<td class="distance">' + trs[i][2] + '</td>' +
+                                    '<td class="pose">' + trs[i][3] + '</td>' +
+                                    '<td class="detail">' + trs[i][4] + '</td>' +
+                                    '</tr>';
+                            }
+                            $('table').html(html);
+                            $('#contentself').val(parts[index].contentself);
+                            $('.load span').eq(parts[index].load - 1).addClass('active').siblings('span').removeClass('active');
+                            $('.strength span').eq(parts[index].strength - 1).addClass('active').siblings('span').removeClass('active');
+                            $('.duration span').eq(parts[index].duration - 1).addClass('active').siblings('span').removeClass('active');
+                        } else {
+                            html += '';
+                            $('table').html(html);
+                            $('#contentself').val('');
+                            $('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+                            $('.strength span').eq(0).addClass('active').siblings('span').removeClass('active');
+                            $('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+                        }
+                        radio()
+                    });
                 }
-            });
-        }
 
-        function timeSelect() {
-            var currYear = (new Date()).getFullYear();
-            var opt = {};
-            opt.date = {preset: 'date'};
-            opt.default = {
-                theme: 'android-holo light',
-                display: 'modal',
-                mode: 'scroller',
-                dateFormat: 'yy-mm-dd',
-                lang: 'zh',
-                showNow: true,
-                nowText: "今天",
-                startYear: currYear,
-                endYear: currYear + 50,
-                onSelect: function (valueText, inst) {
-                    var start = $('#start').val();
+                function wordSum() {
+                    var len = $('#need').val().length;
+                    var len1 = $('#summary').val().length;
+                    $('#need').next('.sum').find('span').text(len);
+                    $('#summary').next('.sum').find('span').text(len1);
+                    $('#need').on('input', function () {
+                        var len = $(this).val().length;
+
+                        $(this).next('.sum').find('span').text(len);
+                        if (len > 200) {
+                            $(this).next('.sum').find('span').addClass('red');
+                        } else {
+                            $(this).next('.sum').find('span').removeClass('red');
+                        }
+                    });
                 }
-            };
-            $("#start").mobiscroll($.extend(opt['date'], opt['default']));
-        }
 
-        function temShow(data) {
-            $('.choose').off('click').on('click', function () {
-                $('.tems').fadeIn();
-                $('.tems div').off('click').on('click', function () {
-                    var index = $(this).index();
-                    $('input[name=load]').val(data[index].load);
-                    $('input[name=content]').val(data[index].content);
-                });
-            })
-        }
+                function timeSelect() {
+                    var currYear = (new Date()).getFullYear();
+                    var opt = {};
+                    opt.date = {preset: 'date'};
+                    opt.default = {
+                        theme: 'android-holo light',
+                        display: 'modal',
+                        mode: 'scroller',
+                        dateFormat: 'yy-mm-dd',
+                        lang: 'zh',
+                        showNow: true,
+                        nowText: "今天",
+                        startYear: currYear,
+                        endYear: currYear + 50,
+                        onSelect: function (valueText, inst) {
+                            var start = $('#start').val();
+                        }
+                    };
+                    $("#start").mobiscroll($.extend(opt['date'], opt['default']));
+                }
 
-//退出清理tab缓存
-function isOut(){
-    pushHistory();
-    setTimeout(function(){
-        window.addEventListener("popstate", function(e) {
-            delCookie("type");
-            window.location.href = "/home/coach/classplan.html";
-        }, false);
-    },200)
-}
-//防止恶意刷新
-function pushHistory(){
-    var sta = {
-        title: "title"
-    };
-    if( window.history.state === null )
-    {
-        window.history.pushState( sta, "title" );
-    }
-    window.addEventListener("popstate", function(e) {
-        window.history.go(0);
-    }, false);
-}
-function setCookie(name,value){
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
-}
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-        return arr[2];
-    else
-        return null;
-}
-function delCookie(name){
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
+                function temShow(data) {
+                    $('.choose').off('click').on('click', function () {
+                        $('.tems').fadeIn();
+                        $('.tems div').off('click').on('click', function () {
+                            var index = $(this).index();
+                            $('input[name=load]').val(data[index].load);
+                            $('input[name=content]').val(data[index].content);
+                        });
+                    })
+                }
+
+
+
 
 
 </script>
