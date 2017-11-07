@@ -411,10 +411,11 @@ function weekSave(){
 
         function templet() {
             $('.templet').off('click').on('click', function () {
+                pushHistory();
                 var index = $(this).attr('data-tab');
                 var name = $(this).find('.title').text();
                 $('.week').text(name).attr('data-tab', index);
-                fobidden_back();
+               // fobidden_back();
                 $('.main').fadeOut();
                 $('.bg').fadeIn();
                 var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
@@ -459,9 +460,12 @@ function weekSave(){
 
         function wordSum() {
             var len = $('#need').val().length;
-            $('.sum').find('span').text(len);
-            $('#need,#summary').on('input', function () {
+            var len1 = $('#summary').val().length;
+            $('#need').next('.sum').find('span').text(len);
+            $('#summary').next('.sum').find('span').text(len1);
+            $('#need').on('input', function () {
                 var len = $(this).val().length;
+
                 $(this).next('.sum').find('span').text(len);
                 if (len > 200) {
                     $(this).next('.sum').find('span').addClass('red');
@@ -509,7 +513,7 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/index/index.html";
+            window.location.href = "/home/coach/classplan.html";
         }, false);
     },200)
 }
@@ -522,6 +526,9 @@ function pushHistory(){
     {
         window.history.pushState( sta, "title" );
     }
+    window.addEventListener("popstate", function(e) {
+        window.history.go(0);
+    }, false);
 }
 function setCookie(name,value){
     var Days = 30;

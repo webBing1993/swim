@@ -120,7 +120,7 @@
 			<span>3</span>
 		</div>
 	</div>
-	<div class="daysave">保存并返回</div>
+	<div class="daysave"><span>保存</span><span>返回</span></div>
 </div>
 {/block}
 
@@ -142,6 +142,8 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
+	//tuicu
+	isOut();
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -275,13 +277,11 @@ function weekSave() {
                 type: 'success',
                 showConfirmButton: true
             }).then(function (isConfirm) {
-                console.log(456456456)
                 $.ajax({
                     type: "post",
                     url: "",
                     data: data,
                     success: function (data) {
-                        console.log(1213123)
                         if (isConfirm) {
                             window.location.href = '/home/coach/weekplan/id/0.html'
                         }
@@ -292,7 +292,9 @@ function weekSave() {
         }
     })
 };
+
 function daySave(){
+
 	$('.daysave').off('click').on('click',function() {
         var content = [];
         var lists = $('table tr');
@@ -315,7 +317,7 @@ function daySave(){
             } else {
                 $('.bg').fadeOut();
                 $('.main').fadeIn();
-                enable_back();
+
             }
             content.push([group, num, distance, pose, detail])
         }
@@ -326,19 +328,23 @@ function daySave(){
                 load: $('.load span.active').index() + 1,
                 duration: $('.duration span.active').index() + 1
             };
-            console.log(data);
             var index = $('.week').attr('data-tab');
             days[index] = data;
             $('.templet').eq(index).find('.fa-angle-right').addClass('green');
         }
+       // window.history.go(-1);
     })
 }
+
 function templet(){
+
 	$('.templet').off('click').on('click',function(){
+        pushHistory();
+
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
-		fobidden_back();
+//		fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
@@ -370,7 +376,9 @@ function templet(){
 		}
 		radio();
 		});
+
 }
+
 function wordSum(){
      var len = $("#need").val().length;
     $('.sum').find('span').text(len);
@@ -384,6 +392,7 @@ function wordSum(){
 		}
 	});
 }
+
 function timeSelect(){
 	var currYear = (new Date()).getFullYear();
 	var opt={};
@@ -406,6 +415,7 @@ function timeSelect(){
 	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
 	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
 }
+
 function temShow(data){
 	$('.choose').off('click').on('click',function(){
 		$('.tems').fadeIn();
@@ -415,6 +425,57 @@ function temShow(data){
 			$('input[name=content]').val(data[index].content);
 		});
 	})
+}
+
+
+
+
+
+//退出清理tab缓存
+function isOut(){
+    pushHistory();
+    setTimeout(function(){
+        window.addEventListener("popstate", function(e) {
+            delCookie("type");
+            window.location.href = "/home/coach/weekplan/id/0.html";
+        }, false);
+    },200)
+}
+//防止恶意刷新
+function pushHistory(){
+    var sta = {
+        title: "title"
+    };
+    if( window.history.state === null )
+    {
+        window.history.pushState( sta, "title" );
+    }
+    window.addEventListener("popstate", function(e) {
+       window.history.go(0);
+    }, false);
+}
+
+function setCookie(name,value){
+    var Days = 30;
+    var exp = new Date();
+    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
+}
+
+function getCookie(name){
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return arr[2];
+    else
+        return null;
+}
+
+function delCookie(name){
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 }
 </script>
 {/block}

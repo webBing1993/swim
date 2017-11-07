@@ -98,7 +98,9 @@ function weekSave(){
 }
 function wordSum(){
     var len = $("#content").val().length;
-    $('.sum').find('span').text(len);
+    var len1 = $('#summary').val().length;
+    $('#content').next('.sum').find('span').text(len);
+    $('#summary').next('.sum').find('span').text(len1);
 	$('#summary,#content').on('input',function(){
 		var len = $(this).val().length;
 		$(this).next('.sum').find('span').text(len);

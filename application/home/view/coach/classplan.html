@@ -49,9 +49,9 @@
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
     $(function(){
-        timeSelect()
+        timeSelect();
         //退出缓存
-        isOut()
+        isOut();
     });
 	function listDel(e,b){
 		swal({
@@ -164,7 +164,7 @@
         setTimeout(function(){
             window.addEventListener("popstate", function(e) {
                 delCookie("type");
-                window.location.href = "/home/visitor/index.html";
+                window.location.href = "/home/coach/index.html";
             }, false);
         },200)
     }

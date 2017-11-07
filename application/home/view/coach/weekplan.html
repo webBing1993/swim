@@ -198,24 +198,14 @@ function timeSelect(){
 ////    window.history.go(-1);
 //	return false;
 //});
-//退出清理tab缓存
-function isOut(){
-		pushHistory();
-		setTimeout(function(){
-			window.addEventListener("popstate", function(e) {
-				delCookie("type");
-				window.history.go(-1);
-			}, false);
-		},200)
-}
-//防止恶意刷新
+
 //退出清理tab缓存
 function isOut(){
     pushHistory();
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/visitor/index.html";
+            window.location.href = "/home/coach/index.html";
         }, false);
     },200)
 }
