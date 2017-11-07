@@ -69,8 +69,8 @@ class User extends Base{
         $userid = input('did', session('userId'));
         $res = WechatUser::where('userid',$userid)->find();
         ($res['gender'] == 1) ? $res['gender_text'] = "男" : $res['gender_text'] = "女";
-        $res['birthday_year'] = $res['identity'] ? substr($res['identity'], 6, 4) : null;
-        $res['birthday_month'] = $res['identity'] ? substr($res['identity'], 10, 2) : null;
+        $res['birthday_year'] = !empty($res['identity']) ? substr($res['identity'], 6, 4) : null;
+        $res['birthday_month'] = !empty($res['identity']) ? substr($res['identity'], 10, 2) : null;
         if($userid != session('userId')){
             $res['edit_button'] = 1;
         }
@@ -105,7 +105,7 @@ class User extends Base{
             $param = array(
                 'userid' => $model['userid'],
                 'name' => $data['name'],
-                'mobile' => $data['mobile'],
+                //'mobile' => $data['mobile'],
                 'gender' => $data['gender'],
                 'extattr' => ['attrs' => array(
                     ["name" => "学历", "value" => $data['education']],
@@ -168,7 +168,7 @@ class User extends Base{
             $param = array(
                 'userid' => $model['userid'],
                 'name' => $data['name'],
-                'mobile' => $data['mobile'],
+                //'mobile' => $data['mobile'],
                 'gender' => $data['gender'],
                 'extattr' => ['attrs' => array(
                     ["name" => "出生年月", "value" => $data['birthday']],
@@ -198,8 +198,8 @@ class User extends Base{
         }else {
             $id = input('id');
             $res = WechatUser::get($id);
-            $res['birthday_year'] = $res['identity'] ? substr($res['identity'], 6, 4) : null;
-            $res['birthday_month'] = $res['identity'] ? substr($res['identity'], 10, 2) : null;
+            $res['birthday_year'] = !empty($res['identity']) ? substr($res['identity'], 6, 4) : null;
+            $res['birthday_month'] = !empty($res['identity']) ? substr($res['identity'], 10, 2) : null;
             $this->assign('res',$res);
             return $this->fetch();
         }

@@ -60,11 +60,10 @@ class Structure extends Base{
 			$userList[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
 		}
 		$class_arr = json_encode(array_values($class_arr));
-		//var_dump($class_arr);die;
 		$this->assign('coachModel',$coachModel);
 		$this->assign('class_arr',$class_arr);
 		$this->assign('userList',$userList);
-		$this->assign('num',count($userList));
+		$this->assign('num',count($userModelAll));
 		return $this->fetch();
 	}
 	/**
