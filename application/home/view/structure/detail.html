@@ -176,14 +176,20 @@ $(function(){
         });
 	$(".mobileSelect .ensure").on("touchstart",function (e) {
 	    var t = $(".class_name span").html();
+	    var $study =0;
 	   	for(var i = 0; i < $(".hideKey").length; i++ ) {
+	   	    var height = $('.students').eq(i-1).height();
+	   	    if(i == 0) {
+                height = 0;
+            };
+            $study += parseFloat(height);
 	   	    if($(".hideKey").eq(i).html() == t) {
-                var $study = $(".students").eq(i-1);
+
                 if(i == 0) {
                     $('body,html').animate({scrollTop:0},1000);
                     return false;
-                }else if(i == 1){
-                    $('body,html').animate({scrollTop:$study.height() + $(".hideKey").height() + $(".banner").height() + $(".tabbox").height()},1000);
+                }else if(i>= 1){
+                    $('body,html').animate({scrollTop:$study + i * $(".hideKey").height() + $(".banner").height() + $(".tabbox").height()},1000);
                     return false;
 				}
 			}

@@ -386,7 +386,7 @@ if($(".lists").eq(0).find(".students").length == 0) {
     $(".class_name").show();
 }
 function tagswich(){
-	var list = $('.box').eq(0).find('.lists');
+	var list;
 
 	$('.tag').off('click').on('click',function(e){
 	    //  解绑滚动事件
@@ -396,17 +396,18 @@ function tagswich(){
         var index = $(this).index();
         list = $('.box').eq(0).find('.lists').eq(index);
         list.fadeIn();
+        $(this).addClass('active').siblings('.tag').removeClass('active');
 
+        // 弹窗
 	    $(".mobileSelect").remove();
-		$(this).siblings('.tag').removeClass('active');
+
 		$(".class_name").show();
 		if($(".lists").eq(index).find(".students").length == 0) {
             $(".class_name").hide();
 		}
-		$(this).addClass('active');
 
 		var date = [];
-		if($(this).index() == 0) {
+		if(index == 0) {
 		    date = {$class_arr};
 		}else {
 		    date = {$class_arr2};
@@ -437,7 +438,7 @@ function tagswich(){
             var t = $(".class_name span").html();
             var $study = 0;
             for(var i = 0; i < date.length; i++ ) {
-                var height = $(".students").eq(i-1).height();
+                var height = list.children(".students").eq(i-1).height();
                 if(i == 0) {
                     height = 0;
 				}
