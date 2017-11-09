@@ -42,7 +42,8 @@
 	$(function () {
         //退出缓存
         isOut();
-    })
+    });
+
 
 
     //退出清理tab缓存
@@ -51,7 +52,7 @@
         setTimeout(function(){
             window.addEventListener("popstate", function(e) {
                 delCookie("type");
-                window.location.href = "/home/coach/weekplan/id/0.html";
+                window.location.href = "/home/coach/weekplan/id/1/did/"+"{$did}";
             }, false);
         },200)
     }

@@ -426,7 +426,7 @@ function tagswich(){
             var t = $(window).scrollTop();
             for(var i = 0; i < date.length; i++) {
                 var $study=$(".students").eq(i).find("a");
-                if(t>=$study.length*$study.outerHeight() - $(".hideKey").height() + $(".tabbox").height()){
+                if(t>=$study.length * i + $study.outerHeight() - $(".hideKey").height() + $(".tabbox").height()){
                     $(".class_name").find("span").html(date[i]);
                 }else {
                     $(".class_name").find("span").html(date[i-1]);

@@ -27,18 +27,18 @@
 		<div class="note clear">
 			<span>浏览 ： {$vo.views}</span>
 			{empty name="$id"}
-			<a href="{:Url('dweekplan?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweekplan?did='.$did.'&id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
 			<!--{empty name="$vo.overtime"}-->
-			<a href="{:Url('pweekplan?id='.$vo.id)}" class="fr edit">编辑</a>
+			<a href="{:Url('pweekplan?did='.$did.'&id='.$vo.id)}" class="fr edit">编辑</a>
 			<!--{/empty}-->
 			<span class="del fr" onclick="listDel(this,1,'{$vo.id}')">删除</span>
 			{/empty}
 			{else/}
-			<a href="{:Url('dweeksummary?id='.$vo.id)}" class="fr detail">查看详情</a>
+			<a href="{:Url('dweeksummary?did='.$did.'&id='.$vo.id)}" class="fr detail">查看详情</a>
 			{empty name="$edit_button"}
 			<!--{empty name="$vo.overtime"}-->
-			<a href="{:Url('pweeksummary?id='.$vo.id)}" class="fr edit">编辑</a>
+			<a href="{:Url('pweeksummary?did='.$did.'&id='.$vo.id)}" class="fr edit">编辑</a>
 			<!--{/empty}-->
 			<span class="del fr" onclick="listDel(this,2,'{$vo.id}')">删除</span>
 			{/empty}
@@ -67,7 +67,7 @@
 $(function(){
 	timeSelect()
 	//退出清除缓存
-	//isOut();
+	isOut();
 });
 function listDel(e,a,b){
 	swal({
@@ -156,7 +156,7 @@ function timeSelect(){
 							'<span>浏览 ： '+list.views+'</span>';
 						if(!id){
 							html +=
-									'<a href="{:Url(\'dweekplan\')}?id='+list.id+'" class="fr detail">查看详情</a>';
+									'<a href="{:Url(\'dweekplan\')}?did=\'.$did.\'&id='+list.id+'" class="fr detail">查看详情</a>';
 							if(!edit_button) {
 								//if(!list.overtime) {
 									html +=
@@ -170,7 +170,7 @@ function timeSelect(){
 										'</div>'
 						}else{
 							html +=
-									'<a href="{:Url(\'dweeksummary\')}?id='+list.id+'" class="fr detail">查看详情</a>';
+									'<a href="{:Url(\'dweeksummary\')}?did=\'.$did.\'&id='+list.id+'" class="fr detail">查看详情</a>';
 							if(!edit_button) {
 								//if(!list.overtime) {
 									html +=
@@ -198,6 +198,18 @@ function timeSelect(){
 ////    window.history.go(-1);
 //	return false;
 //});
+//var url = window.location.href;
+//console.log(url)
+//arr=url.split('/');
+//console.log(arr);
+//    if(arr.indexOf("did") >= 0 ){
+//
+//        window.location.href = "/home/structure/detail/did/chenjia520333.html";
+//    }else{
+//        console.log(22222)
+//        window.location.href = "/home/coach/index.html";
+//    }
+
 
 //退出清理tab缓存
 function isOut(){
@@ -206,7 +218,12 @@ function isOut(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
 
-           window.location.href = "{:Url('Coach/classplan?did=1')}";
+            var did = '{$did}';
+                if (did) {
+                    window.location.href = "/home/structure/detail/did/"+"{$did}";
+				}else {
+                    window.location.href = "/home/coach/index.html";
+				}
         }, false);
     },200)
 }

@@ -317,7 +317,7 @@ class Coach extends Base {
 			$this->assign('id',$id);
 			$this->assign('edit_button',$edit_button);
 			$this->assign('res',$res);
-            $this->assign('did',input('did', null));
+            $this->assign('did',input('did', false));
 			return $this->fetch();
 		}
 	}
@@ -339,7 +339,7 @@ class Coach extends Base {
 			}
 			$this->assign('edit_button',$edit_button);
             $this->assign('res',$res);
-            $this->assign('did',input('did', null));
+            $this->assign('did',input('did', false));
 			return $this->fetch();
 		}
 	}
@@ -419,6 +419,7 @@ class Coach extends Base {
 			//var_dump($res);die;
 			$this->assign('contents',json_encode($contents));
 			$this->assign('res', $res);
+			$this->assign('did',input('did', false));
 			return $this->fetch();
 		}
 	}
@@ -535,6 +536,7 @@ class Coach extends Base {
 			$this->assign('score', $score);
 			$this->assign('contents',json_encode($contents));
 			$this->assign('res', $res);
+            $this->assign('did',input('did', false));
 			return $this->fetch();
 		}
 	}
@@ -570,6 +572,7 @@ class Coach extends Base {
 				$res = WeekSummary::getModelById($id);
 			}
 			$this->assign('res', $res);
+            $this->assign('did',input('did', false));
 			return $this->fetch();
 		}
 	}
@@ -583,6 +586,7 @@ class Coach extends Base {
 		$res = WeekPlan::getModelById($id);
 		$this->assign('contents',json_encode($res['contents']));
 		$this->assign('res',$res);
+        $this->assign('did',input('did', false));
 		return $this->fetch();
 	}
 	/**
@@ -609,6 +613,7 @@ class Coach extends Base {
 		$res['score'] = array_values($res['score']);
 		$this->assign('contents',json_encode($res['contents']));
 		$this->assign('res',$res);
+        $this->assign('did',input('did', false));
 		return $this->fetch();
 	}
 	/**
@@ -621,6 +626,7 @@ class Coach extends Base {
 		$res = WeekSummary::getModelById($id);
 		//var_dump($res);die;
 		$this->assign('res',$res);
+        $this->assign('did',input('did', false));
 		return $this->fetch();
 	}
 	/**

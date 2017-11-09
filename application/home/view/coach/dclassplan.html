@@ -212,7 +212,13 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/coach/weekplan/id/0.html";
+            var did = '{$did}';
+            if (did) {
+                window.location.href = "/home/structure/detail/did/"+"{$did}";
+            }else {
+                window.location.href = "/home/coach/index.html";
+            }
+
         }, false);
     },200)
 }

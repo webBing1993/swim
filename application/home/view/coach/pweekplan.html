@@ -436,7 +436,7 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/coach/weekplan/id/0.html";
+                window.location.href = "/home/coach/classplan/did/"+"{$did}";
         }, false);
     },200)
 }
