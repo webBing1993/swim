@@ -317,6 +317,7 @@ class Coach extends Base {
 			$this->assign('id',$id);
 			$this->assign('edit_button',$edit_button);
 			$this->assign('res',$res);
+            $this->assign('did',input('did'));
 			return $this->fetch();
 		}
 	}
@@ -337,7 +338,8 @@ class Coach extends Base {
 				$edit_button = 1;
 			}
 			$this->assign('edit_button',$edit_button);
-			$this->assign('res',$res);
+            $this->assign('res',$res);
+            $this->assign('did',input('did'));
 			return $this->fetch();
 		}
 	}
