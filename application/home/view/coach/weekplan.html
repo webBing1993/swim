@@ -50,11 +50,11 @@
 <!--每周计划发布pweekPlan.html,课时计划发布pclassPlan.html,每周总结发布pweekSummary.html-->
 {empty name="$edit_button"}
 {empty name="$id"}
-<a href="{:Url('pweekplan')}" class="publish">
+<a href="{:Url('pweekplan?did='.$did)}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
 {else/}
-<a href="{:Url('pweeksummary')}" class="publish">
+<a href="{:Url('pweeksummary?did='.$did)}" class="publish">
 	<img src="/home/images/coach/add.png" alt="">
 </a>
 {/empty}
@@ -160,7 +160,7 @@ function timeSelect(){
 							if(!edit_button) {
 								//if(!list.overtime) {
 									html +=
-											'<a href="{:Url(\'pweekplan\')}?id=' + list.id + '" class="fr edit">编辑</a>' ;
+											'<a href="{:Url(\'pweekplan\')}?did=\'.$did.\'&id=' + list.id + '" class="fr edit">编辑</a>' ;
 								//}
 								html +=
 										'<span class="del fr" onclick="listDel(this,1,\''+list.id+'\')">删除</span>';

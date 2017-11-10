@@ -283,8 +283,15 @@ function weekSave() {
                     data: data,
                     success: function (data) {
                         if (isConfirm) {
-                            window.location.href = '/home/coach/weekplan/id/0.html'
-                        }
+                            var did = '{$did}';
+                            if (did) {
+                                window.location.href = "/home/coach/weekplan/id/0/did/"+"{$did}";
+                            }else {
+                                window.location.href = "/home/coach/weekplan/id/0.html";
+
+                            }
+//                            window.location.href = '/home/coach/weekplan.html'
+                       }
                     }
 
                 })
@@ -436,7 +443,13 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-                window.location.href = "/home/coach/classplan/did/"+"{$did}";
+            var did = '{$did}';
+            if (did) {
+                window.location.href = "/home/coach/weekplan/id/0/did/"+"{$did}";
+            }else {
+                window.location.href = "/home/coach/weekplan/id/0.html";
+
+            }
         }, false);
     },200)
 }

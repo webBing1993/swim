@@ -152,6 +152,13 @@
 		//退出缓存
         isOut();
     })
+	$(function () {
+        var num = "{$num}";
+        console.log(num);
+        if(num==0){
+            $('.class_name').hide();
+        }
+    })
 $(function(){
 	// tab值记录
 	tabRecord('.tab' ,'.box');
@@ -200,6 +207,8 @@ $(function(){
 		}
 		return false;
     });
+
+
 
 
 });
