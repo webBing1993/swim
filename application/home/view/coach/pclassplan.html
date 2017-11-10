@@ -169,8 +169,7 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
-	//退出缓存
-	isOut();
+
 
 	$('.student .name').off('click').on('click',function(){
 		$(this).toggleClass('green');
@@ -338,7 +337,7 @@ function weekSave(){
                 text: '保存成功',
                 type: 'success',
                 showConfirmButton: true
-            }).then(function (isConfirm) {
+            },function (isConfirm) {
                 $.ajax({
                     type: "post",
                     url: "",
@@ -352,10 +351,10 @@ function weekSave(){
                                 window.location.href = "/home/coach/classplan.html";
                             }
                         }
-                    },
-					error: function (e) {
-						console.log(5465);
                     }
+//					error: function (e) {
+//						console.log(5465);
+//                    }
                 })
             })
         }
@@ -365,30 +364,38 @@ function weekSave(){
 
 function daySave() {
 	$('.daysave').off('click').on('click', function () {
+	    //t退出缓存
+		isOut();
 		var content = [];
 		var lists = $('table tr');
 		var len = lists.length;
 		for (var i = 1; i < len; i++) {
-			var list = lists.eq(i);
-			var group = list.find('td').eq(1).text();
-			var num = list.find('td').eq(2).text();
-			var distance = list.find('td').eq(3).text();
-			var pose = list.find('td').eq(4).text();
-			var detail = list.find('td').eq(5).text();
-			if (distance != "-" && pose != '-' && detail != '-') {
-				$('.bg').fadeOut();
-				$('.main').fadeIn();
-				enable_back();
-			} else {
-				swal({
-					title: '提示',
-					text: '请填写完整信息',
-					type: 'error',
-					showConfirmButton: true,
-					timer: 2000
-				})
-			}
-			content.push([group, num, distance, pose, detail]);
+            var list = lists.eq(i);
+            var group = list.find('td').eq(1).text();
+            var num = list.find('td').eq(2).text();
+            var distance = list.find('td').eq(3).text();
+            var pose = list.find('td').eq(4).text();
+            var detail = list.find('td').eq(5).text();
+
+            content.push([group, num, distance, pose, detail]);
+        }
+
+        if (distance == "-" || pose == '-' || detail == '-') {
+            swal({
+                title: '提示',
+                text: '请填写完整信息',
+                type: 'error',
+                showConfirmButton: true,
+                timer: 2000
+            },function () {
+                $(".bg").fadeIn();
+                $(".main").fadeOut();
+            })
+        }else if (distance != "-" && pose != '-' && detail != '-' && distance != undefined  && pose != undefined && detail != undefined) {
+            $(".main").fadeIn();
+            $(".bg").fadeOut();
+        }
+
 			if (len != 1) {
 				var data = {
 					content: content,
@@ -400,19 +407,36 @@ function daySave() {
 				var index = $('.week').attr('data-tab');
 				parts[index] = data;
 				$('.templet').eq(index).find('.fa-angle-right').addClass('green');
+			}else{
+                swal({
+                        title: '提示',
+                        text: '您确认要退出该页面吗？',
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: "确定",
+                        cancelButtonText: "取消"
+                    },
+                    function (isConfirm) {
+                        if (isConfirm) {
+                            $(".main").fadeIn();
+                            $(".bg").fadeOut();
+                        }else {
+
+                        }
+                    })
 			}
-		}
 	 })
 }
 
 
 function templet() {
 	$('.templet').off('click').on('click', function () {
-		pushHistory();
+		//pushHistory();
+         fobidden_back();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab', index);
-		// fobidden_back();
+
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';

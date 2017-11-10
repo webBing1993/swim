@@ -142,8 +142,7 @@ $(function(){
 	radio();
 	//新增训练内容
 	addList();
-	//退出缓存
-	isOut();
+
 });
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -276,7 +275,7 @@ function weekSave() {
                 text: '保存成功',
                 type: 'success',
                 showConfirmButton: true
-            }).then(function (isConfirm) {
+            },function (isConfirm) {
                 $.ajax({
                     type: "post",
                     url: "",
@@ -303,6 +302,8 @@ function weekSave() {
 function daySave(){
 
 	$('.daysave').off('click').on('click',function() {
+        //退出缓存
+        isOut();
         var content = [];
         var lists = $('table tr');
         var len = lists.length;
@@ -313,20 +314,23 @@ function daySave(){
             var distance = list.find('td').eq(3).text();
             var pose = list.find('td').eq(4).text();
             var detail = list.find('td').eq(5).text();
-            if (distance == "-" || pose == '-' || detail == '-') {
-                swal({
-                    title: '提示',
-                    text: '请填写完整信息',
-                    type: 'error',
-                    showConfirmButton: true,
-                    timer: 2000
-                })
-            } else {
-                $('.bg').fadeOut();
-                $('.main').fadeIn();
 
-            }
             content.push([group, num, distance, pose, detail])
+        }
+        if (distance == "-" || pose == '-' || detail == '-') {
+            swal({
+                title: '提示',
+                text: '请填写完整信息',
+                type: 'error',
+                showConfirmButton: true,
+                timer: 2000
+            },function () {
+                $(".bg").fadeIn();
+                $(".main").fadeOut();
+            })
+        }else if (distance != "-" && pose != '-' && detail != '-' && distance != undefined  && pose != undefined && detail != undefined) {
+            $(".main").fadeIn();
+            $(".bg").fadeOut();
         }
         if (len != 1) {
             var data = {
@@ -338,15 +342,32 @@ function daySave(){
             var index = $('.week').attr('data-tab');
             days[index] = data;
             $('.templet').eq(index).find('.fa-angle-right').addClass('green');
-        }
+        } else {
+            swal({
+                title: '提示',
+                text: '您确认要退出该页面吗？',
+                type: 'warning',
+				showCancelButton: true,
+				confirmButtonText: "确定",
+				cancelButtonText: "取消"
+                },
+			function (isConfirm) {
+				if (isConfirm) {
+				    $(".main").fadeIn();
+				    $(".bg").fadeOut();
+				}else {
+
+				}
+            })
+		}
     })
 }
 
 function templet(){
 
-	$('.templet').off('click').on('click',function(){
-        pushHistory();
-
+	$('.templet').on('click',function(){
+//        pushHistory();
+        fobidden_back();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
@@ -463,7 +484,11 @@ function pushHistory(){
         window.history.pushState( sta, "title" );
     }
     window.addEventListener("popstate", function(e) {
-       window.history.go(0);
+//       window.history.go(0);
+        bghide();
+        fobidden_back();
+
+        $('.templet').click();
     }, false);
 }
 

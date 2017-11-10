@@ -77,40 +77,39 @@ function listDel(e,a,b){
 		confirmButtonText:'确定',
 		showCancelButton:true,
 		cancelButtonText:'取消'
-	}).then(function(isConfirm){
-		//确认之后执行函数
-		if (isConfirm) {
-			$.ajax({
-				type:"post",
-				url:"{:Url('del')}",
-				data:{
-					type:a,
-					id:b
-				},
-				success:function(data){
-					if(data.code == 1){
-						$(e).parents('.list').remove();
-						swal( {
-							title: '成功',
-							text: '删除成功',
-							type: 'success',
-							showConfirmButton: true,
-							timer:3000
-						})
-					}else{
-						swal( {
-							title: '失败',
-							text: '删除失败',
-							type: 'error',
-							showConfirmButton: true,
-							timer:3000
-						})
-					}
-				}
-			});
-		}
-	});
-
+	},function(isConfirm) {
+        //确认之后执行函数
+        if (isConfirm) {
+            $.ajax({
+                type: "post",
+                url: "{:Url('del')}",
+                data: {
+                    type: a,
+                    id: b
+                },
+                success: function (data) {
+                    if (data.code == 1) {
+                        $(e).parents('.list').remove();
+                        swal({
+                            title: '成功',
+                            text: '删除成功',
+                            type: 'success',
+                            showConfirmButton: true,
+                            timer: 3000
+                        })
+                    } else {
+                        swal({
+                            title: '失败',
+                            text: '删除失败',
+                            type: 'error',
+                            showConfirmButton: true,
+                            timer: 3000
+                        })
+                    }
+                }
+            });
+        }
+	})
 }
 function timeSelect(){
 	var currYear = (new Date()).getFullYear();
