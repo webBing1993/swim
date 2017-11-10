@@ -175,6 +175,22 @@ $(function(){
 		$(this).toggleClass('green');
 	})
 });
+//退出清理tab缓存
+var timer = setTimeout(function(){
+    window.addEventListener("popstate", function(e) {
+        delCookie("type");
+        var did = '{$did}';
+        if (did) {
+            window.location.href = "/home/coach/classplan/did/"+"{$did}";
+        }else {
+            window.location.href = "/home/coach/classplan/";
+
+        }
+    }, false);
+},200);
+//初始化关闭缓存清理
+clearTimeout(timer);
+
 function  addList(){
 	$('.addList').off('click').on('click',function(){
 		var num = $('tr').length;
@@ -352,9 +368,6 @@ function weekSave(){
                             }
                         }
                     }
-//					error: function (e) {
-//						console.log(5465);
-//                    }
                 })
             })
         }
@@ -365,7 +378,7 @@ function weekSave(){
 function daySave() {
 	$('.daysave').off('click').on('click', function () {
 	    //t退出缓存
-		isOut();
+        setTimeout(timer,0);
 		var content = [];
 		var lists = $('table tr');
 		var len = lists.length;
@@ -431,7 +444,8 @@ function daySave() {
 
 function templet() {
 	$('.templet').off('click').on('click', function () {
-		//pushHistory();
+	    //退出缓存
+        setTimeout(timer,0);
          fobidden_back();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
@@ -522,21 +536,21 @@ function temShow(data) {
 
 
 //退出清理tab缓存
-function isOut(){
-    pushHistory();
-    setTimeout(function(){
+/*function isOut(){
+//    pushHistory();
+//    setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
             var did = '{$did}';
             if (did) {
-                window.location.href = "/home/coach/classplan/did/"+"{$did}";
+                window.location.href = "/home/coach/weekplan/id/0/did/"+"{$did}";
             }else {
-                window.location.href = "/home/coach/classplan/";
+                window.location.href = "/home/coach/weekplan/id/0.html";
 
             }
         }, false);
-    },200)
-}
+//    },200)
+}*/
 //防止恶意刷新
 function pushHistory(){
     var sta = {
