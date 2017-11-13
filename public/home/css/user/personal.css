@@ -26,71 +26,71 @@ textarea::-webkit-input-placeholder {
   margin-top: 10px;
 }
 .lists .list {
-  height: 50px;
+  height: 12.5vw;
   width: 100%;
-  padding-left: 13px;
-  padding-right: 13px;
+  padding-left: 3.25vw;
+  padding-right: 3.25vw;
   background: #ffffff;
   border-top: 1px solid #f1f1f1;
-  line-height: 50px;
+  line-height: 12.5vw;
 }
 .lists .list .fl {
   color: #333333;
-  font-size: 15px;
+  font-size: 1.4rem;
 }
 .lists .list .fr {
   max-width: 70vw;
   color: #999999;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 .lists .list .user {
-  width: 40px;
-  height: 40px;
-  margin-top: 4px;
-  border: 2px solid #ffffff;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  width: 10vw;
+  height: 10vw;
+  margin-top: 1vw;
+  border: 0.5vw solid #ffffff;
+  box-shadow: 0.5vw 0.5vw 0.5vw rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   overflow: hidden;
-  background: url("/home/images/common/default.png") center no-repeat;
-  background-size: 40px 40px;
+  background: url(/home/images/common/default.png) center no-repeat;
+  background-size: 10vw 10vw;
 }
 .lists .list .card {
-  width: 60px;
-  height: 40px;
-  margin-top: 4px;
+  width: 15vw;
+  height:10vw;
+  margin-top: 1vw;
   background: center no-repeat;
-  background-size: 60px 40px;
+  background-size: 15vw 10vw;
 }
 .lists .list .pen {
-  width: 16px;
-  height: 16px;
-  margin-top: 16px;
+  width: 4vw;
+  height: 4vw;
+  margin-top: 4vw;
   opacity: 0.3;
 }
 .lists .list input {
   text-align: right;
   width: 66vw;
-  height: 50px;
-  padding-right: 6px;
+  height: 12.5vw;
+  padding-right: 1.5vw;
   line-height: 1.4rem;
   background: transparent;
 }
 .lists .list .sex {
-  width: 100px;
-  height: 32px;
-  margin-top: 8px;
+  width: 25vw;
+  height:8vw;
+  margin-top: 2vw;
   border: 1px solid #dbdbdb;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+  -webkit-border-radius:1vw;
+  -moz-border-radius:1vw;
+  border-radius:1vw;
 }
 .lists .list .sex span {
   display: inline-block;
-  width: 48px;
-  height: 30px;
+  width: 12vw;
+  height: 7.5vw;
   text-align: center;
-  line-height: 30px;
+  line-height:7.5vw;
   color: #999999;
 }
 .lists .list .sex span:nth-child(1).active {

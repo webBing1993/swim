@@ -112,6 +112,7 @@ function listDel(e,a,b){
 	})
 }
 function timeSelect(){
+    var did ='{$did}';
 	var currYear = (new Date()).getFullYear();
 	var opt={};
 	opt.date = {preset : 'date'};
@@ -155,11 +156,11 @@ function timeSelect(){
 							'<span>浏览 ： '+list.views+'</span>';
 						if(!id){
 							html +=
-									'<a href="{:Url(\'dweekplan\')}?did=\'.$did.\'&id='+list.id+'" class="fr detail">查看详情</a>';
+									'<a href="{:Url(\'dweekplan\')}?did='+did+'&id='+list.id+'" class="fr detail">查看详情</a>';
 							if(!edit_button) {
 								//if(!list.overtime) {
 									html +=
-											'<a href="{:Url(\'pweekplan\')}?did=\'.$did.\'&id=' + list.id + '" class="fr edit">编辑</a>' ;
+											'<a href="{:Url(\'pweekplan\')}?did='+did+'&id=' + list.id + '" class="fr edit">编辑</a>' ;
 								//}
 								html +=
 										'<span class="del fr" onclick="listDel(this,1,\''+list.id+'\')">删除</span>';
@@ -169,11 +170,11 @@ function timeSelect(){
 										'</div>'
 						}else{
 							html +=
-									'<a href="{:Url(\'dweeksummary\')}?did=\'.$did.\'&id='+list.id+'" class="fr detail">查看详情</a>';
+									'<a href="{:Url(\'dweeksummary\')}?did='+did+'&id='+list.id+'" class="fr detail">查看详情</a>';
 							if(!edit_button) {
 								//if(!list.overtime) {
 									html +=
-											'<a href="{:Url(\'pweeksummary\')}?id=' + list.id + '" class="fr edit">编辑</a>';
+											'<a href="{:Url(\'pweeksummary\')}?did='+did+'&id=' + list.id + '" class="fr edit">编辑</a>';
 								//}
 								html +=
 										'<span class="del fr" onclick="listDel(this,2,\''+list.id+'\')">删除</span>';

@@ -57,35 +57,35 @@ textarea::-webkit-input-placeholder {
 }
 /*列表*/
 .lists {
-  margin-top: 10px;
+  margin-top: 2.5vw;
 }
 .lists .list {
   display: block;
   width: 100%;
-  padding-left: 13px;
-  padding-right: 13px;
-  height: 50px;
+  padding-left: 3.25vw;
+  padding-right:3.25vw;
+  height: 12.5vw;
   background: #ffffff;
   border-top: 1px solid #f1f1f1;
-  font-size: 15px;
+  font-size: 1.4rem;
 }
 .lists .list span {
   display: inline-block;
-  padding-left: 35px;
-  background-size: 28px 28px;
+  padding-left:8.75vw;
+  background-size:7vw 7vw;
   color: #333333;
-  line-height: 50px;
+  line-height: 12.5vw;
 }
 .lists .list i {
   color: #999999;
-  font-size: 20px;
-  line-height: 50px;
+  font-size: 1.5rem;
+  line-height: 11.2vw;
 }
 .lists .list:nth-child(1) span {
-  background: url("/home/images/user/message.png") 0 11px no-repeat;
-  background-size: 28px 28px;
+  background: url("/home/images/user/message.png") 0 2.75vw no-repeat;
+  background-size: 7vw 7vw;
 }
 .lists .list:nth-child(2) span {
-  background: url('/home/images/coach/user4.png') 0 11px no-repeat;
-  background-size: 28px 28px;
+  background: url('/home/images/coach/user4.png') 0 2.75vw no-repeat;
+  background-size: 7vw 7vw;
 }

@@ -107,7 +107,7 @@ $(function(){
 			confirmButtonColor: "#f99300",
 			confirmButtonText: "确定",
 			cancelButtonText: "取消"
-		}).then(function(isConfirm){
+		},function(isConfirm){
 			if (isConfirm) {
 				var data={
 					header:$("input[name='header']").attr('data-tab'),

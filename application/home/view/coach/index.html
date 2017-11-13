@@ -289,6 +289,7 @@ $(function(){
 				contentType : false,
 				success:function(data){
 					var msg = $.parseJSON(data);
+					console.log(msg);
 					if(msg.code == 1){
 						var image = new Image();
 						image.src = msg.data.path ;

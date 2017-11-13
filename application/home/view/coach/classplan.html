@@ -96,6 +96,7 @@
 		});
 	}
     function timeSelect(){
+        var did = '{$did}';
         var currYear = (new Date()).getFullYear();
         var opt={};
         opt.date = {preset : 'date'};
@@ -137,11 +138,11 @@
                                     '</div>'+
                                     '<div class="note clear">'+
                                     '<span>浏览 ： '+list.views+'</span>'+
-                                    '<a href="{:Url(\'dclassplan\')}?did=\'.$did.\'&id='+list.id+'" class="fr detail">查看详情</a>';
+                                    '<a href="{:Url(\'dclassplan\')}?did='+did+'&id='+list.id+'" class="fr detail">查看详情</a>';
                             if(!edit_button){
                                 //if(!list.overtime) {
                                     html +=
-                                            '<a href="{:Url(\'pclassplan\')}?did=\'.$did.\'&id=' + list.id + '" class="fr edit">编辑</a>';
+                                            '<a href="{:Url(\'pclassplan\')}?did='+did+'&id=' + list.id + '" class="fr edit">编辑</a>';
                                 //}
                                 html +=
                                         '<span class="del fr" onclick="listDel(this,\''+list.id+'\')">删除</span>';

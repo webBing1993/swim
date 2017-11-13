@@ -94,12 +94,12 @@
 }
 .banner .lists .list .content .main:after {
   display: inline-block;
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 4.5vw;
+  height: 4.5vw;
   content: '主';
   color: #ffffff;
   font-size: 0.8rem;
-  line-height: 1.4rem;
+  line-height:4.5vw;
   text-align: center;
   background: #589efd;
   margin-left: 0.5rem;
