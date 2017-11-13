@@ -13,7 +13,7 @@
 	{else/}
 	<div data-tab="{$user.header|get_cover='path'}"  class="user up"></div>
 	{/empty}
-	<input type="file" class="hide" id="upload" accept="image/jpg, image/png, image/gif, image/jpeg">
+	<input type="file" class="hide" id="upload" accept="image/*">
 	<input type="hidden" name="header"  value="" required="">
 </div>
 <div class="lists">
@@ -44,7 +44,7 @@ $(function(){
 		var up = $('.up' );
 		var ww = up.width();
 		var size = ($(this)[0].files[0].size / 1024).toFixed(2);
-		if(size <= 2048){
+		if(size <= 5120){
 			var img = $(this)[0].files[0];
 			var formData = new FormData();
 			formData.append("picture",img);
@@ -82,8 +82,13 @@ $(function(){
 				}
 			});
 		} else {
-			warning({msg:"您选择的图片超过2mb，请重新选择"});
-			return;
+            swal({
+                title: ' ',
+                text: '您的图片超过5M，请重新选择',
+                type: 'warning',
+                showConfirmButton:false,
+                timer:1500
+            });
 		}
 	});
 });
