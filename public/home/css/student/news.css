@@ -14,11 +14,11 @@
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-	height: 40px;
-	padding-left: 13px;
-	padding-right: 13px;
+	height: 10vw;
+	padding-left: 3.25vw;
+	padding-right: 3.25vw;
 	background-color: rgba(0, 0, 0, 0.6);
-	line-height: 40px;
+	line-height: 10vw;
 	font-size: 1.6rem;
 	color: #ffffff;
 }
@@ -26,25 +26,25 @@
 .list{
 	display: block;
 	width: 100%;
-	height: 90px;
-	padding-left: 13px;
-	padding-right: 13px;
+	height: 22.5vw;
+	padding-left: 3.25vw;
+	padding-right: 3.25vw;
 	border-bottom: 1px solid #f1f1f1;
 }
 .list img{
-	width: 100px;
-	height: 55px;
-	margin-top: 20px;
+	width: 25vw;
+	height: 13.75vw;
+	margin-top: 5vw;
 }
 .list .lr{
 	width: 100%;
 }
 .list .lr .title{
 	width: 100%;
-	height:38px;
+	height:9.5vw;
 	font-size: 1.4rem;
-	margin-top: 15px;
-	margin-bottom: 8px;
+	margin-top: 3.75vw;
+	margin-bottom: 2vw;
 	color:#333333;
 }
 .list .lr .clear{
@@ -52,74 +52,74 @@
 	color:#999999;
 }
 .tip{
-	height: 40px;
+	height:10vw;
 	text-align: center;
-	line-height: 40px;
+	line-height:10vw;
 	color:#c1c1c1;
 }
 /*加载动画*/
 .loading{
 	width: 100%;
-	height: 40px;
+	height: 10vw;
 }
 .typing_loader{
-	width: 6px;
-	height: 6px;
+	width: 1.5vw;
+	height: 1.5vw;
 	border-radius: 50%;
 	-webkit-animation: typing 1s linear infinite alternate;
 	-moz-animation: Typing 1s linear infinite alternate;
 	animation: typing 1s linear infinite alternate;
 	position: relative;
-	top: 17px;
-	left: calc( 50vw - 15px );
+	top: 4.25vw;
+	left: calc( 50vw - 3.75vw);
 }
 @-webkit-keyframes typing{
 	0%{
 		background-color: rgba(0,0,0, 0.8);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow: 3vw  0 0 0 rgba(0,0,0,0.2),
+		6vw 0 0 0 rgba(0,0,0,0.2);
 	}
 	25%{
 		background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.8),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow: 3vw 0 0 0 rgba(0,0,0,0.8),
+		6vw  0 0 0 rgba(0,0,0,0.2);
 	}
 	75%{ background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.8);
+		box-shadow : 3vw  0 0 0 rgba(0,0,0,0.2),
+		6vw 0 0 0 rgba(0,0,0,0.8);
 	}
 }
 
 @-moz-keyframes typing{
 	0%{
 		background-color: rgba(0,0,0, 0.8);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow: 3vw 0 0 0 rgba(0,0,0,0.2),
+		6vw 0 0 0 rgba(0,0,0,0.2);
 	}
 	25%{
 		background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.8),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow: 3vw 0 0 0 rgba(0,0,0,0.8),
+		6vw  0 0 0 rgba(0,0,0,0.2);
 	}
 	75%{ background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.8);
+		box-shadow: 3vw  0 0 0 rgba(0,0,0,0.2),
+		6vw  0 0 0 rgba(0,0,0,0.8);
 	}
 }
 
 @keyframes typing{
 	0%{
 		background-color: rgba(0,0,0, 0.8);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow: 3vw 0 0 0 rgba(0,0,0,0.2),
+		6vw 0 0 0 rgba(0,0,0,0.2);
 	}
 	25%{
 		background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.8),
-		24px 0 0 0 rgba(0,0,0,0.2);
+		box-shadow:3vw  0 0 0 rgba(0,0,0,0.8),
+		6vw  0 0 0 rgba(0,0,0,0.2);
 	}
 	75%{ background-color: rgba(0,0,0, 0.4);
-		box-shadow: 12px 0 0 0 rgba(0,0,0,0.2),
-		24px 0 0 0 rgba(0,0,0,0.8);
+		box-shadow: 3vw  0 0 0 rgba(0,0,0,0.2),
+		6vw  0 0 0 rgba(0,0,0,0.8);
 	}
 }
