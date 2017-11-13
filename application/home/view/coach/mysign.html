@@ -254,7 +254,7 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-            window.location.href = "/home/coach/index.html";
+            window.location.href = "/home/structure/detail/did/" +"{$did}";
         }, false);
     },200)
 }

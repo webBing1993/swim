@@ -156,11 +156,13 @@ textarea::-webkit-input-placeholder {
 .boxs .box:nth-child(2) {
   left: 100vw;
 }
+.boxs .lists{
+  background-color: #fff;
+}
 .boxs .box:nth-child(2) .list {
   width: 100vw;
   height: 24vw;
   padding: 4.5vw 4vw;
-  background: #ffffff;
   border-bottom: 1px solid #e5e5e5;
 }
 .boxs .box:nth-child(2) .list img {
@@ -183,16 +185,16 @@ textarea::-webkit-input-placeholder {
   margin-top: 3vw;
   color: #666666;
   font-size: 1.2rem;
-  line-height: 0.73rem;
+  line-height: 0.7rem;
 }
 .boxs .box:nth-child(2) .list .lr .note .scan {
   background: url('/home/images/common/scan.png') 2vw 0 no-repeat;
-  background-size: 1.2rem 0.73rem;
+  background-size: 1.2rem 0.7rem;
   padding-left: 7vw;
 }
 .boxs .box:nth-child(2) .list .lr .note .comment {
   background: url('/home/images/common/comment.png') 2vw 0 no-repeat;
-  background-size: 1.2rem 0.73rem;
+  background-size: 1.2rem 0.7rem;
   padding-left: 7vw;
 }
 .nomessage {

@@ -36,6 +36,7 @@ a:active {
   color: #ffffff;
   line-height: 1.6rem;
   padding-left: 2rem;
+  font-size: 1.4rem;
 }
 .banner>p{
   margin: auto;
@@ -107,6 +108,7 @@ a:active {
   width: 26vw;
   height: 100%;
   text-align: center;
+  font-size: 1.4rem;
 }
 .tabbox .tabs .active {
   background: #2c79f9;
@@ -179,6 +181,7 @@ a:active {
 .boxs .box:nth-child(1) .list .lr .top .age {
   width: 10vw;
   line-height: 8vw;
+  font-size: 1.2rem;
 }
 .boxs .box:nth-child(2) {
   left: 100vw;
@@ -189,6 +192,7 @@ a:active {
   width: 100vw;
   background: #ffffff;
   margin-bottom: 2vw;
+  border-bottom: 1px solid #dedede;
 }
 .boxs .box:nth-child(2) .list img {
   display: inline-block;

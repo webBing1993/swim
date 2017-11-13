@@ -81,12 +81,14 @@ textarea::-webkit-input-placeholder {
 .boxs .box:nth-child(2) {
   left: 100vw;
 }
+.boxs .lists{
+  background-color: #fff;
+}
 .boxs .box:nth-child(1) .list,
 .boxs .box:nth-child(2) .list {
   width: 100vw;
   height: 24vw;
   padding: 4.5vw 4vw;
-  background: #ffffff;
   border-bottom: 1px solid #e5e5e5;
 }
 .boxs .box:nth-child(1) .list img,
