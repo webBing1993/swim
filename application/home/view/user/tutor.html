@@ -103,6 +103,7 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
+
                 window.location.href = "/home/coach/index.html";
         }, false);
     },200)

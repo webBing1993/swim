@@ -115,6 +115,17 @@
 {block name="script"}
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
+
+//	 //安卓设备保存按钮调起事件
+    var H=window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;//可视区域的高度
+    window.onresize = function(){
+        var h =window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;//可视区域的高度
+        if (h < H) {
+            document.getElementsByClassName("save")[0].style.display = "none";//
+        }else if (document.body.scrollHeight = h) {
+            document.getElementsByClassName("save")[0].style.display = "block";
+        }
+    };
 $(function(){
 	//头像大小自适应
 	imgfit();

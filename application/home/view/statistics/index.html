@@ -221,7 +221,7 @@ function datas(a,b){
 	if($.isArray(a)){
 		//	教练签到
 		var data1 = {
-			labels: ["正常","迟到","缺卡" ],
+			labels: ["正常","迟到","缺勤" ],
 			datasets: [{
 				data:a ,
 				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
@@ -235,7 +235,7 @@ function datas(a,b){
 	if($.isArray(b)){
 		//	学员签到
 		var data2 = {
-			labels: ["正常","迟到","缺卡" ],
+			labels: ["正常","迟到","缺勤" ],
 			datasets: [{
 				data: b,
 				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
