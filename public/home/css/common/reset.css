@@ -26,35 +26,35 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
     -moz-animation: Typing 1s linear infinite alternate;
     animation: typing 1s linear infinite alternate;
     position: relative;
-    top: 17px;
+    top: 4.25vw;
     left: 42vw;
 }
 @-webkit-keyframes typing {
     0% {
         background-color: rgba(0, 0, 0, 0.8);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.2), 24px 0 0 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 3.2vw 0 0 0 rgba(0, 0, 0, 0.2), 6.4vw 0 0 0 rgba(0, 0, 0, 0.2);
     }
     25% {
         background-color: rgba(0, 0, 0, 0.4);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.8), 24px 0 0 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 3.2vw 0 0 0 rgba(0, 0, 0, 0.8),6.4vw 0 0 0 rgba(0, 0, 0, 0.2);
     }
     75% {
         background-color: rgba(0, 0, 0, 0.4);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.2), 24px 0 0 0 rgba(0, 0, 0, 0.8);
+        box-shadow: 3.2vw 0 0 0 rgba(0, 0, 0, 0.2), 6.4vw 0 0 0 rgba(0, 0, 0, 0.8);
     }
 }
 @keyframes typing {
     0% {
         background-color: rgba(0, 0, 0, 0.8);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.2), 24px 0 0 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 3vw 0 0 0 rgba(0, 0, 0, 0.2), 6vw 0 0 0 rgba(0, 0, 0, 0.2);
     }
     25% {
         background-color: rgba(0, 0, 0, 0.4);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.8), 24px 0 0 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 3vw 0 0 0 rgba(0, 0, 0, 0.8), 6vw 0 0 0 rgba(0, 0, 0, 0.2);
     }
     75% {
         background-color: rgba(0, 0, 0, 0.4);
-        box-shadow: 12px 0 0 0 rgba(0, 0, 0, 0.2), 24px 0 0 0 rgba(0, 0, 0, 0.8);
+        box-shadow: 3vw 0 0 0 rgba(0, 0, 0, 0.2), 6vw 0 0 0 rgba(0, 0, 0, 0.8);
     }
 }
 .hidden {

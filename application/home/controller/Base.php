@@ -25,7 +25,7 @@ class Base extends Controller
 {
     public function _initialize()
     {
-        session('userId', '15605070707');
+        session('userId', '13858009172');
         session('requestUri', 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
         $userId = session('userId');
 //        if($userId=='ben'){
