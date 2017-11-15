@@ -67,10 +67,20 @@ class Wechat extends Admin
         $i = 0;
         foreach ($list['department'] as $key=>$value) {
             $users = $Wechat->getUserListInfo($list['department'][$key]['id']);
-            foreach ($users['userlist'] as $user) {
-                $user['department'] = $user['department'][0];
-                $user['order'] = $user['order'][0];
-                foreach ($user['extattr']['attrs'] as $value) {
+            foreach ($users['userlist'] as $userlist) {
+                $user['userid'] = $userlist['userid'];
+                $user['name'] = $userlist['name'];
+                $user['position'] = $userlist['position'];
+                $user['mobile'] = $userlist['mobile'];
+                $user['gender'] = $userlist['gender'];
+                $user['email'] = $userlist['email'];
+                $user['avatar'] = $userlist['avatar'];
+                $user['status'] = $userlist['status'];
+                $user['enable'] = $userlist['enable'];
+                $user['isleader'] = $userlist['isleader'];
+                $user['department'] = $userlist['department'][0];
+                $user['order'] = $userlist['order'][0];
+                foreach ($userlist['extattr']['attrs'] as $value) {
                     switch ($value['name']){
                         case "学历":
                             $user['education'] = $value['value'];
@@ -130,7 +140,7 @@ class Wechat extends Admin
                             break;
                     }
                 }
-                $user['extattr'] = json_encode($user['extattr']);
+                $user['extattr'] = json_encode($userlist['extattr']);
                 if(!empty($user['now_coach'])){
                     $user['coach_id'] = WechatUser::where(['name'=>$user['now_coach']])->value('userid');
                 }
@@ -141,9 +151,8 @@ class Wechat extends Admin
                     $user['coach_id'] = '';
 				}
                 unset($user['upper_coach']);
-                if(WechatUser::get(['mobile'=>$user['mobile']])) {
-                    WechatUser::where(['mobile'=>$user['mobile']])->update($user);
-
+                if(WechatUser::get(['userid'=>$user['userid']])) {
+                    WechatUser::where(['userid'=>$user['userid']])->update($user);
                 } else {
                     WechatUser::create($user);
                 }
@@ -254,7 +263,7 @@ class Wechat extends Admin
                 }
             }
         }
-        $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'teshuxueyuan'];
+        $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'18888888888'];
         if(empty(WechatUserTag::where($data)->find())){
             WechatUserTag::create($data);
         }

@@ -10,12 +10,13 @@ use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
 use app\home\model\WechatUserSign;
 use app\home\model\UserClass;
+use think\Controller;
 use think\Db;
 use think\Collection;
 /**
  * 游客频道
  */
-class Visitor extends Base{
+class Visitor extends Base {
 	/**
 	 * 首页
 	 */
@@ -424,11 +425,12 @@ class Visitor extends Base{
 		if(!preg_match('/^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[01678])\\d{8}$/',input('mobile'))){
 			return $this->error("无效的二维码，请稍后再试", '', $response);
 		}
-		$msg = WechatUser::where(['mobile' => input('mobile')])->find();
+		$msg = WechatUser::where(['userid' => input('mobile')])->find();
 		if(empty($msg)) {
 			return $this->error("找不到该学员，请稍后再试", '', $response);
 		}
-		$userId = $msg['userid'];
+        $userId = $msg['userid'];
+        $mobile = $msg['mobile'];
 		$user_name = WechatUser::getName($userId);
 		$all_num = 0;
 		$current_num = 0;
@@ -477,7 +479,7 @@ class Visitor extends Base{
 				$data = array(
 						'userid' => $userId,
 						'name' => $msg['name'],
-						'mobile' => input('mobile'),
+						'mobile' => $mobile,
 						'class_id' => $msg['class_id'],
 						'date' => date('Y-m-d'),
 						'member_type' => $msg['member_type'],
@@ -510,7 +512,7 @@ class Visitor extends Base{
 						$data = array(
 								'userid' => $userId,
 								'name' => $msg['name'],
-								'mobile' => input('mobile'),
+								'mobile' => $mobile,
 								'class_id' => $msg['class_id'],
 								'date' => date('Y-m-d'),
 								'status' => WechatUserSign::STATUS_LATE,
@@ -536,7 +538,7 @@ class Visitor extends Base{
 							$data = array(
 									'userid' => $userId,
 									'name' => $msg['name'],
-									'mobile' => input('mobile'),
+									'mobile' => $mobile,
 									'class_id' => $model['class_id'],
 									'date' => date('Y-m-d'),
 									'status' => WechatUserSign::STATUS_LATE,
@@ -568,7 +570,7 @@ class Visitor extends Base{
 					$data = array(
 							'userid' => $userId,
 							'name' => $msg['name'],
-							'mobile' => input('mobile'),
+							'mobile' => $mobile,
 							'class_id' => $msg['class_id'],
 							'date' => date('Y-m-d'),
 							'member_type' => $msg['member_type'],
@@ -593,7 +595,7 @@ class Visitor extends Base{
 						$data = array(
 								'userid' => $userId,
 								'name' => $msg['name'],
-								'mobile' => input('mobile'),
+								'mobile' => $mobile,
 								'class_id' => $model['class_id'],
 								'date' => date('Y-m-d'),
 								'member_type' => $msg['member_type'],

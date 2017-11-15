@@ -23,15 +23,18 @@ class Statistics extends Base{
 		ini_set("memory_limit","-1");
 		$userId = session('userId');
 		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
-		$start_time = input('start', date('Y-m-01'));
+		$start_time = input('start', date('Y-m-d'));
 		$end_time = input('end', date('Y-m-d'));
 		if($tag_id == WechatTag::TAG_LEADER) {
 			$c_type = input('c_type');
 			$s_type = input('s_type');
 			$pid = input('pid', 0);
 		}elseif($tag_id == WechatTag::TAG_HEAD_COACH){
-			$c_type = 2;
-			$s_type = 2;
+            $s_type = input('s_type');
+            if(!isset($s_type)){
+                $c_type = 2;
+                $s_type = 2;
+            }
 			$pid = input('pid', 0);
 		}elseif($tag_id == WechatTag::TAG_ASSISTANT){
 			$s_type = 2;
@@ -39,11 +42,11 @@ class Statistics extends Base{
 		}else{
 			return $this ->fetch('user/null');
 		}
-		$query = Db::field('wus.*, wu.department, wu2.department coach_department')
-				->table('sw_wechat_user_sign wus')
-				->join('sw_wechat_user wu','wus.userid = wu.userid')
-				->join('sw_wechat_user wu2','wus.coach_id = wu2.userid')
-				->where('date',['>=',$start_time],['<=',$end_time],'and');
+        $query = Db::field('distinct wus.userid, wus.coach_id, wus.member_type, wus.mobile, wus.date, wus.status, wu.department, wu2.department coach_department')
+            ->table('sw_wechat_user_sign wus')
+            ->join('sw_wechat_user wu','wus.userid = wu.userid')
+            ->join('sw_wechat_user wu2','wus.coach_id = wu2.userid')
+            ->where('date',['>=',$start_time],['<=',$end_time],'and');
 		$coachModel = [];
 		$userModel = [];
 		if(isset($c_type)){
@@ -53,8 +56,13 @@ class Statistics extends Base{
 			}elseif($c_type == 2){
 				if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练权限
 					$coachModel = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('userid');
-					$query->where(['wus.coach_id' => $userId, 'wus.member_type' => WechatUser::MEMBER_TYPE_COACH]);
+                    $query->where(['wus.coach_id' => $userId, 'wus.member_type' => WechatUser::MEMBER_TYPE_COACH]);
 					//$query->where('userid', 'in', $coachModel);
+                    if($s_type == 2){
+                        $coach_ids = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('userid');
+                        $query->whereOr('wus.coach_id', 'in', $coach_ids);
+                        $userModel = WechatUser::where('coach_id', 'in', $coach_ids)->column('userid');
+                    }
 				}else{//领导权限
 					$query->where(['wu.department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
 					$coachModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_ASSISTANT])->column('userid');
@@ -79,20 +87,21 @@ class Statistics extends Base{
 						$query->where(['wus.coach_id' => $userId]);
 						$userModel = WechatUser::where(['coach_id' => $userId])->column('userid');
 					}else {//领导权限
-						$query->where(['wu2.department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
+						$query->where('wu2.department' , '<>', WechatDepartment::DEPARTMENT_HEAD_COACH);
 						$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->column('userid');
 					}
 				}else{
-					$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_STUDENT])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->column('userid');
+                    $userModel = WechatDepartmentUser::where('departmentid',['>=',WechatDepartment::DEPARTMENT_HEAD_STUDENT],['<=',WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT],'and')->column('userid');
 				}
 			}
 		}else{
-			$coachModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_COACH])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_ASSISTANT])->column('userid');
-			$userModel = WechatDepartmentUser::where('departmentid',['>=',WechatDepartment::DEPARTMENT_HEAD_STUDENT],['<=',WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT],'and')->column('userid');
+            $coachModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_COACH])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_ASSISTANT])->column('userid');
+            $userModel = WechatDepartmentUser::where('departmentid',['>=',WechatDepartment::DEPARTMENT_HEAD_STUDENT],['<=',WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT],'and')->column('userid');
 		}
-		//var_dump($query->fetchSql()->select());die;
+//		var_dump($query->fetchSql()->select());die;
 		$modelAll = $query->select();
-		//var_dump($modelAll);die;
+//		var_dump($modelAll);die;
+//        var_dump($userModel);die;
 		$all = [WechatUser::MEMBER_TYPE_COACH=>[],WechatUser::MEMBER_TYPE_STUDENT=>[]];
 		$allUserId = [WechatUser::MEMBER_TYPE_COACH=>[],WechatUser::MEMBER_TYPE_STUDENT=>[]];
 		$res = [WechatUser::MEMBER_TYPE_COACH=>[],WechatUser::MEMBER_TYPE_STUDENT=>[]];
@@ -110,18 +119,19 @@ class Statistics extends Base{
 			}
 		}
 		$dt_start = strtotime($start_time);
-		if($dt_start < strtotime(date('2017-10-09'))){
-			$dt_start = strtotime(date('2017-10-09'));
+		if($dt_start < strtotime(date('2017-11-01'))){
+			$dt_start = strtotime(date('2017-11-01'));
 		}
 		$dt_end = strtotime($end_time);
 		$all_days = [];
 		while ($dt_start<=$dt_end){
-			if($dt_start < strtotime(date('Y-m-d'))){
+			if($dt_start <= strtotime(date('Y-m-d'))){
 				$all_days[] = date('Y-m-d',$dt_start);
 			}
 			$dt_start = strtotime('+1 day',$dt_start);
 		}
-		//var_dump($allUserId);die;
+		//var_dump($all_days);die;
+//		var_dump($allUserId);die;
 //			var_dump($all);
 //			var_dump($res);die;
 		//教练情况

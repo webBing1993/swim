@@ -86,7 +86,7 @@ class Student extends Base{
 	public function code(){
 		$userId = session('userId');
 		$res = WechatUser::where(['userid' => $userId])->field('mobile, header, avatar')->find()->toArray();
-		$data['mobile'] = $res['mobile'];
+		$data['mobile'] = $userId;
 		if(empty($res['header'])){
 			$data['header'] = param_to($res['avatar'], \think\Config::get('de_header'));
 		}else{
