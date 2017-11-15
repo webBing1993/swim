@@ -28,7 +28,7 @@ body .lists .list .coach .name {
   display: inline-block;
   width: 59%;
   background: rgba(222, 184, 135, 0.4);
-  font-size:2rem;
+  font-size:1.2rem;
 }
 body .lists .list .coach .num {
   display: inline-block;
@@ -36,7 +36,7 @@ body .lists .list .coach .num {
   word-break: break-all;
   text-align: left;
   margin-left: 1.6vw;
-  font-size:2rem;
+  font-size: 1.2rem;
 }
 body .lists .list .content {
   height: auto;
