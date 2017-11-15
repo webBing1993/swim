@@ -382,13 +382,12 @@ function daySave(){
 function templet(){
 
 	$('.templet').on('click',function(){
-      pushHistory();
+      //pushHistory();
 		clearTimeout(timer);
-        fobidden_back();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
-     	//fobidden_back();
+     	fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
@@ -499,8 +498,8 @@ function pushHistory(){
     }
     window.addEventListener("popstate", function(e) {
 //       window.history.go(0);
-        bghide();
-        fobidden_back();
+       // bghide();
+        //fobidden_back();
 
         $('.templet').click();
     }, false);
