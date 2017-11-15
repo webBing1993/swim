@@ -228,7 +228,11 @@ function datas(a,b){
 			}]
 		} ;
 		if(document.getElementById("tutor")){
-			var ctx1 = document.getElementById("tutor").getContext("2d");
+		    // 每次重汇之前 清空
+            $('#tutor').remove();
+            $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
+
+            var ctx1 = document.getElementById("tutor").getContext("2d");
 			new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
 		}
 	}
@@ -241,8 +245,13 @@ function datas(a,b){
 				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
 			}]
 		} ;
+
+        // 每次重汇之前 清空
+        $('#student').remove();
+        $('.box').eq(1).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+
 		var ctx2 = document.getElementById("student").getContext("2d");
-		new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+        new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
 	}
 }
 </script>
