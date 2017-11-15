@@ -153,7 +153,6 @@ var timer = setTimeout(function(){
             window.location.href = "/home/coach/weekplan/id/0/did/"+"{$did}";
         }else {
             window.location.href = "/home/coach/weekplan/id/0.html";
-
         }
     }, false);
 },200);
@@ -383,13 +382,13 @@ function daySave(){
 function templet(){
 
 	$('.templet').on('click',function(){
-//        pushHistory();
+      pushHistory();
 		clearTimeout(timer);
         fobidden_back();
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab',index);
-//		fobidden_back();
+     	//fobidden_back();
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';

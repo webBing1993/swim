@@ -168,8 +168,17 @@ $(function(){
     $(".class_name").find("span").html($(".hideKey").html());
     $(window).scroll(function() {
         var t = $(window).scrollTop();
+        var $study1;
+        for(var i = 0; i<$(".students").length;i++){
+            var $study=$(".students").eq(i).find("a");//时间段下a的长度；
+            var height = $(".students").eq(i).outerHeight();
+            console.log(height);
+            $study1 += parseFloat(height)
+
+		}
         var $study=$(".students").eq(1).find("a");
-		if(t>=$study.length*$study.outerHeight()){
+        console.log($study.outerHeight());
+		if(t>$study.length*$study.outerHeight()){
             $(".class_name").find("span").html($(".hideKey:last-of-type").html());
         }else{
             $(".class_name").find("span").html($(".hideKey").html());

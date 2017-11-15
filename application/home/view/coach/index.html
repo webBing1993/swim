@@ -334,7 +334,7 @@ $(function(){
         var t = $(window).scrollTop();
         var $study;
         for(var i = 0; i < date.length; i++) {
-//            var $study=$(".students").eq(i).find("a");
+           var $study=$(".students").eq(i).find("a");
             var height = $(".students").eq(i).outerHeight();
             $study += parseFloat(height);
             if(t >= $study - $(".hideKey").height() + $(".tabbox").height()){
