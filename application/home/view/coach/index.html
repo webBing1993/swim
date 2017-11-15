@@ -370,7 +370,7 @@ $(function(){
 					$('body,html').animate({scrollTop:0},1000);
 					return false;
 				}else if(i >= 1){
-					$('body,html').animate({scrollTop:$study + i * $(".content").find(".lists").find(".hideKey").eq(0).height() + $(".tabbox").height()},1000);
+					$('body,html').animate({scrollTop:$study + $(".content").find(".lists").find(".hideKey").height()+ $(".tabbox").height()},1000);
 					return false;
 				}
 			}
