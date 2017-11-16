@@ -27,11 +27,11 @@ body {
   line-height: 14vw;
   font-size: 1.2rem;
 }
-.logos .logo.student {
-  width: 23vw;
+.logos  .student {
+  width: 21vw;
   height: 23vw;
   line-height: 14vw;
-  margin: 0;
+  margin: 0;!important;
 }
 .logos .logo img {
   display: block;
