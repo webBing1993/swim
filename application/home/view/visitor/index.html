@@ -93,6 +93,9 @@
 		if(llen ==4){
 			$('.logos,.logo,.logo img').addClass('student');
 		}
-	})
+    })
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    }
 </script>
 {/block}

@@ -20,13 +20,12 @@ body {
   float: left;
   position: relative;
   width: 21vw;
-  height: 21vw;
+  height: 23vw;
   margin: 0 4vw;
   text-align: center;
   color: #333333;
-  font-size: 1rem;
   line-height: 14vw;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 .logos .logo.student {
   width: 23vw;
@@ -40,7 +39,7 @@ body {
   margin: auto;
   left: 0;
   right: 0;
-  top: 1vw;
+  top: 0;
   width: 17vw;
   height: 17vw;
 }

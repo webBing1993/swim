@@ -113,7 +113,7 @@ body{
 	padding-left: 4vw;
 	display: flex;
 	align-items: center;
-	height:14.4vw;
+	/*height:14.4vw;*/
 	font-size: 1.4rem;
 	color: #333;
 	line-height: 14.4vw;
@@ -136,7 +136,7 @@ body{
 	height:14.4vw;
 	text-align: right;
 	margin-right: 4vw;
-	color: #999;
+	color: #333;
 	background: url("/home/images/book/right.png") right center no-repeat;
 	background-size: 1.6vw 3.2vw;
 }
@@ -146,13 +146,14 @@ body{
 	line-height: 2;
 	text-align: center;
 	font-size: 1.5rem;
-	color: #333;
+	color: #666;
 }
 
 .hidden{
 	display: none;
 }
-.lists a .fr  b{
-	font-weight: 500;
+.lists a .fr  i{
+	font-style: normal;
 	margin-right:3vw;
+	line-height:14.4vw;
 }

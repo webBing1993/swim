@@ -82,7 +82,7 @@
 {/block}
 
 {block name="script"}
-<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+	<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script src="/static/chartJs/Chart.min.js"></script>
 <script>
 $(function(){
@@ -215,7 +215,6 @@ function timeSelect(){
 function datas(a,b){
 	var Options1 = {
 		responsive: true,
-
 		showTooltips: true
 	};
 	if($.isArray(a)){
@@ -224,7 +223,7 @@ function datas(a,b){
 			labels: ["正常","迟到","缺勤" ],
 			datasets: [{
 				data:a ,
-				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"]
+                backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
 			}]
 		} ;
 		if(document.getElementById("tutor")){
@@ -233,15 +232,16 @@ function datas(a,b){
             $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
 
             var ctx1 = document.getElementById("tutor").getContext("2d");
-			new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+        	new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
 		}
 	}
 	if($.isArray(b)){
 		//	学员签到
 		var data2 = {
+            type: 'pie',
 			labels: ["正常","迟到","缺勤" ],
 			datasets: [{
-				data: b,
+                data: b,
 				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
 			}]
 		} ;
@@ -251,7 +251,7 @@ function datas(a,b){
         $('.box').eq(1).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
 
 		var ctx2 = document.getElementById("student").getContext("2d");
-        new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+	     new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
 	}
 }
 </script>
