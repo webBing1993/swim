@@ -468,14 +468,18 @@ class Visitor extends Base {
 			$class_name = UserClass::getName($msg['class_id']);
 		}
 		if($msg['member_type'] != WechatUser::MEMBER_TYPE_COACH) {
-			//学员提前10分钟可以签到
+			//学员提前15分钟可以签到
 			if($tag_id != WechatTag::TAG_STUDENT_SPECIAL){
-				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+10 minute')));
+				$real_time = strtotime(date('Y-m-d H:i:s',strtotime('+15 minute')));
 				$current_num = WechatUserSign::where(['coach_id' => $msg['coach_id'], 'class_id' => $msg['class_id'], 'date' => date('Y-m-d'), 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->count();
 				if($current_num>=25){
 					return $this->error($coach_name."教练".$class_name."名额已满", '', $response);
 				}
 			}else{//特殊学员
+                $userSign = WechatUserSign::checkUserSign($userId);
+                if(!empty($userSign)){
+                    return $this->result($response, 2, $user_name."今天已签到");
+                }
 				$data = array(
 						'userid' => $userId,
 						'name' => $msg['name'],

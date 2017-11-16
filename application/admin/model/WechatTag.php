@@ -26,7 +26,7 @@ class WechatTag extends Base {
         self::TAG_STUDENT  => WechatUser::MEMBER_TYPE_STUDENT,//学员
         self::TAG_VISITOR  => WechatUser::MEMBER_TYPE_NULL,//游客
         self::TAG_STUDENT_READY  => WechatUser::MEMBER_TYPE_STUDENT,//预备学员
-        self::TAG_STUDENT_SPECIAL  => WechatUser::MEMBER_TYPE_STUDENT,//预备学员
+        self::TAG_STUDENT_SPECIAL  => WechatUser::MEMBER_TYPE_STUDENT,//特殊学员
     ];
     public function Wechat_user() {
         return $this->belongsToMany('WechatUser','WechatTag');

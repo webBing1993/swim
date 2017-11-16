@@ -77,7 +77,12 @@ class Book extends Base
         $this->assign('depart',$depart);
         $list = Db::table('sw_wechat_department')->where('parentid',$did)->order('id')->select();
         foreach($list as $k => $v){
-            $list[$k]['num'] = WechatDepartment::where('parentid',$v['id'])->count();
+            $id = WechatDepartment::where('parentid',$v['id'])->column('id');
+            if($id){
+                $list[$k]['num'] = WechatDepartmentUser::where('departmentid', 'in', $id)->count();
+            }else{
+                $list[$k]['num'] = 0;
+            }
         }
         $this->assign('list',$list);
         return $this->fetch();

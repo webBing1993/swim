@@ -59,10 +59,8 @@ class Wechat extends Admin
         if($Wechat->errCode != 40001) {
             return $this->error("同步出错");
         }
-
         /* 同步部门 */
         $list = $Wechat->getDepartment();
-
         /* 同步最顶级部门下面的用户 */
         $i = 0;
         foreach ($list['department'] as $key=>$value) {
@@ -159,8 +157,17 @@ class Wechat extends Admin
                 }
                 $i++;
             }
-            for($i=1;$i<=30;$i++){
-
+            for($n=1;$n<=30;$n++){
+                $j = $n<10 ? '0'.$n : $n;
+                $user = [];
+                $user['name'] = '';
+                $user['member_type'] = WechatUser::MEMBER_TYPE_STUDENT;
+                $user['userid'] = $user['mobile'] = '188888880'.$j;
+                if(WechatUser::get(['userid'=>$user['userid']])) {
+                    WechatUser::where(['userid'=>$user['userid']])->update($user);
+                } else {
+                    WechatUser::create($user);
+                }
             }
         }
         $data = "用户数:".$i."!";
@@ -267,12 +274,13 @@ class Wechat extends Admin
                 }
             }
         }
-        $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'18888888888'];
-        if(empty(WechatUserTag::where($data)->find())){
-            WechatUserTag::create($data);
+        for($i=1;$i<=30;$i++){
+            $j = $i<10 ? '0'.$i : $i;
+            $data = ['tagid'=>WechatTag::TAG_STUDENT_SPECIAL, 'userid'=>'188888880'.$j];
+            if(empty(WechatUserTag::where($data)->find())){
+                WechatUserTag::create($data);
+            }
         }
-
-
         $data = "同步标签数:".count($tags['taglist'])."!";
 
         return $this->success("同步成功", Url('tag'), $data);
