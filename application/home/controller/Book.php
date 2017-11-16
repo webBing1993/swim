@@ -76,6 +76,9 @@ class Book extends Base
         $depart = WechatDepartment::get($did);
         $this->assign('depart',$depart);
         $list = Db::table('sw_wechat_department')->where('parentid',$did)->order('id')->select();
+        foreach($list as $k => $v){
+            $list[$k]['num'] = WechatDepartment::where('parentid',$v['id'])->count();
+        }
         $this->assign('list',$list);
         return $this->fetch();
     }
@@ -85,12 +88,9 @@ class Book extends Base
         $this->anonymous();
         $did = input('get.did');   // 获取部门列表
         $list = Db::table('sw_wechat_department')->where('parentid',$did)->order('id')->field('id,name,"" num')->select();
-        if($did == 7){
-            foreach($list as $k => $v){
-                $list[$k]['num'] = WechatDepartmentUser::where('departmentid',$v['id'])->count();
-            }
+        foreach($list as $k => $v){
+            $list[$k]['num'] = WechatDepartmentUser::where('departmentid',$v['id'])->count();
         }
-
         $this->assign('list',$list);
         $dep = WechatDepartment::get($did);     //三级名称
         $parent = WechatDepartment::get($dep['parentid']); //二级名称

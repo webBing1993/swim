@@ -68,6 +68,7 @@ class Wechat extends Admin
         foreach ($list['department'] as $key=>$value) {
             $users = $Wechat->getUserListInfo($list['department'][$key]['id']);
             foreach ($users['userlist'] as $userlist) {
+                $user = [];
                 $user['userid'] = $userlist['userid'];
                 $user['name'] = $userlist['name'];
                 $user['position'] = $userlist['position'];
@@ -149,7 +150,7 @@ class Wechat extends Admin
                 }
                 if(empty($user['coach_id'])) {
                     $user['coach_id'] = '';
-				}
+                }
                 unset($user['upper_coach']);
                 if(WechatUser::get(['userid'=>$user['userid']])) {
                     WechatUser::where(['userid'=>$user['userid']])->update($user);
@@ -157,6 +158,9 @@ class Wechat extends Admin
                     WechatUser::create($user);
                 }
                 $i++;
+            }
+            for($i=1;$i<=30;$i++){
+
             }
         }
         $data = "用户数:".$i."!";
