@@ -27,8 +27,12 @@ body {
   line-height: 14vw;
   font-size: 1.2rem;
 }
+.logoss{
+  padding: 2vw 4vw;
+  background: #ffffff;
+}
 .logos  .student {
-  width: 21vw;
+  width: 23vw;
   height: 23vw;
   line-height: 14vw;
   margin: 0;!important;
