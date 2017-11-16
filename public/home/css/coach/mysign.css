@@ -108,12 +108,12 @@
   border-radius: 50%;
 }
 #calendar .content ul li.normal span {
-  background: -moz-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -webkit-gradient(linear, left top, left bottom, #6cd8ff, #50c8ff);
-  background: -webkit-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -o-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -ms-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: linear-gradient(to right, #6cd8ff, #50c8ff);
+  background: -moz-linear-gradient(left, #46BFBD, #19bfbf);
+  background: -webkit-gradient(linear, left top, left bottom, #46BFBD, #19bfbf);
+  background: -webkit-linear-gradient(left, #46BFBD, #19bfbf);
+  background: -o-linear-gradient(left, #46BFBD, #19bfbf);
+  background: -ms-linear-gradient(left,#46BFBD, #19bfbf);
+  background: linear-gradient(to right, #46BFBD, #19bfbf);
 }
 #calendar .content ul li.late span {
   background: -moz-linear-gradient(left, #ffba1d, #ff9806);
@@ -124,20 +124,26 @@
   background: linear-gradient(to right, #ffba1d, #ff9806);
 }
 #calendar .content ul li.absence span {
-  background: -moz-linear-gradient(left, #fe8080, #ff6161);
-  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
-  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
-  background: -o-linear-gradient(left, #fe8080, #ff6161);
-  background: -ms-linear-gradient(left, #fe8080, #ff6161);
-  background: linear-gradient(to right, #fe8080, #ff6161);
+  /*background: -moz-linear-gradient(left, #fe8080, #ff6161);*/
+  /*background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);*/
+  /*background: -webkit-linear-gradient(left, #fe8080, #ff6161);*/
+  /*background: -o-linear-gradient(left, #fe8080, #ff6161);*/
+  /*background: -ms-linear-gradient(left, #fe8080, #ff6161);*/
+  /*background: linear-gradient(to right, #fe8080, #ff6161);*/
+  background: -moz-linear-gradient(left,  #F7464A, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom,#F7464A, #ff6161);
+  background: -webkit-linear-gradient(left,  #F7464A, #ff6161);
+  background: -o-linear-gradient(left, #F7464A, #ff6161);
+  background: -ms-linear-gradient(left,  #F7464A, #ff6161);
+  background: linear-gradient(to right,  #F7464A, #ff6161);
 }
 #calendar .content ul li.rest span {
-  background: -moz-linear-gradient(left, #33d44e, #2eb848);
-  background: -webkit-gradient(linear, left top, left bottom, #33d44e, #2eb848);
-  background: -webkit-linear-gradient(left, #33d44e, #2eb848);
-  background: -o-linear-gradient(left, #33d44e, #2eb848);
-  background: -ms-linear-gradient(left, #33d44e, #2eb848);
-  background: linear-gradient(to right, #33d44e, #2eb848);
+  background: -moz-linear-gradient(left,  #F7464A, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom,  #F7464A, #ff6161);
+  background: -webkit-linear-gradient(left,  #F7464A, #ff6161);
+  background: -o-linear-gradient(left,   #F7464A, #ff6161);
+  background: -ms-linear-gradient(left,  #F7464A, #ff6161);
+  background: linear-gradient(to right,   #F7464A, #ff6161);
 }
 #calendar .content ul li.normal span,
 #calendar .content ul li.late span,
@@ -172,12 +178,12 @@
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
   border-radius: 0.2rem;
-  background: -moz-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -webkit-gradient(linear, left top, left bottom, #6cd8ff, #50c8ff);
-  background: -webkit-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -o-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: -ms-linear-gradient(left, #6cd8ff, #50c8ff);
-  background: linear-gradient(to right, #6cd8ff, #50c8ff);
+  background: -moz-linear-gradient(left, #46BFBD, #19bfbf);
+  background: -webkit-gradient(linear, left top, left bottom,#46BFBD, #19bfbf);
+  background: -webkit-linear-gradient(left,#46BFBD, #19bfbf);
+  background: -o-linear-gradient(left, #46BFBD, #19bfbf);
+  background: -ms-linear-gradient(left, #46BFBD, #19bfbf);
+  background: linear-gradient(to right, #46BFBD, #19bfbf);
 }
 .color span.late:after {
   position: absolute;
@@ -204,12 +210,12 @@
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
   border-radius: 0.2rem;
-  background: -moz-linear-gradient(left, #fe8080, #ff6161);
-  background: -webkit-gradient(linear, left top, left bottom, #fe8080, #ff6161);
-  background: -webkit-linear-gradient(left, #fe8080, #ff6161);
-  background: -o-linear-gradient(left, #fe8080, #ff6161);
-  background: -ms-linear-gradient(left, #fe8080, #ff6161);
-  background: linear-gradient(to right, #fe8080, #ff6161);
+  background: -moz-linear-gradient(left,  #F7464A, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom,#F7464A, #ff6161);
+  background: -webkit-linear-gradient(left,  #F7464A, #ff6161);
+  background: -o-linear-gradient(left, #F7464A, #ff6161);
+  background: -ms-linear-gradient(left,  #F7464A, #ff6161);
+  background: linear-gradient(to right,  #F7464A, #ff6161);
 }
 .color span.rest:after {
   position: absolute;
@@ -220,10 +226,10 @@
   -webkit-border-radius: 0.2rem;
   -moz-border-radius: 0.2rem;
   border-radius: 0.2rem;
-  background: -moz-linear-gradient(left, #33d44e, #2eb848);
-  background: -webkit-gradient(linear, left top, left bottom, #33d44e, #2eb848);
-  background: -webkit-linear-gradient(left, #33d44e, #2eb848);
-  background: -o-linear-gradient(left, #33d44e, #2eb848);
-  background: -ms-linear-gradient(left, #33d44e, #2eb848);
-  background: linear-gradient(to right, #33d44e, #2eb848);
+  background: -moz-linear-gradient(left,  #F7464A, #ff6161);
+  background: -webkit-gradient(linear, left top, left bottom,#F7464A, #ff6161);
+  background: -webkit-linear-gradient(left,  #F7464A, #ff6161);
+  background: -o-linear-gradient(left, #F7464A, #ff6161);
+  background: -ms-linear-gradient(left,  #F7464A, #ff6161);
+  background: linear-gradient(to right,  #F7464A, #ff6161);
 }
