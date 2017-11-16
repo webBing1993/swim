@@ -76,8 +76,13 @@ $(function(){
 							}
 						})
 					} else {
-						warning({msg:'上传失败'});
-						return;
+                        swal({
+                            title: ' ',
+                            text: '上传失败，请从新上传！',
+                            type: 'error',
+                            showConfirmButton:false,
+                            timer:1500
+                        });
 					}
 				}
 			});
