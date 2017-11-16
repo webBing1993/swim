@@ -45,11 +45,11 @@ class Index extends Controller {
     public function demo(){
         $id = input('id', 3);
         if($id == 1){
-            session('userId', '13588757228');
+            session('userId', 'xsfyyjxuxing439126');
             $tag_id = 1;
         }
         if($id == 2){
-            session('userId', 'tinasun1984');
+            session('userId', '13957110303');
             $tag_id = 2;
         }
         if($id == 3){

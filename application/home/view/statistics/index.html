@@ -218,6 +218,7 @@ function datas(a,b){
 
 		showTooltips: true
 	};
+
 	if($.isArray(a)){
 		//	教练签到
 		var data1 = {
@@ -228,7 +229,7 @@ function datas(a,b){
 			}]
 		} ;
 		if(document.getElementById("tutor")){
-		    // 每次重汇之前 清空
+//		     每次重汇之前 清空
             $('#tutor').remove();
             $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
 
@@ -236,6 +237,7 @@ function datas(a,b){
 			new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
 		}
 	}
+
 	if($.isArray(b)){
 		//	学员签到
 		var data2 = {
@@ -248,7 +250,13 @@ function datas(a,b){
 
         // 每次重汇之前 清空
         $('#student').remove();
-        $('.box').eq(1).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+        var tag = {$tag_id};
+        if(tag == 3){
+            var eqNumber = 0;
+		}else{
+            var eqNumber = 1;
+		}
+        $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
 
 		var ctx2 = document.getElementById("student").getContext("2d");
         new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
