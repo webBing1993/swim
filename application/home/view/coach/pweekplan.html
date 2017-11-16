@@ -315,10 +315,56 @@ function weekSave() {
     })
 };
 
+function templet(){
+
+    $('.templet').on('click',function(){
+         // pushHistory();
+		 clearTimeout(timer);
+         fobidden_back();
+
+        var index = $(this).attr('data-tab');
+        var name = $(this).find('.title').text();
+        $('.week').text(name).attr('data-tab',index);
+        //fobidden_back();
+        $('.main').fadeOut();
+        $('.bg').fadeIn();
+        var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
+        if(days[index]){
+            var trs = days[index].content;
+            var len = trs.length;
+            for(var i = 0 ; i<len;i++){
+                html+=
+                    '<tr>'+
+                    '<td>'+(i+1)+'</td>'+
+                    '<td class="group">'+trs[i][0]+'</td>'+
+                    '<td class="num">'+trs[i][1]+'</td>'+
+                    '<td class="distance">'+trs[i][2]+'</td>'+
+                    '<td class="pose">'+trs[i][3]+'</td>'+
+                    '<td class="detail">'+trs[i][4]+'</td>'+
+                    '</tr>';
+            }
+            $('table').html(html);
+            radio();
+            $('#contentself').val(days[index].contentself);
+            $('.load span').eq(days[index].load-1).addClass('active').siblings('span').removeClass('active');
+            $('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
+        }else{
+            html +='';
+            $('table').html(html);
+            $('#contentself').val('');
+            $('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
+            $('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
+        }
+        radio();
+    });
+
+}
+
+
 function daySave(){
 
 	$('.daysave').off('click').on('click',function() {
-        //退出缓存
+		// 退出缓存
         setTimeout(timer,0);
         var content = [];
         var lists = $('table tr');
@@ -379,48 +425,6 @@ function daySave(){
     })
 }
 
-function templet(){
-
-	$('.templet').on('click',function(){
-      //pushHistory();
-		clearTimeout(timer);
-		var index = $(this).attr('data-tab');
-		var name = $(this).find('.title').text();
-		$('.week').text(name).attr('data-tab',index);
-     	fobidden_back();
-		$('.main').fadeOut();
-		$('.bg').fadeIn();
-		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td> </tr>';
-		if(days[index]){
-			var trs = days[index].content;
-			var len = trs.length;
-			for(var i = 0 ; i<len;i++){
-				html+=
-					'<tr>'+
-					'<td>'+(i+1)+'</td>'+
-					'<td class="group">'+trs[i][0]+'</td>'+
-					'<td class="num">'+trs[i][1]+'</td>'+
-					'<td class="distance">'+trs[i][2]+'</td>'+
-					'<td class="pose">'+trs[i][3]+'</td>'+
-					'<td class="detail">'+trs[i][4]+'</td>'+
-					'</tr>';
-			}
-			$('table').html(html);
-			radio();
-			$('#contentself').val(days[index].contentself);
-			$('.load span').eq(days[index].load-1).addClass('active').siblings('span').removeClass('active');
-			$('.duration span').eq(days[index].duration-1).addClass('active').siblings('span').removeClass('active');
-		}else{
-			html +='';
-			$('table').html(html);
-			$('#contentself').val('');
-			$('.load span').eq(0).addClass('active').siblings('span').removeClass('active');
-			$('.duration span').eq(0).addClass('active').siblings('span').removeClass('active');
-		}
-		radio();
-		});
-
-}
 
 function wordSum(){
      var len = $("#need").val().length;
@@ -498,8 +502,8 @@ function pushHistory(){
     }
     window.addEventListener("popstate", function(e) {
 //       window.history.go(0);
-       // bghide();
-        //fobidden_back();
+        bghide();
+        fobidden_back();
 
         $('.templet').click();
     }, false);
