@@ -57,7 +57,7 @@ class Structure extends Base{
 			$userList[$class][$key]['height'] = $model['height'];
 			$userList[$class][$key]['weight'] = $model['weight'];
 			$userList[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-			$userList[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+			$userList[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid'], "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 		}
 		$class_arr = json_encode(array_values($class_arr));
 		$this->assign('coachModel',$coachModel);

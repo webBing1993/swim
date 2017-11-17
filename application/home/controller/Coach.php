@@ -50,7 +50,7 @@ class Coach extends Base {
 				$headStudent[$class][$key]['height'] = $model['height'];
 				$headStudent[$class][$key]['weight'] = $model['weight'];
 				$headStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$headStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$headStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid'], "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 			}
 			$class_arr = json_encode(array_values($class_arr));
 //			var_dump($headStudent);die;
@@ -77,7 +77,7 @@ class Coach extends Base {
 				$longStudent[$class][$key]['height'] = $model['height'];
 				$longStudent[$class][$key]['weight'] = $model['weight'];
 				$longStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$longStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$longStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid'], "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 			}
 			$potentialStudent = [];
 			$class_arr2 = [];
@@ -93,7 +93,7 @@ class Coach extends Base {
 				$potentialStudent[$class][$key]['height'] = $model['height'];
 				$potentialStudent[$class][$key]['weight'] = $model['weight'];
 				$potentialStudent[$class][$key]['age'] = $model['identity'] ? date("Y")-substr($model['identity'], 6, 4)+1 : '_ ';
-				$potentialStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid']])->count();
+				$potentialStudent[$class][$key]['count'] = WechatUserSign::where(['userid' => $model['userid'], "FROM_UNIXTIME(create_time, '%Y-%m')" => date('Y-m')])->count();
 			}
 			$class_arr = json_encode(array_values($class_arr));
 			$class_arr2 = json_encode(array_values($class_arr2));
