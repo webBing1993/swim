@@ -152,7 +152,7 @@ class Coach extends Base {
 			}
 		}
         $res['absence_count'] = count($res['absence']);
-        $res['late_count'] = count($res['late_count']);
+        $res['late_count'] = count($res['late']);
 		if(IS_POST) {
 			return json_encode($res);
 		}else{
