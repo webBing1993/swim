@@ -173,6 +173,7 @@ class User extends Base{
                 'extattr' => ['attrs' => array(
                     ["name" => "出生年月", "value" => $data['birthday']],
                     ["name" => "监护人", "value" => $data['guardian']],
+                    ["name" => "备用电话", "value" => $data['emergency_call']],
                     ["name" => "身高", "value" => $data['height']],
                     ["name" => "体重", "value" => $data['weight']],
                     ["name" => "原教练", "value" => $data['ever_coach']],

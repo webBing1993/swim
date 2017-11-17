@@ -132,6 +132,9 @@ class Wechat extends Admin
                         case "技术职称":
                             $user['technical_title'] = $value['value'];
                             break;
+                        case "备用电话":
+                            $user['emergency_call'] = $value['value'];
+                            break;
                         /*case "成员类型":
                             $user['member_type'] = $value['value'] ? $value['value'] : 0;
                             break;*/

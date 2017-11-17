@@ -47,6 +47,11 @@
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
 		<input type="text" value="{$res.mobile}" class="fr" name="mobile">
 	</div>-->
+	<div class="list clear">
+		<span class="fl">紧急联系电话</span>
+		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
+		<input type="text" value="{$res.emergency_call}" class="fr" name="emergency_call">
+	</div>
 </div>
 <div class="lists">
 	<!--<div class="list clear">
@@ -146,7 +151,8 @@ $(function(){
 					birthday:$("input[name='birthday']").val(),
 					gender:$(".sex span.active").index()+1,
 					guardian:$("input[name='guardian']").val(),
-					//mobile:$("input[name='mobile']").val(),
+                    //mobile:$("input[name='mobile']").val(),
+                    emergency_call:$("input[name='emergency_call']").val(),
 					enrollday:$("input[name='enrollday']").val(),
 					height:$("input[name='height']").val(),
 					weight:$("input[name='weight']").val(),

@@ -487,7 +487,7 @@ class Visitor extends Base {
 						'class_id' => $msg['class_id'],
 						'date' => date('Y-m-d'),
 						'member_type' => $msg['member_type'],
-						'coach_id' => $msg['coach_id'],
+						'coach_id' => 'xsfyyjxuxing439126',
 				);
 				if($model = WechatUserSign::create($data)) {//正常
 					return $this->success($user_name."签到成功", '', $response);
