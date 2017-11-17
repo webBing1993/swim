@@ -102,47 +102,39 @@ class Statistics extends Base{
 		if(isset($s_type)){  //ajax过来 学员情况
 			if($pid){    //单独教练下的学员
 				$query->where(['wus.coach_id' => $pid]);
-//				var_dump($query->fetchSql()->select());die;
                 $modelAll = $query->select();
 				$userModel = WechatUser::where(['coach_id' => $pid, 'member_type' => WechatUser::MEMBER_TYPE_STUDENT])->column('userid');
 			}else{
 				if($s_type == 1){   //主教练下全部的学员
 					$query->where(['wu2.department' => WechatDepartment::DEPARTMENT_HEAD_COACH]);
-//				var_dump($query->fetchSql()->select());die;
                     $modelAll = $query->select();
                     $userModel = Db::table('sw_wechat_user tab1')
                         ->join('sw_wechat_user tab2', 'tab1.coach_id = tab2.userid')
                         ->where(['tab2.department' => WechatDepartment::DEPARTMENT_HEAD_COACH])
                         ->where(['tab1.member_type' => WechatUser::MEMBER_TYPE_STUDENT])
                         ->column('tab1.userid');
-//                    var_dump($userModel);die;
 					//$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_HEAD_STUDENT])->column('userid');
 				}elseif($s_type == 2){   //助教下全部的学员
 					if($tag_id == WechatTag::TAG_HEAD_COACH){//主教练权限
 						$coach_ids = WechatUser::where(['coach_id' => $userId, 'member_type' => WechatUser::MEMBER_TYPE_COACH])->column('userid');
 						$query->where('wus.coach_id', 'in', $coach_ids);
-//				var_dump($query->fetchSql()->select());die;
                         $modelAll = $query->select();
 						$userModel = WechatUser::where('coach_id', 'in', $coach_ids)->column('userid');
 					}elseif($tag_id == WechatTag::TAG_ASSISTANT){//助教权限
 						$query->where(['wus.coach_id' => $userId]);
-//				var_dump($query->fetchSql()->select());die;
                         $modelAll = $query->select();
 						$userModel = WechatUser::where(['coach_id' => $userId])->column('userid');
 					}else {//领导权限
 						$query->where(['wu2.department' => WechatDepartment::DEPARTMENT_ASSISTANT]);
-//				var_dump($query->fetchSql()->select());die;
                         $modelAll = $query->select();
                         $userModel = Db::table('sw_wechat_user tab1')
                             ->join('sw_wechat_user tab2', 'tab1.coach_id = tab2.userid')
                             ->where(['tab2.department' => WechatDepartment::DEPARTMENT_ASSISTANT])
                             ->where(['tab1.member_type' => WechatUser::MEMBER_TYPE_STUDENT])
                             ->column('tab1.userid');
-//                        var_dump($userModel);die;
 //						$userModel = WechatDepartmentUser::where(['departmentid' => WechatDepartment::DEPARTMENT_LONG_STUDENT])->whereOr(['departmentid' => WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT])->column('userid');
 					}
 				}else{  //全部的学员
-//				var_dump($query->fetchSql()->select());die;
                     $modelAll = $query->select();
                     $userModel = WechatDepartmentUser::where('departmentid',['>=',WechatDepartment::DEPARTMENT_HEAD_STUDENT],['<=',WechatDepartment::DEPARTMENT_POTENTIAL_STUDENT],'and')->column('userid');
 				}
@@ -205,7 +197,7 @@ class Statistics extends Base{
 		}
 //		var_dump($res);die;
 		//学员情况
-		/*if($userModel){
+		if($userModel){
 			foreach($userModel as $id){//所有学员
 				foreach($all_days as $day){//所有日期
                     if(!empty($allUserId[WechatUser::MEMBER_TYPE_COACH])) {
@@ -230,7 +222,7 @@ class Statistics extends Base{
                     }
 				}
 			}
-		}*/
+		}
 //		var_dump($res);die;
 		$coach = [0,0,0];
 		$student = [0,0,0];

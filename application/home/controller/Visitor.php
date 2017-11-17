@@ -75,6 +75,7 @@ class Visitor extends Base {
 		return $this->fetch('index');
 	}
 
+	/*
 	public function sign() {
 		if(empty(input('mobile'))){
 			return $this->error("无效的二维码");
@@ -128,10 +129,10 @@ class Visitor extends Base {
 //					return $this->error($coach_name."教练".$class_name."名额已满");
 //				}
 			}else{//特殊学员
-				/*$userSign = WechatUserSign::checkUserSign($userId);
+				$userSign = WechatUserSign::checkUserSign($userId);
 				if(!empty($userSign)){
 					return $this->success("今天已签到");
-				}*/
+				}
 				$data = array(
 						'userid' => $userId,
 						'name' => $msg['name'],
@@ -294,7 +295,7 @@ class Visitor extends Base {
 			}
 		}
 
-	}
+	}*/
 	/**
 	 * 签到列表页
 	 */
