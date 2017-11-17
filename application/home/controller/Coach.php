@@ -119,7 +119,7 @@ class Coach extends Base {
 		$year = input('year', date('Y'));
 		$month = input('month', date('n'));
 		$month = $month<10 ? '0'.intval($month) : $month;
-		$res = array('normal' => [], 'late' => [], 'absence' => []);
+		$res = array('normal' => [], 'late' => [], 'absence' => [], 'absence_count' => [], 'late_count' => []);
 		if($year.$month > date("Ym")){
 			return json_encode($res);
 		}
@@ -151,17 +151,17 @@ class Coach extends Base {
 				}
 			}
 		}
+        $res['absence_count'] = count($res['absence']);
+        $res['late_count'] = count($res['late_count']);
 		if(IS_POST) {
-            $res['absence_count'] = count($res['absence']);
-            $res['late_count'] = count($res['late_count']);
 			return json_encode($res);
 		}else{
 			$this->assign('userModel',$userModel);
 			$this->assign('normal',json_encode($res['normal']));
 			$this->assign('late',json_encode($res['late']));
 			$this->assign('absence',json_encode($res['absence']));
-			$this->assign('late_count',count($res['late']));
-			$this->assign('absence_count',count($res['absence']));
+			$this->assign('late_count',$res['late_count']);
+			$this->assign('absence_count',$res['absence_count']);
 			$this->assign('did',$userId);
 			return $this->fetch();
 		}

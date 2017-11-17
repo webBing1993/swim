@@ -25,8 +25,8 @@ class Statistics extends Base{
 		$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
         $start_time = input('start', date('Y-m-d'));
         $end_time = input('end', date('Y-m-d'));
-//        $start_time = '2017-11-14';
-//        $end_time = '2017-11-14';
+        $start_time = '2017-11-14';
+        $end_time = '2017-11-14';
         $c_type = input('c_type');
         $s_type = input('s_type');
         $pid = input('pid', 0);
