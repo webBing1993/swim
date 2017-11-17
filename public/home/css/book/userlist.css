@@ -140,7 +140,9 @@ body{
 	background: url("/home/images/book/right.png") right center no-repeat;
 	background-size: 1.6vw 3.2vw;
 }
-
+.fa-angle-right:before{
+	margin-right: 5vw;
+}
 
 .onloading{
 	line-height: 2;
@@ -152,8 +154,18 @@ body{
 .hidden{
 	display: none;
 }
-.lists a .fr  i{
-	font-style: normal;
-	margin-right:3vw;
-	line-height:14.4vw;
+.lists a .fa  i{
+	float: left;
+	margin-right: 3vw;
+	font-style: normal
+}
+.fa {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	float: right;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 14.4vw;
 }

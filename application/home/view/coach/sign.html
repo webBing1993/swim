@@ -29,8 +29,8 @@
 		<span>学员详情</span>
 	</a>
 	<div class="tags">
-		<span class="tag">缺勤记录 : {$absence_count}次</span>
-		<span class="tag">迟到记录 : {$late_count}节</span>
+		<span class="tag">缺勤记录 : <span id="tagaa">{$absence_count}</span>次</span>
+		<span class="tag">迟到记录 : <span id="tagbb">{$late_count}</span>节</span>
 	</div>
 </div>
 <div id="calendar">
@@ -67,6 +67,7 @@
 <script src="/static/vue/vue.js"></script>
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
+	var html;
 var calendar = new Vue({
 	el: '#calendar',
 	data: {
@@ -78,7 +79,9 @@ var calendar = new Vue({
 		showModal: false,
 		normal:{$normal},//初始正常
 		late:{$late},//初始迟到
-		absence:{$absence}//初始缺勤
+		absence:{$absence},//初始缺勤
+        absence_count:{$absence_count},//缺勤次数
+        late_count:{$late_count} //迟到记录
 	},
 	computed: {
 		today: function() {
@@ -170,10 +173,20 @@ var calendar = new Vue({
 						},
 						success:function(msg){
 							var data = $.parseJSON(msg);
+							console.log(data);
 							this_.normal = data.normal;
 							this_.late = data.late;
 							this_.absence = data.absence;
+							this_.absence_count = data.absence_count;
+							this_.late_count  = data.late_count;
 							this_.init();
+                            var num = this_.late_count;
+                            var num1 = this_.absence_count
+                            $('.tag').eq(0).find("#tagaa").remove();
+							$('.tag').eq(1).find("#tagbb").remove();
+                            $('.tag').eq(0).html("缺勤记录 : "+"<span id='tagaa'>"+num1+"</span>"+"次")
+                            $('.tag').eq(1).html("迟到记录 : "+"<span id='tagbb'>"+num+"</span>"+"节")
+
 						}
 					});
 				},

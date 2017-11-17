@@ -77,13 +77,14 @@
 	</div>
 	{/if}
 	<canvas id="student" width="400" height="200"></canvas>
+	<!--<div id="main" style="width:50VW;height:50VW;"></div>-->
 </div>
 
 {/block}
 
 {block name="script"}
 	<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
-<script src="/static/chartJs/Chart.min.js"></script>
+    <script src="/static/chartJs/Chart.min.js"></script>
 <script>
 $(function(){
 	//初始数据
@@ -225,10 +226,11 @@ function datas(a,b){
 			datasets: [{
 				data:a ,
                 backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                xPadding: 2
 			}]
 		} ;
 		if(document.getElementById("tutor")){
-//		     每次重汇之前 清空
+         //每次重汇之前 清空
             $('#tutor').remove();
             $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
 
@@ -262,66 +264,6 @@ function datas(a,b){
 	     new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
 	}
 }
-//   var  option = {
-//        tooltip: {
-//            trigger: 'item',
-//            formatter: "{a} <br/>{b}: {c} ({d}%)"
-//        },
-//        legend: {
-//            orient: 'vertical',
-//            y: 'left',
-//            data:['正常','迟到','缺勤']
-//        },
-//        series: [
-//            {
-//                name:'访问来源',
-//                type:'pie',
-//                selectedMode: 'single',
-//                radius: [0, '30%'],
-//            },
-//            {
-//                name:'访问来源',
-//                type:'pie',
-//                radius: ['30%', '50%'],
-//                label: {
-//                    normal: {
-//                        formatter: '{a|{a}}{abg|}\n{hr|}\n  {b|{b}：}{c}  {per|{d}%}  ',
-//                        backgroundColor: '#eee',
-//                        borderColor: '#aaa',
-//                        borderWidth: 1,
-//                        borderRadius: 4,
-//                        rich: {
-//                            a: {
-//                                color: '#999',
-//                                lineHeight: 22,
-//                                align: 'center'
-//                            },
-//                            hr: {
-//                                borderColor: '#aaa',
-//                                width: '100%',
-//                                borderWidth: 0.5,
-//                                height: 0
-//                            },
-//                            b: {
-//                                fontSize: 16,
-//                                lineHeight: 33
-//                            },
-//                            per: {
-//                                color: '#eee',
-//                                backgroundColor: '#334455',
-//                                padding: [2, 4],
-//                                borderRadius: 2
-//                            }
-//                        }
-//                    }
-//                },
-//                data:[
-//                    {value:335, name:'正常'},
-//                    {value:310, name:'缺勤'},
-//                    {value:234, name:'迟到'}
-//                ]
-//            }
-//        ]
-//    }
+
 </script>
 {/block}

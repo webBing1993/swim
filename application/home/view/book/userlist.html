@@ -34,7 +34,7 @@
             {volist name="list" id="vo"}
             <a href="{:Url('Book/userinfo?id='.$vo['id'].'&did='.$did)}">
                 <img src="{$vo.header}" alt="头像">
-                <div>{$vo.name}<span class="fr"><i>{$vo.num}</i></span></div>
+                <div>{$vo.name}<span class="fa fa-angle-right"><i>{$vo.num}</i></span></div>
             </a>
             {/volist}
         </li>
