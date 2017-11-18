@@ -265,7 +265,7 @@ $(function(){
 	//头像大小自适应
 	imgfit();
 	//清除缓存
-    isOut();
+//    isOut();
 	//修改头像
 	//触发上传按钮
 	$('.up').off("click").on('click',function(){
@@ -486,47 +486,47 @@ function imgfit(){
 		}
 	};
 }
-
-//退出清理tab缓存
-function isOut(){
-    pushHistory();
-    setTimeout(function(){
-        window.addEventListener("popstate", function(e) {
-            delCookie("type");
-            window.location.href = "/home/visitor/index.html";
-        }, false);
-    },200)
-}
-//防止恶意刷新
-function pushHistory(){
-    var sta = {
-        title: "title"
-    };
-    if( window.history.state === null )
-    {
-        window.history.pushState( sta, "title" );
-    }
-}
-function setCookie(name,value){
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
-}
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-        return arr[2];
-    else
-        return null;
-}
-function delCookie(name){
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
+//
+////退出清理tab缓存
+//function isOut(){
+//    pushHistory();
+//    setTimeout(function(){
+//        window.addEventListener("popstate", function(e) {
+//            delCookie("type");
+//            window.location.href = "/home/visitor/index.html";
+//        }, false);
+//    },200)
+//}
+////防止恶意刷新
+//function pushHistory(){
+//    var sta = {
+//        title: "title"
+//    };
+//    if( window.history.state === null )
+//    {
+//        window.history.pushState( sta, "title" );
+//    }
+//}
+//function setCookie(name,value){
+//    var Days = 30;
+//    var exp = new Date();
+//    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+//    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
+//}
+//function getCookie(name){
+//    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+//    if(arr=document.cookie.match(reg))
+//        return arr[2];
+//    else
+//        return null;
+//}
+//function delCookie(name){
+//    var exp = new Date();
+//    exp.setTime(exp.getTime() - 1);
+//    var cval=getCookie(name);
+//    if(cval!=null)
+//        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+//}
 function loadScroll(){}
 </script>
 {/block}

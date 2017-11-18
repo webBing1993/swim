@@ -67,7 +67,7 @@
 $(function(){
 	timeSelect()
 	//退出清除缓存
-	isOut();
+//	isOut();
 });
 function listDel(e,a,b){
 	swal({
@@ -217,7 +217,6 @@ function isOut(){
     setTimeout(function(){
         window.addEventListener("popstate", function(e) {
             delCookie("type");
-
             var did = '{$did}';
                 if (did) {
                     window.location.href = "/home/structure/detail/did/"+"{$did}";

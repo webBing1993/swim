@@ -145,7 +145,8 @@ $(function(){
 								title: '',
 								text: data.msg,
 								type: 'success',
-								showConfirmButton:false
+								showConfirmButton:false,
+                                timer:1500
 							});
 							setTimeout(function(){
 								history.go(-1);
@@ -155,7 +156,8 @@ $(function(){
 								title: '',
 								text: data.msg,
 								type: 'error',
-								showConfirmButton:false
+								showConfirmButton:false,
+//                                timer:3000
 							});
 						}
 					}

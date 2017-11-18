@@ -80,8 +80,8 @@
 <script src="/static/viewer/viewer-jquery.min.js"></script>
 <script>
 $(function(){
-    //退出缓存
-    isOut();
+//    //退出缓存
+//    isOut();
 	//图片预览
 	$('.card').viewer({
 		url: 'data-original',
@@ -97,59 +97,59 @@ $(function(){
 //	}
 //}
 
-
-//退出清理tab缓存
-function isOut(){
-    pushHistory();
-    setTimeout(function(){
-        window.addEventListener("popstate", function(e) {
-            delCookie("type");
-
-            var str = window.location.href;
-            console.log(str)
-            var arr = str.split('/');
-            console.log(arr)
-            if(arr[7]==1){
-                window.location.href = "/home/student/index.html";
-            }else {
-                window.location.href = "/home/coach/index.html";
-            }
-        }, false);
-    },200)
-}
-//防止恶意刷新
-function pushHistory(){
-    var sta = {
-        title: "title"
-    };
-    if( window.history.state === null )
-    {
-        window.history.pushState( sta, "title" );
-    }
-    window.addEventListener("popstate", function(e) {
-        window.history.go(0);
-    }, false);
-}
-function setCookie(name,value){
-    var Days = 30;
-    var exp = new Date();
-    exp.setTime(exp.getTime() + Days*24*60*60*1000);
-    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
-}
-function getCookie(name){
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    if(arr=document.cookie.match(reg))
-        return arr[2];
-    else
-        return null;
-}
-function delCookie(name){
-    var exp = new Date();
-    exp.setTime(exp.getTime() - 1);
-    var cval=getCookie(name);
-    if(cval!=null)
-        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
-}
+//
+////退出清理tab缓存
+//function isOut(){
+//    pushHistory();
+//    setTimeout(function(){
+//        window.addEventListener("popstate", function(e) {
+//            delCookie("type");
+//
+//            var str = window.location.href;
+//            console.log(str)
+//            var arr = str.split('/');
+//            console.log(arr)
+//            if(arr[7]==1){
+//                window.location.href = "/home/student/index.html";
+//            }else {
+//                window.location.href = "/home/coach/index.html";
+//            }
+//        }, false);
+//    },200)
+//}
+////防止恶意刷新
+//function pushHistory(){
+//    var sta = {
+//        title: "title"
+//    };
+//    if( window.history.state === null )
+//    {
+//        window.history.pushState( sta, "title" );
+//    }
+//    window.addEventListener("popstate", function(e) {
+//        window.history.go(0);
+//    }, false);
+//}
+//function setCookie(name,value){
+//    var Days = 30;
+//    var exp = new Date();
+//    exp.setTime(exp.getTime() + Days*24*60*60*1000);
+//    document.cookie = name + "="+ value + ";expires=" + exp.toGMTString();
+//}
+//function getCookie(name){
+//    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+//    if(arr=document.cookie.match(reg))
+//        return arr[2];
+//    else
+//        return null;
+//}
+//function delCookie(name){
+//    var exp = new Date();
+//    exp.setTime(exp.getTime() - 1);
+//    var cval=getCookie(name);
+//    if(cval!=null)
+//        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+//}
 
 </script>
 {/block}

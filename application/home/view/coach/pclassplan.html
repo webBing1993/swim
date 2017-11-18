@@ -164,7 +164,7 @@ $(function(){
 	//保存周计划
 	weekSave();
 	//保存日计划
-	daySave();
+//	daySave();
 	//单选
 	radio();
 	//新增训练内容
@@ -176,20 +176,21 @@ $(function(){
 	})
 });
 //退出清理tab缓存
-var timer = setTimeout(function(){
+var timer = function(){
     window.addEventListener("popstate", function(e) {
-        delCookie("type");
-        var did = '{$did}';
-        if (did) {
-            window.location.href = "/home/coach/classplan/did/"+"{$did}";
-        }else {
-            window.location.href = "/home/coach/classplan/";
-
-        }
+//        delCookie("type");
+//        var did = '{$did}';
+//        if (did) {
+//            window.location.href = "/home/coach/classplan/did/"+"{$did}";
+//        }else {
+//            window.location.href = "/home/coach/classplan/";
+//
+//        }
+        daySave();
     }, false);
-},200);
+}
 //初始化关闭缓存清理
-clearTimeout(timer);
+//clearTimeout(timer);
 
 function  addList(){
 	$('.addList').off('click').on('click',function(){
@@ -359,14 +360,15 @@ function weekSave(){
                     url: "",
                     data: data,
                     success: function (data) {
-                        if (isConfirm) {
-                            var did = '{$did}';
-                            if (did) {
-                                window.location.href = "/home/coach/classplan/did/"+"{$did}";
-                            }else {
-                                window.location.href = "/home/coach/classplan.html";
-                            }
-                        }
+//                        if (isConfirm) {
+//                            var did = '{$did}';
+//                            if (did) {
+//                                window.location.href = "/home/coach/classplan/did/"+"{$did}";
+//                            }else {
+//                                window.location.href = "/home/coach/classplan.html";
+//                            }
+//                        }
+						window.history.go(-1);
                     }
                 })
             })
@@ -375,39 +377,47 @@ function weekSave(){
 }
 
 
+
 function daySave() {
-	$('.daysave').off('click').on('click', function () {
-	    //t退出缓存
-        setTimeout(timer,0);
-		var content = [];
-		var lists = $('table tr');
-		var len = lists.length;
-		for (var i = 1; i < len; i++) {
-            var list = lists.eq(i);
-            var group = list.find('td').eq(1).text();
-            var num = list.find('td').eq(2).text();
-            var distance = list.find('td').eq(3).text();
-            var pose = list.find('td').eq(4).text();
-            var detail = list.find('td').eq(5).text();
+         //t退出缓存
+        // setTimeout(timer,0);
+    var content = [];
+    var lists = $('table tr');
+    var len = lists.length;
+    for (var i = 1; i < len; i++) {
+        var list = lists.eq(i);
+        var group = list.find('td').eq(1).text();
+        var num = list.find('td').eq(2).text();
+        var distance = list.find('td').eq(3).text();
+        var pose = list.find('td').eq(4).text();
+        var detail = list.find('td').eq(5).text();
 
-            content.push([group, num, distance, pose, detail]);
-        }
+        content.push([group, num, distance, pose, detail]);
+    }
+    if (distance == "-" || pose == '-' || detail == '-') {
+			swal({
+					title: '提示',
+					text: '请填写完整信息？',
+					type: 'error',
+					showCancelButton: true,
+					confirmButtonText: "继续填写",
+					cancelButtonText: "直接返回"
+				},
+				function (isConfirm) {
+					if (!isConfirm) {
+						$(".main").fadeIn();
+						$(".bg").fadeOut();
+					} else {
+						pushHistory();
+					}
+				})
+			return false;
 
-        if (distance == "-" || pose == '-' || detail == '-') {
-            swal({
-                title: '提示',
-                text: '请填写完整信息',
-                type: 'error',
-                showConfirmButton: true,
-                timer: 2000
-            },function () {
-                $(".bg").fadeIn();
-                $(".main").fadeOut();
-            })
+
         }else if (distance != "-" && pose != '-' && detail != '-' && distance != undefined  && pose != undefined && detail != undefined) {
-            $(".main").fadeIn();
-            $(".bg").fadeOut();
-        }
+			$(".main").fadeIn();
+			$(".bg").fadeOut();
+         }
 
 			if (len != 1) {
 				var data = {
@@ -434,23 +444,26 @@ function daySave() {
                             $(".main").fadeIn();
                             $(".bg").fadeOut();
                         }else {
-
+                          pushHistory();
                         }
                     })
 			}
-	 })
 }
 
 
 function templet() {
 	$('.templet').off('click').on('click', function () {
 	    //退出缓存
+        pushHistory();
         setTimeout(timer,0);
-         fobidden_back();
+
+        $('.daysave').off('click').on('click', function () {
+            window.history.go(-1);
+		});
+
 		var index = $(this).attr('data-tab');
 		var name = $(this).find('.title').text();
 		$('.week').text(name).attr('data-tab', index);
-
 		$('.main').fadeOut();
 		$('.bg').fadeIn();
 		var html = '<tr> <td>序号</td> <td>组数</td> <td>个数</td> <td>距离</td> <td>项目</td> <td>详情</td>  </tr>';
@@ -560,9 +573,6 @@ function pushHistory(){
     {
         window.history.pushState( sta, "title" );
     }
-    window.addEventListener("popstate", function(e) {
-        window.history.go(0);
-    }, false);
 }
 function setCookie(name,value){
     var Days = 30;

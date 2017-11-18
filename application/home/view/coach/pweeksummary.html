@@ -52,7 +52,7 @@ $(function(){
 	//保存周计划
 	weekSave();
     //退出缓存
-	isOut();
+//	isOut();
 });
 function weekSave(){
     $('.save').off('click').on('click',function(){
@@ -87,14 +87,15 @@ function weekSave(){
                     url: "",
                     data: data,
                     success: function (data) {
-                        if (isConfirm) {
-                            var did = '{$did}';
-                            if (did) {
-                                window.location.href = "/home/coach/weekplan/id/1/did/"+"{$did}";
-                            }else {
-                                window.location.href = "/home/coach/weekplan/id/1.html";
-                            }
-                        }
+//                        if (isConfirm) {
+//                            var did = '{$did}';
+//                            if (did) {
+//                                window.location.href = "/home/coach/weekplan/id/1/did/"+"{$did}";
+//                            }else {
+//                                window.location.href = "/home/coach/weekplan/id/1.html";
+//                            }
+//                        }
+						window.history.go(-1);
                     }
 
                 })
