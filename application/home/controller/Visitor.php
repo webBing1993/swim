@@ -481,6 +481,10 @@ class Visitor extends Base {
                 if(!empty($userSign)){
                     return $this->result($response, 2, $user_name."今天已签到");
                 }
+                $coach_id = '';
+                if($msg['name']){
+                    $coach_id = 'xsfyyjxuxing439126';
+                }
 				$data = array(
 						'userid' => $userId,
 						'name' => $msg['name'],
@@ -488,7 +492,7 @@ class Visitor extends Base {
 						'class_id' => $msg['class_id'],
 						'date' => date('Y-m-d'),
 						'member_type' => $msg['member_type'],
-						'coach_id' => 'xsfyyjxuxing439126',
+						'coach_id' => $coach_id,
 				);
 				if($model = WechatUserSign::create($data)) {//正常
 					return $this->success($user_name."签到成功", '', $response);
