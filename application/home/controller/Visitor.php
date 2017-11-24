@@ -16,7 +16,7 @@ use think\Collection;
 /**
  * 游客频道
  */
-class Visitor extends Base {
+class Visitor extends Base{
 	/**
 	 * 首页
 	 */
@@ -423,7 +423,7 @@ class Visitor extends Base {
 		if(empty(input('mobile'))){
 			return $this->error("无效的二维码", '', $response);
 		}
-		if(!preg_match('/^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[01678])\\d{8}$/',input('mobile'))){
+		if(!preg_match('/^1(1[0-9]|3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[01678])\\d{8}$/',input('mobile'))){
 			return $this->error("无效的二维码，请稍后再试", '', $response);
 		}
 		$msg = WechatUser::where(['userid' => input('mobile')])->find();

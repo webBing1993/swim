@@ -56,6 +56,10 @@ class Index extends Controller {
             session('userId', '18157133183');
             $tag_id = 4;
         }
+        if($id == 4){
+            session('userId', '13777483530');
+            $tag_id = 3;
+        }
         //$tag_id = WechatUserTag::where(['userid' => $userId])->value('tagid');
         $map = array(
             'sn.status' => 1,
