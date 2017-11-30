@@ -89,7 +89,7 @@ function dispose(i,id,status,type){
 		confirmButtonText:'确定',
 		showCancelButton:true,
 		cancelButtonText:'取消'
-	}).then(function(isConfirm){
+	},function(isConfirm){
 		//确认之后执行函数
 		if (isConfirm) {
 			$.ajax({
@@ -129,14 +129,8 @@ function aleats(msg,status){
 		title: ' ',
 		text: msg,
 		type: status,
-		showConfirmButton:false
-	}).then (
-		function () {},
-		function (dismiss) {
-			if (dismiss === 'timer') {
-				history.go(0);
-			}
-		})
+        confirmButtonText:'确定'
+	})
 }
 </script>
 {/block}
