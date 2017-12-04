@@ -90,6 +90,7 @@
 	<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
     <script src="/static/chartJs/Chart.min.js"></script>
 <script>
+	var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
 $(function(){
 	//初始数据
 	var data1={$coach};//教练[正常,迟到,缺卡]
@@ -104,6 +105,7 @@ $(function(){
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
 			var index = $(this).attr('data-tab');
+            tIndex = index;
 			var text = $(this).text();
 			$(this_).find('span').text(text);
 			$(this_).attr('data-tab',index);
@@ -132,6 +134,7 @@ $(function(){
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
 			var index = $(this).attr('data-tab');
+            sIndex = index;
 			var text = $(this).text();
 			$(this_).find('span').eq(0).text(text);
 			$(this_).attr('data-tab',index);
@@ -141,6 +144,7 @@ $(function(){
 				$('.main').eq(index-1).fadeIn();
 				$('.li').off('click').on('click',function(){
 					var pid = $(this).attr('data-tag');
+                    tPid = pid;
 					var text = $(this).text();
 					$(this_).find('span').eq(1).text(text);
 					$(this_).attr('data-tag',pid);
@@ -166,6 +170,7 @@ $(function(){
 				$(this_).next('.lists').fadeOut();
 				var start = $('#start').val();
 				var end = $('#end').val();
+                tPid = 0;
 				$.ajax({
 					type:"post",
 					url:"",
@@ -205,8 +210,9 @@ function timeSelect(){
 				url:"{:Url('index')}",
 				data:{
 					start:start,
-					end: end
-
+					end: end,
+                    c_type: tIndex,
+					s_type: sIndex
 				},
 				success:function(data){
 					datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
@@ -217,6 +223,7 @@ function timeSelect(){
 	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
 	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
 }
+
 function datas(a,b){
 	var Options1 = {
 		responsive: true,
