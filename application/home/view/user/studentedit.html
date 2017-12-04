@@ -47,7 +47,7 @@
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
 		<input type="text" value="{$res.mobile}" class="fr" name="mobile">
 	</div>-->
-	<div class="list clear">
+	<div class="list clear" id="contact ">
 		<span class="fl">紧急联系电话</span>
 		<img src="/home/images/user/pen.png" alt="笔" class="fr pen">
 		<input type="text" value="{$res.emergency_call}" class="fr" name="emergency_call">
@@ -131,72 +131,91 @@
             document.getElementsByClassName("save")[0].style.display = "block";
         }
     };
+
+    var phone =$("input[name='emergency_call']").val();
+    console.log(phone);
+
 $(function(){
 	//头像大小自适应
 	imgfit();
 	//保存
 	$('.save').on('click',function(){
-		swal({
-			title: "提示",
-			text: "确认提交您的信息？",
-			showCancelButton: true,
-			confirmButtonColor: "#f99300",
-			confirmButtonText: "确定",
-			cancelButtonText: "取消"
-		},function(isConfirm){
-			if (isConfirm) {
-				var data={
-					header:$("input[name='header']").attr('data-tab'),
-					name:$("input[name='name']").val(),
-					birthday:$("input[name='birthday']").val(),
-					gender:$(".sex span.active").index()+1,
-					guardian:$("input[name='guardian']").val(),
-                    //mobile:$("input[name='mobile']").val(),
-                    emergency_call:$("input[name='emergency_call']").val(),
-					enrollday:$("input[name='enrollday']").val(),
-					height:$("input[name='height']").val(),
-					weight:$("input[name='weight']").val(),
-					star_level:$("input[name='star_level']").val(),
-					ever_coach:$("input[name='ever_coach']").val(),
-					now_coach:$("input[name='now_coach']").val(),
-					address:$("input[name='address']").val(),
-					education:$("input[name='education']").val(),
-					school:$("input[name='school']").val(),
-					student_code:$("input[name='student_code']").val(),
-					achievement:$("input[name='achievement']").val(),
-					id:{$res.id}
-				};
-				$.ajax({
-					type:"post",
-					url:"{:Url('User/studentedit')}",
-					data:data,
-					dataType: "Json",
-					success:function(data){
-						if(data.code){
-							swal({
-								title: '',
-								text: data.msg,
-								type: 'success',
-								showConfirmButton:false
-							});
-							setTimeout(function(){
-								history.go(-1);
-							},1500);
-						} else{
-							swal({
-								title: '',
-								text: data.msg,
-								type: 'error',
-								showConfirmButton:false
-							});
-						}
-						//window.location.href="/home/student/index"
-					}
-				})
-			}else{
-				swal.close();
-			}
-		});
+        var phone =$("input[name='emergency_call']").val();
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+        if((!(myreg.test(phone)&&phone.length==11)&&phone!="")){
+            swal({
+                title: ' ',
+                text: '请输入正确的紧急联系电话号码！',
+                type: 'warning',
+                showConfirmButton:false,
+                timer:1500
+            });
+		}else {
+            swal({
+                title: "提示",
+                text: "确认提交您的信息？",
+                showCancelButton: true,
+                confirmButtonColor: "#f99300",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            },function(isConfirm){
+                if (isConfirm) {
+                    var data={
+
+                        header:$("input[name='header']").attr('data-tab'),
+                        name:$("input[name='name']").val(),
+                        birthday:$("input[name='birthday']").val(),
+                        gender:$(".sex span.active").index()+1,
+                        guardian:$("input[name='guardian']").val(),
+                        //mobile:$("input[name='mobile']").val(),
+                        emergency_call:$("input[name='emergency_call']").val(),
+                        enrollday:$("input[name='enrollday']").val(),
+                        height:$("input[name='height']").val(),
+                        weight:$("input[name='weight']").val(),
+                        star_level:$("input[name='star_level']").val(),
+                        ever_coach:$("input[name='ever_coach']").val(),
+                        now_coach:$("input[name='now_coach']").val(),
+                        address:$("input[name='address']").val(),
+                        education:$("input[name='education']").val(),
+                        school:$("input[name='school']").val(),
+                        student_code:$("input[name='student_code']").val(),
+                        achievement:$("input[name='achievement']").val(),
+                        id:{$res.id}
+                };
+                    $.ajax({
+                        type:"post",
+                        url:"{:Url('User/studentedit')}",
+                        data:data,
+                        dataType: "Json",
+                        success:function(data){
+                            if(data.code){
+                                swal({
+                                    title: '',
+                                    text: data.msg,
+                                    type: 'success',
+                                    showConfirmButton:false
+                                });
+                                setTimeout(function(){
+                                    history.go(-1);
+                                },1500);
+                            } else{
+                                swal({
+                                    title: '',
+                                    text: data.msg,
+                                    type: 'error',
+                                    showConfirmButton:false
+                                });
+                            }
+                            //window.location.href="/home/student/index"
+                        }
+                    })
+                }else{
+                    swal.close();
+                }
+            });
+		}
+
+
 
 	});
 	//触发上传按钮
