@@ -96,6 +96,16 @@ $(function(){
 	var data1={$coach};//教练[正常,迟到,缺卡]
 	var data2={$student};//学员[正常,迟到,缺卡]
 	datas(data1,data2);
+	if(data1[0]==0&&data1[1]==0&&data1[2]==0){
+	    $('#tutor').hide();
+	    $('.box').eq(0).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
+	}
+    if(data2[0]==0&&data2[1]==0&&data2[2]==0){
+        $('#student').hide();
+        $('.box').eq(1).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
+    }
+
+
 	//时间选择
 	timeSelect();
 	//教练情况的切换
@@ -104,6 +114,8 @@ $(function(){
 		$('.lists,.main').hide();
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
+            $('.swim_null').eq(0).hide();
+            $('#tutor').show();
 			var index = $(this).attr('data-tab');
             tIndex = index;
 			var text = $(this).text();
@@ -122,6 +134,7 @@ $(function(){
 				},
 				success:function(data){
 					datas($.parseJSON(data)[0],0);
+					console.log(data)
 				}
 			});
 
@@ -133,6 +146,8 @@ $(function(){
 		$('.lists,.main').hide();
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
+            $('.swim_null').eq(1).hide();
+            $('#student').show();
 			var index = $(this).attr('data-tab');
             sIndex = index;
 			var text = $(this).text();
