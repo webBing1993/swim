@@ -10,14 +10,6 @@
 <div class="banner">
 	<img src="/home/images/coach/banner01.png" alt="数据统计banner" class="banner-img">
 </div>
-<!--<div class="date">
-	<label for="start">开始日期</label>
-	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="start" type="text">
-</div>
-<div class="date">
-	<label for="end">结束日期</label>
-	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="end" type="text">
-</div>-->
 <div class="date">
 	<label for="start">签到日期</label>
 	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="start" type="text">
@@ -26,6 +18,7 @@
 <div class="box">
 	<div class="top clear">
 		<div class="tag fl">教练情况</div>
+        <a class="details" href="#">签到详情>></a>
 		<div class="type fr">
 			<div class="tab tutor" data-tab="0">
 				{eq name="tag_id" value="1"}
@@ -81,30 +74,104 @@
 	</div>
 	{/if}
 	<canvas id="student" width="400" height="200"></canvas>
-	<!--<div id="main" style="width:50VW;height:50VW;"></div>-->
+    <!--<div class="swim_null" style="text-align: center;margin: 10vw 0;display: none"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>-->
+</div>
+
+<!--点击弹框-->
+<!--时间选择-->
+<div class="maks_box">
+<div class="maks">
+    <div class="time">
+        <a></a>
+    </div>
+    <div class="tabbox">
+        <div class="tabs clear">
+            <span class="tab active">迟到</span>
+            <span class="tab fr">正常</span>
+            <span class="tab fr">缺勤</span>
+        </div>
+    </div>
+   <div class="boxss">
+       <!--迟到-->
+       <div class="boxs ">
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+       </div>
+       <!--正常-->
+       <div class="boxs hidden">
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+		   <div class="list">
+			   <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+		   </div>
+       </div>
+       <!--缺勤-->
+       <div class="boxs hidden">
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+           <div class="list">
+               <span>孙梓灝</span><span>16:29</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+           </div>
+       </div>
+   </div>
+</div>
 </div>
 
 {/block}
 
 {block name="script"}
-	<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
-    <script src="/static/chartJs/Chart.min.js"></script>
+<script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
+<script src="/static/chartJs/Chart.min.js"></script>
 <script>
-	var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
+    //css适配
+    $(function(){
+        $('.maks_box').height($(window).height());
+    });
+    $(function () {
+        //tab值记录
+        tabRecord('.tab' ,'.boxs');
+        //tab切换
+        tabSwitch('.tab' ,'.boxs');
+
+        //点击隐藏
+        $('.maks>.time>a').click(function(){
+			$(".maks_box").hide()
+            $("body").css("position","")
+        });
+
+        //点击显示
+        $('.box>.top>.details').click(function(){
+            $(".maks_box").show();
+            $("body").css("position","fixed")
+        });
+
+        for(var j = 0 ;j < 3 ;j++){
+            if($('.box').eq(j).find('.list').length == 0){
+                $('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
+            }
+        }
+    })
+
+
+
+
+
+
+    var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
 $(function(){
 	//初始数据
 	var data1={$coach};//教练[正常,迟到,缺卡]
 	var data2={$student};//学员[正常,迟到,缺卡]
 	datas(data1,data2);
-	if(data1[0]==0&&data1[1]==0&&data1[2]==0){
-	    $('#tutor').hide();
-	    $('.box').eq(0).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
-	}
-    if(data2[0]==0&&data2[1]==0&&data2[2]==0){
-        $('#student').hide();
-        $('.box').eq(1).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
-    }
-
 
 	//时间选择
 	timeSelect();
@@ -114,6 +181,7 @@ $(function(){
 		$('.lists,.main').hide();
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
+            $('.swim_null').remove()
             $('.swim_null').eq(0).hide();
             $('#tutor').show();
 			var index = $(this).attr('data-tab');
@@ -133,11 +201,10 @@ $(function(){
 					c_type:index
 				},
 				success:function(data){
+				    console.log(JSON.parse(data));
 					datas($.parseJSON(data)[0],0);
-					console.log(data)
 				}
 			});
-
 		})
 	});
 	//学员情况的切换
@@ -147,7 +214,6 @@ $(function(){
 		$(this_).next('.lists').fadeIn();
 		$('.list').off('click').on('click',function(){
             $('.swim_null').eq(1).hide();
-            $('#student').show();
 			var index = $(this).attr('data-tab');
             sIndex = index;
 			var text = $(this).text();
@@ -176,7 +242,7 @@ $(function(){
 							pid:pid
 						},
 						success:function(data){
-							datas(0,$.parseJSON(data)[1]);
+                            datas(0,$.parseJSON(data)[1]);
 						}
 					});
 				})
@@ -204,9 +270,10 @@ $(function(){
 	});
 });
 function timeSelect(){
+
 	var currYear = (new Date()).getFullYear();
 	var opt={};
-	opt.date = {preset : 'date'};
+	opt.date = {preset:'date'};
 	opt.default = {
 		theme: 'android-holo light',
 		display: 'modal',
@@ -229,65 +296,104 @@ function timeSelect(){
 					end: end
 				},
 				success:function(data){
-					datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
+				    console.log(data)
+                    var _data = JSON.parse(data);
+				    if((_data[0][0]==0&&_data[0][1]==0&&_data[0][2]==0)||(_data[1][0]==0&&_data[1][1]==0&&_data[1][2]==0)){
+				        console.log(1)
+                        $('#tutor').hide();
+                        $('.swim_null').show();
+                    }else if(_data[1][0]==0&&_data[1][1]==0&&_data[1][2]==0) {
+                        $('.swim_null').hide();
+
+                    }else if(_data[0][0]==0&&_data[0][1]==0&&_data[0][2]==0){
+                        console.log(3)
+                        $('#tutor').hide();
+                    }
+                    else {
+                        console.log(4)
+                        datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
+                    }
+
 				}
 			});
 		}
 	};
 	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
 	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
+
 }
 
 function datas(a,b){
+//    console.log(a,b);
+    var data1=a;//教练[正常,迟到,缺卡]
+    var data2=b;//学员[正常,迟到,缺卡]
+  //判断是否有数据 无数据时做出提示
+    if(data1[0]==0&&data1[1]==0&&data1[2]==0){
+        $('#tutor').hide();
+        $('.box').eq(0).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
+    }else {
+        if($.isArray(a)){
+            //	教练签到
+            var data1 = {
+                labels: ["正常","迟到","缺勤" ],
+                datasets: [{
+                    data:a ,
+                    backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                    xPadding: 2
+                }]
+            } ;
+            if(document.getElementById("tutor")){
+
+                //每次重汇之前 清空
+                $('#tutor').remove();
+                $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
+
+                var ctx1 = document.getElementById("tutor").getContext("2d");
+                new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+            }
+        }
+        $('.box').eq(0).find('.swim_null').hide();
+    }
+
+
+
+    if(data2[0]==0&&data2[1]==0&&data2[2]==0){
+        $('#student').hide();
+        $('.box').eq(1).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
+    }else {
+        if($.isArray(b)){
+            //	学员签到
+            var data2 = {
+                type: 'pie',
+                labels: ["正常","迟到","缺勤" ],
+                datasets: [{
+                    data: b,
+                    backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                }]
+            } ;
+
+            // 每次重汇之前 清空
+            $('#student').remove();
+            var tag = {$tag_id};
+            if(tag == 3){
+                var eqNumber = 0;
+            }else{
+                var eqNumber = 1;
+            }
+            $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+
+            var ctx2 = document.getElementById("student").getContext("2d");
+            new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+        }
+        $('.box').eq(1).find('.swim_null').hide();
+    }
+
+
 	var Options1 = {
 		responsive: true,
 		showTooltips: true
 	};
 
-	if($.isArray(a)){
-		//	教练签到
-		var data1 = {
-			labels: ["正常","迟到","缺勤" ],
-			datasets: [{
-				data:a ,
-                backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-                xPadding: 2
-			}]
-		} ;
-		if(document.getElementById("tutor")){
-         //每次重汇之前 清空
-            $('#tutor').remove();
-            $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
-
-            var ctx1 = document.getElementById("tutor").getContext("2d");
-        	new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
-		}
-	}
-
-	if($.isArray(b)){
-		//	学员签到
-		var data2 = {
-            type: 'pie',
-			labels: ["正常","迟到","缺勤" ],
-			datasets: [{
-                data: b,
-				backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-			}]
-		} ;
-
-        // 每次重汇之前 清空
-        $('#student').remove();
-        var tag = {$tag_id};
-        if(tag == 3){
-            var eqNumber = 0;
-		}else{
-            var eqNumber = 1;
-		}
-        $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
-
-		var ctx2 = document.getElementById("student").getContext("2d");
-	     new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
-	}
 }
 // 教练跟学员筛选条件重置
 function resetAll() {
@@ -296,7 +402,7 @@ function resetAll() {
     $('.tab.student').attr('data-tab',0);
     $('.tab.student').find('span').eq(0).text('全部');
     $('.tab.student').find('span').eq(1).text('全部');
-
 }
+
 </script>
 {/block}

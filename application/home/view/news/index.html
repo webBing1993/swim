@@ -131,11 +131,13 @@ $(function(){
 		loop:true,
 		autoplayDisableOnInteraction:false
 	});
-	//tab值记录
-	tabRecord('.tab' ,'.box');
-	//tab切换
-	tabSwitch('.tab' ,'.box');
-	//无消息
+    //tab值记录
+    tagRecord('.tab' ,'.box');
+    //tab切换
+    tagSwitch('.tab' ,'.box');
+
+
+    //无消息
 	var box = $('.box');
 	for(var i = 0; i < box.length ;i++){
 		var len = box.eq(i).find('.list').length;

@@ -48,7 +48,7 @@
   position: relative;
 }
 .box .top .type .tab {
-  width: 50vw;
+  width: 35vw;
   text-align: right;
   color: #999999;
 }
@@ -109,3 +109,160 @@
 .box canvas {
   margin: 5vw auto;
 }
+.box>.top>.details{
+  border: 1px solid #1D94BF;
+  color: #333;
+  margin-left: 2vw;
+  padding: 2vw;
+  font-size:1.2rem;
+  border-radius: 2vw;
+}
+
+
+
+
+
+body {
+  background: #ffffff;
+}
+a:active {
+  background: #dadada !important;
+}
+.time {
+  position: relative;
+  width: 84vw;
+  height: 32vw;
+  background: url("/home/images/coach/banner04.png") no-repeat;
+  background-size: 100vw 32vw;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.7rem;
+  line-height: 32vw;
+}
+.time input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 32vw;
+  color: transparent;
+  background: transparent;
+}
+.tabbox {
+  position: relative;
+  width: 84vw;
+  height: 5rem;
+  background: #f9f9f9;
+}
+.tabbox .tabs {
+  overflow: hidden;
+  margin: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 79vw;
+  height: 2.8rem;
+  background: #ffffff;
+  border: 1px solid #2c79f9;
+  color: #2c79f9;
+  font-size: 1.4rem;
+  line-height: 2.8rem;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+}
+.tabbox .tabs .tab {
+  display: inline-block;
+  width: 26vw;
+  height: 100%;
+  text-align: center;
+}
+.tabbox .tabs .active {
+  background: #2c79f9;
+  color: #ffffff;
+}
+.boxss {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  min-height: 64vw;
+}
+.boxss .boxs {
+  position: absolute;
+  top: 0;
+  width: 99vw;
+}
+.boxss .boxs .list {
+  width:84vw;
+  color: #666666;
+  font-size: 1.4rem;
+  line-height: 4rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.boxss .boxs .list span {
+  padding: 0 4vw;
+  display: inline-block;
+  width: 30vw;
+}
+.boxss .boxs .list span:nth-child(1) {
+  text-align: right;
+}
+.boxss .boxs .list span:nth-child(2) {
+  width: 24vw;
+  text-align: center;
+}
+.boxss .boxs .list span .fa-times-circle {
+  font-size: 1.6rem;
+  color: #ff2a00;
+}
+.boxss .boxs .list span .fa-exclamation-circle {
+  font-size: 1.6rem;
+  color: #ff9d02;
+}
+.boxss .boxs .list span .fa-check-circle {
+  font-size: 1.6rem;
+  color: #00ae31;
+}
+.boxss .boxs:nth-child(1) {
+  left: 0;
+}
+.boxss .boxs:nth-child(2) {
+   left: 100vw;
+ }
+.boxss .boxs:nth-child(3) {
+  left: 200vw;
+}
+.boxs .box .nomessage {
+  width: 40vw;
+  margin: 15vh 30vw;
+}
+.maks_box{
+  background-color: rgba(0,0,0,.5);
+  width: 100vw;
+  z-index: 1001;
+  display: none;
+    position: fixed;
+    top:0;
+}
+.maks{
+  position: absolute;
+  top:20vw;
+  left: 8vw;
+    background-color: #fff;
+    width: 84vw;
+    overflow: hidden;
+}
+.maks>.time>a{
+  position: absolute;
+  width: 9vw;
+  height: 9vw;
+  background: url(/home/images/book/9.png) no-repeat center center;
+  background-size: cover;
+  top: 0;
+  right: 0;
+}
+
+

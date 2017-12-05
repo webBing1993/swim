@@ -12,7 +12,7 @@ function tabSwitch(a,b,fn,url){
 		$(this_ ).siblings(a).removeClass('active');
 		$(b).removeClass('hidden');
 		ww = ww * index;
-		loadScroll();
+		// loadScroll();
 		$(b).eq(index).siblings(b).addClass('hidden');
 		box.stop().animate({left: -ww +'px'},300,function(){
 			// $(b).eq(index).siblings(b).addClass('hidden');
@@ -59,7 +59,7 @@ function tagSwitch(a,b,fn,url){
 		$(this_ ).siblings(a).removeClass('active');
 		$(b).removeClass('hidden');
 		ww = ww * index;
-		loadScroll();
+		// loadScroll();
 		$(b).eq(index).siblings(b).addClass('hidden');
 		box.stop().animate({left: -ww +'px'},300,function(){
 			// $(b).eq(index).siblings(b).addClass('hidden');
