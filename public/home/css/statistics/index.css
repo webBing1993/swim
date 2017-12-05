@@ -244,16 +244,17 @@ a:active {
   width: 100vw;
   z-index: 1001;
   display: none;
-    position: fixed;
-    top:0;
+  position: fixed;
+  top:0;
 }
 .maks{
   position: absolute;
   top:20vw;
   left: 8vw;
-    background-color: #fff;
-    width: 84vw;
-    overflow: hidden;
+  background-color: #fff;
+  width: 84vw;
+  overflow: hidden;
+  height: auto;
 }
 .maks>.time>a{
   position: absolute;
