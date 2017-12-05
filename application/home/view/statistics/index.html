@@ -203,6 +203,7 @@ function timeSelect(){
 		startYear: currYear,
 		endYear: currYear + 50,
 		onSelect: function (valueText, inst) {
+            resetAll();
 			var start = $('#start').val();
 			var end = $('#end').val();
 			$.ajax({
@@ -210,9 +211,7 @@ function timeSelect(){
 				url:"{:Url('index')}",
 				data:{
 					start:start,
-					end: end,
-                    c_type: tIndex,
-					s_type: sIndex
+					end: end
 				},
 				success:function(data){
 					datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
@@ -275,6 +274,14 @@ function datas(a,b){
 	     new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
 	}
 }
+// 教练跟学员筛选条件重置
+function resetAll() {
+    $('.tab.tutor').attr('data-tab',0);
+    $('.tab.tutor').find('span').eq(0).text('全部');
+    $('.tab.student').attr('data-tab',0);
+    $('.tab.student').find('span').eq(0).text('全部');
+    $('.tab.student').find('span').eq(1).text('全部');
 
+}
 </script>
 {/block}
