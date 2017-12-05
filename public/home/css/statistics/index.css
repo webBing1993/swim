@@ -193,7 +193,9 @@ a:active {
 .boxss .boxs {
   position: absolute;
   top: 0;
-  width: 99vw;
+  width:84vw;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 .boxss .boxs .list {
   width:84vw;
