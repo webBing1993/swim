@@ -10,6 +10,7 @@
 <div class="banner">
 	<img src="/home/images/coach/banner01.png" alt="数据统计banner" class="banner-img">
 </div>
+
 <div class="date">
 	<label for="start">签到日期</label>
 	<input value="<?php echo date('Y-m-d')?>" class="" readonly="readonly" id="start" type="text">
@@ -18,7 +19,7 @@
 <div class="box">
 	<div class="top clear">
 		<div class="tag fl">教练情况</div>
-        <a class="details" href="#">签到详情>></a>
+		<a class="details" href="#">签到详情>></a>
 		<div class="type fr">
 			<div class="tab tutor" data-tab="0">
 				{eq name="tag_id" value="1"}
@@ -38,6 +39,7 @@
 		</div>
 	</div>
 	<canvas id="tutor" width="400" height="200"></canvas>
+	<div class="swim_null" style="text-align: center;margin: 10vw 0;display: none"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>
 </div>
 {/if}
 <div class="box">
@@ -74,50 +76,49 @@
 	</div>
 	{/if}
 	<canvas id="student" width="400" height="200"></canvas>
-    <!--<div class="swim_null" style="text-align: center;margin: 10vw 0;display: none"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>-->
+	<div class="swim_null" style="text-align: center;margin: 10vw 0;display: none"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>
 </div>
-
 <!--点击弹框-->
 <!--时间选择-->
 <div class="maks_box">
-<div class="maks">
-    <div class="time">
-        <a></a>
-    </div>
-    <div class="tabbox">
-        <div class="tabs clear">
-            <span class="tab active">迟到</span>
-            <span class="tab fr">正常</span>
-            <span class="tab fr">缺勤</span>
-        </div>
-    </div>
-   <div class="boxss">
-       <!--迟到-->
-       <div class="boxs ">
-		   {volist name="sign.late" id="vo"}
-		   <div class="list">
-			   <span>{$vo.name}</span><span>{$vo.time}</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span>
-		   </div>
-		   {/volist}
-       </div>
-       <!--正常-->
-       <div class="boxs hidden">
-		   {volist name="sign.normal" id="vo"}
-           <div class="list">
-               <span>{$vo.name}</span><span>{$vo.time}</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
-           </div>
-		   {/volist}
-       </div>
-       <!--缺勤-->
-       <div class="boxs hidden">
-		   {volist name="sign.absence" id="vo"}
-		   <div class="list">
-			   <span>{$vo.name}</span><span>{$vo.time}</span><span class="absence"><i class="fa fa-times-circle"></i>缺勤</span>
-		   </div>
-		   {/volist}
-       </div>
-   </div>
-</div>
+	<div class="maks">
+		<div class="time">
+			<a></a>
+		</div>
+		<div class="tabbox">
+			<div class="tabs clear">
+				<span class="tab active">迟到</span>
+				<span class="tab fr">正常</span>
+				<span class="tab fr">缺勤</span>
+			</div>
+		</div>
+		<div class="boxss">
+			<!--迟到-->
+			<div class="boxs ">
+				{volist name="sign.late" id="vo"}
+				<div class="list">
+					<span>{$vo.name}</span><span>{$vo.time}</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span>
+				</div>
+				{/volist}
+			</div>
+			<!--正常-->
+			<div class="boxs hidden">
+				{volist name="sign.normal" id="vo"}
+				<div class="list">
+					<span>{$vo.name}</span><span>{$vo.time}</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
+				</div>
+				{/volist}
+			</div>
+			<!--缺勤-->
+			<div class="boxs hidden">
+				{volist name="sign.absence" id="vo"}
+				<div class="list">
+					<span>{$vo.name}</span><span>{$vo.time}</span><span class="absence"><i class="fa fa-times-circle"></i>缺勤</span>
+				</div>
+				{/volist}
+			</div>
+		</div>
+	</div>
 </div>
 
 {/block}
@@ -138,7 +139,7 @@
 
         //点击隐藏
         $('.maks>.time>a').click(function(){
-			$(".maks_box").hide()
+            $(".maks_box").hide()
             $("body").css("position","")
         });
 
@@ -147,13 +148,7 @@
             $(".maks_box").show();
             $("body").css("position","fixed")
         });
-
-        for(var j = 0 ;j < 3 ;j++){
-            if($('.box').eq(j).find('.list').length == 0){
-                $('.box').eq(j).html('<img src="/home/images/common/no2.png" alt="暂无消息" class="nomessage">')
-            }
-        }
-    })
+    });
 
 
 
@@ -161,171 +156,172 @@
 
 
     var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
-$(function(){
-	//初始数据
-	var data1={$coach};//教练[正常,迟到,缺卡]
-	var data2={$student};//学员[正常,迟到,缺卡]
-	datas(data1,data2);
+    $(function(){
+        //初始数据
+        var data1={$coach};//教练[正常,迟到,缺卡]
+        var data2={$student};//学员[正常,迟到,缺卡]
+        var str=[0,0,0];
+        datas(data1,data2);
+        dataNone(data1,0);
+        dataNone(data2,1);
 
-	//时间选择
-	timeSelect();
-	//教练情况的切换
-	$('.tab.tutor').off('click').on('click',function(){
-		var this_ = this;
-		$('.lists,.main').hide();
-		$(this_).next('.lists').fadeIn();
-		$('.list').off('click').on('click',function(){
-            $('.swim_null').remove()
-            $('.swim_null').eq(0).hide();
-            $('#tutor').show();
-			var index = $(this).attr('data-tab');
-            tIndex = index;
-			var text = $(this).text();
-			$(this_).find('span').text(text);
-			$(this_).attr('data-tab',index);
-			$(this_).next('.lists').fadeOut();
-			var start = $('#start').val();
-			var end = $('#end').val();
-			$.ajax({
-				type:"post",
-				url:"{:Url('index')}",
-				data:{
-					start:start,
-					end: end,
-					c_type:index
-				},
-				success:function(data){
-				    console.log(JSON.parse(data));
-					datas($.parseJSON(data)[0],0);
-				}
-			});
-		})
-	});
-	//学员情况的切换
-	$('.tab.student').off('click').on('click',function(){
-		var this_ = this;
-		$('.lists,.main').hide();
-		$(this_).next('.lists').fadeIn();
-		$('.list').off('click').on('click',function(){
-            $('.swim_null').eq(1).hide();
-			var index = $(this).attr('data-tab');
-            sIndex = index;
-			var text = $(this).text();
-			$(this_).find('span').eq(0).text(text);
-			$(this_).attr('data-tab',index);
-			$(this_).next('.lists').hide();
-			if(index>0){
-				//除了全部-全部的其他情况
-				$('.main').eq(index-1).fadeIn();
-				$('.li').off('click').on('click',function(){
-					var pid = $(this).attr('data-tag');
-                    tPid = pid;
-					var text = $(this).text();
-					$(this_).find('span').eq(1).text(text);
-					$(this_).attr('data-tag',pid);
-					$('.main').eq(index-1).fadeOut();
-					var start = $('#start').val();
-					var end = $('#end').val();
-					$.ajax({
-						type:"post",
-						url:"{:Url('index')}",
-						data:{
-							start:start,
-							end: end,
-							s_type:index,
-							pid:pid
-						},
-						success:function(data){
-                            datas(0,$.parseJSON(data)[1]);
+        //时间选择
+        timeSelect();
+        //教练情况的切换
+        $('.tab.tutor').off('click').on('click',function(){
+            var this_ = this;
+            $('.lists,.main').hide();
+            $(this_).next('.lists').fadeIn();
+            $('.list').off('click').on('click',function(){
+                var index = $(this).attr('data-tab');
+                tIndex = index;
+                var text = $(this).text();
+                $(this_).find('span').text(text);
+                $(this_).attr('data-tab',index);
+                $(this_).next('.lists').fadeOut();
+                var start = $('#start').val();
+                var end = $('#end').val();
+                $.ajax({
+                    type:"post",
+                    url:"{:Url('index')}",
+                    data:{
+                        start:start,
+                        end: end,
+                        c_type:index
+                    },
+                    success:function(data){
+                        var _data = JSON.parse(data);
+                        var _data1=_data.data;
+                        for (var i in _data1[0]){
+                            datas((_data1)[0],0);
+                            dataNone(_data1[0],0);
+                        }
+                    }
+                });
+
+            })
+        });
+        //学员情况的切换
+        $('.tab.student').off('click').on('click',function(){
+            var this_ = this;
+            $('.lists,.main').hide();
+            $(this_).next('.lists').fadeIn();
+            $('.list').off('click').on('click',function(){
+                var index = $(this).attr('data-tab');
+                sIndex = index;
+                var text = $(this).text();
+                $(this_).find('span').eq(0).text(text);
+                $(this_).attr('data-tab',index);
+                $(this_).next('.lists').hide();
+                if(index>0){
+                    //除了全部-全部的其他情况
+                    $('.main').eq(index-1).fadeIn();
+                    $('.li').off('click').on('click',function(){
+                        var pid = $(this).attr('data-tag');
+                        tPid = pid;
+                        var text = $(this).text();
+                        $(this_).find('span').eq(1).text(text);
+                        $(this_).attr('data-tag',pid);
+                        $('.main').eq(index-1).fadeOut();
+                        var start = $('#start').val();
+                        var end = $('#end').val();
+                        $.ajax({
+                            type:"post",
+                            url:"{:Url('index')}",
+                            data:{
+                                start:start,
+                                end: end,
+                                s_type:index,
+                                pid:pid
+                            },
+                            success:function(data){
+                                var _data = JSON.parse(data);
+                                var _data1=_data.data;
+                                for (var i in _data1[1]){
+                                    datas('',_data1[1]);
+                                    dataNone(_data1[1],1);
+                                }
+                            }
+                        });
+                    })
+                }else{
+                    //全部-全部
+                    $(this_).next('.lists').fadeOut();
+                    var start = $('#start').val();
+                    var end = $('#end').val();
+                    tPid = 0;
+                    $.ajax({
+                        type:"post",
+                        url:"",
+                        data:{
+                            start:start,
+                            end: end,
+                            s_type:0,
+                            pid:0
+                        },
+                        success:function(data){
+                            var _data = JSON.parse(data);
+                            var _data1=_data.data;
+                            for (var i in _data1[1]){
+                                datas("",_data1[1]);
+                                dataNone(_data1[1],1);
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    });
+    function timeSelect(){
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.default = {
+            theme: 'android-holo light',
+            display: 'modal',
+            mode: 'scroller',
+            dateFormat: 'yy-mm-dd',
+            lang: 'zh',
+            showNow: true,
+            nowText: "今天",
+            startYear: currYear,
+            endYear: currYear + 50,
+            onSelect: function (valueText, inst) {
+                resetAll();
+                var start = $('#start').val();
+                var end = $('#end').val();
+                $.ajax({
+                    type:"post",
+                    url:"{:Url('index')}",
+                    data:{
+                        start:start,
+                        end: end
+                    },
+                    success:function(data){
+                        $("#tutor").show();
+                        $("#student").show();
+                        $(".swim_null").hide();
+                        var _data = JSON.parse(data);
+                        var _data1=_data.data;
+                        for (var j in _data1) {
+                            datas(_data1[j], j);
+                            dataNone(_data1[j], j);
 						}
-					});
-				})
-			}else{
-				//全部-全部
-				$(this_).next('.lists').fadeOut();
-				var start = $('#start').val();
-				var end = $('#end').val();
-                tPid = 0;
-				$.ajax({
-					type:"post",
-					url:"",
-					data:{
-						start:start,
-						end: end,
-						s_type:0,
-						pid:0
-					},
-					success:function(data){
-						datas(0,$.parseJSON(data)[1]);
-					}
-				});
-			}
-		})
-	});
-});
-function timeSelect(){
-
-	var currYear = (new Date()).getFullYear();
-	var opt={};
-	opt.date = {preset:'date'};
-	opt.default = {
-		theme: 'android-holo light',
-		display: 'modal',
-		mode: 'scroller',
-		dateFormat: 'yy-mm-dd',
-		lang: 'zh',
-		showNow: true,
-		nowText: "今天",
-		startYear: currYear,
-		endYear: currYear + 50,
-		onSelect: function (valueText, inst) {
-            resetAll();
-			var start = $('#start').val();
-			var end = $('#end').val();
-			$.ajax({
-				type:"post",
-				url:"{:Url('index')}",
-				data:{
-					start:start,
-					end: end
-				},
-				success:function(data){
-				    console.log(data)
-                    var _data = JSON.parse(data);
-				    if((_data[0][0]==0&&_data[0][1]==0&&_data[0][2]==0)||(_data[1][0]==0&&_data[1][1]==0&&_data[1][2]==0)){
-				        console.log(1)
-                        $('#tutor').hide();
-                        $('.swim_null').show();
-                    }else if(_data[1][0]==0&&_data[1][1]==0&&_data[1][2]==0) {
-                        $('.swim_null').hide();
-
-                    }else if(_data[0][0]==0&&_data[0][1]==0&&_data[0][2]==0){
-                        console.log(3)
-                        $('#tutor').hide();
                     }
-                    else {
-                        console.log(4)
-                        datas($.parseJSON(data)[0],$.parseJSON(data)[1]);
-                    }
+                });
+            }
+        };
+        $("#start").mobiscroll($.extend(opt['date'], opt['default']));
+        $("#end").mobiscroll($.extend(opt['date'], opt['default']));
 
-				}
-			});
-		}
-	};
-	$("#start").mobiscroll($.extend(opt['date'], opt['default']));
-	$("#end").mobiscroll($.extend(opt['date'], opt['default']));
+    }
 
-}
+    function datas(a,b){
+        var Options1 = {
+            responsive: true,
+            showTooltips: true
+        };
 
-function datas(a,b){
-//    console.log(a,b);
-    var data1=a;//教练[正常,迟到,缺卡]
-    var data2=b;//学员[正常,迟到,缺卡]
-  //判断是否有数据 无数据时做出提示
-    if(data1[0]==0&&data1[1]==0&&data1[2]==0){
-        $('#tutor').hide();
-        $('.box').eq(0).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
-    }else {
         if($.isArray(a)){
             //	教练签到
             var data1 = {
@@ -337,25 +333,18 @@ function datas(a,b){
                 }]
             } ;
             if(document.getElementById("tutor")){
-
                 //每次重汇之前 清空
                 $('#tutor').remove();
                 $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
-
+//				$("#tutor").hide();
                 var ctx1 = document.getElementById("tutor").getContext("2d");
                 new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
             }
         }
-        $('.box').eq(0).find('.swim_null').hide();
-    }
 
-
-
-    if(data2[0]==0&&data2[1]==0&&data2[2]==0){
-        $('#student').hide();
-        $('.box').eq(1).append('<div class="swim_null" style="text-align: center;margin: 10vw 0;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw"></div>')
-    }else {
         if($.isArray(b)){
+
+
             //	学员签到
             var data2 = {
                 type: 'pie',
@@ -375,28 +364,49 @@ function datas(a,b){
                 var eqNumber = 1;
             }
             $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
-
+//			$("#student").hide();
             var ctx2 = document.getElementById("student").getContext("2d");
             new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
         }
-        $('.box').eq(1).find('.swim_null').hide();
+    }
+    // 教练跟学员筛选条件重置
+    function resetAll() {
+        $('.tab.tutor').attr('data-tab',0);
+        $('.tab.tutor').find('span').eq(0).text('全部');
+        $('.tab.student').attr('data-tab',0);
+        $('.tab.student').find('span').eq(0).text('全部');
+        $('.tab.student').find('span').eq(1).text('全部');
     }
 
 
-	var Options1 = {
-		responsive: true,
-		showTooltips: true
-	};
 
-}
-// 教练跟学员筛选条件重置
-function resetAll() {
-    $('.tab.tutor').attr('data-tab',0);
-    $('.tab.tutor').find('span').eq(0).text('全部');
-    $('.tab.student').attr('data-tab',0);
-    $('.tab.student').find('span').eq(0).text('全部');
-    $('.tab.student').find('span').eq(1).text('全部');
-}
 
+
+  function dataNone(_data1,i) {
+//        console.log(_data1);
+//        if (i == 0) {
+//            if(_data1[0]==0&&_data1[1]==0&&_data1[2] == 0){
+//                $("#tutor").hide();
+//                $(".swim_null").eq(i).show();
+//			}
+//		}else {
+//            if(_data1[0]==0&&_data1[1]==0&&_data1[2] == 0){
+//                $("#tutor").hide();
+//                $(".swim_null").eq(i).show();
+//            }
+//		}
+      if(_data1[0]==0&&_data1[1]==0&&_data1[2] == 0){
+            if(i == 0){
+                $("#tutor").hide();
+                $(".swim_null").eq(i).show();
+			}else {
+                if ($(".swim_null").eq(0).show()) {
+                    $("#tutor").hide();
+				}
+                $("#student").hide();
+                $(".swim_null").eq(i).show();
+			}
+      }
+  }
 </script>
 {/block}
