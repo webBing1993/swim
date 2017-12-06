@@ -188,12 +188,13 @@ a:active {
   top: 0;
   left: 0;
   width: 100vw;
-  min-height: 64vw;
+  min-height: 74vw;
 }
 .boxss .boxs {
   position: absolute;
   top: 0;
   width:84vw;
+    height: 100vw;
   overflow: hidden;
   overflow-y: scroll;
 }
