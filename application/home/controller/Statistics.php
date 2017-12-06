@@ -281,6 +281,9 @@ class Statistics extends Base{
 				}
 			}
 		}
+		foreach ($sign[WechatUser::MEMBER_TYPE_COACH] as $k => $v){
+            $sign[WechatUser::MEMBER_TYPE_COACH][$k] = array_values($v);
+        }
 		if(IS_POST) {
             $response['data'] = [$coach,$student];
             $response['sign'] = $sign[WechatUser::MEMBER_TYPE_COACH];
