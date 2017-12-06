@@ -130,13 +130,16 @@
 <script src="/static/chartJs/Chart.min.js"></script>
 <script>
 
+
+
+
     //css适配
     $(function(){
         $('.maks_box').height($(window).height());
     });
     $(function () {
         //tab值记录
-        tabRecord('.tab' ,'.boxs');
+//        tabRecord('.tab' ,'.boxs');
         //tab切换
         tabSwitch('.tab' ,'.boxs');
 
@@ -152,7 +155,6 @@
             $("body").css("position","fixed")
         });
     });
-
 
 
 var forCase=0;
@@ -371,8 +373,8 @@ var forCase=0;
 						var str=''
 						var sign = _data.sign;
                         if(sign.late.length!==0){
-                            for (var z=0;z<sign.late.length;z++){
-                                str += '<div class="list"><span>'+sign.late[z].name+'</span><span>'+sign.late[z].time+'</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
+                            for (var p=0;p<sign.late.length;p++){
+                                str += '<div class="list"><span>'+sign.late[p].name+'</span><span>'+sign.late[p].time+'</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
                             }
                             $('#side1').html(str);
                         }else {
