@@ -158,7 +158,7 @@
 
 
 var forCase=0;
-
+var side = 1;
 
     var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
     $(function(){
@@ -207,17 +207,40 @@ var forCase=0;
                         //                        签到情况
                         var str=''
                         var sign = _data.sign;
-                        if(sign.late.length!==0){
-                            for (var z=0;z<sign.late.length;z++){
-                                str += '<div class="list"><span>'+sign.late[z].name+'</span><span>'+sign.late[z].time+'</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
+                        if(side == 1){
+                            if(sign.late.length!==0){
+                                for (var z=0;z<sign.late.length;z++){
+                                    str += '<div class="list"><span>'+sign.late[z].name+'</span><span>'+sign.late[z].time+'</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span></div>'
+                                }
+                                $('#side1').html(str);
                             }
-                            $('#side1').html(str);
-                        }else {
-                            $('#side1').html('<div style="text-align: center;width:100%;position: relative;top:10vw;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw;"></div>');
-                        }
+                            else {
+                                $('#side1').html('<div style="text-align: center;width:100%;position: relative;top:10vw;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw;"></div>');
+                            }
+						}else if(side == 2){
+                            if(sign.normal.length!==0){
+                                for (var x=0;x<sign.normal.length;x++){
+                                    str += '<div class="list"><span>'+sign.normal[x].name+'</span><span>'+sign.normal[x].time+'</span><span class="late"><i class="fa fa-check-circle"></i>正常</span></div>'
+                                }
+                                $('#side2').html(str);
+                            }
+                            else {
+                                $('#side2').html('<div style="text-align: center;width:100%;position: relative;top:10vw;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw;"></div>');
+                            }
+						}else if (side ==3){
+                            if(sign.absence.length!==0){
+                                for (var c=0;c<sign.absence.length;c++){
+                                    str += '<div class="list"><span>'+sign.absence[c].name+'</span><span>'+sign.absence[c].time+'</span><span class="late"><i class="fa fa-times-circle"></i>缺勤</span></div>'
+                                }
+                                $('#side3').html(str);
+                            }
+                            else {
+                                $('#side3').html('<div style="text-align: center;width:100%;position: relative;top:10vw;"><img src="/home/images/common/no2.png" style="width:40vw;height:40vw;"></div>');
+                            }
+						}
                         for(var K=0;K<$('.tabbox').find('span').length;K++){
                             $('.tabbox').find('span')[K].onclick = function(){
-                                var side = $(this).data('side');
+                                 side = $(this).data('side');
                                 $('.boxss .boxs').addClass('hidden');
                                 $('#side'+side).removeClass('hidden');
                                 var html = '';
@@ -382,7 +405,7 @@ var forCase=0;
                         }
 						for(var K=0;K<$('.tabbox').find('span').length;K++){
                             $('.tabbox').find('span')[K].onclick = function(){
-                                var side = $(this).data('side');
+                                side = $(this).data('side');
                                 $('.boxss .boxs').addClass('hidden');
                                 $('#side'+side).removeClass('hidden');
                                 var html = '';
