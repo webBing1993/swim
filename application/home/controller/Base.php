@@ -25,10 +25,10 @@ class Base extends Controller
 {
     public function _initialize()
     {
-        session('userId', 'xsfyyjxuxing439126');//领导 徐星
+//        session('userId', 'xsfyyjxuxing439126');//领导 徐星
 //      session('userId', '13957110303');//主教练 陈佳
-//        session('userId', '13777483530');//助教 蔡晓燕
-      //  session('userId', '15968812089');//学员
+        session('userId', '13777483530');//助教 蔡晓燕
+//        session('userId', '15968812089');//学员
         session('requestUri', 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"]);
         $userId = session('userId');
 //        if($userId=='ben'){
