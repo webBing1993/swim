@@ -177,7 +177,8 @@
 
 var forCase=0;
 var side = 1;
-
+//当助教为true时 可在助教权限下查看数据
+var zujiao = false;
     var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
     $(function(){
         //初始数据
@@ -409,7 +410,7 @@ var side = 1;
 						var b = _data1[1];
                         cocah(a);
                         student(b);
-
+						console.log(a,b);
 //                        签到情况
 						var str=''
 						var sign = _data.sign;
@@ -475,71 +476,117 @@ var side = 1;
                 responsive: true,
                 showTooltips: true
             };
-//    教练数据
-    function cocah(a){
-        if(JSON.stringify(a) == JSON.stringify([0,0,0])){
-            $('.box').eq(0).find('.swim_null').show();
-            $('#tutor').hide();
-		}
-		else {
-            if($.isArray(a)){
-                //	教练签到
-                var data1 = {
-                    labels: ["正常","迟到","缺勤" ],
-                    datasets: [{
-                        data:a ,
-                        backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-                        xPadding: 2
-                    }]
-                } ;
-                if(document.getElementById("tutor")){
-                    //每次重汇之前 清空
-                    $('#tutor').remove();
-                    $('.box').eq(0).find('.swim_null').hide();
-                    $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
-//				$("#tutor").hide();
-                    var ctx1 = document.getElementById("tutor").getContext("2d");
-                    new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
-                }
+    if(zujiao == true){
+        //    教练数据
+        function cocah(a){
+            if(JSON.stringify(a) == JSON.stringify([0,0,0])){
+                $('.box').eq(0).find('.swim_null').hide();
+                $('#tutor').hide();
             }
-		}
-
-	}
-//	学员数据
-	function student(b){
-        if(JSON.stringify(b) == JSON.stringify([0,0,0])){
-            $('.box').eq(1).find('.swim_null').show();
-            $('#student').hide();
         }
-        else {
-            if($.isArray(b)){
-                //	学员签到
-                var data2 = {
-                    type: 'pie',
-                    labels: ["正常","迟到","缺勤" ],
-                    datasets: [{
-                        data: b,
-                        backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-                    }]
-                } ;
+//	  学员数据
+        function student(b){
+            if(JSON.stringify(b) == JSON.stringify([0,0,0])){
+                $('.box').find('.swim_null').show();
+                $('#student').hide();
+            }
+            else {
+                if($.isArray(b)){
+                    //	学员签到
+                    var data2 = {
+                        type: 'pie',
+                        labels: ["正常","迟到","缺勤" ],
+                        datasets: [{
+                            data: b,
+                            backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                        }]
+                    } ;
 
 
-                // 每次重汇之前 清空
-                $('.box').eq(1).find('.swim_null').hide();
-                $('#student').remove();
-                var tag = {$tag_id};
-                if(tag == 3){
-                    var eqNumber = 0;
-                }else{
-                    var eqNumber = 1;
-                }
-                $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+                    // 每次重汇之前 清空
+                    $('.box').eq(1).find('.swim_null').hide();
+                    $('#student').remove();
+                    var tag = {$tag_id};
+                    if(tag == 3){
+                        var eqNumber = 0;
+                    }else{
+                        var eqNumber = 1;
+                    }
+                    $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
 //			$("#student").hide();
-                var ctx2 = document.getElementById("student").getContext("2d");
-                new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+                    var ctx2 = document.getElementById("student").getContext("2d");
+                    new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+                }
+            }
+        }
+	}else {
+        //    教练数据
+        function cocah(a){
+            if(JSON.stringify(a) == JSON.stringify([0,0,0])){
+                $('.box').eq(0).find('.swim_null').show();
+                $('#tutor').hide();
+            }
+            else {
+                if($.isArray(a)){
+                    //	教练签到
+                    var data1 = {
+                        labels: ["正常","迟到","缺勤" ],
+                        datasets: [{
+                            data:a ,
+                            backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                            xPadding: 2
+                        }]
+                    } ;
+                    if(document.getElementById("tutor")){
+                        //每次重汇之前 清空
+                        $('#tutor').remove();
+                        $('.box').eq(0).find('.swim_null').hide();
+                        $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
+//				$("#tutor").hide();
+                        var ctx1 = document.getElementById("tutor").getContext("2d");
+                        new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+                    }
+                }
+            }
+
+        }
+//	  学员数据
+        function student(b){
+            if(JSON.stringify(b) == JSON.stringify([0,0,0])){
+                $('.box').eq(1).find('.swim_null').show();
+                $('#student').hide();
+            }
+            else {
+                if($.isArray(b)){
+                    //	学员签到
+                    var data2 = {
+                        type: 'pie',
+                        labels: ["正常","迟到","缺勤" ],
+                        datasets: [{
+                            data: b,
+                            backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+                        }]
+                    } ;
+
+
+                    // 每次重汇之前 清空
+                    $('.box').eq(1).find('.swim_null').hide();
+                    $('#student').remove();
+                    var tag = {$tag_id};
+                    if(tag == 3){
+                        var eqNumber = 0;
+                    }else{
+                        var eqNumber = 1;
+                    }
+                    $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+//			$("#student").hide();
+                    var ctx2 = document.getElementById("student").getContext("2d");
+                    new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+                }
             }
         }
 	}
+
 
 
 
