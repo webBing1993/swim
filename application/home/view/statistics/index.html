@@ -95,27 +95,45 @@
 		<div class="boxss">
 			<!--迟到-->
 			<div class="boxs " id="side1">
+				{notempty name="$sign.late"}
 				{volist name="sign.late" id="vo"}
 				<div class="list">
 					<span>{$vo.name}</span><span>{$vo.time}</span><span class="late"><i class="fa fa-exclamation-circle"></i>迟到</span>
 				</div>
 				{/volist}
+				{else/}
+				<div style="text-align: center;width:100%;position: relative;top:10vw;">
+					<img src="/home/images/common/no2.png" style="width:40vw;height:40vw;">
+				</div>
+				{/notempty}
 			</div>
 			<!--正常-->
 			<div class="boxs hidden" id="side2">
+				{notempty name="$sign.normal"}
 				{volist name="sign.normal" id="vo"}
 				<div class="list">
 					<span>{$vo.name}</span><span>{$vo.time}</span><span class="normal"><i class="fa fa-check-circle"></i> 正常 </span>
 				</div>
 				{/volist}
+				{else/}
+				<div style="text-align: center;width:100%;position: relative;top:10vw;">
+					<img src="/home/images/common/no2.png" style="width:40vw;height:40vw;">
+				</div>
+				{/notempty}
 			</div>
 			<!--缺勤-->
 			<div class="boxs hidden" id="side3">
+				{notempty name="$sign.absence"}
 				{volist name="sign.absence" id="vo"}
 				<div class="list">
 					<span>{$vo.name}</span><span>{$vo.time}</span><span class="absence"><i class="fa fa-times-circle"></i>缺勤</span>
 				</div>
 				{/volist}
+				{else/}
+				<div style="text-align: center;width:100%;position: relative;top:10vw;">
+					<img src="/home/images/common/no2.png" style="width:40vw;height:40vw;">
+				</div>
+				{/notempty}
 			</div>
 		</div>
 	</div>
