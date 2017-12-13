@@ -178,7 +178,7 @@
 var forCase=0;
 var side = 1;
 //当助教为true时 可在助教权限下查看数据
-var zujiao = false;
+var zhujiao = {$zhujiao};
     var sIndex = 0,tIndex = 0; tPid = 0;// 教练跟学员选中情况
     $(function(){
         //初始数据
@@ -476,7 +476,7 @@ var zujiao = false;
                 responsive: true,
                 showTooltips: true
             };
-    if(zujiao == true){
+    if(zhujiao == true){
         //    教练数据
         function cocah(a){
             if(JSON.stringify(a) == JSON.stringify([0,0,0])){

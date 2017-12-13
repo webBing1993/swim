@@ -299,7 +299,10 @@ class Statistics extends Base{
                 $assistantCoachList = [];
             }
 //            var_dump($sign[WechatUser::MEMBER_TYPE_COACH]);die;
-			$this->assign('tag_id',$tag_id);
+            $zhujiao = $tag_id==3 ? 1 : 0;
+//			var_dump($zhujiao);die;
+            $this->assign('tag_id',$tag_id);
+            $this->assign('zhujiao',$zhujiao);
 			$this->assign('headCoachList',$headCoachList);
 			$this->assign('assistantCoachList',$assistantCoachList);
 			$this->assign('coach',json_encode($coach));
