@@ -44,7 +44,8 @@
 <script src="/static/vue/vue.js"></script>
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script>
-	$(function() {
+	$(function () {
+
         var calendar = new Vue({
             el: '#calendar',
             data: {
@@ -73,8 +74,8 @@
                     return this.nowMonth + 1;
                 }
             },
-            created() {
-                this.$nextTick(() = > {
+            created(){
+                this.$nextTick(() => {
                     this.nowDate();
                 this.init();
             })
@@ -238,7 +239,6 @@
             },
 
         });
-
     })
 
 </script>
