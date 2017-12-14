@@ -501,7 +501,7 @@ var zhujiao = {$zhujiao};
                     //	学员签到
                     var data2 = {
                         type: 'pie',
-                        labels: ["正常","迟到","缺勤" ],
+                        labels: ["正常 "+b[0],"迟到 "+b[1],"缺勤 "+b[2] ],
                         datasets: [{
                             data: b,
                             backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
@@ -537,7 +537,7 @@ var zhujiao = {$zhujiao};
                 if($.isArray(a)){
                     //	教练签到
                     var data1 = {
-                        labels: ["正常","迟到","缺勤" ],
+                        labels: ["正常 "+a[0],"迟到 "+a[1],"缺勤 "+a[2] ],
                         datasets: [{
                             data:a ,
                             backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
@@ -568,7 +568,7 @@ var zhujiao = {$zhujiao};
                     //	学员签到
                     var data2 = {
                         type: 'pie',
-                        labels: ["正常","迟到","缺勤" ],
+                        labels: ["正常 "+b[0],"迟到 "+b[1],"缺勤 "+b[2] ],
                         datasets: [{
                             data: b,
                             backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
