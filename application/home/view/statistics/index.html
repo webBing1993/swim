@@ -152,6 +152,7 @@
 {block name="script"}
 <script src="/static/mobiscroll/mobiscroll.2.13.2.js"></script>
 <script src="/static/chartJs/Chart.min.js"></script>
+<script src="/static/flot/echarts.min.js"></script>
 <script>
 
 
@@ -173,11 +174,6 @@
             $("body").css("position","")
         });
 
-        //点击显示
-        $('.details').click(function(){
-            $(".maks_box").show();
-            $("body").css("position","fixed")
-        });
     });
 
 
@@ -521,6 +517,7 @@ var zhujiao = {$zhujiao};
                     $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
 //			$("#student").hide();
                     var ctx2 = document.getElementById("student").getContext("2d");
+//                    var myGender = echarts.init(document.getElementById('pie3'));
                     new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
                 }
             }
@@ -536,22 +533,57 @@ var zhujiao = {$zhujiao};
             else {
                 if($.isArray(a)){
                     //	教练签到
-                    var data1 = {
-                        labels: ["正常 "+a[0],"迟到 "+a[1],"缺勤 "+a[2] ],
-                        datasets: [{
-                            data:a ,
-                            backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-                            xPadding: 2
-                        }]
-                    } ;
+//                    var data1 = {
+//                        labels: ["正常 "+a[0],"迟到 "+a[1],"缺勤 "+a[2] ],
+//                        datasets: [{
+//                            data:a ,
+//                            backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
+//                            xPadding: 2
+//                        }]
+//                    } ;
                     if(document.getElementById("tutor")){
                         //每次重汇之前 清空
                         $('#tutor').remove();
                         $('.box').eq(0).find('.swim_null').hide();
-                        $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
+                        $('.box').eq(0).append('<div id="'+'tutor"'+' width="'+'400" '+'height="'+'200" style="width: 100vw;height:50vw;position: relative;left: -10vw;"></div>');
 //				$("#tutor").hide();
-                        var ctx1 = document.getElementById("tutor").getContext("2d");
-                        new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
+                        var ctx1 = document.getElementById("tutor");
+                        var myGender = echarts.init(document.getElementById('tutor'));
+                        //修改提示信息
+                        var genderOption={
+                            calculable : true,
+                            series : [
+                                {
+                                    name:'',
+                                    type:'pie',
+                                    radius: ['30%', '55%'],
+                                    color: ["#46BFBD","#FDB45C","#F7464A"],
+                                    itemStyle : {
+                                        normal : {
+                                            label : {
+                                                show : true
+                                            },
+                                            labelLine : {
+                                                show : true,
+                                                length:5
+                                            }
+                                        },
+                                    },
+                                    data:[
+                                        {value:a[0]!==0?a[0]:'', name:'正常：'+a[0]},
+                                        {value:a[1]!==0?a[1]:'', name:'迟到：'+a[1]},
+                                        {value:a[2]!==0?a[2]:'', name:'缺勤：'+a[2]},
+                                    ]
+                                }
+                            ]
+                        }
+                        myGender.setOption(genderOption);
+                        //点击显示
+                        $('#tutor canvas').click(function(e){
+                            e.stopPropagation();
+                            $(".maks_box").show();
+                            $("body").css("position","fixed")
+                        });
                     }
                 }
             }
