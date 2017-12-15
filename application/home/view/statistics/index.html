@@ -514,11 +514,39 @@ var zhujiao = {$zhujiao};
                     }else{
                         var eqNumber = 1;
                     }
-                    $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+                    $('.box').eq(eqNumber).append('<div id="'+'student"'+' width="'+'400" '+'height="'+'200" style="width: 100vw;height:50vw;position: relative;left: -10vw;"></div>');
 //			$("#student").hide();
-                    var ctx2 = document.getElementById("student").getContext("2d");
-//                    var myGender = echarts.init(document.getElementById('pie3'));
-                    new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+                    var ctx2 = document.getElementById("student");
+                    var myGender2 = echarts.init(document.getElementById('student'));
+                    //修改提示信息
+                    var genderOption={
+                        calculable : true,
+                        series : [
+                            {
+                                name:'',
+                                type:'pie',
+                                radius: ['30%', '55%'],
+                                color: ["#46BFBD","#FDB45C","#F7464A"],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : true
+                                        },
+                                        labelLine : {
+                                            show : true,
+                                            length:5
+                                        }
+                                    },
+                                },
+                                data:[
+                                    {value:b[0]!==0?b[0]:'', name:'正常：'+b[0]},
+                                    {value:b[1]!==0?b[1]:'', name:'迟到：'+b[1]},
+                                    {value:b[2]!==0?b[2]:'', name:'缺勤：'+b[2]},
+                                ]
+                            }
+                        ]
+                    };
+                    myGender2.setOption(genderOption);
                 }
             }
         }
@@ -576,7 +604,7 @@ var zhujiao = {$zhujiao};
                                     ]
                                 }
                             ]
-                        }
+                        };
                         myGender.setOption(genderOption);
                         //点击显示
                         $('#tutor canvas').click(function(e){
@@ -617,10 +645,39 @@ var zhujiao = {$zhujiao};
                     }else{
                         var eqNumber = 1;
                     }
-                    $('.box').eq(eqNumber).append('<canvas id="'+'student"'+' width="'+'400" '+'height="'+'200"></canvas>');
+                    $('.box').eq(eqNumber).append('<div id="'+'student"'+' width="'+'400" '+'height="'+'200" style="width: 100vw;height:50vw;position: relative;left: -10vw;"></div>');
 //			$("#student").hide();
-                    var ctx2 = document.getElementById("student").getContext("2d");
-                    new Chart(ctx2, {type: 'doughnut', data: data2, options:Options1});
+                    var ctx2 = document.getElementById("student");
+                    var myGender2 = echarts.init(document.getElementById('student'));
+                    //修改提示信息
+                    var genderOption={
+                        calculable : true,
+                        series : [
+                            {
+                                name:'',
+                                type:'pie',
+                                radius: ['30%', '55%'],
+                                color: ["#46BFBD","#FDB45C","#F7464A"],
+                                itemStyle : {
+                                    normal : {
+                                        label : {
+                                            show : true
+                                        },
+                                        labelLine : {
+                                            show : true,
+                                            length:5
+                                        }
+                                    },
+                                },
+                                data:[
+                                    {value:b[0]!==0?b[0]:'', name:'正常：'+b[0]},
+                                    {value:b[1]!==0?b[1]:'', name:'迟到：'+b[1]},
+                                    {value:b[2]!==0?b[2]:'', name:'缺勤：'+b[2]},
+                                ]
+                            }
+                        ]
+                    };
+                    myGender2.setOption(genderOption);
                 }
             }
         }
