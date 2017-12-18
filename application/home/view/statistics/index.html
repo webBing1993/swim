@@ -334,6 +334,7 @@ var zhujiao = {$zhujiao};
                 $(this_).find('span').eq(0).text(text);
                 $(this_).attr('data-tab',index);
                 $(this_).next('.lists').hide();
+                console.log(text)
                 if(index>0){
                     //除了全部-全部的其他情况
                     $('.main').eq(index-1).fadeIn();
@@ -376,6 +377,7 @@ var zhujiao = {$zhujiao};
                 else{
                     //全部-全部
                     $(this_).next('.lists').fadeOut();
+                    $(this_).find('span').text('全部')
                     var start = $('#start').val();
                     var end = $('#end').val();
                     tPid = 0;
@@ -725,50 +727,6 @@ var zhujiao = {$zhujiao};
 
 
 
-//    function datas(a,b){
-//        console.log(a)
-//		console.log(forCase);
-////        console.log(1)
-//        var Options1 = {
-//            responsive: true,
-//            showTooltips: true
-//        };
-////        var arr = [];
-////        for(i=0;i<a.length;i++){
-////            if(a[i]==0){
-////                arr.push(a[i])
-////			}
-////		}
-////        JSON.stringify(a) == JSON.stringify([0,0,0])
-//		if(forCase == 0){
-//		}else if (forCase == 1){
-//            if($.isArray(a)){
-//                //	教练签到
-//                var data1 = {
-//                    labels: ["正常","迟到","缺勤" ],
-//                    datasets: [{
-//                        data:a ,
-//                        backgroundColor: ["#46BFBD","#FDB45C","#F7464A"],
-//                        xPadding: 2
-//                    }]
-//                } ;
-//                if(document.getElementById("tutor")){
-//                    //每次重汇之前 清空
-//                    $('#tutor').remove();
-//                    $('.box').eq(0).append('<canvas id="'+'tutor"'+' width="'+'400" '+'height="'+'200"></canvas>');
-////				$("#tutor").hide();
-//                    var ctx1 = document.getElementById("tutor").getContext("2d");
-//                    new Chart(ctx1, {type: 'doughnut', data: data1, options:Options1});
-//                }
-//            }
-//            $('.box').eq(1).find('.swim_null').show();
-//            $('#student').hide();
-//		}else {
-//
-//		}
-//
-//    }
-    // 教练跟学员筛选条件重置
     function resetAll() {
         $('.tab.tutor').attr('data-tab',0);
         $('.tab.tutor').find('span').eq(0).text('全部');
