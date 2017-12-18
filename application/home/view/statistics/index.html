@@ -147,6 +147,9 @@
 	<div id="loading" style="position: fixed;top:0;left:0;background: rgba(0,0,0,.5);width:100%;height:100%;text-align: center;display: none;">
 		<img src="/home/images/loading.gif" alt="" style="position: relative;top:50%;width:12.8vw;height:12.8vw;margin-top: -7vw;">
 	</div>
+<div id="loadings" style="position: fixed;top:0;left:0;background: rgba(0,0,0,.5);width:100%;height:100%;text-align: center;display: block;">
+	<img src="/home/images/loading.gif" alt="" style="position: relative;top:50%;width:12.8vw;height:12.8vw;margin-top: -7vw;">
+</div>
 {/block}
 
 {block name="script"}
@@ -155,7 +158,9 @@
 <script src="/static/flot/echarts.min.js"></script>
 <script>
 
-
+//    beforeSend: function () {
+//        $("#loading").show();
+//    },
 
 
     //css适配
@@ -175,6 +180,10 @@
         });
 
     });
+
+setTimeout(function(){
+    $("#loadings").hide();
+},1000);
 
 
 var forCase=0;
@@ -216,6 +225,10 @@ var zhujiao = {$zhujiao};
                         start:start,
                         end: end,
                         c_type:index
+                    },
+                    beforeSend: function () {
+                        $("#loading").show();
+
                     },
                     success:function(data){
                         var _data = JSON.parse(data);
@@ -296,7 +309,15 @@ var zhujiao = {$zhujiao};
                                 }
                             }
                         }
+                    },
+                    complete:function(){
+                        $("#loadings").show();
+                        $("#loading").hide();
+                        setTimeout(function(){
+                            $("#loadings").hide();
+                        },1000);
                     }
+
                 });
 
             })
@@ -341,6 +362,13 @@ var zhujiao = {$zhujiao};
                                 var a = _data1[0]
                                 var b = _data1[1]
                                 student(b)
+                            },
+                            complete:function(){
+                                $("#loadings").show();
+                                $("#loading").hide();
+                                setTimeout(function(){
+                                    $("#loadings").hide();
+                                },1000);
                             }
                         });
                     })
@@ -370,6 +398,13 @@ var zhujiao = {$zhujiao};
 //                                datas("",_data1[1]);
 //                                dataNone(_data1[1],1);
 //                            }
+                        },
+                        complete:function(){
+                            $("#loadings").show();
+                            $("#loading").hide();
+                            setTimeout(function(){
+                                $("#loadings").hide();
+                            },1000);
                         }
                     });
                 }
@@ -463,8 +498,12 @@ var zhujiao = {$zhujiao};
 						}
 
                     },
-                    complete: function () {
+                    complete:function(){
+                        $("#loadings").show();
                         $("#loading").hide();
+                        setTimeout(function(){
+                            $("#loadings").hide();
+                        },1000);
                     }
                 });
             }

@@ -111,6 +111,7 @@ $('title').text('通讯名录');
         //搜索ajax
         $(".searchInput").on("input",function(){
             var val=$(this).val();
+            console.log(val);
             if(!val)
             {
                 $(".result_box").html('');
