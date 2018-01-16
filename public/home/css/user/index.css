@@ -89,3 +89,7 @@ textarea::-webkit-input-placeholder {
   background: url('/home/images/coach/user4.png') 0 2.75vw no-repeat;
   background-size: 7vw 7vw;
 }
+.lists .list:nth-child(3) span {
+  background: url("/home/images/user/join.png") 0 2.75vw no-repeat;
+  background-size: 7vw 7vw;
+}

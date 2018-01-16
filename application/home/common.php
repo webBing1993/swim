@@ -136,18 +136,18 @@ function get_header($userid){
         return false;
     }
     $map = array(
-        'status' => array('egt',0),
+//        'status' => array('egt',0),
         'userid' => $userid,
     );
     $user = \app\home\model\WechatUser::where($map)->find();
     if(empty($user['header']) && empty($user['avatar'])){
-        $header = "/home/images/default_avatar.png";
+        $header = "/home/images/common/default.png";
     }elseif(empty($user['header']) && $user['avatar']){
         $header = $user['avatar'];
     }elseif($user['header'] && empty($user['avatar'])){
-        $header = $user['header'];
+        $header = get_cover($user['header'], 'path');
     }else{
-        $header = $user['header'];
+        $header = get_cover($user['header'], 'path');
     }
 
     return $header;

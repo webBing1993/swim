@@ -5,6 +5,7 @@
  * Date: 2017-08-15 9:44
  */
 namespace app\home\controller;
+use app\home\model\Score;
 use app\home\model\WechatUser;
 use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
@@ -17,6 +18,7 @@ use think\Collection;
  * 游客频道
  */
 class Visitor extends Base{
+    protected $score = 1;//签到积分
 	/**
 	 * 首页
 	 */
@@ -623,6 +625,14 @@ class Visitor extends Base{
 						);
 						array_unshift($response, $new_coach);
 					}
+					//教练签到成功加积分
+                    $con = [
+                        'userid' => $userId,
+                        'type' => 1,
+                        'pid' => '',
+                    ];
+                    Score::create($con);
+                    WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`+'.$this->score]]);
 					return $this->success($user_name."教练签到成功", '', $response);
 				}
 			}

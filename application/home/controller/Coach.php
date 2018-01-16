@@ -7,6 +7,7 @@
  */
 
 namespace app\home\controller;
+use app\home\model\Score;
 use app\home\model\WechatUser;
 use app\home\model\WechatTag;
 use app\home\model\WechatUserTag;
@@ -27,6 +28,7 @@ use think\Db;
  * @package 教练频道
  */
 class Coach extends Base {
+    protected $score = 2;//教案积分
     /**
      * 主页
      */
@@ -361,6 +363,18 @@ class Coach extends Base {
 				$data['userid'] = session('userId');
 				unset($data['id']);
 				$info = $weekPlanModel->save($data);
+                //编写教案成功加积分
+                $con = [
+                    'userid' => $data['userid'],
+                    'type' => 2,
+                    'pid' => $weekPlanModel->id,
+                    'score' => $this->score,
+                ];
+                $history = Score::get($con);
+                if(!$history){
+                    Score::create($con);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                }
 			}else{//修改
 				$info = $weekPlanModel->save($data,['id'=>$data['id']]);
 			}
@@ -442,6 +456,18 @@ class Coach extends Base {
 				$data['userid'] = session('userId');
 				unset($data['id']);
 				$info = $classPlanModel->save($data);
+                //编写教案成功加积分
+                $con = [
+                    'userid' => $data['userid'],
+                    'type' => 4,
+                    'pid' => $classPlanModel->id,
+                    'score' => $this->score,
+                ];
+                $history = Score::get($con);
+                if(!$history){
+                    Score::create($con);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                }
 			}else{//修改
 				$info = $classPlanModel->save($data,['id'=>$data['id']]);
 			}
@@ -506,6 +532,8 @@ class Coach extends Base {
 				if($plan_id){
 					$classPlanModel->save(['plan_id' => json_encode($plan_id)],['id'=> $classPlanModel->id]);
 				}
+                //编写教案成功加积分
+                WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
 				return $this->success("保存成功",Url('weekPlan'));
 			}else{
 				return $this->error($classPlanModel->getError());
@@ -555,6 +583,18 @@ class Coach extends Base {
 				$data['userid'] = session('userId');
 				unset($data['id']);
 				$info = $weekSummaryModel->save($data);
+                //编写教案成功加积分
+                $con = [
+                    'userid' => $data['userid'],
+                    'type' => 3,
+                    'pid' => $weekSummaryModel->id,
+                    'score' => $this->score,
+                ];
+                $history = Score::get($con);
+                if(!$history){
+                    Score::create($con);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                }
 			}else{//修改
 				$info = $weekSummaryModel->save($data,['id'=>input('id')]);
 			}
