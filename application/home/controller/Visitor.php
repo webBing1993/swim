@@ -587,7 +587,21 @@ class Visitor extends Base{
 							'member_type' => $msg['member_type'],
 							'coach_id' => $msg['coach_id'],
 					);
-					if($model = WechatUserSign::create($data)) {
+                    $wechatUserSignModel = new WechatUserSign();
+					if($model = $wechatUserSignModel->create($data)) {
+                        //学员签到成功加积分
+                        $con = [
+                            'userid' => $userId,
+                            'member_type' => 2,
+                            'type' => 1,
+                            'pid' => $wechatUserSignModel->id,
+                        ];
+                        $history = Score::get($con);
+                        if(!$history){
+                            Score::create($con);
+                            WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`+'.$this->score]]);
+                        }
+
 						$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
 						$new_user = $res[$msg['coach_id'].$msg['class_id']];
 						unset($res[$msg['coach_id'].$msg['class_id']]);
@@ -625,14 +639,6 @@ class Visitor extends Base{
 						);
 						array_unshift($response, $new_coach);
 					}
-					//教练签到成功加积分
-                    $con = [
-                        'userid' => $userId,
-                        'type' => 1,
-                        'pid' => '',
-                    ];
-                    Score::create($con);
-                    WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`+'.$this->score]]);
 					return $this->success($user_name."教练签到成功", '', $response);
 				}
 			}

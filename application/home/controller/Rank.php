@@ -32,6 +32,7 @@ class Rank extends Base {
 //        $personal['score'] = $personal['score'] + 10;  // 关注企业号  基础分10
         //总榜
         $con['score'] = array('neq',0);
+        $con['member_type'] = $personal['member_type'];
         $all  = $wechatModel->where($con)->order('score desc')->select();
 //        var_dump($all);die;
         foreach ($all as $k => $value){
@@ -72,6 +73,7 @@ class Rank extends Base {
         }
         $map = array(
             'create_time' => array('egt',$t),
+            'member_type' => $personal['member_type']
         );
         $week = Score::where($map)->field('userid, sum(score) scores')->group('userid')->order('scores desc, userid')->limit(20)->select();
         //最终重组，限制输出20名，获取用户个人信息
@@ -87,6 +89,7 @@ class Rank extends Base {
         $end = mktime(23,59,59,date('m'),date('t'),date('Y'));
         $map = array(
             'create_time' => array('between',[$start,$end]),    //在时间区间内
+            'member_type' => $personal['member_type']
         );
 
         $month = Score::where($map)->field('userid, sum(score) scores')->group('userid')->order('scores desc, userid')->limit(20)->select();

@@ -366,6 +366,7 @@ class Coach extends Base {
                 //编写教案成功加积分
                 $con = [
                     'userid' => $data['userid'],
+                    'member_type' => 1,
                     'type' => 2,
                     'pid' => $weekPlanModel->id,
                     'score' => $this->score,
@@ -459,6 +460,7 @@ class Coach extends Base {
                 //编写教案成功加积分
                 $con = [
                     'userid' => $data['userid'],
+                    'member_type' => 1,
                     'type' => 4,
                     'pid' => $classPlanModel->id,
                     'score' => $this->score,
@@ -586,6 +588,7 @@ class Coach extends Base {
                 //编写教案成功加积分
                 $con = [
                     'userid' => $data['userid'],
+                    'member_type' => 1,
                     'type' => 3,
                     'pid' => $weekSummaryModel->id,
                     'score' => $this->score,

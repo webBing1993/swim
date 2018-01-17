@@ -34,7 +34,7 @@ class User extends Base{
             }
         }else {
             $user = WechatUser::where('userid',$userid)->find();
-            if($user['member_type'] == 1){
+            if($user['member_type'] == 2){
                 $showflag = 1;
             }else{
                 $showflag = 0;
