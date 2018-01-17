@@ -339,14 +339,20 @@
             <a></a>
             <img src="/home/images/rank/7.png" alt="">
             <p>
-                您可以通过每日签到、编写教案等获取相应积分
+                {eq name="$personal.member_type" value="1"}
+                您可以通过编写教案获取相应积分
+                {else/}
+                您可以通过每日签到获取相应积分
+                {/eq}
                 <br>
                 具体如下：
                 <br>
                 <br>
-                每日签到: <b>1</b>分
-                <br>
+                {eq name="$personal.member_type" value="1"}
                 编写教案: <b>2</b>分
+                {else/}
+                每日签到: <b>1</b>分
+                {/eq}
                 <br>
                 <br>
                 通过以上互动行为，您可以累积积分，并在积分排行榜中显示个人积分排行状况！加油哦！
