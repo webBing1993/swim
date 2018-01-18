@@ -26,7 +26,7 @@
                     <?php $url = Url('carddetail?id='.$vo['id']);?>
                     <div class="swipeout-content" onclick="jump('{$url}')">
                 {/if}
-                        <img src="{$vo.front_cover|get_cover='path'}" alt="封面图片">
+                        <img src="{$vo.front_cover|get_cover='path'}">
                         <div class="list">
                             <span class="title" >{$vo.title}</span>
 						<span class="sent_time">
@@ -70,6 +70,10 @@
 <script>
     if($("ul").find("li").length == 0){
         $('#nomessage').show()
+    }
+    //跳转新闻详情
+    function jump(url){
+        parent.location.href= url;
     }
 </script>
 {/block}

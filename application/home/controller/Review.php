@@ -72,10 +72,40 @@ class Review extends Base{
             ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 1 tab FROM sw_notice where status<>0 ")
             ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
             ->where($map)
+            ->limit(10)
             ->select();
         //var_dump($res);die;
         $this->assign('res', $res);
         return $this->fetch();
+    }
+    /**
+     * 已审核列表 加载更多
+     */
+    public function passlistmore(){
+        $len = input('length');
+        $userId = session('userId');
+        $map = array(
+            'status' => ['neq', 0],
+            'recommend' => 1
+        );
+        $where = ' status<>0 and recommend=1';
+        $list = Db::field('id , type, front_cover, title, content, publisher, create_time, status, 0 tab')
+            ->table('sw_news')
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 1 tab FROM sw_notice where status<>0 ")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
+            ->where($map)
+            ->limit($len,6)
+            ->select();
+        foreach($list as $value){
+            $value['time'] = date("Y-m-d",$value['create_time']);
+            $img = Picture::get($value['front_cover']);
+            $value['path'] = $img['path'];
+        }
+        if($list){
+            return $this->success("加载成功",'',$list);
+        }else{
+            return $this->error("加载失败");
+        }
     }
     public function review()
     {

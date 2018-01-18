@@ -132,11 +132,15 @@ class User extends Base{
                     $data['profession_certificate'] = isset($data['profession_certificate'])?$data['profession_certificate']:'';
                     $data['lifeguard_certificate'] = isset($data['lifeguard_certificate'])?$data['lifeguard_certificate']:'';
                     if($model['social_certificate'] != $data['social_certificate'] || $model['profession_certificate'] != $data['profession_certificate'] || $model['lifeguard_certificate'] != $data['lifeguard_certificate']){
+                        $front_cover = '';
+                        $front_cover = $data['lifeguard_certificate']?$data['lifeguard_certificate']:$front_cover;
+                        $front_cover = $data['profession_certificate']?$data['profession_certificate']:$front_cover;
+                        $front_cover = $data['social_certificate']?$data['social_certificate']:$front_cover;
                         $info = array(
                             'type' => CertificateReview::TYPE_CERTIFICATE,
                             'userid' => $model['userid'],
                             'name' => $data['name'],
-                            'front_cover' => $data['social_certificate'],
+                            'front_cover' => $front_cover,
                             'title' => $data['name'],
                             'social_certificate' => $data['social_certificate'],
                             'profession_certificate' => $data['profession_certificate'],
