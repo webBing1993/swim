@@ -94,10 +94,10 @@ class Review extends Base{
             ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc limit $len,6")
             ->where($map)
             ->select();
-        foreach($list as $value){
-            $value['time'] = date("Y-m-d",$value['create_time']);
+        foreach($list as $key => $value){
+            $list[$key]['time'] = date("Y-m-d",$value['create_time']);
             $img = Picture::get($value['front_cover']);
-            $value['path'] = $img['path'];
+            $list[$key]['path'] = $img['path'];
         }
         if($list){
             return $this->success("加载成功",'',$list);
