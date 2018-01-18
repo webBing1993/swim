@@ -69,10 +69,6 @@
     if($("ul").find("li").length == 0){
         $('#nomessage').show()
     }
-    //跳转新闻详情
-    function jump(url){
-        parent.location.href= url;
-    }
     var scrollNow = true;
     $(function(){
         var len = $(".swipeout" ).length;
@@ -114,6 +110,9 @@
                             if(data.data.length == 5){
                                 tip.text('上拉加载更多');
                             }
+                            function jump(url){
+                                parent.location.href= url;
+                            }
                         }else{
                             tip.text('没有更多了');
                             $(window ).off("scroll");
@@ -134,15 +133,15 @@
             var sort = '';
             var status = '';
             if(list.tab==0){
-                url = '/home/news/detail?id='+list.id
+                url = '/home/news/detail/id/'+list.id+'/visit/1.html'
                 sort = '新闻动态'
-                list.publisher = list.publisher
+                list.publisher = '发布人:'+list.publisher
             }else if(list.tab==1){
-                url = '/home/notice/detail?id='+list.id
+                url = '/home/notice/detail/id/'+list.id+'/visit/1.html'
                 sort = '相关通知'
-                list.publisher = list.publisher
+                list.publisher = '发布人:'+list.publisher
             }else {
-                url = '/home/review/carddetail?id='+list.id
+                url = '/home/review/carddetail/id/'+list.id+'.html'
                 sort = '三证审核'
                 list.publisher = ''
             }
@@ -152,12 +151,12 @@
                 status = '<div class="arrow red"><img src="/home/images/review/tanhao.png" alt="拒绝"></div>'
             }
             html +='<li class="swipeout">'
-                    +'<div class="swipeout-content" onclick="jump('+url+')">'
+                    +'<div class="swipeout-content" onclick="jump(\''+url+'\')">'
                     +'<img src="'+list.path+'">'
                     +'<div class="list">'
                     +'<span class="title">'+list.title+'</span>'
                     +'<span class="sent_time">'
-                    +'<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">'+sort+'</span><span>发布人:'+list.publisher+'</span><span>'+list.time+'</span>'
+                    +'<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">'+sort+'</span><span>'+list.publisher+'</span><span>'+list.time+'</span>'
                     +'</span>'
                     +'</div>'
                     +status
@@ -165,6 +164,11 @@
                     +'</li>'
         }
         $('ul').append(html);
+    }
+
+    //跳转新闻详情
+    function jump(url){
+        parent.location.href= url;
     }
 </script>
 {/block}
