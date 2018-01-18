@@ -5,10 +5,12 @@
 <link rel="stylesheet" href="/static/framework7/framework7.ios.colors.css">
 <link rel="stylesheet" href="/static/framework7/framework7.ios.css">
 <link rel="stylesheet" href="/home/css/review/passlist.css">
+<style>
+    body {overflow: initial;}
+</style>
 {/block}
 
 {block name="body"}
-<div class="views">
     <div class="list-block" id="list-block-company">
         <div id="nomessage">
             <img src="/home/images/common/nomessage.png" alt="" >
@@ -46,23 +48,19 @@
 						</span>
                         </div>
                         {eq name="$vo.status" value="1"}
-                        <div class="arrow green">
-                            <img src="/home/images/review/yes.png" alt="通过">
-                        </div>
+                        <div class="arrow green"><img src="/home/images/review/yes.png" alt="通过"></div>
                         {/eq}
                         {eq name="$vo.status" value="-1"}
-                        <div class="arrow red">
-                            <img src="/home/images/review/tanhao.png" alt="拒绝">
-                        </div>
+                        <div class="arrow red"><img src="/home/images/review/tanhao.png" alt="拒绝"></div>
                         {/eq}
-                        <div class="arrow green">
-                            <img src="/home/images/review/yes.png" alt="通过">
-                        </div>
                     </div>
             </li>
             {/volist}
         </ul>
     </div>
+<div class="tip"></div>
+<div class="loading hidden">
+    <div class="typing_loader"></div>
 </div>
 {/block}
 
@@ -74,6 +72,99 @@
     //跳转新闻详情
     function jump(url){
         parent.location.href= url;
+    }
+    var scrollNow = true;
+    $(function(){
+        var len = $(".swipeout" ).length;
+        if(len >= 5){
+            $('.tip' ).text('上拉加载更多');
+        }else {
+            $('.tip' ).hide();
+        }
+        //上拉加载
+        loadScroll();
+    });
+    function loadScroll(){
+        $(window).off("scroll" ).on("scroll",function(){
+            var dh = $(document).height();
+            var end = $(window).height() + $(window).scrollTop();
+            var len = $(".swipeout" ).length;
+            var tip = $(".tip");
+            var loading = $('.loading');
+            console.log(dh,end)
+            if(dh == end && scrollNow){
+                scrollNow = false;
+                $.ajax({
+                    type:"post",
+                    url:"{:Url('Review/passlistmore')}",
+                    data:{
+                        length:len
+                    },
+                    beforeSend: function(XMLHttpRequest){
+                        tip.hide();
+                        loading.toggleClass('hidden');
+                    },
+                    success:function(data){
+                        loading.toggleClass('hidden');
+                        tip.show();
+                        console.log(data)
+                        if(data.code == 1){
+                            addCourse(data);
+                            var dataLen =data.data.length;
+                            if(data.data.length == 5){
+                                tip.text('上拉加载更多');
+                            }
+                        }else{
+                            tip.text('没有更多了');
+                            $(window ).off("scroll");
+                        }
+                        scrollNow = true;
+                    }
+                })
+            }
+        })
+    }
+    function addCourse(data){
+        var html = '';
+        var lists = data.data;
+        var len = lists.length;
+        for(var i = 0; i< len;i++){
+            var list = lists[i];
+            var url = '';
+            var sort = '';
+            var status = '';
+            if(list.tab==0){
+                url = '/home/news/detail?id='+list.id
+                sort = '新闻动态'
+                list.publisher = list.publisher
+            }else if(list.tab==1){
+                url = '/home/notice/detail?id='+list.id
+                sort = '相关通知'
+                list.publisher = list.publisher
+            }else {
+                url = '/home/review/carddetail?id='+list.id
+                sort = '三证审核'
+                list.publisher = ''
+            }
+            if(list.status == 1){
+                status = '<div class="arrow green"><img src="/home/images/review/yes.png" alt="通过"></div>'
+            }else {
+                status = '<div class="arrow red"><img src="/home/images/review/tanhao.png" alt="拒绝"></div>'
+            }
+            html +='<li class="swipeout">'
+                    +'<div class="swipeout-content" onclick="jump('+url+')">'
+                    +'<img src="'+list.path+'">'
+                    +'<div class="list">'
+                    +'<span class="title">'+list.title+'</span>'
+                    +'<span class="sent_time">'
+                    +'<span style="margin-right: 5px;font-weight: bolder;display: block;height:25px;line-height:25px;">'+sort+'</span><span>发布人:'+list.publisher+'</span><span>'+list.time+'</span>'
+                    +'</span>'
+                    +'</div>'
+                    +status
+                    +'</div>'
+                    +'</li>'
+        }
+        $('ul').append(html);
     }
 </script>
 {/block}
