@@ -98,6 +98,13 @@ class Review extends Base{
             $list[$key]['time'] = date("Y-m-d",$value['create_time']);
             $img = Picture::get($value['front_cover']);
             $list[$key]['path'] = $img['path'];
+            if($value['tab'] == 0){
+                $list[$key]['sort'] = NewsModel::TYPE_ARRAY[$value['type']];
+            }elseif($value['tab'] == 1){
+                $list[$key]['sort'] = NoticeModel::TYPE_ARRAY[$value['type']];
+            }else{
+                $list[$key]['sort'] = CertificateReviewModel::TYPE_ARRAY[$value['type']];;
+            }
         }
         if($list){
             return $this->success("加载成功",'',$list);

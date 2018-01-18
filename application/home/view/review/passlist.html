@@ -130,19 +130,16 @@
         for(var i = 0; i< len;i++){
             var list = lists[i];
             var url = '';
-            var sort = '';
+            var sort = list.sort;
             var status = '';
             if(list.tab==0){
                 url = '/home/news/detail/id/'+list.id+'/visit/1.html'
-                sort = '新闻动态'
                 list.publisher = '发布人:'+list.publisher
             }else if(list.tab==1){
                 url = '/home/notice/detail/id/'+list.id+'/visit/1.html'
-                sort = '相关通知'
                 list.publisher = '发布人:'+list.publisher
             }else {
                 url = '/home/review/carddetail/id/'+list.id+'.html'
-                sort = '三证审核'
                 list.publisher = ''
             }
             if(list.status == 1){
