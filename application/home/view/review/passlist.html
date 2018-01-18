@@ -45,12 +45,19 @@
 							<span>{$vo.create_time|time_format='Y-m-d'}</span>
 						</span>
                         </div>
+                        {eq name="$vo.status" value="1"}
                         <div class="arrow green">
                             <img src="/home/images/review/yes.png" alt="通过">
                         </div>
-                        <!--<div class="arrow red">-->
-                        <!--<img src="/home/images/review/tanhao.png" alt="拒绝">-->
-                        <!--</div>-->
+                        {/eq}
+                        {eq name="$vo.status" value="-1"}
+                        <div class="arrow red">
+                            <img src="/home/images/review/tanhao.png" alt="拒绝">
+                        </div>
+                        {/eq}
+                        <div class="arrow green">
+                            <img src="/home/images/review/yes.png" alt="通过">
+                        </div>
                     </div>
             </li>
             {/volist}

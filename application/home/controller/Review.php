@@ -63,14 +63,14 @@ class Review extends Base{
             return $this ->fetch('user/null');
         }
         $map = array(
-            'status' => 1,
+            'status' => ['neq', 0],
             'recommend' => 1
         );
-        $where = ' status=1 and recommend=1';
-        $res = Db::field('id , type, front_cover, title, content, publisher, create_time, 0 tab')
+        $where = ' status<>0 and recommend=1';
+        $res = Db::field('id , type, front_cover, title, content, publisher, create_time, status, 0 tab')
             ->table('sw_news')
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 1 tab FROM sw_notice where status=1 ")
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 1 tab FROM sw_notice where status<>0 ")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
             ->where($map)
             ->select();
         //var_dump($res);die;
