@@ -70,9 +70,8 @@ class Review extends Base{
         $res = Db::field('id , type, front_cover, title, content, publisher, create_time, status, 0 tab')
             ->table('sw_news')
             ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 1 tab FROM sw_notice where status<>0 ")
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc limit 10")
             ->where($map)
-            ->limit(10)
             ->select();
         //var_dump($res);die;
         $this->assign('res', $res);
@@ -92,9 +91,8 @@ class Review extends Base{
         $list = Db::field('id , type, front_cover, title, content, publisher, create_time, status, 0 tab')
             ->table('sw_news')
             ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 1 tab FROM sw_notice where status<>0 ")
-            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc")
+            ->union("SELECT id, type, front_cover, title, content, publisher, create_time, status, 2 tab FROM sw_certificate_review where ".$where." order by create_time desc limit $len,6")
             ->where($map)
-            ->limit($len,6)
             ->select();
         foreach($list as $value){
             $value['time'] = date("Y-m-d",$value['create_time']);
