@@ -28,7 +28,6 @@ use think\Db;
  * @package 教练频道
  */
 class Coach extends Base {
-    protected $score = 2;//教案积分
     /**
      * 主页
      */
@@ -369,12 +368,12 @@ class Coach extends Base {
                     'member_type' => 1,
                     'type' => 2,
                     'pid' => $weekPlanModel->id,
-                    'score' => $this->score,
+                    'score' => 7,
                 ];
                 $history = Score::get($con);
                 if(!$history){
                     Score::create($con);
-                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+7']]);
                 }
 			}else{//修改
 				$info = $weekPlanModel->save($data,['id'=>$data['id']]);
@@ -463,12 +462,12 @@ class Coach extends Base {
                     'member_type' => 1,
                     'type' => 4,
                     'pid' => $classPlanModel->id,
-                    'score' => $this->score,
+                    'score' => 1,
                 ];
                 $history = Score::get($con);
                 if(!$history){
                     Score::create($con);
-                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+1']]);
                 }
 			}else{//修改
 				$info = $classPlanModel->save($data,['id'=>$data['id']]);
@@ -534,8 +533,6 @@ class Coach extends Base {
 				if($plan_id){
 					$classPlanModel->save(['plan_id' => json_encode($plan_id)],['id'=> $classPlanModel->id]);
 				}
-                //编写教案成功加积分
-                WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
 				return $this->success("保存成功",Url('weekPlan'));
 			}else{
 				return $this->error($classPlanModel->getError());
@@ -591,12 +588,12 @@ class Coach extends Base {
                     'member_type' => 1,
                     'type' => 3,
                     'pid' => $weekSummaryModel->id,
-                    'score' => $this->score,
+                    'score' => 7,
                 ];
                 $history = Score::get($con);
                 if(!$history){
                     Score::create($con);
-                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+'.$this->score]]);
+                    WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+7']]);
                 }
 			}else{//修改
 				$info = $weekSummaryModel->save($data,['id'=>input('id')]);

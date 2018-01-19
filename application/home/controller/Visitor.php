@@ -18,7 +18,6 @@ use think\Collection;
  * 游客频道
  */
 class Visitor extends Base{
-    protected $score = 1;//签到积分
 	/**
 	 * 首页
 	 */
@@ -569,6 +568,17 @@ class Visitor extends Base{
 							);
 							array_unshift($response, $new_coach);
 						}
+                        //教练迟到扣积分
+                        $con = [
+                            'userid' => $userId,
+                            'member_type' => 1,
+                            'type' => 1,
+                            'pid' => '',
+                            'score' => -5,
+                        ];
+                        Score::create($con);
+                        WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`-5']]);
+
 						return $this->success($user_name."教练签到成功", '', $response);
 					}
 				}
@@ -595,11 +605,12 @@ class Visitor extends Base{
                             'member_type' => 2,
                             'type' => 1,
                             'pid' => $wechatUserSignModel->id,
+                            'score' => 1,
                         ];
                         $history = Score::get($con);
                         if(!$history){
                             Score::create($con);
-                            WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`+'.$this->score]]);
+                            WechatUser::where('userid',$userId)->update(['score' => ['exp','`score`+1']]);
                         }
 
 						$res[$msg['coach_id'].$msg['class_id']]['current_num']++;
