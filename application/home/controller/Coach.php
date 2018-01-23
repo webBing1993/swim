@@ -592,6 +592,13 @@ class Coach extends Base {
                 ];
                 $history = Score::get($con);
                 if(!$history){
+                    $con = [
+                        'userid' => $data['userid'],
+                        'member_type' => 1,
+                        'type' => 3,
+                        'pid' => $weekSummaryModel->id,
+                        'score' => 7,
+                    ];
                     Score::create($con);
                     WechatUser::where('userid',$data['userid'])->update(['score' => ['exp','`score`+7']]);
                 }
